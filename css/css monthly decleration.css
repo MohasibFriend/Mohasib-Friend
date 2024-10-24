@@ -1,0 +1,495 @@
+body {
+    background-color: #d7dcee;
+    direction: ltr;
+    font-size: var(--font-size-s);
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Default Styling (Desktop) */
+.NavContainer {
+    height: 100px;
+    margin-top: 5px;
+    position: relative;
+    background-color: #a3b6e5;
+    border: 3px solid black;
+    border-radius: 30px;
+}
+
+.logo-img {
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    margin-left: 10px;
+    margin-top: 8px;
+    border: #000 solid 3px;
+}
+
+.header-h1 {
+    font-size: 20px;
+    color: #000;
+    position: absolute;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    left: 90px;
+    top: -10px;
+}
+
+.a {
+    text-decoration: none;
+    /* إزالة الخط السفلي من الرابط */
+    color: #000;
+    left: 5px;
+}
+
+.FirstIcon,
+.SecondtIcon,
+.ThirdIcon,
+.FourthIcon {
+    border: 3px solid black;
+    padding: 5px;
+    background-color: whitesmoke;
+    border-radius: 50%;
+    font-size: 35px;
+    position: absolute;
+    top: 15px;
+}
+
+.FirstIcon {
+    left: 81%;
+}
+
+.SecondtIcon {
+    left: 85%;
+}
+
+.ThirdIcon {
+    left: 89%;
+}
+
+.FourthIcon {
+    left: 94%;
+}
+
+/* Nav end */
+
+/* Title start */
+.titleContainer {
+    background-color: #fff;
+    padding-bottom: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 20px;
+    border: #000 solid 4px;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 600px;
+    height: 75px;
+    margin-left: 700px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    unicode-bidi: isolate;
+    color: #3968e9;
+}
+
+.t {
+    margin-top: 15px;
+}
+
+.Inputs {
+    height: 100%;
+    margin-top: 15px;
+    padding: 5px;
+    background-color: #D8DFF2;
+    border-radius: 20px;
+    width: 100%;
+}
+
+.Inputsdate {
+    position: relative;
+    background-color: #fff;
+    border: 3px solid black;
+    border-radius: 20px;
+    width: 200px;
+    margin-left: 400px;
+    height: 40px;
+    margin-top: 20px;
+}
+
+.Inputsb {
+    height: 35px;
+    border-radius: 50px;
+    position: relative;
+    margin-top: 20px;
+    background-color: #7086bb;
+    border: #000 solid 2px;
+    color: #fff;
+    font-weight: bold;
+    margin-left: 900px;
+}
+
+.form-control {
+    border: #000 solid 2px;
+    border-radius: 20px;
+    margin-left: 200px;
+}
+
+.contanir1 {
+    background-color: rgb(163, 182, 229);
+    border: #000 solid 3px;
+    border-radius: 20px;
+    width: 98%;
+    height: auto;
+    padding: 15px;
+    margin-top: 25px;
+}
+
+.ar {
+    background-color: #fff;
+    border: #000 solid 2px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.eng {
+    background-color: #fff;
+    border: #000 solid 2px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    padding: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+/* Title end */
+@media screen and (max-width: 1366px) {
+    .header-h1 {
+        font-size: 18px;
+        color: #000;
+        position: absolute;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        left: 90px;
+        top: -1px;
+    }
+
+    .titleContainer {
+        background-color: #fff;
+        padding-top: 10px;
+        border-radius: 20px;
+        border: #000 solid 4px;
+        width: 548px;
+        height: 38px;
+        margin-left: 411px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        text-align: center;
+        font-size: 14px;
+        font-weight: bold;
+        unicode-bidi: isolate;
+        color: #3968e9;
+    }
+
+    .t {
+        margin-top: 6px;
+    }
+
+    .contanir1 {
+        background-color: rgb(163, 182, 229);
+        border: #000 solid 3px;
+        border-radius: 20px;
+        width: 97%;
+        height: auto;
+        padding: 15px;
+        margin-top: 25px;
+    }
+}
+
+/* Media Queries for Tablet Devices (min-width: 601px and max-width: 1024px) */
+@media only screen and (min-width: 601px) and (max-width: 1024px) {
+    .NavContainer {
+        height: auto;
+        padding: 10px -1px;
+    }
+
+    .logo-img {
+        height: 60px;
+        width: 60px;
+
+    }
+
+    .header-h1 {
+        font-size: 18px;
+        left: 85px;
+        top: -10px;
+    }
+
+
+    .FirstIcon,
+    .SecondtIcon,
+    .ThirdIcon,
+    .FourthIcon {
+        font-size: 30px;
+        top: 15px;
+        margin-right: 10px;
+    }
+
+    .FirstIcon {
+        left: 59%;
+        width: 35px;
+    }
+
+    .SecondtIcon {
+        left: 69%;
+    }
+
+    .ThirdIcon {
+        left: 78%;
+    }
+
+    .FourthIcon {
+        left: 90%;
+    }
+
+
+    .titleContainer {
+        width: 55%;
+        margin-left: 21%;
+        font-size: 16px;
+        margin-top: 22px;
+    }
+
+    .Inputs {
+        padding: 15px;
+        margin-top: 15px;
+    }
+    .contanir1{
+        background-color: rgb(163, 182, 229);
+        border: #000 solid 3px;
+        border-radius: 20px;
+        width: 96%;
+        height: auto;
+        padding: 15px;
+        margin-top: 25px;
+    }
+
+    .Inputsdate {
+        width: 60%;
+        margin-left: 20%;
+        height: 35px;
+        margin-top: 15px;
+    }
+
+    .Inputsb {
+        width: 80%;
+        margin-left: 10%;
+        height: 45px;
+        font-size: 16px;
+        margin-top: 15px;
+    }
+
+    .form-control {
+        width: 80%;
+        margin-left: 10%;
+        margin-top: 15px;
+    }
+}
+
+/* Media Queries for Mobile Devices (max-width: 600px) */
+@media only screen and (max-width: 600px) {
+    .NavContainer {
+        height: auto;
+        padding: 10px;
+    }
+
+    .logo-img {
+        height: 50px;
+        width: 50px;
+        margin-left: -7px;
+        margin-top: 5px;
+    }
+
+    .header-h1 {
+        font-size: 14px;
+        left: 65px;
+        top: 5px;
+    }
+
+    .FirstIcon,
+    .SecondtIcon,
+    .ThirdIcon,
+    .FourthIcon {
+        font-size: 25px;
+        top: 20px;
+    }
+
+    .FirstIcon {
+        left: 60%;
+    }
+
+    .SecondtIcon {
+        left: 60%;
+    }
+
+    .ThirdIcon {
+        left: 71%;
+    }
+
+    .FourthIcon {
+        left: 84%;
+    }
+
+    .titleContainer {
+        width: 57%;
+        height: 34px;
+        margin-left: 19%;
+        margin-top: 10px;
+        font-size: 10px;
+    }
+    
+
+    .contanir1{
+        background-color: rgb(163, 182, 229);
+        border: #000 solid 3px;
+        border-radius: 20px;
+        width: 94%;
+        height: auto;
+        padding: 15px;
+        margin-top: 25px;
+    }
+
+    .Inputs {
+        padding: 0px;
+        margin-top: 10px;
+    }
+
+    .Inputsdate {
+        width: 80%;
+        margin-left: 10%;
+        height: 30px;
+        margin-top: 10px;
+    }
+
+    .Inputsb {
+        width: 90%;
+        margin-left: 5%;
+        height: 40px;
+        font-size: 14px;
+        margin-top: 10px;
+    }
+
+    .form-control {
+        width: 90%;
+        margin-left: 5%;
+        margin-top: 10px;
+    }
+
+    .title {
+        font-size: 15.5px;
+
+
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .NavContainer {
+        height: auto;
+        padding: 10px;
+    }
+
+    .logo-img {
+        height: 50px;
+        width: 50px;
+        margin-left: -7px;
+        margin-top: 5px;
+    }
+
+    .header-h1 {
+        font-size: 13px;
+        left: 65px;
+        top: 9px;
+    }
+
+    .FirstIcon,
+    .SecondtIcon,
+    .ThirdIcon,
+    .FourthIcon {
+        font-size: 25px;
+        top: 20px;
+    }
+
+    .FirstIcon {
+        left: 60%;
+    }
+
+    .SecondtIcon {
+        left: 60%;
+    }
+
+    .ThirdIcon {
+        left: 71%;
+    }
+
+    .FourthIcon {
+        left: 84%;
+    }
+
+    .titleContainer {
+        width: 57%;
+        height: 34px;
+        margin-left: 16%;
+        margin-top: 10px;
+        font-size: 8px;
+    }
+    
+
+    .contanir1{
+        background-color: rgb(163, 182, 229);
+        border: #000 solid 3px;
+        border-radius: 20px;
+        width: 90%;
+        height: auto;
+        padding: 15px;
+        margin-top: 25px;
+    }
+
+    .Inputs {
+        padding: 0px;
+        margin-top: 10px;
+    }
+
+    .Inputsdate {
+        width: 80%;
+        margin-left: 10%;
+        height: 30px;
+        margin-top: 10px;
+    }
+
+    .Inputsb {
+        width: 90%;
+        margin-left: 5%;
+        height: 40px;
+        font-size: 14px;
+        margin-top: 10px;
+    }
+
+    .form-control {
+        width: 90%;
+        margin-left: 5%;
+        margin-top: 10px;
+    }
+
+    .title {
+        font-size: 15.5px;
+
+
+    }
+}

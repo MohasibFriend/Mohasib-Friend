@@ -1,0 +1,488 @@
+body {
+    background-color: #d7dcee;
+    direction: ltr;
+    font-size: var(--font-size-s);
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Default Styling (Desktop) */
+.NavContainer {
+    height: 100px;
+    margin-top: 5px;
+    position: relative;
+    background-color: #a3b6e5;
+    border: 3px solid black;
+    border-radius: 30px;
+}
+
+.logo-img {
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    margin-left: 10px;
+    margin-top: 8px;
+    border: #000 solid 3px;
+}
+
+.header-h1 {
+    font-size: 20px;
+    color: #000;
+    position: absolute;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    left: 90px;
+    top: -10px;
+}
+.a {
+    text-decoration: none;
+    /* إزالة الخط السفلي من الرابط */
+    color: #000;
+    left: 5px;
+}
+
+.FirstIcon,
+.SecondtIcon,
+.ThirdIcon,
+.FourthIcon {
+    border: 3px solid black;
+    padding: 5px;
+    background-color: whitesmoke;
+    border-radius: 50%;
+    font-size: 35px;
+    position: absolute;
+    top: 15px;
+}
+
+.FirstIcon {
+    left: 82%;
+}
+
+.SecondtIcon {
+    left: 86%;
+}
+
+.ThirdIcon {
+    left: 90%;
+}
+
+.FourthIcon {
+    left: 94%;
+}
+
+.invoices-section {
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 20px;
+    width: 98.5%;
+    height: 920px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+    border: #000 solid 3px;
+}
+
+.invoices-btn {
+    background-color: #fafafa;
+    color: #1540b6;
+    padding: 10px 20px;
+
+    font-size: 24px;
+    border: 4px solid black;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.select {
+    padding: 10px;
+    border-radius: 50px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.search-btn {
+    background-color: #5f85d4;
+    color: white;
+    border: #000 solid 3px;
+    width: 150px;
+    height: 50px;
+    border-radius: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.date {
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+    background-color: #fff;
+    cursor: pointer;
+    height: 50px;
+    border: #000 solid 2px;
+}
+
+.contanir {
+    border: #000 solid 3px;
+    border-radius: 15px;
+    background-color: rgb(163, 182, 229);
+    height: 100%;
+    padding: 40px 20px;
+    margin: 10px auto;
+}
+
+.contanir1 {
+    border: #000 solid 3px;
+    border-radius: 15px;
+    background-color: rgb(163, 182, 229);
+    height: auto;
+    width: 97.4;
+    padding: 40px 20px;
+    margin: 10px auto;
+}
+
+.invoicescontanir {
+    background-color: #fff;
+    border-radius: 20px;
+    border: #000 solid 4px;
+    padding-bottom: 15px;
+    width: 600px;
+    height: 75px;
+    margin-left: 700px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    display: block;
+    font-weight: bold;
+    unicode-bidi: isolate;
+    color: #1540b6;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+.page-description{
+    width: 97.5%;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+@media screen and (max-width: 1366px) {
+    .header-h1 {
+        font-size: 20px;
+        color: #000;
+        position: absolute;
+        font-weight: bold;
+        left: 70px;
+        top: 15px;
+    }
+
+    .invoicescontanir {
+        background-color: #fff;
+        padding-bottom: 20px;
+        border-radius: 20px;
+        border: #000 solid 4px;
+        width: 600px;
+        height: 65px;
+        margin-left: 400px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        text-align: center;
+        display: block;
+        font-size: 24px;
+        font-weight: bold;
+        unicode-bidi: isolate;
+        color: #1540b6;
+        text-align: center;
+    }
+    .t{
+        margin-top: 10px;
+    }
+    .header-h1 {
+        font-size: 24px;
+        color: #000;
+        position: absolute;
+        font-weight: bold;
+        left: 90px;
+        top: -20px;
+    }
+
+
+
+}
+
+/* Media Queries for Tablet Devices (min-width: 601px) and (max-width: 1024px) */
+@media only screen and (min-width: 601px) and (max-width: 1024px) {
+    .NavContainer {
+        height: auto;
+        padding: 10px -1px;
+    }
+
+    .logo-img {
+        height: 60px;
+        width: 60px;
+
+    }
+
+    .header-h1 {
+        font-size: 20px;
+        left: 80px;
+        top: -15px;
+    }
+
+
+    .FirstIcon,
+    .SecondtIcon,
+    .ThirdIcon,
+    .FourthIcon {
+        font-size: 30px;
+        top: 12px;
+    }
+
+    .FirstIcon {
+        left: 70%;
+    }
+
+    .SecondtIcon {
+        left: 77%;
+    }
+
+    .ThirdIcon {
+        left: 84%;
+    }
+
+    .FourthIcon {
+        left: 91%;
+    }
+
+    .invoices-section {
+        padding: 15px;
+        width: 95.4%;
+    }
+
+    .invoices-btn {
+        font-size: 22px;
+        padding: 10px 18px;
+        width: 70%;
+        margin: 15px auto;
+    }
+
+    .select,
+    .date {
+        width: 80%;
+        margin: 10px auto;
+        font-size: 18px;
+    }
+
+    .search-btn {
+        width: 80%;
+        height: 45px;
+        font-size: 20px;
+    }
+
+    .invoicescontanir {
+        width: 80%;
+        margin-left: 10%;
+        font-size: 20px;
+    }
+
+    .page-description {
+        height: auto;
+
+    }
+    .t{
+        margin-top: 10px;
+    }
+
+    .contanir1 {
+        height: auto;
+    }
+    .contanir {
+        border: #000 solid 3px;
+        border-radius: 15px;
+        background-color: rgb(163, 182, 229);
+        height: 100%;
+        padding: 40px 20px;
+        margin: 10px auto;
+    }
+
+}
+
+/* Media Queries for Mobile Devices (max-width: 600px) */
+@media only screen and (max-width: 600px) {
+    .NavContainer {
+        height: auto;
+        padding: -40px;
+
+    }
+
+    .logo-img {
+        height: 50px;
+        width: 50px;
+        left: 75px;
+        margin-right: 30px;
+    }
+
+    .header-h1 {
+        font-size: 15px;
+        left: 70px;
+        top: -5px;
+    }
+
+    .FirstIcon,
+    .SecondtIcon,
+    .ThirdIcon,
+    .FourthIcon {
+        font-size: 20px;
+        top: 15px;
+        margin-right: 10px;
+    }
+
+    .FirstIcon {
+        left: 59%;
+        width: 35px;
+    }
+
+    .SecondtIcon {
+        left: 71%;
+    }
+
+    .ThirdIcon {
+        left: 71.5%;
+    }
+
+    .FourthIcon {
+        left: 85%;
+    }
+
+    .invoices-section {
+        padding: 10px;
+        width: 92%;
+    }
+
+    .invoices-btn {
+        font-size: 20px;
+        padding: 8px 16px;
+        width: 80%;
+        margin: 10px auto;
+    }
+
+    .select,
+    .date {
+        width: 90%;
+        margin: 10px auto;
+        font-size: 16px;
+    }
+
+    .search-btn {
+        width: 100%;
+        height: 40px;
+        font-size: 18px;
+    }
+
+    .invoicescontanir {
+        width: 80%;
+        margin-left: 7%;
+        font-size: 24px;
+    }
+
+    .page-description {
+        margin-left: -12px;
+        height: auto;
+    }
+    
+    .contanir1 {
+        
+        height: auto;
+        width: 92%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .NavContainer {
+        height: auto;
+        padding: -40px;
+
+    }
+
+    .logo-img {
+        height: 50px;
+        width: 50px;
+        left: 75px;
+        margin-right: 30px;
+    }
+
+    .header-h1 {
+        font-size: 12px;
+        left: 70px;
+        top: 1px;
+    }
+
+    .FirstIcon,
+    .SecondtIcon,
+    .ThirdIcon,
+    .FourthIcon {
+        font-size: 20px;
+        top: 15px;
+        margin-right: 10px;
+    }
+
+    .FirstIcon {
+        left: 59%;
+        width: 35px;
+    }
+
+    .SecondtIcon {
+        left: 71%;
+    }
+
+    .ThirdIcon {
+        left: 71.5%;
+    }
+
+    .FourthIcon {
+        left: 85%;
+    }
+
+    .invoices-section {
+        padding: 10px;
+        width: 92%;
+    }
+
+    .invoices-btn {
+        font-size: 20px;
+        padding: 8px 16px;
+        width: 80%;
+        margin: 10px auto;
+    }
+
+    .select,
+    .date {
+        width: 90%;
+        margin: 10px auto;
+        font-size: 16px;
+    }
+
+    .search-btn {
+        width: 100%;
+        height: 40px;
+        font-size: 18px;
+    }
+
+    .invoicescontanir {
+        width: 60%;
+        margin-left: 20%;
+        font-size: 14px;
+        height: 42px;
+    }
+
+    .page-description {
+        margin-left: -12px;
+        height: auto;
+    }
+    
+    .contanir1 {
+        height: auto;
+        width: 87%;
+    }
+}

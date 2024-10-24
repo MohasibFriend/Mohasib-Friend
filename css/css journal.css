@@ -1,0 +1,669 @@
+body {
+    background-color: #d7dcee;
+    direction: ltr;
+    font-size: var(--font-size-s);
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Default Styling (Desktop) */
+.NavContainer {
+    height: 100px;
+    margin-top: 5px;
+    position: relative;
+    background-color: #a3b6e5;
+    border: 3px solid black;
+    border-radius: 30px;
+}
+
+.logo-img {
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    margin-left: 10px;
+    margin-top: 8px;
+    border: #000 solid 3px;
+}
+
+.header-h1 {
+    font-size: 20px;
+    color: #000;
+    position: absolute;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    left: 90px;
+    top: -10px;
+}
+
+.a {
+    text-decoration: none;
+    /* إزالة الخط السفلي من الرابط */
+    color: #000;
+    left: 5px;
+}
+
+
+.FirstIcon {
+    border: 3px solid black;
+    padding: 5px;
+    background-color: whitesmoke;
+    border-radius: 50%;
+    font-size: 35PX;
+    position: absolute;
+    left: 79%;
+    top: 15PX;
+}
+
+
+.SecondtIcon {
+    background-color: whitesmoke;
+    border: 3px solid black;
+    padding: 5px;
+    border-radius: 50%;
+    font-size: 35PX;
+    position: absolute;
+    left: 88%;
+    top: 15PX;
+}
+
+
+.ThirdIcon {
+    border: 3px solid black;
+    background-color: whitesmoke;
+    padding: 5px;
+    border-radius: 50%;
+    font-size: 35PX;
+    position: absolute;
+    left: 89%;
+    top: 15PX;
+}
+
+
+.FourthIcon {
+    border: 3px solid black;
+    padding: 5px;
+    border-radius: 50%;
+    font-size: 35PX;
+    background-color: whitesmoke;
+    position: absolute;
+    left: 93%;
+    top: 15PX;
+}
+
+/*Nav end*/
+
+
+
+/*title start*/
+
+
+
+
+
+
+/*title end*/
+.title {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #fff;
+    border-radius: 20px;
+    border: #000 solid 4px;
+    width: 500px;
+    height: 50px;
+    margin-left: 700px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 30px;
+    text-align: center;
+    display: block;
+    font-size: 20px;
+    margin-top: 20px;
+    font-weight: bold;
+    unicode-bidi: isolate;
+    color: #3968e9;
+    text-align: center;
+
+}
+
+.t {
+    margin-top: 10px;
+}
+
+/* حاوية الأزرار */
+.buttons-container {
+    display: flex;
+    /* استخدام Flexbox لجعل الأزرار تظهر في خط واحد */
+    gap: 20px;
+    /* المسافة بين الأزرار */
+    align-items: center;
+    /* ضمان أن الأزرار في نفس المستوى عموديًا */
+    justify-content: center;
+    /* محاذاة الأزرار إلى منتصف الحاوية */
+    margin-top: 20px;
+    /* إضافة مسافة من الأعلى للحاوية */
+}
+
+/* تنسيق الزر الأول */
+.button {
+    height: 50px;
+    width: 280px;
+    display: inline-block;
+    border: 3px solid black;
+    background-color: rgb(163, 182, 229);
+    color: rgb(0, 0, 0);
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 13px;
+    margin-top: PX;
+    transition-duration: 0.5s;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.5, 1.6, 0.4, 0.7);
+}
+
+.button:hover {
+    background-color: #5b73cf;
+
+}
+
+/* تنسيق الزر الثاني */
+.btn {
+    height: 50px;
+    /* التأكد من أن ارتفاع الأزرار متساوي */
+    width: 250px;
+    /* عرض الزر الثاني كما هو مطلوب */
+    border-radius: 20px;
+    border: #000 solid 3px;
+    background-color: rgb(163, 182, 229);
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    transition-duration: 0.5s;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.5, 1.6, 0.4, 0.7);
+}
+
+.btn:hover {
+    background-color: #5b73cf;
+    letter-spacing: 3px;
+}
+
+.t1 {
+    margin-top: 3px;
+    font-size: 15px;
+}
+
+.t2 {
+    margin-top: -10px;
+}
+
+
+
+
+/*Table start*/
+
+.tableConainer {
+    background-color: aquamarine;
+    height: 150px;
+
+}
+
+.table {
+    border: 3px solid gray;
+}
+
+
+/*Table end*/
+
+.Download {
+    height: 25px;
+    width: 100px;
+    border: 3px solid black;
+    background-color: #5b73cf;
+    color: beige;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.update {
+    height: 25px;
+    width: 100px;
+    border: 3px solid black;
+    background-color: #5b73cf;
+    color: beige;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.journal-tabel {
+    width: 80%;
+
+}
+
+.uploud {
+    height: 25px;
+    width: 100px;
+    border: 3px solid black;
+    background-color: #5b73cf;
+    color: beige;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.contanimain {
+    border: #000 solid 3px;
+    border-radius: 15px;
+    background-color: rgb(163, 182, 229);
+    height: 90%;
+    padding: 40px 20px;
+    margin: 10px auto;
+
+}
+
+.CONTANIER {
+    background-color: #fff;
+    border: #000 SOLID 3PX;
+    border-radius: 10px;
+    height: 400px;
+    padding: 40px 20px;
+}
+
+.contanir1 {
+    background-color: rgb(163, 182, 229);
+    border: #000 solid 3px;
+    border-radius: 20px;
+    height: auto;
+    padding: 15px;
+    margin-top: 25px;
+    margin-bottom: 50px;
+}
+
+.ar {
+    background-color: #fff;
+    border: #000 solid 2px;
+    border-radius: 20px;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+
+}
+
+.eng {
+    background-color: #fff;
+    border: #000 solid 2px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-weight: bold;
+    padding: 10px;
+}
+
+#loadingBadge {
+    display: none;
+    /* مخفي بشكل افتراضي */
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(0, 0, 0, 0.1);
+    border-top: 5px solid #3498db;
+    /* يمكنك تغيير اللون هنا */
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    /* دوران دائم */
+    z-index: 1000;
+    /* لعرضه فوق باقي المحتويات */
+}
+
+/* الحركة الدورانية */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+
+
+
+@media screen and (max-width: 1366px) {
+    .title {
+        padding-top: 10px;
+        background-color: #fff;
+        border-radius: 20px;
+        border: #000 solid 4px;
+        width: 600px;
+        height: 65px;
+        margin-left: 400px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        text-align: center;
+        display: block;
+        font-size: 20px;
+        margin-top: px;
+        font-weight: bold;
+        unicode-bidi: isolate;
+        color: #3968e9;
+        text-align: center;
+
+    }
+
+    /* حاوية الأزرار */
+    .buttons-container {
+        display: flex;
+        /* استخدام Flexbox لجعل الأزرار تظهر في خط واحد */
+        gap: 20px;
+        /* المسافة بين الأزرار */
+        align-items: center;
+        /* ضمان أن الأزرار في نفس المستوى عموديًا */
+        justify-content: center;
+        /* محاذاة الأزرار إلى منتصف الحاوية */
+        margin-top: 20px;
+        /* إضافة مسافة من الأعلى للحاوية */
+    }
+
+    /* تنسيق الزر الأول */
+    .button {
+        height: 60px;
+        width: 200px;
+        display: inline-block;
+        border: 3px solid black;
+        background-color: rgb(163, 182, 229);
+        color: rgb(0, 0, 0);
+        border-radius: 20px;
+        font-weight: bold;
+        margin-top: 0PX;
+    }
+
+    /* تنسيق الزر الثاني */
+    .btn {
+        height: 60px;
+        /* التأكد من أن ارتفاع الأزرار متساوي */
+        width: 250px;
+        /* عرض الزر الثاني كما هو مطلوب */
+        border-radius: 20px;
+        border: #000 solid 3px;
+        background-color: rgb(163, 182, 229);
+        color: rgb(0, 0, 0);
+        font-weight: bold;
+    }
+
+
+}
+
+/* Media Queries for Tablet Devices (min-width: 601px and max-width: 1024px) */
+@media only screen and (min-width: 601px) and (max-width: 1024px) {
+    .NavContainer {
+        height: auto;
+        padding: 10px -1px;
+    }
+
+    .logo-img {
+        height: 60px;
+        width: 60px;
+
+    }
+
+    .header-h1 {
+        font-size: 20px;
+        left: 80px;
+        top: -15px;
+    }
+
+
+    .FirstIcon,
+    .SecondtIcon,
+    .ThirdIcon,
+    .FourthIcon {
+        font-size: 30px;
+        top: 15px;
+    }
+
+    .FirstIcon {
+        left: 70%;
+    }
+
+    .SecondtIcon {
+        left: 76%;
+    }
+
+    .ThirdIcon {
+        left: 82%;
+    }
+
+    .FourthIcon {
+        left: 88%;
+    }
+
+    .title {
+        width: 400px;
+        height: 50px;
+        margin-left: 30%;
+        font-size: 18px;
+        margin-top: 15px;
+    }
+
+    .button {
+
+        margin-top: 5px;
+        width: 200px;
+        height: 60px;
+    }
+
+    .Result {
+
+        margin-left: 90px;
+    }
+
+    .tableConainer {
+        height: auto;
+        padding: 15px;
+        padding-left: -30px;
+
+    }
+    
+    .Download,
+    .update,
+    .uploud {
+        width: 80%;
+        margin: 15px auto;
+        height: 40px;
+    }
+
+    .btn {
+        width: 200px;
+        margin-left: -90px;
+        margin-top: 5px;
+        height: 60px;
+    }
+
+    .contanimain {
+        padding: 30px;
+    }
+
+    .CONTANIER {
+        padding-right: 100px;
+    }
+}
+
+/* Media Queries for Mobile Devices (max-width: 600px) */
+@media only screen and (max-width: 600px) {
+    .NavContainer {
+        height: auto;
+        padding: -40px;
+
+    }
+
+    .logo-img {
+        height: 50px;
+        width: 50px;
+        left: 85px;
+        margin-right: 40px;
+    }
+
+    .header-h1 {
+        font-size: 14px;
+        left: 70px;
+        top: 0px;
+    }
+
+    .FirstIcon,
+    .SecondtIcon,
+    .ThirdIcon,
+    .FourthIcon {
+        font-size: 25px;
+        top: 10px;
+    }
+
+    .FirstIcon {
+        left: 60%;
+    }
+
+    .SecondtIcon {
+        left: 70%;
+    }
+
+    .ThirdIcon {
+        left: 71%;
+    }
+
+    .FourthIcon {
+        left: 84%;
+    }
+
+    .title {
+        width: 200px;
+        height: 35px;
+        margin-left: 30%;
+        font-size: 12px;
+        margin-top: 10px;
+    }
+
+    .button {
+        margin-top: 5px;
+        width: 200px;
+        height: 60px;
+    }
+
+    .tableConainer {
+        height: auto;
+        padding: 10px;
+    }
+
+    .Download,
+    .update,
+    .uploud {
+        width: 90%;
+        margin: 10px auto;
+        height: 35px;
+    }
+
+    .btn {
+        width: 200px;
+        margin-top: 5px;
+        height: 60px;
+    }
+
+    .contanimain {
+        padding: 20px;
+    }
+
+    .CONTANIER {
+        padding: 20px;
+    }
+}
+
+@media only screen and (max-width: 390px) {
+    .NavContainer {
+        height: auto;
+        padding: -40px;
+
+    }
+
+    .logo-img {
+        height: 50px;
+        width: 50px;
+        left: 85px;
+        margin-right: 40px;
+    }
+
+    .header-h1 {
+        font-size: 12px;
+        left: 70px;
+        top: 3px;
+    }
+
+    .FirstIcon,
+    .SecondtIcon,
+    .ThirdIcon,
+    .FourthIcon {
+        font-size: 25px;
+        top: 10px;
+    }
+
+    .FirstIcon {
+        left: 60%;
+    }
+
+    .SecondtIcon {
+        left: 70%;
+    }
+
+    .ThirdIcon {
+        left: 71%;
+    }
+
+    .FourthIcon {
+        left: 84%;
+    }
+
+    .title {
+        width: 193px;
+        height: 27px;
+        margin-left: 21%;
+        font-size: 11px;
+        margin-top: 21px;
+    }
+
+    .button {
+        margin-top: 5px;
+        width: 138px;
+        height: 68px;
+    }
+
+    .tableConainer {
+        height: auto;
+        padding: 10px;
+    }
+
+    .Download,
+    .update,
+    .uploud {
+        width: 90%;
+        margin: 10px auto;
+        height: 35px;
+    }
+
+    .btn {
+        width: 250px;
+        margin-top: 5px;
+        height: 68px;
+    }
+
+    .contanimain {
+        padding: 20px;
+    }
+
+    .CONTANIER {
+        padding: 20px;
+    }
+}

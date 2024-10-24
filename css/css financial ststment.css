@@ -1,0 +1,597 @@
+body {
+    background-color: #d7dcee;
+    direction: ltr;
+    font-size: var(--font-size-s);
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Default Styling (Desktop) */
+.NavContainer {
+    height: 100px;
+    margin-top: 5px;
+    position: relative;
+    background-color: #a3b6e5;
+    border: 3px solid black;
+    border-radius: 30px;
+}
+
+.logo-img {
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    margin-left: 10px;
+    margin-top: 8px;
+    border: #000 solid 3px;
+}
+
+.header-h1 {
+    font-size: 20px;
+    color: #000;
+    position: absolute;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    left: 90px;
+    top: -10px;
+}
+
+.a {
+    text-decoration: none;
+    /* إزالة الخط السفلي من الرابط */
+    color: #000;
+    left: 5px;
+}
+
+.FirstIcon,
+.SecondtIcon,
+.ThirdIcon,
+.FourthIcon {
+    border: 3px solid black;
+    padding: 5px;
+    background-color: whitesmoke;
+    border-radius: 50%;
+    font-size: 35px;
+    position: absolute;
+    top: 20px;
+}
+
+.FirstIcon {
+    left: 80%;
+}
+
+.SecondtIcon {
+    left: 88%;
+}
+
+.ThirdIcon {
+    left: 90%;
+}
+
+.FourthIcon {
+    left: 93%;
+}
+
+.custom-button {
+    background-color: #fff;
+    color: rgb(57, 104, 233);
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    padding: 15px 30px;
+    border: 3px solid black;
+    border-radius: 20px;
+    cursor: pointer;
+    box-shadow: 0 9px 8px rgba(0, 0, 0, 0.2);
+    outline: none;
+    text-transform: lowercase;
+    margin-top: 20px;
+    margin-left: 700px;
+    width: 500px;
+    height: 60px;
+    text-align: center;
+}
+
+.heading {
+    margin-top: 5px;
+}
+
+.download-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 90px;
+    
+    border: 6px solid #000000;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 50px;
+    margin-right: 60px;
+    height: 550px;
+}
+
+.cc {
+    background-color: #a3b6e5;
+    border: #000 3px solid;
+    border-radius: 30px;
+    margin-left: 30px;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    height: 100%;
+    width: 1850px;
+}
+
+.contanir1 {
+    background-color: rgb(163, 182, 229);
+    border: #000 solid 3px;
+    border-radius: 20px;
+
+    height: auto;
+    padding: 15px;
+    margin-top: 25px;
+}
+
+.ar {
+    background-color: #fff;
+    border: #000 solid 2px;
+    border-radius: 20px;
+    font-weight: bold;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+
+}
+
+.eng {
+    background-color: #fff;
+    border: #000 solid 2px;
+    border-radius: 20px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-bottom: 10px;
+    font-weight: bold;
+    padding: 10px;
+}
+
+
+
+
+
+@media screen and (max-width: 1366px) {
+    .custom-button {
+        background-color: #fff;
+        color: rgb(57, 104, 233);
+        font-size: 20px;
+        font-weight: bold;
+        padding: 15px 30px;
+        border: 2px solid black;
+        border-radius: 20px;
+        cursor: pointer;
+        box-shadow: 0 9px 8px rgba(0, 0, 0, 0.2);
+        outline: none;
+        text-transform: lowercase;
+        margin-top: 30px;
+        margin-left: 300px;
+        width: 700px;
+        height: 65px;
+
+    }
+
+
+
+
+    .download-container {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        gap: 90px;
+
+        border: 6px solid #000000;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-left: 50px;
+        margin-right: 60px;
+        height: 550px;
+    }
+
+    .cc {
+        margin-left: 25px;
+        margin-top: 20px;
+        width: 1300px;
+        height: 100%;
+    }
+
+
+
+}
+
+
+
+/* Media Queries for Tablet Devices (min-width: 601px and max-width: 1024px) */
+@media only screen and (min-width: 601px) and (max-width: 1024px) {
+    .NavContainer {
+        height: auto;
+        padding: 10px -1px;
+    }
+
+    .logo-img {
+        height: 60px;
+        width: 60px;
+        margin-right: 20px;
+    }
+
+    .header-h1 {
+        font-size: 18px;
+        left: 85px;
+        top: -5px;
+    }
+
+    .FirstIcon,
+    .SecondtIcon,
+    .ThirdIcon,
+    .FourthIcon {
+        font-size: 30px;
+        top: 15px;
+    }
+
+    .FirstIcon {
+        left: 70%;
+    }
+
+    .SecondtIcon {
+        left: 83%;
+    }
+
+    .ThirdIcon {
+        left: 80%;
+    }
+
+    .FourthIcon {
+        left: 90%;
+    }
+
+    .custom-button {
+        background-color: #fff;
+        color: white;
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+        border: 2px solid black;
+        border-radius: 20px;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        outline: none;
+        text-transform: lowercase;
+        margin-top: 20px;
+        margin-left: 300px;
+        color: rgb(57, 104, 233);
+        width: 400px;
+        height: 50px;
+    }
+
+    .download-btn {
+        width: 50%;
+    }
+
+    .download-container {
+        padding: 20px;   
+        height: 88%;
+    }
+
+    .custom-input {
+        width: 90%;
+        margin-top: 30px;
+        height: 70px;
+    }
+
+    .download {
+        width: 90%;
+        margin: 10px auto;
+        font-size: 20px;
+        height: 60px;
+    }
+
+    .cc {
+        width: 90%;
+        height: 600px;
+        margin-left: 32px;
+        margin-bottom: 50px;
+    }
+}
+
+/* Media Queries for Mobile Devices (max-width: 600px) */
+@media only screen and (max-width: 600px) {
+    .NavContainer {
+        height: auto;
+        padding: -40px;
+
+    }
+
+    .logo-img {
+        height: 50px;
+        width: 50px;
+        left: 75px;
+        margin-right: 30px;
+    }
+
+    .header-h1 {
+        font-size: 14px;
+        left: 75px;
+        top: -2px;
+    }
+
+    .FirstIcon,
+    .SecondtIcon,
+    .ThirdIcon,
+    .FourthIcon {
+        font-size: 20px;
+        top: 15px;
+        margin-right: 10px;
+    }
+
+    .FirstIcon {
+        left: 60%;
+    }
+
+    .SecondtIcon {
+        left: 74%;
+    }
+
+    .ThirdIcon {
+        left: 71%;
+    }
+
+    .FourthIcon {
+        left: 85%;
+    }
+
+    .custom-button {
+        font-size: 12px;
+        height: 44px;
+        font-weight: bold;
+        width: 326px;
+        margin-top: 20px;
+        margin-left: 85px;
+        margin-right: 85px;
+        text-align: center;
+        color: rgb(57, 104, 233);
+        padding-top: 15px;
+
+    }
+
+    .TEXT-T {
+        text-align: center;
+    }
+
+    .heading{
+        margin-top: 5px;
+    }
+    .download-container {
+        padding: 15px;
+        width: 442px;
+        align-items: center;
+        height: 353px;
+        margin-left: 20px;
+    }
+
+    .custom-input {
+        width: 100%;
+        margin-top: 20px;
+        height: 60px;
+    }
+
+    .download {
+        width: 100%;
+        margin: 10px 0;
+        font-size: 18px;
+        height: 50px;
+    }
+
+    .cc {
+        width: 90%;
+        height: 414px;
+    }
+
+    .download-btn {
+        width: 50%;
+    }
+}
+
+@media only screen and (max-width: 490px) {
+    .NavContainer {
+        height: auto;
+        padding: -40px;
+
+    }
+
+    .logo-img {
+        height: 50px;
+        width: 50px;
+        left: 75px;
+        margin-right: 30px;
+    }
+
+    .header-h1 {
+        font-size: 14px;
+        left: 75px;
+        top: -2px;
+    }
+
+    .FirstIcon,
+    .SecondtIcon,
+    .ThirdIcon,
+    .FourthIcon {
+        font-size: 20px;
+        top: 15px;
+        margin-right: 10px;
+    }
+
+    .FirstIcon {
+        left: 60%;
+    }
+
+    .SecondtIcon {
+        left: 74%;
+    }
+
+    .ThirdIcon {
+        left: 71%;
+    }
+
+    .FourthIcon {
+        left: 85%;
+    }
+
+    .custom-button {
+        font-size: 12px;
+        height: 44px;
+        font-weight: bold;
+        width: 326px;
+        margin-top: 20px;
+        margin-left: 35px;
+        margin-right: 85px;
+        text-align: center;
+        color: rgb(57, 104, 233);
+        padding-top: 15px;
+    }
+
+    .TEXT-T {
+        text-align: center;
+    }
+
+    .heading{
+        margin-top: 5px;
+    }
+    .download-container {
+        padding: 15px;
+        width: 338px;
+        align-items: center;
+        height: 353px;
+        margin-left: 20px;
+    }
+
+    .custom-input {
+        width: 100%;
+        margin-top: 20px;
+        height: 60px;
+    }
+
+    .download {
+        width: 100%;
+        margin: 10px 0;
+        font-size: 18px;
+        height: 50px;
+    }
+
+    .cc {
+        width: 90%;
+        height: 414px;
+    }
+
+    .download-btn {
+        width: 50%;
+    }
+}
+
+@media only screen and (max-width: 390px) {
+    .NavContainer {
+        height: auto;
+        padding: -40px;
+
+    }
+
+    .logo-img {
+        height: 50px;
+        width: 50px;
+        left: 75px;
+        margin-right: 30px;
+    }
+
+    .header-h1 {
+        font-size: 14px;
+        left: 75px;
+        top: -2px;
+    }
+
+    .FirstIcon,
+    .SecondtIcon,
+    .ThirdIcon,
+    .FourthIcon {
+        font-size: 20px;
+        top: 15px;
+        margin-right: 10px;
+    }
+
+    .FirstIcon {
+        left: 60%;
+    }
+
+    .SecondtIcon {
+        left: 74%;
+    }
+
+    .ThirdIcon {
+        left: 71%;
+    }
+
+    .FourthIcon {
+        left: 85%;
+    }
+
+    .custom-button {
+        font-size: 10px;
+        height: 44px;
+        font-weight: bold;
+        width: 265px;
+        margin-top: 20px;
+        margin-left: 21px;
+        margin-right: 85px;
+        text-align: center;
+        color: rgb(57, 104, 233);
+        padding-top: 15px;
+    }
+
+    .TEXT-T {
+        text-align: center;
+    }
+
+    .heading{
+        margin-top: 5px;
+    }
+    .download-container {
+        padding: 15px;
+        width: 259px;
+        align-items: center;
+        height: 353px;
+        margin-left: 20px;
+    }
+
+    .custom-input {
+        width: 100%;
+        margin-top: 20px;
+        height: 60px;
+    }
+
+    .download {
+        width: 100%;
+        margin: 10px 0;
+        font-size: 18px;
+        height: 50px;
+    }
+
+    .cc {
+        width: 90%;
+        height: 414px;
+    }
+
+    .download-btn {
+        width: 50%;
+    }
+}

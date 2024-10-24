@@ -1,0 +1,814 @@
+body {
+    background-color: #d7dcee;
+    direction: ltr;
+    font-size: var(--font-size-s);
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* General Container for Layout */
+.content-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    max-width: 100%;
+    margin: 0;
+    gap: 20px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/*Nav start*/
+
+.NavContainer {
+    height: 100px;
+    margin-top: 5px;
+    position: relative;
+    background-color: #a3b6e5;
+    border: 3px solid black;
+    border-radius: 30px;
+}
+
+.logo-img {
+    height: 70px;
+    width: 70px;
+    border: #000 SOLID 3PX;
+    border-radius: 50%;
+    Margin-left: 10px;
+    Margin-top: 8px
+}
+.a{
+    text-decoration: none;
+    /* إزالة الخط السفلي من الرابط */
+    color: #000;
+}
+.header-link {
+    text-decoration: none;
+    /* إزالة الخط السفلي من الرابط */
+    color: #000;
+    left: 5px;
+}
+
+.header-h1 {
+    font-size: 32px;
+    color: #000;
+    position: absolute;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    left: 90px;
+    top: 5px;
+}
+
+
+.FirstIcon {
+    border: 3px solid black;
+    padding: 5px;
+    background-color: whitesmoke;
+    border-radius: 50%;
+    font-size: 35PX;
+    position: absolute;
+    left: 79%;
+    top: 15PX;
+}
+
+
+.SecondtIcon {
+    background-color: whitesmoke;
+    border: 3px solid black;
+    padding: 5px;
+    border-radius: 50%;
+    font-size: 35PX;
+    position: absolute;
+    left: 88%;
+    top: 15PX;
+}
+
+
+.ThirdIcon {
+    border: 3px solid black;
+    background-color: whitesmoke;
+    padding: 5px;
+    border-radius: 50%;
+    font-size: 35PX;
+    position: absolute;
+    left: 89%;
+    top: 15PX;
+}
+
+
+.FourthIcon {
+    border: 3px solid black;
+    padding: 10px;
+    border-radius: 50%;
+    font-size: 35PX;
+    background-color: whitesmoke;
+    position: absolute;
+    left: 95%;
+    top: 10PX;
+}
+
+.Instructions-for-Entering-Credentials-eng {
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 600px;
+    margin-top: 20px;
+    width: 400px;
+    height: 350px;
+    border: #000 solid 4px;
+    border-radius: 20px;
+    padding: 10px;
+    background-color: #fff;
+    color: #000;
+}
+
+
+/* Form Container Styling */
+.form-container {
+    background-color: #d1d1f1;
+    padding: 20px;
+    border-radius: 20px;
+    width: 800px;
+    height: 450px;
+    font-size: 24px;
+    border: 3px solid black;
+    box-shadow: 10px 0px 10px #6666ff;
+    text-align: left;
+    margin-top: 10px;
+    margin-left: 550px;
+    box-sizing: border-box;
+}
+
+.profie-label-user {
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+.profie-label-userii {
+    margin-top: 30px;
+    align-items: center;
+    font-family: Arial, Helvetica, sans-serif;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    /* لضمان أن التسمية وحقل الإدخال يكونان في نفس الخط العمودي */
+}
+
+.move-label1 {
+    position: relative;
+    /* لتمكين التحرك بالنسبة لموضعها الأصلي */
+    top: 40px;
+    /* يمكنك استخدام هذه الخاصية للتحكم في الحركة لأعلى أو لأسفل */
+    /* لتغيير الموضع للأعلى استخدم قيمة سالبة، مثلاً: top: -10px; */
+}
+
+/* Input Field Styling */
+.input1 {
+    padding: 10px;
+    margin-top: 50px;
+    border-radius: 25px;
+    border: 2px solid black;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    width: 100%;
+    box-sizing: border-box;
+
+}
+
+.input2 {
+    padding: 10px;
+    margin-top: -50px;
+    margin-left: 300px;
+    border-radius: 25px;
+    border: 2px solid black;
+    font-size: 16px;
+    font-weight: bold;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.input3 {
+    padding: 10px;
+    margin-top: 20px;
+    margin-left: 300px;
+    border-radius: 25px;
+    border: 2px solid black;
+    font-size: 16px;
+    font-weight: bold;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-container label {
+    display: inline-block;
+    width: 40%;
+    /* Ensure labels take enough space */
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.form-container input {
+    width: 55%;
+    /* Ensure inputs are properly aligned */
+    margin-bottom: 15px;
+}
+
+/* Save Button Styling */
+.saveButton {
+    padding: 10px;
+    border: 3px solid black;
+    border-radius: 25px;
+    background-color: #6666ff;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    width: 300px;
+    box-shadow: 0px 10px 10px #4e4ea0;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-left: 350px;
+    box-sizing: border-box;
+}
+
+.credentials-table {
+    background-color: #fff;
+    width: 1020px;
+    height: 100px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #000;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    margin-left: 425px;
+    padding: 10px;
+    border: #000 2px solid;
+    border-radius: 20px;
+
+
+}
+
+
+.credentials-table th {
+    border-radius: 20px;
+    border: #000 2px solid;
+    background-color: #6666ff;
+    padding-left: 20px;
+    padding-right: 20px;
+
+
+}
+
+.instruction-container-arabic-instructions {
+    margin-top: 15px;
+    border: #000 2px solid;
+    border-radius: 20px;
+    margin-left: 450px;
+    padding-top: 10px;
+    text-align: center;
+    width: 1020px;
+    background-color: #fff;
+    font-weight: bold;
+}
+
+.instruction-container-english-instructions {
+    margin-top: 15px;
+    border: #000 2px solid;
+    border-radius: 20px;
+    margin-left: 450px;
+    padding-top: 10px;
+    text-align: center;
+    width: 1020px;
+    background-color: #fff;
+    font-weight: bold;
+}
+
+#loadingBadge {
+    display: none; /* مخفي بشكل افتراضي */
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(0, 0, 0, 0.1);
+    border-top: 5px solid #3498db; /* يمكنك تغيير اللون هنا */
+    border-radius: 50%;
+    animation: spin 1s linear infinite; /* دوران دائم */
+    z-index: 1000; /* لعرضه فوق باقي المحتويات */
+}
+  
+  /* الحركة الدورانية */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+@media screen and (max-width: 1366px) {
+    .form-container {
+        background-color: #d1d1f1;
+        padding: 20px;
+        border-radius: 20px;
+        width: 700px;
+        height: 450px;
+        font-size: 24px;
+        border: 3px solid black;
+        box-shadow: 10px 0px 10px #6666ff;
+        text-align: left;
+        margin-top: 10px;
+        margin-left: 270px;
+        box-sizing: border-box;
+    }
+
+
+    .credentials-table {
+        background-color: #fff;
+        width: 1020px;
+        height: 100px;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        color: #000;
+        margin-top: 20px;
+        margin-left: 150px;
+        margin-bottom: 20px;
+        padding: 10px;
+        border: #000 2px solid;
+        border-radius: 20px;
+    }
+
+    .instruction-container-arabic-instructions {
+        margin-top: 15px;
+        border: #000 2px solid;
+        border-radius: 20px;
+        margin-left: 150px;
+        padding-top: 10px;
+        text-align: center;
+        width: 1020px;
+        background-color: #fff;
+        font-weight: bold;
+    }
+
+    .instruction-container-english-instructions {
+        margin-top: 15px;
+        border: #000 2px solid;
+        border-radius: 20px;
+        margin-left: 150px;
+        padding-top: 10px;
+        text-align: center;
+        width: 1020px;
+        background-color: #fff;
+        font-weight: bold;
+    }
+
+    .move-label1 {
+        position: relative;
+        /* لتمكين التحرك بالنسبة لموضعها الأصلي */
+        top: 40px;
+        /* يمكنك استخدام هذه الخاصية للتحكم في الحركة لأعلى أو لأسفل */
+        /* لتغيير الموضع للأعلى استخدم قيمة سالبة، مثلاً: top: -10px; */
+    }
+
+    .input1 {
+        padding: 10px;
+        margin-top: 50px;
+        border-radius: 25px;
+        border: 2px solid black;
+        font-size: 16px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        width: 100%;
+        box-sizing: border-box;
+
+    }
+
+    .input2 {
+        padding: 10px;
+        margin-top: -50px;
+        margin-left: 250px;
+        border-radius: 25px;
+        border: 2px solid black;
+        font-size: 16px;
+        font-weight: bold;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .input3 {
+        padding: 10px;
+        margin-top: 0px;
+        margin-left: 250px;
+        border-radius: 25px;
+        border: 2px solid black;
+        font-size: 16px;
+        font-weight: bold;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .saveButton {
+        padding: 10px;
+        border: 3px solid black;
+        border-radius: 25px;
+        background-color: #6666ff;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        width: 300px;
+        box-shadow: 0px 10px 10px #4e4ea0;
+        font-weight: bold;
+        margin-top: 20px;
+        margin-left: 280px;
+        box-sizing: border-box;
+    }
+
+    .profie-label-user {
+        font-family: Arial, Helvetica, sans-serif;
+        margin-bottom: 5px;
+
+    }
+
+}
+
+/* Tablet View (Portrait and Landscape) */
+@media only screen and (max-width: 1024px) {
+
+    /* General Container for Layout */
+    .content-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100vh;
+        max-width: 100%;
+        margin: 0;
+        gap: 20px;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    /*Nav start*/
+
+    .NavContainer {
+        height: 100px;
+        margin-top: 5px;
+        position: relative;
+        background-color: #a3b6e5;
+        border: 3px solid black;
+        border-radius: 30px;
+    }
+
+    .logo-img {
+        height: 70px;
+        width: 70px;
+        border: #000 SOLID 3PX;
+        border-radius: 50%;
+        Margin-left: 10px;
+        Margin-top: 8px
+    }
+
+    .header-link {
+        text-decoration: none;
+        /* إزالة الخط السفلي من الرابط */
+        color: #000;
+        left: 5px;
+    }
+
+    .header-h1 {
+        font-size: 32px;
+        color: #000;
+        position: absolute;
+        font-weight: bold;
+        font-family: Arial, Helvetica, sans-serif;
+        left: 90px;
+        top: 5px;
+    }
+
+
+    .FirstIcon {
+        border: 3px solid black;
+        padding: 5px;
+        background-color: whitesmoke;
+        border-radius: 50%;
+        font-size: 35PX;
+        position: absolute;
+        left: 79%;
+        top: 15PX;
+    }
+
+
+    .SecondtIcon {
+        background-color: whitesmoke;
+        border: 3px solid black;
+        padding: 5px;
+        border-radius: 50%;
+        font-size: 35PX;
+        position: absolute;
+        left: 88%;
+        top: 15PX;
+    }
+
+
+    .ThirdIcon {
+        border: 3px solid black;
+        background-color: whitesmoke;
+        padding: 5px;
+        border-radius: 50%;
+        font-size: 35PX;
+        position: absolute;
+        left: 89%;
+        top: 15PX;
+    }
+
+
+    .FourthIcon {
+        border: 3px solid black;
+        padding: 10px;
+        border-radius: 50%;
+        font-size: 35PX;
+        background-color: whitesmoke;
+        position: absolute;
+        left: 90%;
+        top: 10PX;
+    }
+
+    .Instructions-for-Entering-Credentials-eng {
+        font-size: 18px;
+        font-weight: bold;
+        margin-left: 600px;
+        margin-top: 20px;
+        width: 400px;
+        height: 350px;
+        border: #000 solid 4px;
+        border-radius: 20px;
+        padding: 10px;
+        background-color: #fff;
+        color: #000;
+    }
+
+
+    /* Form Container Styling */
+    .form-container {
+        background-color: #d1d1f1;
+        padding: 20px;
+        border-radius: 20px;
+        width: 700px;
+        height: 400px;
+        font-size: 24px;
+        border: 3px solid black;
+        box-shadow: 10px 0px 10px #6666ff;
+        text-align: left;
+        margin-top: 10px;
+        margin-left: 150px;
+        box-sizing: border-box;
+    }
+
+    /* Input Field Styling */
+    .input1 {
+        padding: 10px;
+        margin-top: 50px;
+        border-radius: 25px;
+        border: 2px solid black;
+        font-size: 16px;
+        font-weight: bold;
+        width: 100%;
+        box-sizing: border-box;
+
+    }
+
+    .input2 {
+        padding: 10px;
+        margin-left: 260px;
+        border-radius: 25px;
+        border: 2px solid black;
+        font-size: 16px;
+        font-weight: bold;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .input3 {
+        padding: 10px;
+        margin-left: 260px;
+        border-radius: 25px;
+        border: 2px solid black;
+        font-size: 16px;
+        font-weight: bold;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .form-container label {
+        display: inline-block;
+        width: 40%;
+        /* Ensure labels take enough space */
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+
+
+    /* Save Button Styling */
+    .saveButton {
+        padding: 10px;
+        border: 3px solid black;
+        border-radius: 25px;
+        background-color: #6666ff;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        width: 300px;
+        box-shadow: 0px 10px 10px #4e4ea0;
+        font-weight: bold;
+        margin-top: 5px;
+        margin-left: 290px;
+        box-sizing: border-box;
+    }
+
+    .credentials-table {
+        background-color: #fff;
+        width: 900px;
+        height: 100px;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        color: #000;
+        margin-top: 20px;
+        margin-left: 50px;
+        padding: 10px;
+        border: #000 2px solid;
+        border-radius: 20px;
+
+
+    }
+
+
+    .credentials-table th {
+        border-radius: 20px;
+        border: #000 2px solid;
+        background-color: #6666ff;
+        padding-left: 20px;
+        padding-right: 20px;
+
+
+    }
+
+    .instruction-container-arabic-instructions {
+        margin-top: 15px;
+        border: #000 2px solid;
+        border-radius: 20px;
+        margin-left: 50px;
+        padding-top: 10px;
+        text-align: center;
+        width: 900px;
+        background-color: #fff;
+        font-weight: bold;
+    }
+
+    .instruction-container-english-instructions {
+        margin-top: 15px;
+        border: #000 2px solid;
+        border-radius: 20px;
+        margin-left: 50px;
+        padding-top: 10px;
+        text-align: center;
+        width: 900px;
+        background-color: #fff;
+        font-weight: bold;
+    }
+
+}
+
+
+/* Tablet View (Portrait and Landscape) */
+@media only screen and (max-width: 428px) {
+    .content-container {
+        padding: 5px;
+        gap: 15px;
+    }
+
+    .NavContainer {
+        height: auto;
+        padding: 10px -1px;
+    }
+
+    .logo-img {
+        height: 60px;
+        width: 60px;
+
+    }
+
+    .header-h1 {
+        font-size: 24px;
+        left: 82px;
+        top: 10px;
+    }
+
+
+
+    .FirstIcon,
+    .SecondtIcon,
+    .ThirdIcon,
+    .FourthIcon {
+        font-size: 30px;
+        padding: 4px;
+        top: 15px;
+    }
+
+    .SecondtIcon {
+
+        left: 83%;
+
+    }
+
+    .FourthIcon {
+
+        left: 84%;
+
+    }
+
+    .form-container {
+        width: 80%;
+        height: auto;
+        font-size: 15px;
+        margin-left: 50px;
+        margin-bottom: 50px;
+        margin-top: 60px;
+    }
+
+    .form-container label {
+
+        white-space: nowrap;
+        /* يجبر النص على أن يبقى على سطر واحد */
+        font-size: 25px;
+        font-weight: bold;
+    }
+
+    .form-container input {
+        width: 100%;
+        /* Ensure inputs are properly aligned */
+        margin-bottom: 15px;
+    }
+
+
+    .input1 {
+
+        margin-top: 0px;
+        margin-left: 1px;
+
+
+    }
+
+    .input2 {
+        margin-top: 40px;
+        margin-left: 1px;
+
+    }
+
+    .input3 {
+        margin-top: 30px;
+        margin-left: 1px;
+    }
+
+    .saveButton {
+        width: 100%;
+        height: 50px;
+        margin-left: 1%;
+
+        padding-top: 10px;
+
+    }
+
+    .credentials-table {
+        display: none;
+    }
+
+    .instruction-container-arabic-instructions {
+        margin-top: 15px;
+        border: #000 2px solid;
+        border-radius: 20px;
+        margin-left: 20px;
+        padding: 10px;
+        padding-top: 10px;
+        text-align: center;
+        width: 350px;
+        background-color: #fff;
+        font-weight: bold;
+    }
+
+    .instruction-container-english-instructions {
+        margin-top: 15px;
+        border: #000 2px solid;
+        border-radius: 20px;
+        margin-left: 20px;
+        padding: 10px;
+        padding-top: 10px;
+        text-align: center;
+        width: 350px;
+        background-color: #fff;
+        font-weight: bold;
+    }
+}

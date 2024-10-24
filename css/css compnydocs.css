@@ -1,0 +1,460 @@
+body {
+    background-color: #d7dcee;
+    direction: ltr;
+    font-size: var(--font-size-s);
+    line-height: 1.5;
+    margin: 0;
+}
+
+/*Nav start*/
+.NavContainer {
+    height: 100px;
+    margin-top: 5px;
+    position: relative;
+    background-color: #a3b6e5;
+    border: 3px solid black;
+    border-radius: 30px;
+}
+
+.logo-img {
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    margin-left: 10px;
+    margin-top: 8px;
+    border: #000 solid 3px;
+}
+
+.a {
+    text-decoration: none;
+    /* إزالة الخط السفلي من الرابط */
+    color: #000;
+    left: 5px;
+}
+
+.header-h1 {
+    font-size: 20px;
+    color: #000;
+    position: absolute;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    left: 90px;
+    top: -10px;
+}
+
+.FirstIcon,
+.SecondtIcon,
+.ThirdIcon,
+.FourthIcon {
+    border: 3px solid black;
+    padding: 5px;
+    background-color: whitesmoke;
+    border-radius: 50%;
+    font-size: 35px;
+    position: absolute;
+    top: 15px;
+}
+
+.FirstIcon {
+    left: 78%;
+}
+
+.SecondtIcon {
+    left: 88%;
+}
+
+.ThirdIcon {
+    left: 88%;
+}
+
+.FourthIcon {
+    left: 93%;
+}
+
+/*Nav End*/
+
+/*Body Start*/
+.companycontanir {
+    background-color: #fff;
+    border-radius: 20px;
+    border: #000 solid 4px;
+    width: 600px;
+    height: 75px;
+    margin-left: 652px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.heading {
+    display: block;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    margin-top: 20px;
+    font-weight: bold;
+    unicode-bidi: isolate;
+    color: #3968e9;
+    text-align: center;
+}
+
+
+.contanir1 {
+    border: #000 solid 3px;
+    border-radius: 15px;
+    background-color: rgb(163, 182, 229);
+    height: auto;
+    width: 97.6%;
+    padding: 20px 20px;
+    margin-bottom: 30px;
+}
+
+.ar {
+    background-color: #fff;
+    border: #000 solid 2px;
+    border-radius: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 10px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.eng {
+    background-color: #fff;
+    border: #000 solid 2px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Media Queries for Responsive Design */
+
+@media only screen and (max-width: 1366px) {
+
+    .NavContainer {
+        height: 100px;
+        margin-top: 5px;
+        position: relative;
+        background-color: #a3b6e5;
+        border: 3px solid black;
+        width: 100%;
+    }
+
+    .logo-img {
+        height: 70px;
+        width: 70px;
+        border-radius: 50%;
+        margin-left: 10px;
+        margin-top: 8px;
+        border: #000 solid 3px;
+    }
+
+    .header-h1 {
+        font-size: 20px;
+        color: #000;
+        position: absolute;
+        font-weight: bold;
+        font-family: Arial, Helvetica, sans-serif;
+        left: 90px;
+        top: -10px;
+    }
+
+    .FourthIcon {
+        border: 3px solid black;
+        padding: 5px;
+        background-color: whitesmoke;
+        border-radius: 50%;
+        font-size: 35px;
+        position: absolute;
+        top: 15px;
+    }
+
+
+
+    .FourthIcon {
+        left: 93%;
+    }
+
+    /*Nav End*/
+
+    /*Body Start*/
+    .companycontanir {
+        background-color: #fff;
+        border-radius: 20px;
+        border: #000000 solid 4px;
+        width: 600px;
+        height: 65px;
+        margin-left: 400px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .heading {
+        display: block;
+        font-size: 20px;
+        margin-top: 15px;
+        font-weight: bold;
+        unicode-bidi: isolate;
+        color: #3968e9;
+        text-align: center;
+    }
+
+
+
+}
+
+/* Tablets (min-width: 601px and max-width: 1024px) */
+@media only screen and (min-width: 601px) and (max-width: 1024px) {
+    .NavContainer {
+        height: auto;
+        padding: 0;
+    }
+
+    .logo-img {
+        height: 60px;
+        width: 60px;
+        margin-left: -1
+    }
+
+    .header-h1 {
+        font-size: 20px;
+        left: 80px;
+        top: -15px;
+    }
+
+
+    .FirstIcon,
+    .SecondtIcon,
+    .ThirdIcon,
+    .FourthIcon {
+        font-size: 25px;
+        top: 15px;
+
+    }
+
+    .FirstIcon {
+        left: 67%;
+    }
+
+    .SecondtIcon {
+        left: 81%;
+    }
+
+    .ThirdIcon {
+        left: 82%;
+    }
+
+    .FourthIcon {
+        left: 90%;
+    }
+
+    .companycontanir {
+        width: 80%;
+        margin-left: 10%;
+    }
+
+    .heading {
+        font-size: 2em;
+    }
+
+    .uploadButton,
+    .InputsButtons {
+        margin-left: 10%;
+        width: 70%;
+    }
+
+    .TableContainer {
+        height: auto;
+        margin-top: 15px;
+    }
+
+    .table {
+        width: 100%;
+    }
+
+    .btn {
+        width: 80%;
+        margin: 15px auto;
+    }
+}
+
+
+
+/* Mobile Devices (max-width: 600px) */
+@media only screen and (max-width: 600px) {
+    .NavContainer {
+        height: auto;
+        padding: -40px;
+
+    }
+
+    .logo-img {
+        height: 50px;
+        width: 50px;
+        left: 75px;
+        margin-right: 30px;
+    }
+
+    .header-h1 {
+        font-size: 14px;
+        left: 73px;
+        top: -1px;
+    }
+
+    .FirstIcon,
+    .SecondtIcon,
+    .ThirdIcon,
+    .FourthIcon {
+        font-size: 25px;
+        top: 15px;
+    }
+
+    .FirstIcon {
+        left: 60%;
+    }
+
+    .SecondtIcon {
+        left: 73%;
+    }
+
+    .ThirdIcon {
+        left: 71%;
+    }
+
+    .FourthIcon {
+        left: 84%;
+    }
+    .contanir1{
+        border: #000 solid 3px;
+        border-radius: 15px;
+        background-color: rgb(163, 182, 229);
+        height: auto;
+        width: 91.6% !important;
+        padding: 20px 20px;
+        margin-bottom: 30px;
+    }
+    .companycontanir {
+        width: 73%;
+        height: 88px;
+        margin-left: 12%;
+    }
+
+    .heading {
+        margin-top: 25px;
+        margin-bottom: 15px;
+        font-size: 21px;
+        font-weight: bold;
+    }
+
+    .uploadButton,
+    .InputsButtons {
+        margin-left: 10%;
+        width: 80%;
+    }
+
+    .TableContainer {
+        height: auto;
+        margin-top: 10px;
+    }
+
+    .table {
+        width: 90%;
+    }
+
+    .btn {
+        width: 70%;
+        margin: 10px auto;
+    }
+}
+
+/* Mobile Devices (max-width: 600px) */
+@media only screen and (max-width: 393px) {
+    .NavContainer {
+        height: auto;
+        padding: -40px;
+
+    }
+
+    .logo-img {
+        height: 50px;
+        width: 50px;
+        left: 75px;
+        margin-right: 30px;
+    }
+
+    .header-h1 {
+        font-size: 14px;
+        left: 73px;
+        top: -1px;
+    }
+
+    .FirstIcon,
+    .SecondtIcon,
+    .ThirdIcon,
+    .FourthIcon {
+        font-size: 25px;
+        top: 15px;
+    }
+
+    .FirstIcon {
+        left: 60%;
+    }
+
+    .SecondtIcon {
+        left: 73%;
+    }
+
+    .ThirdIcon {
+        left: 71%;
+    }
+
+    .FourthIcon {
+        left: 84%;
+    }
+    .contanir1{
+        border: #000 solid 3px;
+        border-radius: 15px;
+        background-color: rgb(163, 182, 229);
+        height: auto;
+        width: 87.6% !important;
+        padding: 20px 20px;
+        margin-bottom: 30px;
+    }
+    .companycontanir {
+        width: 73%;
+        height: 55px;
+        margin-left: 12%;
+    }
+
+    .heading {
+        margin-top: 15px;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .uploadButton,
+    .InputsButtons {
+        margin-left: 10%;
+        width: 80%;
+    }
+
+    .TableContainer {
+        height: auto;
+        margin-top: 10px;
+    }
+
+    .table {
+        width: 90%;
+    }
+
+    .btn {
+        width: 70%;
+        margin: 10px auto;
+    }
+}
