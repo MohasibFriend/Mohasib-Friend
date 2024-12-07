@@ -268,7 +268,8 @@ function initializeApp() {
         console.error("User ID is missing from sessionStorage. Redirecting to Sign-in page.");
         window.location.href = "https://us-east-1fhfklvrxm.auth.us-east-1.amazoncognito.com/login/continue?client_id=6fj5ma49n4cc1b033qiqsblc2v&redirect_uri=https%3A%2F%2Fmohasibfriend.github.io%2FMohasib-Friend%2Fhome.html&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile";      }     
       displayname();
-      // Add event listener for the Subscribe button
+      updateSubscriptionUI();
+       // Add event listener for the Subscribe button
       const subscribeButton = document.getElementById("subscribeButton");
       if (subscribeButton) {
         subscribeButton.addEventListener("click", handleSubscribeClick);
