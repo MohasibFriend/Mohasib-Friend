@@ -320,42 +320,100 @@ async function uploadClientCredentials(registration_number, client_id, client_se
 
 
 // Updated Function: Fetch client credentials upon script initialization
-// Fetch client credentials and update table
 async function fetchClientCredentials() {
     showSpinner();
-    try {
-      const registrationNumber = sessionStorage.getItem("registrationNumber"); // Replace with your dynamic value
-      const apiUrl =
-        "https://ai5un58stf.execute-api.us-east-1.amazonaws.com/PROD/MFCC";
-  
-      const response = await fetch(apiUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ registration_number: registrationNumber }),
-      });
-  
-      if (response.ok) {
-        const result = await response.json();
-        const credentials = JSON.parse(result.body).credentials[0];
-  
-        if (credentials) {
-          sessionStorage.setItem("clientid", credentials.clientid);
-          sessionStorage.setItem("client_secret", credentials.client_secret);
-  
-         
+
+    // محاولة جلب الكريدينشالز من sessionStorage
+    var storedCredentials = sessionStorage.getItem('clientCredentials');
+    if (storedCredentials) {
+        try {
+            var credentials = JSON.parse(storedCredentials);
+            // التأكد من أن البيانات تحتوي على مصفوفة
+            if (credentials && Array.isArray(credentials)) {
+                credentials.forEach(function(credential) {
+                    var { registration_number, clientid, client_secret } = credential;
+                    var newRow = `
+                        <tr>
+                            <td>${registration_number}</td>
+                            <td>${clientid}</td>
+                            <td>${client_secret}</td>
+                        </tr>
+                    `;
+                    $('#dataTable tbody').append(newRow);
+                });
+                hideSpinner();
+                return; // إذا وجدت الكريدينشالز في الـ sessionStorage، ننهي التنفيذ
+            }
+        } catch (e) {
+            console.error("Error parsing stored credentials:", e);
+            // إذا حدث خطأ في التحليل، نستمر في محاولة جلب البيانات من الـ API
         }
-      } else {
-        console.error("Failed to fetch credentials:", response.status);
-      }
-    } catch (error) {
-      console.error("Error fetching credentials:", error);
-    } finally {
-      // إخفاء السبينر بعد انتهاء العملية سواء نجحت أم لا
-      hideSpinner();
     }
-  }
+
+    // إذا لم توجد الكريدينشالز في الـ sessionStorage، نقوم بمحاولة جلب registrationNumber
+    var registrationNumber = sessionStorage.getItem('registrationNumber');
+    if (!registrationNumber) {
+        console.warn("Registration number not found in session storage. Skipping fetch.");
+        hideSpinner();
+        return;
+    }
+
+    // إعداد payload لطلب الـ fetch
+    var payload = {
+        registration_number: registrationNumber,
+    };
+
+    var apiUrl = 'https://ai5un58stf.execute-api.us-east-1.amazonaws.com/PROD/MFCC';
+
+    try {
+        var response = await fetch(apiUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        });
+
+        if (response.ok) {
+            var data = await response.json();
+
+            // في حالة أن الجسم (body) مشفر مرتين، نقوم بتحليل القيمة مرة ثانية
+            if (data.body) {
+                data = JSON.parse(data.body);
+            }
+
+            // التأكد من وجود الكريدينشالز بالشكل الصحيح
+            if (data && data.credentials && Array.isArray(data.credentials)) {
+                // تخزين الكريدينشالز في sessionStorage للاستخدام لاحقاً
+                sessionStorage.setItem('clientCredentials', JSON.stringify(data.credentials));
+
+                data.credentials.forEach(function(credential) {
+                    var { registration_number, clientid, client_secret } = credential;
+                    var newRow = `
+                        <tr>
+                            <td>${registration_number}</td>
+                            <td>${clientid}</td>
+                            <td>${client_secret}</td>
+                        </tr>
+                    `;
+                    $('#dataTable tbody').append(newRow);
+                });
+            } else {
+                console.warn("No credentials found in the response.");
+            }
+        } else {
+            console.error("Failed to fetch credentials. Status Code:", response.status);
+            var errorData = await response.json();
+            console.error("Error response:", errorData);
+        }
+    } catch (error) {
+        console.error("Error during fetchClientCredentials:", error);
+    } finally {
+        hideSpinner();
+       
+    }
+}
+
 
 
 
