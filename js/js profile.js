@@ -1,740 +1,1371 @@
-// إزالة استخدام الرقم التسجيلي الثابت وجلبه من sessionStorage
-const subscriptionStatus = sessionStorage.getItem('subscriptionStatus'); // جلب حالة الاشتراك من Session Storage
-/// دالة لفحص وجود userId في sessionStorage والتصرف بناءً عليه
-function checkUserId() {
-    if (sessionStorage.getItem("userId")) {
-      // إذا وجد userId في sessionStorage يمكن إكمال الكود هنا
-    } else {
-      window.location.href = "https://us-east-1fhfklvrxm.auth.us-east-1.amazoncognito.com/login/continue?client_id=6fj5ma49n4cc1b033qiqsblc2v&redirect_uri=https%3A%2F%2Fmohasibfriend.github.io%2FMohasib-Friend%2Fhome.html&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile";
-      //handleCognitoCallback(); // مُعلق وفق طلبك دون تغيير أي شيء آخر
-    }
-}
+// Define CONFIG globally
+const CONFIG = {
+  app: {
+    // Update these URLs with your actual API endpoints
+    getRegistrationNumberApi: "https://f8nvx3oaqa.execute-api.us-east-1.amazonaws.com/prod/mfur",
+    getNotificationsApi: "https://1rw7rjdqbc.execute-api.us-east-1.amazonaws.com/prod/mfn",
+    generatePaymentLinkApi: "https://hlctujykrc.execute-api.us-east-1.amazonaws.com/prod/paymentlink",
+    checkSubscriptionStatusApi: "https://hlctujykrc.execute-api.us-east-1.amazonaws.com/prod/status",
+    // New API endpoint for creating subscription data (may be redundant based on Lambda)
+    notificationIconSelector: "#notificationicon",
+    popupMessage: "يرجى إكمال ملفك الشخصي لاستخدام المنصة.",
+    /*loginScreenUrl: "https://us-east-1fhfklvrxm.auth.us-east-1.amazoncognito.com/login/continue?client_id=6fj5ma49n4cc1b033qiqsblc2v&redirect_uri=https%3A%2F%2Fmohasibfriend.github.io%2FMohasib-Friend%2Fhome.html&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile",*/
+    userPoolId: "us-east-1_fhFkLvRxM",
+    clientId: "6fj5ma49n4cc1b033qiqsblc2v",
+  },
+};
 
-// عند تحميل الصفحة، نفذ الدالة أولاً ثم كل ثانية
-window.addEventListener('load', function() {
-    checkUserId(); // تنفيذ الدالة عند تحميل الصفحة
-    setInterval(checkUserId, 500); // إعادة تنفيذ الدالة كل 1 ثانية
-});
-
-
+// home-script.js
 document.addEventListener('DOMContentLoaded', () => {
-    // جلب الثيم من localStorage
-    const savedTheme = localStorage.getItem('theme') || 'dark';
-    document.documentElement.setAttribute('data-theme', savedTheme);
+  // الحصول على عناصر السويتش
+  const themeSwitch = document.getElementById('theme-switch');
 
-    // يمكنك إضافة المزيد من الكود هنا للتعامل مع الإشعارات إذا لزم الأمر
-});
+  if (themeSwitch) {
+      // تحميل الثيم المحفوظ من localStorage
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      themeSwitch.checked = savedTheme === 'light';
 
-// Load jQuery if it's not already loaded
-if (typeof jQuery === 'undefined') {
-    var script = document.createElement('script');
-    script.src = "https://code.jquery.com/jquery-3.6.0.min.js";
-    script.onload = function () {
-
-        // Ensure the DOM is ready and only then bind the button click event
-        $(document).ready(function () {
-            initializePage();
-        });
-    };
-    script.onerror = function () {
-        console.error("Failed to load jQuery.");
-    };
-    document.head.appendChild(script);
-} else {
-
-    // If jQuery is already loaded, bind the click event immediately
-    $(document).ready(function () {
-        initializePage();
-    });
-}
-
-/**
-* دالة لإظهار السبينر
-*/
-function showSpinner() {
-    $("#spinner").show();
-}
-
-/**
-* دالة لإخفاء السبينر
-*/
-function hideSpinner() {
-    $("#spinner").hide();
-}
-
-// Updated Function to initialize the page
-async function initializePage() {
-    addEventListeners();    // Add event listener for Save button
-    addInstructions();      // Add instructions to the screen
-    createDataTable();      // Create the table to display data
-
-    // تحقق من وجود جميع البيانات في sessionStorage
-    var registration_Number = sessionStorage.getItem('registrationNumber');
-    var clientId = sessionStorage.getItem('clientid');
-    var clientSecret = sessionStorage.getItem('client_secret');
-    var userId = sessionStorage.getItem('userId');
-    
-
-    // استدعاء الدالة لتعطيل أو تمكين الحقول بناءً على البيانات في sessionStorage
-    toggleCredentialInputs(registration_Number, clientId, clientSecret, userId);
-
-    if (registration_Number) {
-        await fetchClientCredentials(); // Await fetch and display existing credentials
-    } else {
-        // يمكنك إضافة أي كود آخر إذا لم يكن هناك رقم تسجيل
-    }
-}
-
-// دالة لتعطيل أو تمكين حقول الإدخال بناءً على وجود البيانات في sessionStorage
-function toggleCredentialInputs(registrationNumber, clientId, clientSecret, userId) {
-    if (registrationNumber && clientId && clientSecret && userId) {
-        // تعطيل الحقول
-        $('.input1').prop('disabled', true);
-        $('.input2').prop('disabled', true);
-        $('.input3').prop('disabled', true);
-        // تعطيل زر الحفظ إذا وُجدت بيانات الكريدنشيال
-        $('.saveButton').prop('disabled', true);
-    } else {
-        // تمكين الحقول
-        $('.input1').prop('disabled', false);
-        $('.input2').prop('disabled', false);
-        $('.input3').prop('disabled', false);
-        // تمكين زر الحفظ في حالة عدم وجود بيانات الكريدنشيال
-        $('.saveButton').prop('disabled', false);
-    }
-}
-
-// Function to add event listeners
-function addEventListeners() {
-    // مستمع حدث للنقر على زر الحفظ
-    $('.saveButton').on('click', saveClientCredentials);
-    
-    // مستمع حدث للضغط على مفتاح داخل حقول الإدخال
-    $('input').on('keydown', function(event) {
-        if (event.key === 'Enter') {
-            event.preventDefault(); // منع السلوك الافتراضي إذا كان داخل نموذج
-            $('.saveButton').click(); // تفعيل الزر
-        }
-    });
-}
-
-// Function to handle the save button click event
-function saveClientCredentials() {
-    // Remove focus (blur) from the saveButton
-    $('.saveButton').blur();
-
-    // Retrieve input values from the form
-    var registration_Number = $('.input1').val().trim();
-    var clientid = $('.input2').val().trim();
-    var client_secret = $('.input3').val().trim();
-
-    // Retrieve userId from session storage
-    var userId = sessionStorage.getItem('userId');
-    if (!userId) {
-        alert("User ID not found. Please log in again.");
-        return;
-    }
-
-    // Log captured values to console for debugging
-
-    // Call the API and handle success or error responses
-    uploadClientCredentials(registration_Number, clientid, client_secret, userId)
-        .then(function (result) {
-            if (result && result.success) {
-               // عرض النافذة الناجحة
-                showSuccessModal();
-                           
-                // Update table with the new data
-                updateDataTable(registration_Number, clientid, client_secret);
-            } else if (result && !result.success) {
-                alert("Error: " + result.message);  // Show error alert
-            }
-        })
-        .catch(function (error) {
-            alert("Unexpected error: " + error.message);  // Handle unexpected errors
-        })
-        .finally(function () {
-            clearInputFields();  // Clear input fields after submission
-        });
-}
-
-
-// Function to add CSS styles for the table
-function addTableStyles() {
-    var style = `
-        .credentials-table {
-            width: 100%;
-            margin-left: 700px;
-            border-collapse: collapse;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            border: 2px solid #000;
-            border-radius: 20px;
-        }
-
-        .credentials-table th,
-        .credentials-table td {
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            text-align: center;
-        }
-
-        .credentials-table th {
-            background-color: #007BFF;
-            color: #fff;
-            font-weight: bold;
-            
-        }
-
-        .credentials-table tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
-       
-
-        .credentials-table td {
-            color: #000;
-        }
-    `;
-
-    // Create a style element and append it to the head
-    var styleSheet = document.createElement("style");
-    styleSheet.type = "text/css";
-    styleSheet.innerText = style;
-    document.head.appendChild(styleSheet);
-   
-       
-    
-}
-
-// Function to create a table to display the credentials
-function createDataTable() {
-    // Check if table already exists
-    if ($('#dataTable').length > 0) {
-        return; // Prevent adding the table again
-    }
-
-    // Create table structure
-    var table = `
-        <table id="dataTable" class="credentials-table">
-            <thead>
-                <tr>
-                    <th>Registration Number</th>
-                    <th>Client ID</th>
-                    <th>Client Secret</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Data rows will be added here -->
-            </tbody>
-        </table>
-    `;
-
-    // Append the table after the form container
-    $('.form-container').after(table);
-}
-
-// Function to update the table with new data
-function updateDataTable(registration_Number, clientid, client_secret) {
-    // Clear existing table data
-    $('#dataTable tbody').empty();
-
-    // Add new data as a row in the table
-    var newRow = `
-        <tr>
-            <td>${registration_Number}</td>
-            <td>${clientid}</td>
-            <td>${client_secret}</td>
-        </tr>
-    `;
-
-    $('#dataTable tbody').append(newRow);
-}
-
-// Function to validate inputs using regex and check for empty values
-function validateInputs(registration_Number, clientid, client_secret) {
-    var minLength = 3;
-    var regexPattern = '^[a-zA-Z0-9]{' + minLength + ',}$';
-    var registrationRegex = new RegExp(regexPattern);
-    var clientidRegex = new RegExp(regexPattern);
-    var clientSecretRegex = new RegExp(regexPattern);
-
-    // Check if registration number is empty or doesn't match the regex
-    if (!registration_Number || !registration_Number.match(registrationRegex)) {
-        return { valid: false, message: 'Invalid Registration Number. It must be at least ' + minLength + ' alphanumeric characters.' };
-    }
-
-    // Check if client ID is empty or doesn't match the regex
-    if (!clientid || !clientid.match(clientidRegex)) {
-        return { valid: false, message: 'Invalid Client ID. It must be at least ' + minLength + ' alphanumeric characters.' };
-    }
-
-    // Check if client secret is empty or doesn't match the regex
-    if (!client_secret || !client_secret.match(clientSecretRegex)) {
-        return { valid: false, message: 'Invalid Client Secret. It must be at least ' + minLength + ' alphanumeric characters.' };
-    }
-
-    // If all fields are valid
-    return { valid: true };
-}
-
-// Function to upload client credentials to the API
-async function uploadClientCredentials(registration_number, client_id, client_secret, userId) {
-    showSpinner();
-    var payload = {
-        registration_number: registration_number,
-        clientid: client_id,
-        client_secret: client_secret,
-        user_id: userId
-    };
-
-    var apiUrl = 'https://ai5un58stf.execute-api.us-east-1.amazonaws.com/PROD/MFCC';
-
-    try {
-        var response = await fetch(apiUrl, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(payload)
-        });
-
-        if (response.ok) {
-            var data = await response.json();
-            alert("Success: " + data.body);
-            return { success: true, message: data.body };
-        } else {
-            var errorData = await response.json();
-            var errorMessage = errorData.message || 'Status code ' + response.status;
-            alert("Error: " + errorMessage);
-            return { success: false, message: errorMessage };
-        }
-    } catch (error) {
-        console.error("Error during API request:", error);
-        alert("Error: " + error.message);
-        return { success: false, message: error.message };
-    } finally {
-        hideSpinner();
-        
-    }
-}
-
-
-// Updated Function: Fetch client credentials upon script initialization
-// Fetch client credentials and update table
-async function fetchClientCredentials() {
-    showSpinner();
-    try {
-      const registrationNumber = sessionStorage.getItem("registrationNumber"); // Replace with your dynamic value
-      const apiUrl =
-        "https://ai5un58stf.execute-api.us-east-1.amazonaws.com/PROD/MFCC";
-  
-      const response = await fetch(apiUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ registration_number: registrationNumber }),
+      // تحديث الثيم عند تغيير السويتش
+      themeSwitch.addEventListener('change', () => {
+          const theme = themeSwitch.checked ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', theme);
+          localStorage.setItem('theme', theme);
       });
-  
-      if (response.ok) {
-        const result = await response.json();
-        const credentials = JSON.parse(result.body).credentials[0];
-  
-        if (credentials) {
-          sessionStorage.setItem("clientid", credentials.clientid);
-          sessionStorage.setItem("client_secret", credentials.client_secret);
-  
-          document.getElementById("clientid").textContent = credentials.clientid;
-          document.getElementById("client_secret").textContent =
-            credentials.client_secret;
+  }
+});;
+
+
+
+
+// Load jQuery and execute logic when DOM is ready
+if (typeof jQuery === "undefined") {
+  const script = document.createElement("script");
+  script.src = "https://code.jquery.com/jquery-3.6.0.min.js";
+  script.onload = function () {
+    initializeApp();
+    showSpinner();
+    updateSubscriptionUI();
+    handleCognitoCallback();
+    fetchClientCredentials();
+  };
+  document.head.appendChild(script);
+} else {
+  $(document).ready(function () {
+    initializeApp();
+  });
+}
+
+
+
+function initializeApp() {
+  (function () {
+    // Flag to prevent multiple initializations
+    let isDashboardInitialized = false;
+    
+    /**
+     * Function to show the spinner
+     */
+    function showSpinner() {
+      $("#spinner").show();
+    }
+
+    /**
+     * Function to hide the spinner
+     */
+    function hideSpinner() {
+      $("#spinner").hide();
+    }
+
+    /**
+     * Fetches the registration number using the user ID
+     * @param {string} userId - The user ID
+     * @returns {Promise<string|null>} - The registration number or null if not found
+     */
+    async function fetchRegistrationNumber(userId) {
+      // Show spinner before starting the fetch
+      showSpinner();
+      try {
+
+        const response = await $.ajax({
+          url: CONFIG.app.getRegistrationNumberApi,
+          method: "POST",
+          contentType: "application/json",
+          data: JSON.stringify({ userId }),
+        });
+
+
+        // Access the 'body' field first and then extract 'registrationNumber'
+        let registrationNumber;
+
+        if (response && response.body) {
+          if (typeof response.body === "string") {
+            // If 'body' is a JSON string, parse it
+            const parsedBody = JSON.parse(response.body);
+            registrationNumber = parsedBody.registrationNumber;
+          } else if (typeof response.body === "object") {
+            // If 'body' is already an object
+            registrationNumber = response.body.registrationNumber;
+          }
+        }
+
+        // As a fallback, try extracting 'registrationNumber' directly
+        if (!registrationNumber && response.registrationNumber) {
+          registrationNumber = response.registrationNumber;
+        }
+
+        if (registrationNumber) {
+          registrationNumber = registrationNumber.replace(/\.[^/.]+$/, "");
+
+          // Store 'registrationNumber' in sessionStorage
+          sessionStorage.setItem("registrationNumber", registrationNumber);
+
+          return registrationNumber;
+        } else {
+          console.warn("Registration number not found in API response:", response);
+          return null;
+        }
+      } catch (error) {
+        console.error("Error fetching registration number:", error);
+        return null;
+      } finally {
+        // Hide spinner after the operation ends
+        hideSpinner();
+      }
+    }
+
+    /**
+     * Fetches the subscription status from the API and stores it in sessionStorage
+     * @returns {Promise<string|null>} - The subscription status or null if not found
+     */
+    async function fetchSubscriptionStatus() {
+      showSpinner(); // عرض الـ spinner أثناء عملية الجلب
+      try {
+        const userId = sessionStorage.getItem("userId");
+        const accessToken = sessionStorage.getItem("accessToken");
+        const username = sessionStorage.getItem("username");
+        const name = sessionStorage.getItem("name");
+        const email = sessionStorage.getItem("email");
+        const phone_number = sessionStorage.getItem("phone_number");
+
+        if (!userId) {
+          console.error("User ID not found in sessionStorage.");
+          navigateTo(CONFIG.app.loginScreenUrl);
+          return null;
+        }
+
+        // Construct userInfo from sessionStorage
+        const userInfo = {
+          username: username || "",
+          name: name || "",
+          email: email || "",
+          phone_number: phone_number || "",
+        };
+
+
+        const payload = {
+          userId,
+          userInfo,
+        };
+
+        const response = await $.ajax({
+          url: CONFIG.app.checkSubscriptionStatusApi,
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${accessToken}` // Assuming authorization is needed
+          },
+          data: JSON.stringify(payload),
+        });
+
+
+        let subscriptionStatus;
+
+        if (response && response.body) {
+          if (typeof response.body === "string") {
+            const parsedBody = JSON.parse(response.body);
+            subscriptionStatus = parsedBody.status; // Adjusted based on Lambda's response
+          } else if (typeof response.body === "object") {
+            subscriptionStatus = response.body.status;
+          }
+        }
+
+        // As a fallback, try extracting 'status' directly
+        if (!subscriptionStatus && response.status) {
+          subscriptionStatus = response.status;
+        }
+
+        if (subscriptionStatus) {
+          sessionStorage.setItem("subscriptionStatus", subscriptionStatus);
+          return subscriptionStatus;
+        } else {
+          console.warn("Subscription status not found in API response:", response);
+          return null;
+        }
+      } catch (error) {
+        console.error("Error fetching subscription status:", error);
+        if (error.status === 500) {
+          // Assuming error 500 indicates user not found, handled by Lambda
+          console.warn("User not found. Creating new subscription data.");
+          // After creating, try fetching the subscription status again
+          return await fetchSubscriptionStatus();
+        } else if (error.responseJSON && error.responseJSON.message) {
+          alert(`خطأ في جلب حالة الاشتراك: ${error.responseJSON.message}`);
+        } else {
+          
+          alert("Network Error");
+        }
+        return null;
+      } finally {
+        hideSpinner(); // إخفاء الـ spinner بعد انتهاء العملية
+      }
+    }
+
+
+      
+    /**
+     * Initializes the dashboard by fetching the registration number, subscription status, and storing them in sessionStorage
+     */
+    async function initializeDashboard() {
+      if (isDashboardInitialized) {
+        return;
+      }
+
+      isDashboardInitialized = true;
+
+      try {
+        const userId = sessionStorage.getItem("userId");
+
+        /*if (!userId) {
+          console.error("User ID not found in sessionStorage. Redirecting to login...");
+          navigateTo(CONFIG.app.loginScreenUrl);
+          return;
+        }*/
+
+
+        // Fetch registration number and subscription status concurrently
+        const [registrationNumber, subscriptionStatus] = await Promise.all([
+          fetchRegistrationNumber(userId),
+          fetchSubscriptionStatus()
+        ]);
+
+        if (!registrationNumber) {
+          console.warn("Registration number is missing. Redirecting to profile page.");
+          await showPopup(CONFIG.app.popupMessage);
+          return;
+        }
+
+
+        if (!subscriptionStatus) {
+          console.warn("Subscription status is missing.");
+          // Optional: Add additional logic if needed
+        }
+
+        // Fetch notifications using the registration number
+        const notifications = await fetchNotifications(registrationNumber);
+        updateNotificationIcon(notifications);
+
+        // Update subscription UI based on status
+        updateSubscriptionUI();
+        
+        // Display the user's name in the dashboard
+        displayname();
+      } catch (error) {
+        console.error("Error during dashboard initialization:", error);
+      }
+    }
+
+    $(document).ready(async function () {
+      //test here
+
+      // استدعاء الدالة handleCognitoCallback وانتظار اكتمالها
+      await handleCognitoCallback();
+      
+      // بعد انتهاء handleCognitoCallback، التحقق من وجود userId في sessionStorage
+      if (sessionStorage.getItem("userId")) {
+        initializeDashboard();
+      } else {
+        console.error("User ID is missing from sessionStorage. Redirecting to Sign-in page.");
+        window.location.href = "https://us-east-1fhfklvrxm.auth.us-east-1.amazoncognito.com/login/continue?client_id=6fj5ma49n4cc1b033qiqsblc2v&redirect_uri=https%3A%2F%2Fmohasibfriend.github.io%2FMohasib-Friend%2Fhome.html&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile";  
+            }     
+      displayname();
+      updateSubscriptionUI();
+      // Add event listener for the Subscribe button
+      const subscribeButton = document.getElementById("subscribeButton");
+      if (subscribeButton) {
+        subscribeButton.addEventListener("click", handleSubscribeClick);
+      }
+    });
+
+    /**
+     * Handles the Cognito authentication callback.
+     */
+    async function handleCognitoCallback() {
+      const queryParams = getQueryParams();
+      const authCode = queryParams.code;
+
+      if (authCode) {
+        try {
+          const clientId = CONFIG.app.clientId;
+          const redirectUri = "https://mohasibfriend.github.io/Mohasib-Friend/home.html";
+
+          // Fetch access token using the authorization code
+          const tokenResponse = await fetch(
+            "https://us-east-1fhfklvrxm.auth.us-east-1.amazoncognito.com/oauth2/token",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+              },
+              body: `grant_type=authorization_code&client_id=${clientId}&code=${authCode}&redirect_uri=${encodeURIComponent(
+                redirectUri
+              )}`,
+            }
+          );
+
+          if (!tokenResponse.ok) {
+            throw new Error("Failed to fetch access token.");
+          }
+
+          const tokenData = await tokenResponse.json();
+          const accessToken = tokenData.access_token;
+
+          // Fetch user information using the access token
+          const userInfoResponse = await fetch(
+            "https://us-east-1fhfklvrxm.auth.us-east-1.amazoncognito.com/oauth2/userInfo",
+            {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            }
+          );
+
+          if (!userInfoResponse.ok) {
+            throw new Error("Failed to fetch user information.");
+          }
+
+          const userInfo = await userInfoResponse.json();
+          const userId = userInfo.sub;
+
+          // Get the username from userInfo
+          const username = userInfo.email || userInfo.username;
+
+          // Store userId and username in sessionStorage
+          if (userId) {
+            sessionStorage.setItem("userId", userId);
+          }
+
+          if (userInfo.username) {
+            sessionStorage.setItem("username", userInfo.username);
+          }
+          // Store name, email, phone_number, etc.
+          if (userInfo.name) {
+            sessionStorage.setItem("name", userInfo.name);
+            
+          }
+          
+          if (userInfo.email) {
+            sessionStorage.setItem("email", userInfo.email);
+          }
+
+          if (userInfo.phone_number) {
+            sessionStorage.setItem("phone_number", userInfo.phone_number);
+          }
+
+          // Store the accessToken in sessionStorage
+          sessionStorage.setItem("accessToken", accessToken);
+
+          // Initialize the dashboard
+          await initializeDashboard();
+        } catch (error) {
+          console.error("Error handling Cognito callback:", error);
+        }
+      }
+    }
+
+    /**
+     * Display the user's name in the dashboard
+     */
+    function isArabic(text) {
+      const arabicPattern = /[\u0600-\u06FF]/;
+      return arabicPattern.test(text);
+    }
+
+    function displayname() {
+      const name = sessionStorage.getItem("name");
+      const nameDisplay = document.getElementById("nameDisplay");
+      if (name) {
+        
+        if (nameDisplay) {
+          if (isArabic(name)) {
+            nameDisplay.textContent = `أهلاً شركة ${name}`;
+          } else {
+            nameDisplay.textContent = `Hi company ${name}`;
+          }
+        } else {
+          console.warn("Element with ID 'nameDisplay' not found.");
         }
       } else {
-        console.error("Failed to fetch credentials:", response.status);
+        console.warn("Name not found in sessionStorage.");
       }
-    } catch (error) {
-      console.error("Error fetching credentials:", error);
-    } finally {
-      // إخفاء السبينر بعد انتهاء العملية سواء نجحت أم لا
-      hideSpinner();
-    }
-  }
-
-
-
-// Function to clear input fields after submission
-function clearInputFields() {
-    $('.input1').val('');  // Clear registration number input
-    $('.input2').val('');  // Clear client id input
-    $('.input3').val('');  // Clear client secret input
-}
-
-// Function to add the instructions in both Arabic and English
-function addInstructions() {
-    var centerBox = $('.form-container');  // Assuming this is the container for the form
-
-    if ($('.instruction-container').length > 0) {
-        return; // Prevent adding instructions again
     }
 
-    // Create container for English instructions
-    var englishContainer = $('<div></div>').addClass('instruction-container-english-instructions');
+    // Utility function to parse query parameters from the URL
+    function getQueryParams() {
+      const params = {};
+      const urlParams = new URLSearchParams(window.location.search);
+      urlParams.forEach((value, key) => {
+        params[key] = value;
+      });
+      return params;
+    }
 
-    // English text content
-    englishContainer.html(`
-        <p>Page Guide</p>
-        <p>This page is dedicated to importing invoices directly from the Electronic Invoice Portal, </p>
-        <p> helping you easily prepare the company's VAT declarations with the added feature of alerts in case of any invoice errors. All you need to enter is:</p>
-        <p>1-The company's tax registration number.</p>
-        <p>2-ERP system credentials (Client ID and Client Secret).</p>
+    /**
+     * Utility function to show a popup message to the user
+     * @param {string} message - The message to display
+     * @returns {Promise} - Resolves when the user closes the popup
+     */
+    function showPopup(message) {
+      return new Promise((resolve) => {
+        // Remove existing modal if present
+        if ($("#custom-modal").length) {
+          $("#custom-modal").remove();
+        }
+
+        // Create a simple modal
+        const modal = $("<div>", { id: "custom-modal" }).css({
+          position: "fixed",
+          top: "0",
+          left: "0",
+          width: "100%",
+          height: "100%",
+          backgroundColor: "rgba(0,0,0,0.5)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          zIndex: "1000",
+        });
+
+        const modalContent = $("<div>").css({
+          backgroundColor: "#fff",
+          padding: "20px",
+          borderRadius: "5px",
+          textAlign: "center",
+          maxWidth: "400px",
+          width: "80%",
+        });
+
+        const messagePara = $("<p>").text(message);
+
+        const okButton = $("<button>").text("OK").css({
+          marginTop: "15px",
+          padding: "10px 20px",
+          border: "none",
+          backgroundColor: "#007BFF",
+          color: "#fff",
+          borderRadius: "5px",
+          cursor: "pointer",
+        });
+
+        okButton.on("click", () => {
+          modal.remove();
+          resolve();
+        });
+
+        modalContent.append(messagePara, okButton);
+        modal.append(modalContent);
+        $("body").append(modal);
+      });
+    }
+
+    /**
+     * Navigates the user to a specified URL
+     * @param {string} url - The URL to navigate to
+     */
+    function navigateTo(url) {
+      window.location.href = url;
+    }
+
+    /**
+     * Makes an API call using jQuery AJAX
+     * @param {string} url - The API endpoint
+     * @param {object} options - AJAX options (method, headers, data, etc.)
+     * @returns {Promise<object>} - The JSON response
+     */
+    function apiCall(url, options) {
+      return $.ajax({
+        url: url,
+        method: options.method || "POST",
+        headers: options.headers || {},
+        data: options.data || {},
+        contentType: options.contentType || "application/json",
+        dataType: "json",
+      })
+        .done((data) => {
+          return data;
+        })
+        .fail((jqXHR, textStatus, errorThrown) => {
+          console.error(`API call failed: ${jqXHR.status} - ${textStatus} - ${errorThrown}`);
+          throw new Error(
+            `API call failed with status ${jqXHR.status}, status text: ${textStatus}, error: ${errorThrown}`
+          );
+        });
+    }
+
+    /**
+     * Fetches notifications using the registration number
+     * @param {string} registrationNumber - The registration number
+     * @returns {Promise<Array>} - Array of notifications
+     */
+    async function fetchNotifications(registrationNumber) {
+      try {
+        const data = { registrationNumber };
+        const response = await apiCall(CONFIG.app.getNotificationsApi, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: JSON.stringify(data),
+        });
+
+        let notifications = [];
+        if (response.body) {
+          try {
+            const parsedBody = JSON.parse(response.body);
+            notifications = parsedBody.notifications || [];
+          } catch (error) {
+            console.error("Error parsing notifications body:", error);
+          }
+        } else {
+          notifications = response.notifications || [];
+        }
+
+        return notifications;
+      } catch (error) {
+        console.error("Error fetching notifications:", error);
+        throw error;
+      }
+    }
+
+    /**
+     * Updates the notification icon based on the notifications
+     * @param {Array} notifications - Array of notifications
+     */
+    function updateNotificationIcon(notifications) {
+      const $notificationIcon = $(CONFIG.app.notificationIconSelector);
+
+      if ($notificationIcon.length === 0) {
+        console.warn("Notification icon element not found in NavBar.");
+        return;
+      }
+
+      const unreadNotifications = notifications.filter((notification) => !notification.read);
+      const unreadCount = unreadNotifications.length;
+
+      let $badge = $notificationIcon.find(".badge");
+      if (unreadCount > 0) {
+        if ($badge.length === 0) {
+          $badge = $("<span>", { class: "badge" }).css({
+            position: "absolute",
+            top: "0",
+            right: "0",
+            backgroundColor: "red",
+            color: "white",
+            borderRadius: "50%",
+            padding: "5px",
+            fontSize: "12px",
+          });
+          $notificationIcon.css("position", "relative");
+          $notificationIcon.append($badge);
+        }
+        $badge.text(unreadCount).show();
+      } else if ($badge.length > 0) {
+        $badge.hide();
+      }
+
+      // Attach click event to show/hide notifications popup
+      $notificationIcon.off("click").on("click", () => {
+        toggleNotificationPopup(notifications);
+      });
+
+      // Hide the popup if user navigates away
+      $(window).on("beforeunload", () => {
+        $("#notification-popup").remove();
+      });
+    }
+
+    function toggleNotificationPopup(notifications) {
+      const notificationPopup = document.getElementById("notification-popup");
+      const overlayId = "notification-overlay";
+
+      if (notificationPopup) {
+        // Hide the notification window
+        notificationPopup.remove();
+
+        // Remove overlay if present
+        const existingOverlay = document.getElementById(overlayId);
+        if (existingOverlay) {
+          existingOverlay.remove();
+        }
+      } else {
+        const notificationIcon = document.querySelector(CONFIG.app.notificationIconSelector);
+
+        if (!notificationIcon) {
+          console.error("Notification icon element not found using selector:", CONFIG.app.notificationIconSelector);
+          return;
+        }
+
+        // Create overlay
+        const overlay = document.createElement("div");
+        overlay.id = overlayId;
+        overlay.style.position = "fixed";
+        overlay.style.top = "0";
+        overlay.style.left = "0";
+        overlay.style.width = "100%";
+        overlay.style.height = "100%";
+        overlay.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+        overlay.style.zIndex = "1000"; // Should be less than the popup zIndex
+        document.body.appendChild(overlay);
+
+        // Add event listener to close popup when overlay is clicked
+        overlay.addEventListener("click", function () {
+          toggleNotificationPopup([]); // Pass an empty array to close the popup and overlay
+        });
+
+        // Create notification popup
+        const popup = document.createElement("div");
+        popup.id = "notification-popup";
+        popup.style.position = "absolute";
+        popup.style.top = "110%";
+        popup.style.right = "0";
+        popup.style.fontFamily = "Arial, Helvetica, sans-serif";
+        popup.style.backgroundColor = "#fff";
+        popup.style.border = "3px solid #000";
+        popup.style.borderRadius = "20px";
+        popup.style.boxShadow = "0 2px 10px rgba(0,0,0,0.1)";
+        popup.style.width = "500px";
+        popup.style.maxHeight = "300px";
+        popup.style.overflowY = "auto";
+        popup.style.overflowX = "hidden";
+        popup.style.zIndex = "1001";
+        popup.style.padding = "10px";
+        popup.style.color = "#000";
+
+        // Apply media queries
+        if (window.matchMedia("(max-width: 768px)").matches) {
+          popup.style.right = "-50px";
+          popup.style.top = "120%";
+          popup.style.width = "200px";
+          popup.style.overflowX = "hidden";
+          popup.style.fontSize = "18px";
+          popup.style.padding = "0px";
+        } else if (window.matchMedia("(min-width: 769px) and (max-width: 1200px)").matches) {
+          popup.style.right = "-50px";
+          popup.style.top = "120%";
+          popup.style.width = "200px";
+          popup.style.overflowX = "hidden";
+          popup.style.fontSize = "18px";
+          popup.style.padding = "0px";
+        }
+
+        if (notifications.length === 0) {
+          popup.textContent = "لا توجد إشعارات جديدة.";
+        } else {
+          notifications.forEach(function (notification) {
+            const notificationItem = document.createElement("div");
+            notificationItem.style.padding = "10px";
+            notificationItem.style.borderBottom = "1px solid #000";
+            notificationItem.textContent = notification.message || "إشعار جديد"; // Adjust based on notification structure
+            popup.appendChild(notificationItem);
+          });
+        }
+
+        notificationIcon.appendChild(popup);
+      }
+    }
+
+
+
+    async function handleSubscribeClick() {
+        const subscribeButton = document.getElementById("subscribeButton");
+        showSpinner();
+        try {
+            // تعطيل الزر لمنع النقرات المتعددة
+            subscribeButton.disabled = true;
+    
+            // استرجاع تفاصيل المستخدم من sessionStorage
+            const customerProfileId = sessionStorage.getItem("userId");
+    
+            if (!customerProfileId) {
+                alert("معلومات المستخدم مفقودة. يرجى تسجيل الدخول مرة أخرى.");
+                navigateTo(CONFIG.app.loginScreenUrl);
+                return;
+            }
+    
+    
+            const payload = {
+                customerProfileId, // استخدام customerProfileId بدل userId
+                returnUrl: "https://mohasibfriend.github.io/Mohasib-Friend/home.html", // تأكد من تحديث هذا الرابط حسب الحاجة
+            };
+    
+            // استدعاء API لإنشاء رابط الدفع
+            const generatePaymentResponse = await fetch(CONFIG.app.generatePaymentLinkApi, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(payload),
+            });
+    
+            if (!generatePaymentResponse.ok) {
+                const errorData = await generatePaymentResponse.json();
+                throw new Error(errorData.message || "فشل في إنشاء رابط الدفع. يرجى المحاولة مرة أخرى.");
+            }
+    
+            // Parse the main response
+            const responseJson = await generatePaymentResponse.json();
+    
+            // Parse the `body` field, which contains the actual data as a JSON string
+            const paymentData = JSON.parse(responseJson.body);
+    
+            // Access data directly
+            const paymentLink = paymentData.paymentLink;
+            const userData = paymentData.userData;
+    
+    
+            if (!paymentLink) {
+                throw new Error("لم يتم استلام رابط الدفع. يرجى الاتصال بالدعم.");
+            }
+    
+            // إعادة توجيه المستخدم إلى صفحة الدفع
+            window.location.href = paymentLink;
+        } catch (error) {
+            console.error("Error generating payment link:", error);
+            alert("حدث خطأ أثناء إنشاء رابط الدفع.");
+        } finally {
+            hideSpinner()
+            // إعادة تمكين الزر بغض النظر عن النتيجة
+            subscribeButton.disabled = false;
+        }
+    }
+    
+    // Rest of your code...
+
+    // Load Amazon Cognito Identity SDK if not already loaded
+    function loadCognitoSDK(callback) {
+      if (typeof AmazonCognitoIdentity === "undefined") {
+        const script = document.createElement("script");
+        script.src = "https://unpkg.com/amazon-cognito-identity-js@5.2.4/dist/amazon-cognito-identity.min.js";
+
+        script.onload = function () {
+          callback();
+        };
+        script.onerror = function () {
+          console.error("Failed to load Amazon Cognito Identity SDK.");
+        };
+        document.head.appendChild(script);
+      } else {
+        callback();
+      }
+    }
+
+    // Event Listener for Delete Account Button
+    document.addEventListener("DOMContentLoaded", function () {
+      const deleteAccountButton = document.getElementById("deleteAccount");
+
+
        
-    `);
-    
 
-    // Create container for Arabic instructions
-    var arabicContainer = $('<div></div>').addClass('instruction-container-arabic-instructions');
-
-    // Arabic text content
-    arabicContainer.html(`
-        <p>دليل الصفحة</p>
-        <p>في هذه الصفحة، مخصصة لاستيراد الفواتير مباشرتاً من موقع الفاتورة الإلكترونية، مما يساعدك في </p>
-        <p>:عداد إقرارات القيمة المضافة للشركة بكل سهولة مع ميزة و جود تنبيهات إذا وجد اي خطأ في الفاتورة. كل ما تحتاج إلى إدخاله هو</p>
-        <p>.رقم التسجيل الضريبي الخاص بالشركة</p>
-        <p>ERPبيانات نظام الـ </p>
-        <p>.(معرّف العميل Client ID و Client Secret  المفتاح السري)</p>
-    `);
-
-    // Insert both containers into the DOM positioned near the central box
-    englishContainer.insertBefore(centerBox);  // Insert English text before the center box
-    
-    arabicContainer.insertBefore(centerBox);    // Append Arabic text after the center box
-}
-
-
-/**
- * عرض نافذة النجاح بعد حذف الحساب
- */
-function showSuccessModal() {
-    // إزالة أي نافذة منبثقة حالية
-    const existingModal = document.getElementById("successModal");
-    if (existingModal) {
-      existingModal.remove();
-    }
-  
-    // إنشاء طبقة تغطية النافذة المنبثقة
-    const modalOverlay = document.createElement("div");
-    modalOverlay.id = "successModal";
-    modalOverlay.style.position = "fixed";
-    modalOverlay.style.top = "0";
-    modalOverlay.style.left = "0";
-    modalOverlay.style.width = "100%";
-    modalOverlay.style.height = "100%";
-    modalOverlay.style.backgroundColor = "rgba(0,0,0,0.5)";
-    modalOverlay.style.display = "flex";
-    modalOverlay.style.alignItems = "center";
-    modalOverlay.style.justifyContent = "center";
-    modalOverlay.style.zIndex = "1000";
-  
-    // إنشاء محتوى النافذة المنبثقة
-    const modalContent = document.createElement("div");
-    modalContent.style.backgroundColor = "#fff";
-    modalContent.style.padding = "20px";
-    modalContent.style.borderRadius = "20px";
-    modalContent.style.textAlign = "center";
-    modalContent.style.maxWidth = "350px";
-    modalContent.style.width = "80%";
-    modalContent.style.border = "rgb(131, 155, 218) 16px solid";
-  
-    // إنشاء أيقونة العلامة الخضراء
-    const checkmark = document.createElement("div");
-    checkmark.innerHTML = "&#10004;"; // Unicode for checkmark
-    checkmark.style.fontSize = "50px";
-    checkmark.style.color = "#28a745"; // green color
-    checkmark.style.marginBottom = "20px";
-  
-    // إنشاء الرسالة
-    const messagePara = document.createElement("p");
-    messagePara.innerHTML = ".تم حفظ بيناتك بنجاح";
-    messagePara.style.fontSize="18px";
-    messagePara.style.fontWeight="bold";
-  
-    // إنشاء زر OK
-    const okButton = document.createElement("button");
-    okButton.textContent = "موافق";
-    okButton.id = "okButton";
-    okButton.style.marginTop = "20px";
-    okButton.style.padding = "10px 20px";
-    okButton.style.border = "none";
-    okButton.style.backgroundColor = "#5581ed"; // primary color
-    okButton.style.color = "#fff";
-    okButton.style.borderRadius = "5px";
-    okButton.style.cursor = "pointer";
-    okButton.style.fontSize = "14px";
-    okButton.style.fontWeight = "bold";
-    okButton.style.transition="0.3s";
-
-    okButton.addEventListener("mouseover", function () {
-      okButton.style.backgroundColor = "rgb(50, 77, 145)"; // تغيير لون الخلفية عند التمرير
-      okButton.style.color = "white"; // تغيير لون النص عند التمرير
-      okButton.style.transform = "scale(1.05)"; // تأثير تكبير خفيف
-      okButton.style.boxShadow = "0px 4px 6px rgba(0, 0, 0, 0.5)"; // إضافة ظل
+      if (deleteAccountButton) {
+        deleteAccountButton.addEventListener("click", function (event) {
+          event.preventDefault();
+          showDeleteAccountConfirmation();
+        });
+      }
     });
-  
-    okButton.addEventListener("mouseout", function () {
-      okButton.style.backgroundColor = "#5581ed"; // اللون الأصلي
-      okButton.style.color = "#fff"; // اللون الأصلي للنص
-      okButton.style.transform = "scale(1)"; // إعادة الحجم الأصلي
-      okButton.style.boxShadow = "none"; // إزالة الظل
-    });
-  
-    // إضافة العناصر إلى محتوى النافذة المنبثقة
-    modalContent.appendChild(checkmark);
-    modalContent.appendChild(messagePara);
-    modalContent.appendChild(okButton);
-    modalOverlay.appendChild(modalContent);
-    document.body.appendChild(modalOverlay);
-  
-    // إضافة مستمع للزر OK
-    okButton.addEventListener("click", function () {
-      // مسح sessionStorage
-      window.location.href = 'home.html';
-      
-    });
-  
-    // إضافة مستمع للطبقة لتغلق النافذة عند النقر خارج المحتوى
-    modalOverlay.addEventListener("click", function (event) {
-        if (event.target === modalOverlay) {
-            window.location.href = 'home.html';
+
+    // Function to show delete account confirmation modal
+    function showDeleteAccountConfirmation() {
+      // Remove existing modal if present
+      const existingModal = document.getElementById("deleteAccountModal");
+      if (existingModal) {
+        existingModal.remove();
+      }
+
+      // Create modal overlay
+      const modalOverlay = document.createElement("div");
+      modalOverlay.id = "deleteAccountModal";
+      modalOverlay.style.position = "fixed";
+      modalOverlay.style.top = "0";
+      modalOverlay.style.left = "0";
+      modalOverlay.style.width = "100%";
+      modalOverlay.style.height = "100%";
+      modalOverlay.style.backgroundColor = "rgba(0,0,0,0.5)";
+      modalOverlay.style.display = "flex";
+      modalOverlay.style.alignItems = "center";
+      modalOverlay.style.justifyContent = "center";
+      modalOverlay.style.zIndex = "1000";
+
+      // Create modal content
+      const modalContent = document.createElement("div");
+      modalContent.style.backgroundColor = "#fff";
+      modalContent.style.padding = "20px";
+      modalContent.style.borderRadius = "5px";
+      modalContent.style.textAlign = "center";
+      modalContent.style.maxWidth = "400px";
+      modalContent.style.width = "80%";
+
+      // Create message
+      const messagePara = document.createElement("p");
+      messagePara.textContent = "هل أنت متأكد أنك تريد حذف حسابك؟ سيتم حذف جميع بياناتك بشكل دائم.";
+
+      // Create buttons
+      const confirmButton = document.createElement("button");
+      confirmButton.textContent = "تأكيد حذف الحساب";
+      confirmButton.style.marginTop = "15px";
+      confirmButton.style.padding = "10px 20px";
+      confirmButton.style.border = "none";
+      confirmButton.style.backgroundColor = "#dc3545"; // Danger color
+      confirmButton.style.color = "#fff";
+      confirmButton.style.borderRadius = "5px";
+      confirmButton.style.cursor = "pointer";
+      confirmButton.style.marginRight = "10px";
+
+      const cancelButton = document.createElement("button");
+      cancelButton.textContent = "إلغاء";
+      cancelButton.style.marginTop = "15px";
+      cancelButton.style.padding = "10px 20px";
+      cancelButton.style.border = "none";
+      cancelButton.style.backgroundColor = "#6c757d"; // Secondary color
+      cancelButton.style.color = "#fff";
+      cancelButton.style.borderRadius = "5px";
+      cancelButton.style.cursor = "pointer";
+
+      // Append elements
+      modalContent.appendChild(messagePara);
+      modalContent.appendChild(confirmButton);
+      modalContent.appendChild(cancelButton);
+      modalOverlay.appendChild(modalContent);
+      document.body.appendChild(modalOverlay);
+
+      // Event listeners for buttons
+      confirmButton.addEventListener("click", function () {
+        modalOverlay.remove();
+        loadCognitoSDK(function () {
+          showPasswordConfirmationModal();
+        });
+      });
+
+      cancelButton.addEventListener("click", function () {
+        modalOverlay.remove();
+      });
+
+      // Close modal when clicking outside
+      modalOverlay.addEventListener("click", function (event) {
+        if (event.target == modalOverlay) {
+          modalOverlay.remove();
         }
-    });
-}
-
-
-function showupdateSuccessModal() {
-    // إزالة أي نافذة منبثقة حالية
-    const existingModal = document.getElementById("successModal");
-    if (existingModal) {
-      existingModal.remove();
+      });
     }
-  
-    // إنشاء طبقة تغطية النافذة المنبثقة
-    const modalOverlay = document.createElement("div");
-    modalOverlay.id = "successModal";
-    modalOverlay.style.position = "fixed";
-    modalOverlay.style.top = "0";
-    modalOverlay.style.left = "0";
-    modalOverlay.style.width = "100%";
-    modalOverlay.style.height = "100%";
-    modalOverlay.style.backgroundColor = "rgba(0,0,0,0.5)";
-    modalOverlay.style.display = "flex";
-    modalOverlay.style.alignItems = "center";
-    modalOverlay.style.justifyContent = "center";
-    modalOverlay.style.zIndex = "1000";
-  
-    // إنشاء محتوى النافذة المنبثقة
-    const modalContent = document.createElement("div");
-    modalContent.style.backgroundColor = "#fff";
-    modalContent.style.padding = "20px";
-    modalContent.style.borderRadius = "20px";
-    modalContent.style.textAlign = "center";
-    modalContent.style.maxWidth = "350px";
-    modalContent.style.width = "80%";
-    modalContent.style.border = "rgb(131, 155, 218) 16px solid";
-  
-    // إنشاء أيقونة العلامة الخضراء
-    const checkmark = document.createElement("div");
-    checkmark.innerHTML = "&#10004;"; // Unicode for checkmark
-    checkmark.style.fontSize = "50px";
-    checkmark.style.color = "#28a745"; // green color
-    checkmark.style.marginBottom = "20px";
-  
-    // إنشاء الرسالة
-    const messagePara = document.createElement("p");
-    messagePara.innerHTML = "تم تحديث بيناتك بنجاح";
-    messagePara.style.fontSize="18px";
-    messagePara.style.fontWeight="bold";
-  
-    // إنشاء زر OK
-    const okButton = document.createElement("button");
-    okButton.textContent = "موافق";
-    okButton.id = "okButton";
-    okButton.style.marginTop = "20px";
-    okButton.style.padding = "10px 20px";
-    okButton.style.border = "none";
-    okButton.style.backgroundColor = "#5581ed"; // primary color
-    okButton.style.color = "#fff";
-    okButton.style.borderRadius = "5px";
-    okButton.style.cursor = "pointer";
-    okButton.style.fontSize = "14px";
-    okButton.style.fontWeight = "bold";
-    okButton.style.transition="0.3s";
 
-    okButton.addEventListener("mouseover", function () {
-      okButton.style.backgroundColor = "rgb(50, 77, 145)"; // تغيير لون الخلفية عند التمرير
-      okButton.style.color = "white"; // تغيير لون النص عند التمرير
-      okButton.style.transform = "scale(1.05)"; // تأثير تكبير خفيف
-      okButton.style.boxShadow = "0px 4px 6px rgba(0, 0, 0, 0.5)"; // إضافة ظل
-    });
-  
-    okButton.addEventListener("mouseout", function () {
-      okButton.style.backgroundColor = "#5581ed"; // اللون الأصلي
-      okButton.style.color = "#fff"; // اللون الأصلي للنص
-      okButton.style.transform = "scale(1)"; // إعادة الحجم الأصلي
-      okButton.style.boxShadow = "none"; // إزالة الظل
-    });
-  
-    // إضافة العناصر إلى محتوى النافذة المنبثقة
-    modalContent.appendChild(checkmark);
-    modalContent.appendChild(messagePara);
-    modalContent.appendChild(okButton);
-    modalOverlay.appendChild(modalContent);
-    document.body.appendChild(modalOverlay);
-  
-   // إضافة مستمع للزر OK
-    okButton.addEventListener("click", function () {
-        // إعادة تحميل الصفحة
-        location.reload();
-    });
+    // Function to show password confirmation modal
+    function showPasswordConfirmationModal() {
+      // Remove existing modal if present
+      const existingModal = document.getElementById("passwordConfirmationModal");
+      if (existingModal) {
+        existingModal.remove();
+      }
 
-  
-    // إضافة مستمع للطبقة لتغلق النافذة عند النقر خارج المحتوى
-    modalOverlay.addEventListener("click", function (event) {
-        if (event.target === modalOverlay) {
-            location.reload();
+      // Create modal overlay
+      const modalOverlay = document.createElement("div");
+      modalOverlay.id = "passwordConfirmationModal";
+      modalOverlay.style.position = "fixed";
+      modalOverlay.style.top = "0";
+      modalOverlay.style.left = "0";
+      modalOverlay.style.width = "100%";
+      modalOverlay.style.height = "100%";
+      modalOverlay.style.backgroundColor = "rgba(0,0,0,0.5)";
+      modalOverlay.style.display = "flex";
+      modalOverlay.style.alignItems = "center";
+      modalOverlay.style.justifyContent = "center";
+      modalOverlay.style.zIndex = "1000";
+
+      // Create modal content
+      const modalContent = document.createElement("div");
+      modalContent.style.backgroundColor = "#fff";
+      modalContent.style.padding = "20px";
+      modalContent.style.borderRadius = "5px";
+      modalContent.style.textAlign = "center";
+      modalContent.style.maxWidth = "400px";
+      modalContent.style.width = "80%";
+
+      // Create message
+      const messagePara = document.createElement("p");
+      messagePara.textContent = "يرجى إدخال كلمة المرور الخاصة بك لتأكيد حذف الحساب.";
+
+      // Create password input
+      const passwordInput = document.createElement("input");
+      passwordInput.type = "password";
+      passwordInput.placeholder = "كلمة المرور";
+      passwordInput.style.width = "100%";
+      passwordInput.style.padding = "10px";
+      passwordInput.style.marginTop = "10px";
+      passwordInput.style.border = "1px solid #ced4da";
+      passwordInput.style.borderRadius = "4px";
+
+      // Create buttons
+      const confirmButton = document.createElement("button");
+      confirmButton.textContent = "تأكيد حذف الحساب";
+      confirmButton.style.marginTop = "15px";
+      confirmButton.style.padding = "10px 20px";
+      confirmButton.style.border = "none";
+      confirmButton.style.backgroundColor = "#dc3545"; // Danger color
+      confirmButton.style.color = "#fff";
+      confirmButton.style.borderRadius = "5px";
+      confirmButton.style.cursor = "pointer";
+      confirmButton.style.marginRight = "10px";
+
+      const cancelButton = document.createElement("button");
+      cancelButton.textContent = "إلغاء";
+      cancelButton.style.marginTop = "15px";
+      cancelButton.style.padding = "10px 20px";
+      cancelButton.style.border = "none";
+      cancelButton.style.backgroundColor = "#6c757d"; // Secondary color
+      cancelButton.style.color = "#fff";
+      cancelButton.style.borderRadius = "5px";
+      cancelButton.style.cursor = "pointer";
+
+      // Append elements
+      modalContent.appendChild(messagePara);
+      modalContent.appendChild(passwordInput);
+      modalContent.appendChild(confirmButton);
+      modalContent.appendChild(cancelButton);
+      modalOverlay.appendChild(modalContent);
+      document.body.appendChild(modalOverlay);
+
+      // Event listeners for buttons
+      confirmButton.addEventListener("click", function () {
+        const password = passwordInput.value.trim();
+        if (password) {
+          modalOverlay.remove();
+          loadCognitoSDK(function () {
+            validatePasswordAndDeleteAccount(password);
+          });
+        } else {
+          alert("يرجى إدخال كلمة المرور.");
         }
-    });
+      });
+
+      cancelButton.addEventListener("click", function () {
+        modalOverlay.remove();
+      });
+
+      // Close modal when clicking outside
+      modalOverlay.addEventListener("click", function (event) {
+        if (event.target == modalOverlay) {
+          modalOverlay.remove();
+        }
+      });
+    }
+
+    // Function to validate password and delete account
+    function validatePasswordAndDeleteAccount(password) {
+
+      const username = sessionStorage.getItem("username");
+      const userId = sessionStorage.getItem("userId");
+
+
+      if (!username || !userId) {
+        alert("لم يتم العثور على بيانات المستخدم. يرجى تسجيل الدخول مرة أخرى.");
+        window.location.href = CONFIG.app.loginScreenUrl;
+        return;
+      }
+
+      // User Pool Data
+      const poolData = {
+        UserPoolId: CONFIG.app.userPoolId,
+        ClientId: CONFIG.app.clientId,
+      };
+
+      const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+
+      const userData = {
+        Username: username,
+        Pool: userPool,
+      };
+
+      const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+
+      const authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails({
+        Username: username,
+        Password: password,
+      });
+
+      // Authenticate user
+      cognitoUser.authenticateUser(authenticationDetails, {
+        onSuccess: function (result) {
+
+          // Delete user
+          cognitoUser.deleteUser(function (err, result) {
+            if (err) {
+              console.error("Error deleting user:", err);
+              alert(err.message || JSON.stringify(err));
+              return;
+            }
+            alert("تم حذف حسابك بنجاح.");
+            sessionStorage.clear();
+            window.location.href = CONFIG.app.loginScreenUrl;
+          });
+        },
+        onFailure: function (err) {
+          console.error("Authentication failed:", err);
+          if (err.code === "NotAuthorizedException") {
+            alert("كلمة المرور التي أدخلتها غير صحيحة، يرجى المحاولة مرة أخرى.");
+          } else {
+            alert(err.message || JSON.stringify(err));
+          }
+        },
+      });
+    }
+
+   
+
+    // User dropdown functionality
+    const userButton = document.getElementById("userButton");
+    const dropdown = document.getElementById("dropdown");
+    const dropdownOverlay = document.getElementById("dropdownOverlay");
+
+    if (userButton && dropdown && dropdownOverlay) {
+      userButton.addEventListener("click", () => {
+        const isDropdownVisible = dropdown.style.display === "block";
+
+        dropdown.style.display = isDropdownVisible ? "none" : "block";
+        dropdownOverlay.style.display = isDropdownVisible ? "none" : "block";
+      });
+
+      document.addEventListener("click", (event) => {
+        if (!userButton.contains(event.target) && !dropdown.contains(event.target)) {
+          dropdown.style.display = "none";
+          dropdownOverlay.style.display = "none";
+        }
+      });
+
+      dropdownOverlay.addEventListener("click", () => {
+        dropdown.style.display = "none";
+        dropdownOverlay.style.display = "none";
+      });
+    }
+
+    /**
+     * Updates the subscription button UI based on the subscription status
+     */
+    function updateSubscriptionUI() {
+      const subscriptionStatus = sessionStorage.getItem("subscriptionStatus");
+      const subscribeButton = document.getElementById("subscribeButton");
+
+      if (!subscribeButton) {
+        console.warn("Subscribe button not found.");
+        return;
+      }
+
+      if (subscriptionStatus === "ACTIVE") {
+        subscribeButton.textContent = "اشتراكك نشط وصالح";
+        subscribeButton.disabled = true;
+      } else if (subscriptionStatus === "FREE_TRIAL") {
+        subscribeButton.textContent = "أنت حالياً في فترة التجربة المجانية اشترك الان";
+        subscribeButton.disabled = true;
+      } else if (subscriptionStatus === "EXPIRED") {
+        subscribeButton.textContent = "تجديد الاشتراك";
+        subscribeButton.disabled = false;
+      } else {
+        subscribeButton.textContent = "الاشتراك";
+        subscribeButton.disabled = false;
+      }
+    }
+  })();
 }
 
-// Function to clear session storage and log out the user
-function logOutAndClearSession() {
-    // Clear all items in session storage
+document.addEventListener("DOMContentLoaded", function () {
+  const sidebar = document.getElementById("sidebar");
+  const toggleButton = document.getElementById("toggleButton");
+  const overlay = document.getElementById("overlay");
+  const nameDisplay = document.getElementById("nameDisplay"); // عنصر الكلمة الترحيبية
+
+  if (sidebar && toggleButton && overlay && nameDisplay) {
+    toggleButton.addEventListener("click", () => {
+      if (sidebar.style.left === "0px") {
+        closeSidebar();
+      } else {
+        openSidebar();
+      }
+    });
+
+    overlay.addEventListener("click", () => {
+      closeSidebar();
+    });
+
+    document.body.addEventListener("click", (event) => {
+      if (
+        !sidebar.contains(event.target) &&
+        !toggleButton.contains(event.target) &&
+        sidebar.style.left === "0px"
+      ) {
+        closeSidebar();
+      }
+    });
+
+    function openSidebar() {
+      sidebar.style.left = "0px";
+      sidebar.style.visibility = "visible";
+      sidebar.style.opacity = "1";
+      sidebar.style.height = "100%";
+      sidebar.style.zIndex = "10"; // رفع ترتيب السايد بار
+      nameDisplay.style.zIndex = "1"; // تخفيض ترتيب nameDisplay تحت السايد بار
+      nameDisplay.style.display='none'; // تحريك العنصر إلى اليمين لتجنب تغطيته
+      toggleButton.style.transform = "rotate(360deg)";
+      toggleButton.style.display = "none";
+      overlay.style.display = "block";
+      overlay.style.position = "absolute";
+      overlay.style.top = "102px";
+      overlay.style.left = "253px";
+      overlay.style.width = "35%";
+      overlay.style.height = "169%";
+      overlay.style.backgroundColor = "rgba(0, 0, 0, 0)";
+      overlay.style.zIndex = "9";
+    }
+
+    function closeSidebar() {
+      sidebar.style.left = "-250px";
+      sidebar.style.visibility = "hidden";
+      sidebar.style.opacity = "0";
+      sidebar.style.zIndex = "1"; // إعادة ترتيب السايد بار للوضع الطبيعي
+      nameDisplay.style.zIndex = "10"; // إعادة ترتيب nameDisplay ليكون فوق كل شيء
+      nameDisplay.style.display="inline"; // إعادة العنصر إلى مكانه الطبيعي
+      toggleButton.style.transform = "rotate(0deg)";
+      toggleButton.style.display = "block";
+      overlay.style.display = "none";
+    }
+  } else {
+    console.error(
+      "One or more elements are missing: sidebar, toggleButton, overlay, or nameDisplay."
+    );
+  }
+});
+
+// Fetch client credentials and update table
+async function fetchClientCredentials() {
+  showSpinner();
+  try {
+    const registrationNumber = sessionStorage.getItem("registrationNumber"); // Replace with your dynamic value
+    const apiUrl =
+      "https://ai5un58stf.execute-api.us-east-1.amazonaws.com/PROD/MFCC";
+
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ registration_number: registrationNumber }),
+    });
+
+    if (response.ok) {
+      const result = await response.json();
+      const credentials = JSON.parse(result.body).credentials[0];
+
+      if (credentials) {
+        sessionStorage.setItem("clientid", credentials.clientid);
+        sessionStorage.setItem("client_secret", credentials.client_secret);
+      }
+    } else {
+      console.error("Failed to fetch credentials:", response.status);
+    }
+  } catch (error) {
+    console.error("Error fetching credentials:", error);
+  } finally {
+    // إخفاء السبينر بعد انتهاء العملية سواء نجحت أم لا
+    hideSpinner();
+  }
+}
+
+// Getting Elements for Logout functionality
+const logoutButton = document.getElementById("logoutButton");
+const logoutModal = document.getElementById("logoutModal");
+const confirmLogout = document.getElementById("confirmLogout");
+const cancelLogout = document.getElementById("cancelLogout");
+
+// عند النقر على زر تسجيل الخروج، عرض الكونتينر
+if (logoutButton && logoutModal && confirmLogout && cancelLogout) {
+  logoutButton.addEventListener("click", function (event) {
+    event.preventDefault(); // منع السلوك الافتراضي للرابط
+    logoutModal.style.display = "block";
+  });
+
+  // عند النقر على زر "تسجيل خروج" في الكونتينر
+  confirmLogout.addEventListener("click", function () {
+    // هنا يمكنك وضع الكود الخاص بتسجيل الخروج
+    // على سبيل المثال، إعادة توجيه المستخدم إلى صفحة تسجيل الدخول
+    window.location.href =
+      "https://us-east-1fhfklvrxm.auth.us-east-1.amazoncognito.com/login?client_id=6fj5ma49n4cc1b033qiqsblc2v&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmohasibfriend.github.io%2FMohasib-Friend%2Fhome.html"; // غيّر الرابط حسب حاجتك
+  });
+
+  // عند النقر على زر "إلغاء"، إخفاء الكونتينر
+  cancelLogout.addEventListener("click", function () {
+    logoutModal.style.display = "none";
+  });
+
+  // إخفاء الكونتينر عند النقر خارج محتواه
+  window.addEventListener("click", function (event) {
+    if (event.target == logoutModal) {
+      logoutModal.style.display = "none";
+    }
+  });
+
+  function signOutAndClearSession() {
+    // مسح جميع البيانات من sessionStorage
     sessionStorage.clear();
 
-    // Redirect to the login page
-   window.location.href = "https://us-east-1fhfklvrxm.auth.us-east-1.amazoncognito.com/login?response_type=code&client_id=6fj5ma49n4cc1b033qiqsblc2v&redirect_uri=https://mohasibfriend.github.io/Mohasib-Friend/";
-}
+    // إعادة التوجيه إلى صفحة تسجيل الدخول بعد تسجيل الخروج
+    window.location.href =
+      "https://us-east-1fhfklvrxm.auth.us-east-1.amazoncognito.com/login?client_id=6fj5ma49n4cc1b033qiqsblc2v&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmohasibfriend.github.io%2FMohasib-Friend%2Fhome.html"; // تعديل الرابط إلى صفحة تسجيل الدخول الخاصة بك
+  }
 
-// Get the existing logout button by its ID
-const logoutButton = document.getElementById("logoutbutton");
+  // ربط الدالة بزر تسجيل الخروج
+  confirmLogout.addEventListener("click", signOutAndClearSession);
 
-// Add click event to the existing button
-if (logoutButton) {
- logoutButton.addEventListener("click", logOutAndClearSession);
+  // استمع إلى حدث الضغط على زر "Logout"
+  confirmLogout.addEventListener("click", function () {
+    // تخزين قيمة في sessionStorage للإشارة إلى تسجيل الخروج
+    sessionStorage.setItem("logoutInitiated", "true");
+  });
+
+  // منع الرجوع إلى الصفحات المحمية بعد تسجيل الخروج
+  window.addEventListener("pageshow", function (event) {
+    if (event.persisted) {
+      // التحقق مما إذا كان المستخدم قد ضغط على زر "Logout" قبل ذلك
+      if (sessionStorage.getItem("logoutInitiated") === "true") {
+        // إذا كان sessionStorage فارغًا (المستخدم مسجل الخروج)، إعادة التوجيه إلى صفحة تسجيل الدخول
+        sessionStorage.removeItem("logoutInitiated"); // إزالة القيمة بعد الاستخدام
+        window.location.href =
+          "https://us-east-1fhfklvrxm.auth.us-east-1.amazoncognito.com/login?client_id=6fj5ma49n4cc1b033qiqsblc2v&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmohasibfriend.github.io%2FMohasib-Friend%2Fhome.html";
+      }
+    }
+  });
 }
 
 function showInfo() {
-    document.getElementById("infoModal").style.display = "block";
+  document.getElementById("infoModal").style.display = "block";
+  const nameDisplay = document.getElementById("nameDisplay");
+  if (nameDisplay) {
+    nameDisplay.style.zIndex = "1"; // تخفيض ترتيب nameDisplay تحت السايد بار
+    nameDisplay.style.display = 'none'; // تحريك العنصر إلى اليمين لتجنب تغطيته
   }
-  
-  function closeModal() {
-    document.getElementById("infoModal").style.display = "none";
-  }
-  
-  // Close the modal when clicking outside the content
-  window.onclick = function(event) {
-    if (event.target == document.getElementById("infoModal")) {
-        closeModal();
-    }
-  }
-// إضافة مستمع حدث للضغط على مفتاح
-window.addEventListener('keydown', function(event) {
-    // التحقق مما إذا كان المفتاح المضغوط هو Esc
-    if (event.key === 'Escape' || event.key === 'Esc') {
-        closeModal();
-    }
-});
-
-
-
-// جلب العناصر من الـ DOM
-const updateButton = document.getElementById('updateButton');
-const spinner = document.getElementById('spinner');
-const responseMessage = document.getElementById('responseMessage');
-const successMessage = document.getElementById('successMessage');
-
-// دالة للتحقق من وجود جميع البيانات في الـ Session Storage وحالة الاشتراك
-function checkSessionData() {
-    const registrationNumber = sessionStorage.getItem('registrationNumber');
-    const clientId = sessionStorage.getItem('clientid');
-    const clientSecret = sessionStorage.getItem('client_secret');
-    const userId = sessionStorage.getItem('userId');
-
-    // التحقق من عدم وجود أي قيمة فارغة أو غير موجودة
-    if (!registrationNumber || !clientId || !clientSecret || !userId) {
-        updateButton.disabled = true;
-        updateButton.style.backgroundColor = '#6c757d'; // لون رمادي
-        return;
-    }
-
-    // التحقق من حالة الاشتراك
-    if (subscriptionStatus === "FREE_TRIAL") {
-        updateButton.disabled = true;
-        updateButton.textContent ='يرجي الاشتراك لتجديد البينات'
-        updateButton.style.backgroundColor = '#6c757d'; // لون رمادي
-    } else if (subscriptionStatus === "ACTIVE") {
-        updateButton.disabled = false;
-        updateButton.style.backgroundColor = ''; // إعادة اللون الافتراضي
-    }
 }
 
-// استدعاء دالة التحقق عند تحميل الصفحة
-window.onload = checkSessionData;
+function closeModal() {
+  document.getElementById("infoModal").style.display = "none";
+  const nameDisplay = document.getElementById("nameDisplay");
+  if (nameDisplay) {
+    nameDisplay.style.zIndex = "10"; // رفع ترتيب nameDisplay
+    nameDisplay.style.display = 'inline'; // إعادة عرض العنصر
+  }
+}
 
-// دالة للتعامل مع حدث الضغط على الزر
-updateButton.addEventListener('click', () => {
-    // عرض اللود سبينر
-    spinner.style.display = 'block';
-    responseMessage.textContent = '';
-    successMessage.textContent = '';
+// Close the modal when clicking outside the content
+window.onclick = function (event) {
+  const infoModal = document.getElementById("infoModal");
+  if (infoModal && event.target == infoModal) {
+    closeModal();
+  }
+};
 
-    // جلب البيانات من الـ Session Storage
-    const registrationNumber = sessionStorage.getItem('registrationNumber');
-    const clientId = sessionStorage.getItem('clientid');
-    const clientSecret = sessionStorage.getItem('client_secret');
-    const userId = sessionStorage.getItem('userId');
+// إضافة مستمع حدث للضغط على مفتاح
+window.addEventListener('keydown', function(event) {
+  // التحقق مما إذا كان المفتاح المضغوط هو Esc
+  if (event.key === 'Escape' || event.key === 'Esc') {
+      closeModal();
+  }
+});
 
-    // تحضير البيانات لإرسالها
-    const data = {
-        registration_number: registrationNumber,
-        clientid: clientId,
-        client_secret: clientSecret,
-        user_id: userId
-    };
+document.addEventListener("DOMContentLoaded", () => {
+  /**
+   * دالة لاستخراج قيمة `statusDescription` من URL
+   * إذا لم توجد، تعيد القيمة null
+   */
+  function getStatusDescription() {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get('statusDescription');
+  }
 
-    // إرسال البيانات إلى الـ API باستخدام Fetch
-    fetch('https://futf6qqdse.execute-api.us-east-1.amazonaws.com/prod/update', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => {
-        // التحقق من حالة الاستجابة قبل تحويلها إلى JSON
-        if (!response.ok) {
-            return response.json().then(err => { throw err; });
-        }
-        return response.json();
-    })
-    .then(result => {
-        // إخفاء اللود سبينر
-        spinner.style.display = 'none';
-        showupdateSuccessModal();
-        // عرض رسالة نجاح
-        successMessage.textContent = 'تم تحديث بيانات البورتال بنجاح';
-        responseMessage.textContent = '';
-    })
-    .catch(error => {
-        // إخفاء اللود سبينر
-        spinner.style.display = 'none';
-        // عرض رسالة خطأ
-        responseMessage.textContent = error.message || '.حدث خطأ أثناء تحديث البيانات';
-        successMessage.textContent = '';
+  /**
+   * دالة لعرض الكونتينر بناءً على حالة الدفع
+   * @param {boolean} isSuccess - حالة الدفع: true إذا نجح، false إذا فشل
+   * @param {string} description - وصف الحالة لعرضه في الرسالة
+   */
+  function showPaymentStatus(isSuccess, description) {
+      const container = document.getElementById("paymentStatusContainer");
+      const icon = document.getElementById("paymentStatusIcon");
+      const message = document.getElementById("paymentStatusMessage");
 
-        // إذا كانت البيانات غير مكتملة، تعطيل الزر وتغيير لونه إلى الرمادي
-        if (error.message && (error.message.includes('Invalid request') || error.message.includes('Missing'))) {
-            updateButton.disabled = true;
-            updateButton.style.backgroundColor = '#6c757d'; // لون رمادي
-        }
-        console.error('Error:', error);
-    });
+      if (isSuccess) {
+          // حالة نجاح الدفع
+          icon.classList.add("success");
+          icon.innerHTML = "✔️"; // علامة صح
+          message.innerHTML = ".تمت العملية الدفع بنجاح!<br>انت الآن تستمتع بأجمل مميزات المحاسبة مع محاسب فريند";
+      } else {
+          // حالة فشل الدفع
+          icon.classList.add("error");
+          icon.innerHTML = "❌"; // علامة خطأ
+          message.textContent = "فشلت عملية الدفع";
+      }
+
+      container.style.display = "flex";
+  }
+
+  /**
+   * دالة لإغلاق الكونتينر
+   */
+  function closePaymentStatus() {
+      const container = document.getElementById("paymentStatusContainer");
+      container.style.display = "none";
+      
+      // إزالة المعلمات من URL لتجنب إعادة العرض عند إعادة تحميل الصفحة
+      const url = new URL(window.location);
+      url.searchParams.delete('type');
+      url.searchParams.delete('referenceNumber');
+      url.searchParams.delete('merchantRefNumber');
+      url.searchParams.delete('orderAmount');
+      url.searchParams.delete('paymentAmount');
+      url.searchParams.delete('fawryFees');
+      url.searchParams.delete('orderStatus');
+      url.searchParams.delete('paymentMethod');
+      url.searchParams.delete('paymentTime');
+      url.searchParams.delete('cardLastFourDigits');
+      url.searchParams.delete('customerName');
+      url.searchParams.delete('customerProfileId');
+      url.searchParams.delete('authNumber');
+      url.searchParams.delete('signature');
+      url.searchParams.delete('taxes');
+      url.searchParams.delete('statusCode');
+      url.searchParams.delete('statusDescription');
+      url.searchParams.delete('basketPayment');
+      window.history.replaceState({}, document.title, url.toString());
+  }
+
+  // استخراج وصف الحالة من URL
+  const statusDescription = getStatusDescription();
+
+  // التحقق مما إذا كانت الصفحة تحتوي على معلمة statusDescription
+  if (statusDescription !== null) {
+      // تحديد إذا ما كانت العملية ناجحة أم لا بناءً على محتوى statusDescription
+      // يمكن تعديل هذه الشروط بناءً على النصوص الفعلية التي تحصل عليها
+      const isSuccess = statusDescription.toLowerCase().includes("successfully");
+
+      // عرض الكونتينر بناءً على الحالة
+      showPaymentStatus(isSuccess, decodeURIComponent(statusDescription));
+  }
+
+  // إضافة مستمع للنقر على زر الإغلاق
+  const closeButton = document.getElementById("closePaymentStatus");
+  closeButton.addEventListener("click", closePaymentStatus);
 });
