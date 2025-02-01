@@ -701,10 +701,8 @@ window.addEventListener('keydown', function(event) {
 });
 
 // تعيين بيانات الاختبار في Session Storage
-sessionStorage.setItem('registrationNumber');
 sessionStorage.setItem('clientid');
 sessionStorage.setItem('client_secret');
-sessionStorage.setItem('userId');
 
 // جلب العناصر من الـ DOM
 const updateButton = document.getElementById('updateButton');
