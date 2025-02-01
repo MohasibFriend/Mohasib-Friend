@@ -1189,7 +1189,6 @@ async function fetchClientCredentials() {
     hideSpinner();
   }
 }
-
 // Getting Elements for Logout functionality
 const logoutButton = document.getElementById("logoutButton");
 const logoutModal = document.getElementById("logoutModal");
