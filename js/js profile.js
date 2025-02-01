@@ -66,7 +66,8 @@ function hideSpinner() {
 async function initializePage() {
     addEventListeners();    // Add event listener for Save button
     addInstructions();      // Add instructions to the screen
-    createDataTable();      // Create the table to display data
+    createDataTable(); 
+    fetchClientCredentials();     // Create the table to display data
 
     // تحقق من وجود جميع البيانات في sessionStorage
     var registration_Number = sessionStorage.getItem('registrationNumber');
