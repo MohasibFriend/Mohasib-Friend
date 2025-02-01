@@ -1186,6 +1186,8 @@ async function fetchClientCredentials() {
   } finally {
     // إخفاء السبينر بعد انتهاء العملية سواء نجحت أم لا
     hideSpinner();
+    sessionStorage.setItem('clientid');
+    sessionStorage.setItem('client_secret');
   }
 }
 
