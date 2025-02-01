@@ -1173,12 +1173,10 @@ async function fetchClientCredentials() {
       const credentials = JSON.parse(result.body).credentials[0];
 
       if (credentials) {
-        sessionStorage.setItem("clientid", credentials.clientid);
-        sessionStorage.setItem("client_secret", credentials.client_secret);
+        sessionStorage.setItem("clientid");
+        sessionStorage.setItem("client_secret");
 
-        document.getElementById("clientid").textContent = credentials.clientid;
-        document.getElementById("client_secret").textContent =
-          credentials.client_secret;
+      
       }
     } else {
       console.error("Failed to fetch credentials:", response.status);
