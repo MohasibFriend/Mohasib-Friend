@@ -67,7 +67,7 @@ async function initializePage() {
     addEventListeners();    // Add event listener for Save button
     addInstructions();      // Add instructions to the screen
     createDataTable(); 
-    fetchClientCredentials();     // Create the table to display data
+         // Create the table to display data
 
     // تحقق من وجود جميع البيانات في sessionStorage
     var registration_Number = sessionStorage.getItem('registrationNumber');
@@ -323,57 +323,19 @@ async function uploadClientCredentials(registration_number, client_id, client_se
 // Updated Function: Fetch client credentials upon script initialization
 async function fetchClientCredentials() {
     showSpinner();
-
-    // محاولة جلب الكريدينشالز من sessionStorage
-    var storedCredentials = sessionStorage.getItem('clientCredentials');
-    if (storedCredentials) {
-        try {
-            var credentials = JSON.parse(storedCredentials);
-            // التأكد من أن البيانات تحتوي على مصفوفة
-            if (credentials && Array.isArray(credentials)) {
-                credentials.forEach(function(credential) {
-                    var { registration_number, clientid, client_secret } = credential;
-                    var newRow = `
-                        <tr>
-                            <td>${registration_number}</td>
-                            <td>${clientid}</td>
-                            <td>${client_secret}</td>
-                        </tr>
-                    `;
-                    $('#dataTable tbody').append(newRow);
-                });
-                // تخزين clientid و client_secret في sessionStorage كمصفوفة من الكائنات
-                var clientDetails = credentials.map(function(credential) {
-                    return {
-                        clientid: credential.clientid,
-                        client_secret: credential.client_secret
-                    };
-                });
-                sessionStorage.setItem('clientDetails', JSON.stringify(clientDetails));
-                
-                hideSpinner();
-                return; // إذا وجدت الكريدينشالز في الـ sessionStorage، ننهي التنفيذ
-            }
-        } catch (e) {
-            console.error("Error parsing stored credentials:", e);
-            // إذا حدث خطأ في التحليل، نستمر في محاولة جلب البيانات من الـ API
-        }
-    }
-
-    // إذا لم توجد الكريدينشالز في الـ sessionStorage، نقوم بمحاولة جلب registrationNumber
+    // Retrieve registrationNumber from session storage
     var registrationNumber = sessionStorage.getItem('registrationNumber');
     if (!registrationNumber) {
         console.warn("Registration number not found in session storage. Skipping fetch.");
-        hideSpinner();
         return;
     }
 
-    // إعداد payload لطلب الـ fetch
+    // Prepare payload (using the same payload structure as upload)
     var payload = {
         registration_number: registrationNumber,
     };
 
-    var apiUrl = 'https://ai5un58stf.execute-api.us-east-1.amazonaws.com/PROD/MFCC';
+    var apiUrl = 'https://ai5un58stf.execute-api.us-east-1.amazonaws.com/PROD/MFCC'; // Same API URL
 
     try {
         var response = await fetch(apiUrl, {
@@ -385,29 +347,24 @@ async function fetchClientCredentials() {
         });
 
         if (response.ok) {
+            // Parse the response to JSON
             var data = await response.json();
 
-            // في حالة أن الجسم (body) مشفر مرتين، نقوم بتحليل القيمة مرة ثانية
+            // Since the response body is double encoded, parse it again
             if (data.body) {
-                data = JSON.parse(data.body);
+                data = JSON.parse(data.body);  // Parse the stringified JSON body
             }
 
-            // التأكد من وجود الكريدينشالز بالشكل الصحيح
+            // Check if data exists and contains credentials
             if (data && data.credentials && Array.isArray(data.credentials)) {
-                // تخزين الكريدينشالز في sessionStorage للاستخدام لاحقاً
+                // Store the entire credentials array in session storage
                 sessionStorage.setItem('clientCredentials', JSON.stringify(data.credentials));
 
-                // تخزين clientid و client_secret معًا في sessionStorage
-                var clientDetails = data.credentials.map(function(credential) {
-                    return {
-                        clientid: credential.clientid,
-                        client_secret: credential.client_secret
-                    };
-                });
-                sessionStorage.setItem('clientDetails', JSON.stringify(clientDetails));
-
                 data.credentials.forEach(function(credential) {
+                    // Destructure credential object
                     var { registration_number, clientid, client_secret } = credential;
+
+                    // Append each credential to the table
                     var newRow = `
                         <tr>
                             <td>${registration_number}</td>
@@ -431,7 +388,6 @@ async function fetchClientCredentials() {
         hideSpinner();
     }
 }
-
 
 
 
