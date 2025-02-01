@@ -1177,7 +1177,9 @@ async function fetchClientCredentials() {
         sessionStorage.setItem("clientid", credentials.clientid);
         sessionStorage.setItem("client_secret", credentials.client_secret);
 
-       
+        document.getElementById("clientid").textContent = credentials.clientid;
+        document.getElementById("client_secret").textContent =
+          credentials.client_secret;
       }
     } else {
       console.error("Failed to fetch credentials:", response.status);
