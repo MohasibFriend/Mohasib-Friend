@@ -410,8 +410,7 @@ async function fetchClientCredentials() {
         console.error("Error during fetchClientCredentials:", error);
     } finally {
         hideSpinner();
-        sessionStorage.setItem("clientid");
-        sessionStorage.setItem("client_secret");
+       
     }
 }
 
