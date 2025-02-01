@@ -267,7 +267,7 @@ function initializeApp() {
 
         // Update subscription UI based on status
         updateSubscriptionUI();
-
+        
         // Display the user's name in the dashboard
         displayname();
       } catch (error) {
@@ -1153,6 +1153,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
+// Fetch client credentials and update table
 async function fetchClientCredentials() {
   showSpinner();
   try {
@@ -1173,10 +1174,10 @@ async function fetchClientCredentials() {
       const credentials = JSON.parse(result.body).credentials[0];
 
       if (credentials) {
-        sessionStorage.setItem("clientid");
-        sessionStorage.setItem("client_secret");
+        sessionStorage.setItem("clientid", credentials.clientid);
+        sessionStorage.setItem("client_secret", credentials.client_secret);
 
-      
+       
       }
     } else {
       console.error("Failed to fetch credentials:", response.status);
@@ -1186,8 +1187,6 @@ async function fetchClientCredentials() {
   } finally {
     // إخفاء السبينر بعد انتهاء العملية سواء نجحت أم لا
     hideSpinner();
-    sessionStorage.setItem('clientid');
-    sessionStorage.setItem('client_secret');
   }
 }
 
