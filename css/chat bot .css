@@ -1,0 +1,299 @@
+/* ضبط الصفحة لتأخذ كل الشاشة */
+body {
+    font-family: 'Cairo', sans-serif;
+    background: linear-gradient(to left, #15264d, #a3d3ee);
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* صندوق الشات */
+.chat-container {
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(to left, #a3d3ee, #15264d,#a3d3ee);
+    display: flex;
+    flex-direction: column;
+}
+
+/* رأس الصفحة */
+.chat-header {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+/* جسم الشات */
+.chat-body {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* رسالة الترحيب */
+.welcome-container {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.welcome-logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    border: #000 solid 3px;
+}
+
+.welcome-text {
+    font-size: 1.1em;
+    color: #FFF;
+    font-weight: bold;
+}
+
+/* الرسائل */
+.message {
+    max-width: 60%;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 20px;
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+}
+
+/* رسالة المستخدم */
+.user-message {
+    align-self: flex-end;
+    background: #2a5298;
+    color: white;
+    border-bottom-right-radius: 5px;
+    font-weight: bold;
+    text-align: right;
+    white-space: pre-wrap;
+}
+
+/* رسالة البوت */
+.bot-message {
+    align-self: flex-start;
+    background: #e3f2fd;
+    font-weight: bold;
+    color: #0d47a1;
+    border-bottom-left-radius: 5px;
+    text-align: left;
+    white-space: pre-wrap;
+}
+
+/* سبينر التحميل */
+.loading {
+    width: 30px;
+    height: 30px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #2a5298;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* قائمة الأسئلة */
+.questions-container {
+    height: 25vh;
+    padding: 15px;
+    background:  linear-gradient(to left, #a3d3ee, #15264d,#a3d3ee);;
+    overflow-y: auto;
+    position: relative;
+    overflow-x: hidden;
+    
+}
+
+.question-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    width: 100%;
+}
+
+.question-list li {
+    background: white;
+    padding: 12px 15px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1em;
+    font-weight: bold;
+    flex: 1 1 calc(33% - 10px);
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+}
+
+.question-list li:hover {
+    background: #2a5298;
+    color: white;
+    transform: scale(1.01);
+    font-weight: bold;
+}
+
+/* سبينر تحميل الأسئلة */
+#spinner {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+}
+
+.loader {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+}
+
+a{
+    direction: none;
+}
+
+.home-btn {
+    background-color: #6899e4;
+    width: 110px; /* Increased for better UX */
+    height: 40px; 
+    font-weight: bold;
+    color: #FFF;
+    border: 3px solid #000;
+    border-radius: 8px;
+    font-size: 18px;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    padding: 5px 10px;
+    text-align: center;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.home-btn:hover {
+    background-color: #325b99;
+    letter-spacing: 5px;
+    word-spacing: 5px;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* الميديا كويري للأجهزة اللوحية */
+@media (max-width: 1024px) {
+    .chat-container {
+        width: 100%;
+        height: 100vh;
+    }
+
+    .chat-header {
+        padding: 15px;
+        font-size: 1.3em;
+    }
+
+    .welcome-logo {
+        width: 70px;
+        height: 70px;
+    }
+
+    .welcome-text {
+        font-size: 1em;
+    }
+
+    .questions-container {
+        height: 30vh;
+        padding: 10px;
+    }
+
+    .question-list li {
+        flex: 1 1 calc(50% - 10px);
+        font-size: 0.95em;
+        padding: 10px 12px;
+    }
+
+    .home-btn {
+        width: 100px;
+        height: 35px;
+        font-size: 16px;
+    }
+}
+
+/* الميديا كويري للهواتف المحمولة */
+@media (max-width: 600px) {
+    .chat-container {
+        width: 100%;
+        height: 100vh;
+    }
+
+    .chat-header {
+        padding: 10px;
+        font-size: 1.1em;
+    }
+
+    .welcome-logo {
+        width: 60px;
+        height: 60px;
+    }
+
+    .welcome-text {
+        font-size: 0.95em;
+    }
+
+    .questions-container {
+        height: 35vh;
+        padding: 8px;
+    }
+
+    .question-list li {
+        flex: 1 1 100%;
+        font-size: 0.9em;
+        padding: 8px 10px;
+    }
+
+    .home-btn {
+        width: 90px;
+        height: 30px;
+        font-size: 14px;
+    }
+
+    .message {
+        font-size: 1em;
+        padding: 10px;
+    }
+
+    .loading {
+        width: 25px;
+        height: 25px;
+        border-width: 3px;
+    }
+
+    .loader {
+        width: 50px;
+        height: 50px;
+        border-width: 6px;
+    }
+}

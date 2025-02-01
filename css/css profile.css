@@ -1,0 +1,1815 @@
+body {
+    background: var(--bg-color);
+    direction: ltr;
+    font-size: var(--font-size-s);
+    line-height: 1.5;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+html::-webkit-scrollbar {
+    width: 10px; /* عرض شريط التمرير */
+}
+
+html::-webkit-scrollbar-track {
+    background: #f1f1f1; /* لون المسار */
+    border-radius: 10px;  /* حواف دائرية للمسار */
+}
+
+html::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 100px;   /* حواف دائرية للمقبض */
+}
+
+html::-webkit-scrollbar-thumb:hover {
+    background: var(--hover-icon);
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-50px) , translateX(50%); }
+    to { opacity: 1; transform: translateY(0) , translateX(50%) ; }
+}
+/* General Container for Layout */
+.content-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    max-width: 100%;
+    margin: 0;
+    gap: 20px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/*Nav start*/
+
+.NavContainer {
+    height: 100px;
+    margin-top: 5px;
+    position: relative;
+    background-color: var(--background-nav);
+    border: 3px solid black;
+    border-radius: 30px;
+}
+
+.logo-img {
+    height: 70px;
+    width: 70px;
+    border: #000 SOLID 3PX;
+    border-radius: 50%;
+    Margin-left: 10px;
+    Margin-top: 8px
+}
+.a{
+    text-decoration: none;
+    /* إزالة الخط السفلي من الرابط */
+    color: #000;
+}
+.header-link {
+    text-decoration: none;
+    /* إزالة الخط السفلي من الرابط */
+    color: var(--text-color);
+    left: 5px;
+}
+
+.header-h1 {
+    font-size: 32px;
+    color: var(--text-color);
+    position: absolute;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    left: 90px;
+    top: 5px;
+}
+
+
+.FirstIcon {
+    border: 3px solid black;
+    padding: 5px;
+    background-color: whitesmoke;
+    border-radius: 50%;
+    font-size: 35PX;
+    position: absolute;
+    left: 79%;
+    top: 15PX;
+}
+
+
+.SecondtIcon {
+    background-color: whitesmoke;
+    border: 3px solid black;
+    padding: 5px;
+    border-radius: 50%;
+    font-size: 35PX;
+    position: absolute;
+    left: 88%;
+    top: 15PX;
+}
+
+
+.ThirdIcon {
+    border: 3px solid black;
+    background-color: whitesmoke;
+    padding: 5px;
+    border-radius: 50%;
+    font-size: 35PX;
+    position: absolute;
+    left: 89%;
+    top: 15PX;
+}
+
+
+.FourthIcon {
+    border: 3px solid var(--border-icon) !important;
+    padding: 5px !important;
+    background-color:var(--icon-bg);
+    border-radius: 50% !important;
+    font-size: 30px !important;
+    position: absolute !important;
+    top: 19px !important;
+    width: 42px !important;
+    height: 47px !important;
+    padding-left: 11px !important;
+    padding-top: 3px !important;
+    left: 94% !important;
+    transition: 0.5s;
+    color: var(--text-color);
+}
+.FourthIcon:hover{
+    background-color:var(--hover-icon) !important;
+    color: #fff;
+}
+
+/*Nav End*/
+.info-icon {
+    font-size: 42px;
+    color: var(--text-color);
+    border: 3px solid var(--border-icon) !important;
+    background-color: var(--icon-bg);   
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin-left: 89%;
+    border: solid;
+    font-weight: bold;
+    margin-top: -3.8%;
+    transition: 0.5s !important;
+}
+
+.info-icon:hover {
+    background-color: var(--hover-icon) !important; 
+    color: #fff !important;
+}
+/* أنماط السبينر */
+#spinner {
+    display: none; /* مخفي بشكل افتراضي */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+}
+
+.loader {
+    border: 10px solid #f3f3f3; /* رمادي فاتح */
+    border-top: 10px solid #3498db; /* أزرق */
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+.Instructions-for-Entering-Credentials-eng {
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 600px;
+    margin-top: 20px;
+    width: 400px;
+    height: 350px;
+    border: #000 solid 4px;
+    border-radius: 20px;
+    padding: 10px;
+    display: none;
+    background-color: #fff;
+    color: #000;
+}
+
+/*Nav End*/
+
+/* Modal Styling */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: var(--border);
+    margin: 15px auto;
+    position: fixed;
+    padding: 20px;
+    border: 1px solid #888;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    top: 50%;
+    left: 50%;
+    max-width: 600px;
+    border-radius: 10px;
+    text-align: left;
+    animation: fadeIn 0.4s;
+}
+
+.maintran {
+    border-radius: 20px;
+    border: #000 solid 3px;
+    background-color: #fff;
+    padding: 10px;
+}
+
+.close {
+    color: #000;
+    float: left;
+    font-size: 28px;
+    font-weight: bold;
+    margin-left: -12px;
+    margin-top: -19px;
+    cursor: pointer;
+    display: none;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+}
+
+.scrollable {
+    width: 100%; /* العرض الكامل للعنصر */
+    height: 350px; /* يمكنك ضبط الارتفاع حسب احتياجاتك */
+    overflow-y: auto; /* تفعيل التمرير العمودي */
+    overflow-x: hidden; /* إخفاء التمرير الأفقي */
+    padding: 10px; /* مسافة داخلية اختيارية */
+    box-sizing: border-box; /* لضمان أن الحدود والحشوات لا تؤثر على العرض */
+}
+.scrollable::-webkit-scrollbar {
+    width: 10px; /* عرض الشريط */
+}
+
+.scrollable::-webkit-scrollbar-track {
+    background: #f1f1f1; /* خلفية الشريط */
+    border-radius: 5px; /* تقويس حواف الشريط */
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+    background: var(--border);  /* لون المقبض */
+    border-radius: 5px; /* تقويس حواف الشريط */
+}
+
+.scrollable::-webkit-scrollbar-thumb:hover {
+    background: #2980b9; /* تغيير اللون عند التمرير فوقه */
+}
+/* Form Container Styling */
+.form-container {
+    background: var( --portal-form);
+    padding: 20px;
+    border-radius: 20px;
+    width: 800px;
+    height: 450px;
+    font-size: 24px;
+    border: 3px solid black;
+    box-shadow: 10px 0px 10px #6666ff;
+    text-align: left;
+    margin-top: 50px;
+    margin-left: 550px;
+    box-sizing: border-box;
+}
+
+.profie-label-user {
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--text-color);
+}
+
+.profie-label-userii {
+    margin-top: 30px;
+    align-items: center;
+    font-family: Arial, Helvetica, sans-serif;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    /* لضمان أن التسمية وحقل الإدخال يكونان في نفس الخط العمودي */
+}
+
+.move-label1 {
+    position: relative;
+    /* لتمكين التحرك بالنسبة لموضعها الأصلي */
+    top: 40px;
+    /* يمكنك استخدام هذه الخاصية للتحكم في الحركة لأعلى أو لأسفل */
+    /* لتغيير الموضع للأعلى استخدم قيمة سالبة، مثلاً: top: -10px; */
+}
+
+/* Input Field Styling */
+.input1 {
+    padding: 10px;
+    margin-top: 50px;
+    border-radius: 25px;
+   border: #000 solid 3px;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    width: 100%;
+    box-sizing: border-box;
+
+}
+
+.input2 {
+    padding: 10px;
+    margin-top: -50px;
+    margin-left: 300px;
+    border-radius: 25px;
+   border: #000 solid 3px;
+    font-size: 16px;
+    font-weight: bold;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.input3 {
+    padding: 10px;
+    margin-top: 20px;
+    margin-left: 300px;
+    border-radius: 25px;
+   border: #000 solid 3px;
+    font-size: 16px;
+    font-weight: bold;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-container label {
+    display: inline-block;
+    width: 40%;
+    /* Ensure labels take enough space */
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.form-container input {
+    width: 55%;
+    /* Ensure inputs are properly aligned */
+    margin-bottom: 15px;
+}
+
+/* Save Button Styling */
+.saveButton {
+    padding: 10px;
+    border: 3px solid black;
+    border-radius: 25px;
+    background-color: var( --portal-submit);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    width: 300px;
+    box-shadow: 0px 10px 10px #4e4ea0;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-left: 350px;
+    box-sizing: border-box;
+}
+
+.credentials-table {
+    background-color: #fff;
+    width: 1020px;
+    height: 100px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #000;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    margin-left: 425px;
+    padding: 10px;
+    border: #000 2px solid;
+    border-radius: 20px;
+
+
+}
+
+
+.credentials-table th {
+    border-radius: 20px;
+    border: #000 2px solid;
+    background-color: var(--portal-submit);
+    padding-left: 20px;
+    padding-right: 20px;
+    color: #fff;
+}
+
+.instruction-container-arabic-instructions {
+    margin-top: 15px;
+    border: #000 2px solid;
+    border-radius: 20px;
+    margin-left: 450px;
+    padding-top: 10px;
+    text-align: center;
+    width: 1020px;
+    display: none;
+    background-color: #fff;
+    font-weight: bold;
+}
+
+.instruction-container-english-instructions {
+    margin-top: 15px;
+    border: #000 2px solid;
+    border-radius: 20px;
+    margin-left: 450px;
+    padding-top: 10px;
+    text-align: center;
+    width: 1020px;
+    display: none;
+    background-color: #fff;
+    font-weight: bold;
+}
+
+#loadingBadge {
+    display: none; /* مخفي بشكل افتراضي */
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(0, 0, 0, 0.1);
+    border-top: 5px solid #3498db; /* يمكنك تغيير اللون هنا */
+    border-radius: 50%;
+    animation: spin 1s linear infinite; /* دوران دائم */
+    z-index: 1000; /* لعرضه فوق باقي المحتويات */
+}
+  
+  /* الحركة الدورانية */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.updateButton-contaner{
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#updateButton {
+    padding: 15px 30px;
+    font-size: 16px;
+    color: white;
+    background-color:var( --portal-submit); /* لون أخضر */
+    border: 3px solid black;
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.3s ease;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* تنسيق الزر عند تعطيله */
+#updateButton:disabled {
+    background-color: #4d4d50; /* لون رمادي */
+    cursor: not-allowed;
+    border: #fff solid 3px;
+}
+
+/* تنسيق اللود سبينر */
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border-left-color: #ffffff;
+    animation: spin 1s linear infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -12px;
+    margin-left: -12px;
+}
+
+/* حركة اللود سبينر */
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* تنسيق رسالة الاستجابة */
+#responseMessage {
+    margin-top: 10px;
+    font-size: 24px;
+    color: #dc3545; /* لون أحمر للخطأ */
+    font-weight: bold;
+
+}
+
+/* تنسيق رسالة النجاح */
+#successMessage {
+    margin-top: 10px;
+    font-size: 24px;
+    color: #ffffff; /* لون أخضر للنجاح */
+    font-weight: bold;
+}
+
+@media only screen and (min-width: 1501px) and (max-width: 1830px) {
+    .NavContainer {
+        height: 87px;
+        padding: -40px;
+
+    }
+
+    .logo-img {
+        height: 60px;
+        width: 60px;
+        left: 75px;
+        margin-right: 30px;
+    }
+
+    .header-h1 {
+        font-size: 30px !important;
+        left: 79px !important;
+        top: -1px !important;
+    }
+    
+
+    .FirstIcon,
+    .SecondtIcon,
+    .ThirdIcon,
+    .FourthIcon {
+        font-size: 25px;
+        top: 15px;
+    }
+
+    .FirstIcon {
+        left: 62%;
+    }
+
+    .SecondtIcon {
+        left: 73%;
+    }
+
+    .ThirdIcon {
+        left: 71%;
+    }
+
+    .FourthIcon {
+        padding: 5px !important;
+        border-radius: 50% !important;
+        font-size: 30px !important;
+        position: absolute !important;
+        top: 12px !important;
+        width: 42px !important;
+        height: 47px !important;
+        padding-left: 11px !important;
+        padding-top: 3px !important;
+        left: 94% !important;
+    }
+        
+    .info-icon {
+       font-size: 37px !important;
+        border-radius: 50% !important;
+        width: 55px !important;
+        height: 55px !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        cursor: pointer !important;
+        margin-left: 88% !important;
+        border: #000 solid 3px !important;
+        font-weight: bold !important;
+        margin-top: -69px !important;
+    }
+   
+    /* Form Container Styling */
+    .form-container {
+        background-color: #d1d1f1;
+        padding: 20px;
+        border-radius: 20px;
+        width: 800px;
+        height: 450px;
+        font-size: 24px;
+        border: 3px solid black;
+        box-shadow: 10px 0px 10px #6666ff;
+        text-align: left;
+        margin-top: 50px;
+        margin-left: 400px;
+        box-sizing: border-box;
+    }
+
+    .profie-label-user {
+        font-family: Arial, Helvetica, sans-serif;
+
+    }
+
+    .profie-label-userii {
+        margin-top: 30px;
+        align-items: center;
+        font-family: Arial, Helvetica, sans-serif;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+        /* لضمان أن التسمية وحقل الإدخال يكونان في نفس الخط العمودي */
+    }
+
+    .move-label1 {
+        position: relative;
+        /* لتمكين التحرك بالنسبة لموضعها الأصلي */
+        top: 40px;
+        /* يمكنك استخدام هذه الخاصية للتحكم في الحركة لأعلى أو لأسفل */
+        /* لتغيير الموضع للأعلى استخدم قيمة سالبة، مثلاً: top: -10px; */
+    }
+
+    /* Input Field Styling */
+    .input1 {
+        padding: 10px;
+        margin-top: 50px;
+        border-radius: 25px;
+        border: #000 solid 3px;
+        font-size: 16px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        width: 100%;
+        box-sizing: border-box;
+
+    }
+
+    .input2 {
+        padding: 10px;
+        margin-top: -50px;
+        margin-left: 300px;
+        border-radius: 25px;
+        border: #000 solid 3px;
+        font-size: 16px;
+        font-weight: bold;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .input3 {
+        padding: 10px;
+        margin-top: 20px;
+        margin-left: 300px;
+        border-radius: 25px;
+        border: #000 solid 3px;
+        font-size: 16px;
+        font-weight: bold;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .form-container label {
+        display: inline-block;
+        width: 40%;
+        /* Ensure labels take enough space */
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .form-container input {
+        width: 55%;
+        /* Ensure inputs are properly aligned */
+        margin-bottom: 15px;
+    }
+
+    /* Save Button Styling */
+    .saveButton {
+        padding: 10px;
+        border: 3px solid black;
+        border-radius: 25px;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        width: 300px;
+        box-shadow: 0px 10px 10px #4e4ea0;
+        font-weight: bold;
+        margin-top: 20px;
+        margin-left: 350px;
+        box-sizing: border-box;
+    }
+
+    .credentials-table {
+        background-color: #fff;
+        width: 1020px;
+        height: 100px;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        color: #000;
+        margin-top: 20px;
+        margin-bottom: 30px;
+        margin-left: 300px;
+        padding: 10px;
+        border: #000 2px solid;
+        border-radius: 20px;
+
+
+    }
+
+
+    .credentials-table th {
+        border-radius: 20px;
+        border: #000 2px solid;
+        padding-left: 20px;
+        padding-right: 20px;
+
+
+    }
+
+    .instruction-container-arabic-instructions {
+        margin-top: 15px;
+        border: #000 2px solid;
+        border-radius: 20px;
+        margin-left: 450px;
+        padding-top: 10px;
+        text-align: center;
+        width: 1020px;
+        display: none;
+        background-color: #fff;
+        font-weight: bold;
+    }
+
+    .instruction-container-english-instructions {
+        margin-top: 15px;
+        border: #000 2px solid;
+        border-radius: 20px;
+        margin-left: 450px;
+        padding-top: 10px;
+        text-align: center;
+        width: 1020px;
+        display: none;
+        background-color: #fff;
+        font-weight: bold;
+    }
+
+    #loadingBadge {
+        display: none; /* مخفي بشكل افتراضي */
+        position: fixed;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 50px;
+        height: 50px;
+        border: 5px solid rgba(0, 0, 0, 0.1);
+        border-top: 5px solid #3498db; /* يمكنك تغيير اللون هنا */
+        border-radius: 50%;
+        animation: spin 1s linear infinite; /* دوران دائم */
+        z-index: 1000; /* لعرضه فوق باقي المحتويات */
+    }
+
+}
+@media only screen and (min-width: 1131px) and (max-width: 1500px) {
+    .NavContainer {
+        height: 78px;
+        padding: -40px;
+
+    }
+
+    .logo-img {
+        height: 50px;
+        width: 50px;
+        left: 75px;
+        margin-right: 30px;
+    }
+
+    .header-h1 {
+        font-size: 26px !important;
+        left: 76px !important;
+        top: 1px !important;
+    }
+    
+
+    .FirstIcon,
+    .SecondtIcon,
+    .ThirdIcon,
+    .FourthIcon {
+        font-size: 25px;
+        top: 15px;
+    }
+
+    .FirstIcon {
+        left: 62%;
+    }
+
+    .SecondtIcon {
+        left: 73%;
+    }
+
+    .ThirdIcon {
+        left: 71%;
+    }
+
+    .FourthIcon {
+        padding: 5px !important;
+        border-radius: 50% !important;
+        font-size: 26px !important;
+        position: absolute !important;
+        top: 9px !important;
+        width: 35px !important;
+        height: 41px !important;
+        padding-left: 11px !important;
+        padding-top: 3px !important;
+        left: 92% !important;
+    }
+        
+    .info-icon {
+       font-size: 37px !important;
+        border-radius: 50% !important;
+        width: 47px !important;
+        height: 47px !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        cursor: pointer !important;
+        margin-left: 84% !important;
+        border: #000 solid 3px !important;
+        font-weight: bold !important;
+        margin-top: -61px !important;
+    }
+ 
+    
+    /* Form Container Styling */
+    .form-container {
+        background-color: #d1d1f1;
+        padding: 20px;
+        border-radius: 20px;
+        width: 800px;
+        height: 450px;
+        font-size: 24px;
+        border: 3px solid black;
+        box-shadow: 10px 0px 10px #6666ff;
+        text-align: left;
+        margin-top: 50px;
+        margin-left: 250px;
+        box-sizing: border-box;
+    }
+
+    .profie-label-user {
+        font-family: Arial, Helvetica, sans-serif;
+
+    }
+
+    .profie-label-userii {
+        margin-top: 30px;
+        align-items: center;
+        font-family: Arial, Helvetica, sans-serif;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+        /* لضمان أن التسمية وحقل الإدخال يكونان في نفس الخط العمودي */
+    }
+
+    .move-label1 {
+        position: relative;
+        /* لتمكين التحرك بالنسبة لموضعها الأصلي */
+        top: 40px;
+        /* يمكنك استخدام هذه الخاصية للتحكم في الحركة لأعلى أو لأسفل */
+        /* لتغيير الموضع للأعلى استخدم قيمة سالبة، مثلاً: top: -10px; */
+    }
+
+    /* Input Field Styling */
+    .input1 {
+        padding: 10px;
+        margin-top: 50px;
+        border-radius: 25px;
+    border: #000 solid 3px;
+        font-size: 16px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        width: 100%;
+        box-sizing: border-box;
+
+    }
+
+    .input2 {
+        padding: 10px;
+        margin-top: -50px;
+        margin-left: 300px;
+        border-radius: 25px;
+    border: #000 solid 3px;
+        font-size: 16px;
+        font-weight: bold;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .input3 {
+        padding: 10px;
+        margin-top: 20px;
+        margin-left: 300px;
+        border-radius: 25px;
+    border: #000 solid 3px;
+        font-size: 16px;
+        font-weight: bold;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .form-container label {
+        display: inline-block;
+        width: 40%;
+        /* Ensure labels take enough space */
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .form-container input {
+        width: 55%;
+        /* Ensure inputs are properly aligned */
+        margin-bottom: 15px;
+    }
+
+    /* Save Button Styling */
+    .saveButton {
+        padding: 10px;
+        border: 3px solid black;
+        border-radius: 25px;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        width: 300px;
+        box-shadow: 0px 10px 10px #4e4ea0;
+        font-weight: bold;
+        margin-top: 20px;
+        margin-left: 350px;
+        box-sizing: border-box;
+    }
+
+    .credentials-table {
+        background-color: #fff;
+        width: 1020px;
+        height: 100px;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        color: #000;
+        margin-top: 20px;
+        margin-bottom: 30px;
+        margin-left: 145px;
+        padding: 10px;
+        border: #000 2px solid;
+        border-radius: 20px;
+
+
+    }
+
+
+    .credentials-table th {
+        border-radius: 20px;
+        border: #000 2px solid;
+        padding-left: 20px;
+        padding-right: 20px;
+
+
+    }
+
+    .instruction-container-arabic-instructions {
+        margin-top: 15px;
+        border: #000 2px solid;
+        border-radius: 20px;
+        margin-left: 450px;
+        padding-top: 10px;
+        text-align: center;
+        width: 1020px;
+        display: none;
+        background-color: #fff;
+        font-weight: bold;
+    }
+
+    .instruction-container-english-instructions {
+        margin-top: 15px;
+        border: #000 2px solid;
+        border-radius: 20px;
+        margin-left: 450px;
+        padding-top: 10px;
+        text-align: center;
+        width: 1020px;
+        display: none;
+        background-color: #fff;
+        font-weight: bold;
+    }
+
+    #loadingBadge {
+        display: none; /* مخفي بشكل افتراضي */
+        position: fixed;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 50px;
+        height: 50px;
+        border: 5px solid rgba(0, 0, 0, 0.1);
+        border-top: 5px solid #3498db; /* يمكنك تغيير اللون هنا */
+        border-radius: 50%;
+        animation: spin 1s linear infinite; /* دوران دائم */
+        z-index: 1000; /* لعرضه فوق باقي المحتويات */
+    }
+
+}
+/* Tablet View (Portrait and Landscape) */
+@media only screen and (min-width: 1035px) and (max-width: 1130px) {
+    .NavContainer {
+        height: 78px;
+        padding: -40px;
+
+    }
+
+    .logo-img {
+        height: 50px;
+        width: 50px;
+        left: 75px;
+        margin-right: 30px;
+    }
+
+    .header-h1 {
+        font-size: 26px !important;
+        left: 76px !important;
+        top: 1px !important;
+    }
+    
+
+    .FirstIcon,
+    .SecondtIcon,
+    .ThirdIcon,
+    .FourthIcon {
+        font-size: 25px;
+        top: 15px;
+    }
+
+    .FirstIcon {
+        left: 62%;
+    }
+
+    .SecondtIcon {
+        left: 73%;
+    }
+
+    .ThirdIcon {
+        left: 71%;
+    }
+
+    .FourthIcon {
+        padding: 5px !important;
+        border-radius: 50% !important;
+        font-size: 26px !important;
+        position: absolute !important;
+        top: 9px !important;
+        width: 35px !important;
+        height: 41px !important;
+        padding-left: 11px !important;
+        padding-top: 3px !important;
+        left: 88% !important;
+    }
+        
+    .info-icon {
+       font-size: 37px !important;
+        border-radius: 50% !important;
+        width: 47px !important;
+        height: 47px !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        cursor: pointer !important;
+        margin-left: 78% !important;
+        border: #000 solid 3px !important;
+        font-weight: bold !important;
+        margin-top: -61px !important;
+    }
+ 
+    /* General Container for Layout */
+    .content-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100vh;
+        max-width: 100%;
+        margin: 0;
+        gap: 20px;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    /*Nav start*/
+
+
+   
+
+
+    /* Form Container Styling */
+    .form-container {
+        background-color: #d1d1f1;
+        padding: 20px;
+        border-radius: 20px;
+        width: 700px;
+        height: 450px;
+        font-size: 24px;
+        border: 3px solid black;
+        box-shadow: 10px 0px 10px #6666ff;
+        text-align: left;
+        margin-top: 50px;
+        margin-left: 150px;
+        box-sizing: border-box;
+    }
+
+    /* Input Field Styling */
+    .input1 {
+        padding: 10px;
+        margin-top: 50px;
+        border-radius: 25px;
+       border: #000 solid 3px;
+        font-size: 16px;
+        font-weight: bold;
+        width: 100%;
+        box-sizing: border-box;
+
+    }
+
+    .input2 {
+        padding: 10px;
+        margin-left: 260px;
+        border-radius: 25px;
+       border: #000 solid 3px;
+        font-size: 16px;
+        font-weight: bold;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .input3 {
+        padding: 10px;
+        margin-left: 260px;
+        border-radius: 25px;
+       border: #000 solid 3px;
+        font-size: 16px;
+        font-weight: bold;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .form-container label {
+        display: inline-block;
+        width: 40%;
+        /* Ensure labels take enough space */
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+
+
+    /* Save Button Styling */
+    .saveButton {
+        padding: 10px;
+        border: 3px solid black;
+        border-radius: 25px;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        width: 300px;
+        box-shadow: 0px 10px 10px #4e4ea0;
+        font-weight: bold;
+        margin-top: 20px;
+        margin-left: 290px;
+        box-sizing: border-box;
+    }
+
+    .credentials-table {
+        background-color: #fff;
+        width: 900px;
+        height: 100px;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        color: #000;
+        margin-top: 20px;
+        margin-left: 50px;
+        padding: 10px;
+        border: #000 2px solid;
+        border-radius: 20px;
+
+
+    }
+
+
+    .credentials-table th {
+        border-radius: 20px;
+        border: #000 2px solid;
+        padding-left: 20px;
+        padding-right: 20px;
+
+
+    }
+
+    .instruction-container-arabic-instructions {
+        margin-top: 15px;
+        border: #000 2px solid;
+        border-radius: 20px;
+        margin-left: 50px;
+        padding-top: 10px;
+        text-align: center;
+        width: 900px;
+        background-color: #fff;
+        font-weight: bold;
+    }
+
+    .instruction-container-english-instructions {
+        margin-top: 15px;
+        border: #000 2px solid;
+        border-radius: 20px;
+        margin-left: 50px;
+        padding-top: 10px;
+        text-align: center;
+        width: 900px;
+        background-color: #fff;
+        font-weight: bold;
+    }
+
+}
+
+
+/* Tablet View (Portrait and Landscape) */
+@media only screen and (min-width: 401px) and (max-width: 1034px) {
+    .NavContainer {
+        height: 78px !important;
+        padding: -40px;
+
+    }
+
+    .logo-img {
+        height: 50px;
+        width: 50px;
+        left: 75px;
+        margin-right: 30px;
+    }
+
+    .header-h1 {
+        font-size: 26px !important;
+        left: 80px !important;
+        top: 3px !important;
+    }
+    
+
+    .FirstIcon,
+    .SecondtIcon,
+    .ThirdIcon,
+    .FourthIcon {
+        font-size: 25px;
+        top: 15px;
+    }
+
+    .FirstIcon {
+        left: 62%;
+    }
+
+    .SecondtIcon {
+        left: 73%;
+    }
+
+    .ThirdIcon {
+        left: 71%;
+    }
+
+    .FourthIcon {
+        left: 85% !important;
+        width: 40px !important;
+        height: 40px !important;
+        font-size: 27px !important;
+        padding-left: 9px !important;
+        top: 9px !important;
+    }
+        
+    .info-icon {
+        font-size: 37px !important;
+        border-radius: 50% !important;
+        width: 47px !important;
+        height: 47px !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        cursor: pointer !important;
+        margin-left: 71% !important;
+        border: #000 solid 3px !important;
+        font-weight: bold !important;
+        margin-top: -71px !important;
+    }
+   
+    .content-container {
+        padding: 5px;
+        gap: 15px;
+    }
+
+    .NavContainer {
+        height: auto;
+        padding: 10px -1px;
+    }
+
+    .logo-img {
+        height: 60px;
+        width: 60px;
+
+    }
+
+    .header-h1 {
+        font-size: 19px;
+        left: 81px;
+        top: 14px;
+    }
+
+
+
+    .FirstIcon,
+    .SecondtIcon,
+    .ThirdIcon,
+    .FourthIcon {
+        font-size: 30px;
+        padding: 4px;
+        top: 15px;
+    }
+
+    .SecondtIcon {
+
+        left: 83%;
+
+    }
+
+    .FourthIcon {
+
+        left: 82%;
+        width: 8%;
+        height: 49%;
+        font-size: 24px;
+        padding-left: 11px;
+
+    }
+
+    .form-container {
+        width: 80%;
+        height: auto;
+        font-size: 15px;
+        margin-left: 31px;
+        margin-bottom: 50px;
+        margin-top: 60px;
+    }
+
+    .form-container label {
+
+        white-space: nowrap;
+        /* يجبر النص على أن يبقى على سطر واحد */
+        font-size: 25px;
+        font-weight: bold;
+    }
+
+    .form-container input {
+        width: 100%;
+        /* Ensure inputs are properly aligned */
+        margin-bottom: 15px;
+    }
+
+
+    .input1 {
+
+        margin-top: 0px;
+        margin-left: 1px;
+
+
+    }
+
+    .input2 {
+        margin-top: 40px;
+        margin-left: 1px;
+
+    }
+
+    .input3 {
+        margin-top: 40px;
+        margin-left: 1px;
+    }
+
+    .saveButton {
+        width: 100%;
+        height: 50px;
+        margin-left: 1%;
+
+        padding-top: 10px;
+
+    }
+
+    .credentials-table {
+        display: none;
+    }
+
+    .instruction-container-arabic-instructions {
+        margin-top: 15px;
+        border: #000 2px solid;
+        border-radius: 20px;
+        margin-left: 11px;
+        padding: 10px;
+        padding-top: 10px;
+        text-align: center;
+        width: 303px;
+        background-color: #fff;
+        font-weight: bold;
+    }
+
+    .instruction-container-english-instructions {
+        margin-top: 15px;
+        border: #000 2px solid;
+        border-radius: 20px;
+        margin-left: 11px;
+        padding: 10px;
+        padding-top: 10px;
+        text-align: center;
+        width: 303px;
+        background-color: #fff;
+        font-weight: bold;
+    }
+}
+@media only screen and (min-width: 351px) and (max-width: 400px) {
+    .NavContainer {
+        height: 78px !important;
+        padding: -40px;
+
+    }
+
+    .logo-img {
+        height: 50px !important;
+        width: 50px !important;
+        left: 75px !important;
+        margin-right: 30px !important;
+        margin-top: 10px !important;
+    }
+
+    .header-h1 {
+        font-size: 19px !important;
+        left: 70px !important;
+        top: 13px !important;
+    }
+    
+
+    .FirstIcon,
+    .SecondtIcon,
+    .ThirdIcon,
+    .FourthIcon {
+        font-size: 25px;
+        
+    }
+
+    .FirstIcon {
+        left: 60%;
+    }
+
+    .SecondtIcon {
+        left: 73%;
+    }
+
+    .ThirdIcon {
+        left: 71%;
+    }
+
+    .FourthIcon {
+        left: 81% !important;
+        width: 33px !important;
+        height: 35px !important;
+        font-size: 24px !important;
+        padding-left: 9px !important;
+        top: 12px !important;
+    }
+        
+    .info-icon {
+        font-size: 34px !important;
+        border-radius: 50% !important;
+        width: 40px !important;
+        height: 40px !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        cursor: pointer !important;
+        margin-left: 65% !important;
+        border: #000 solid 3px !important;
+        font-weight: bold !important;
+        margin-top: -59px !important;
+    }
+   
+    .content-container {
+        padding: 5px;
+        gap: 15px;
+    }
+
+    .NavContainer {
+        height: auto;
+        padding: 10px -1px;
+    }
+
+    .logo-img {
+        height: 60px;
+        width: 60px;
+
+    }
+
+    .header-h1 {
+        font-size: 19px;
+        left: 81px;
+        top: 14px;
+    }
+
+
+
+    .FirstIcon,
+    .SecondtIcon,
+    .ThirdIcon,
+    .FourthIcon {
+        font-size: 30px;
+        padding: 4px;
+        top: 15px;
+    }
+
+    .SecondtIcon {
+
+        left: 83%;
+
+    }
+
+    .FourthIcon {
+
+        left: 82%;
+        width: 8%;
+        height: 49%;
+        font-size: 24px;
+        padding-left: 11px;
+
+    }
+
+    .form-container {
+        width: 80%;
+        height: auto;
+        font-size: 15px;
+        margin-left: 31px;
+        margin-bottom: 50px;
+        margin-top: 60px;
+    }
+
+    .form-container label {
+
+        white-space: nowrap;
+        /* يجبر النص على أن يبقى على سطر واحد */
+        font-size: 25px;
+        font-weight: bold;
+    }
+
+    .form-container input {
+        width: 100%;
+        /* Ensure inputs are properly aligned */
+        margin-bottom: 15px;
+    }
+
+
+    .input1 {
+
+        margin-top: 0px;
+        margin-left: 1px;
+
+
+    }
+
+    .input2 {
+        margin-top: 40px;
+        margin-left: 1px;
+
+    }
+
+    .input3 {
+        margin-top: 40px;
+        margin-left: 1px;
+    }
+
+    .saveButton {
+        width: 100%;
+        height: 50px;
+        margin-left: 1%;
+
+        padding-top: 10px;
+
+    }
+
+    .credentials-table {
+        display: none;
+    }
+
+    .instruction-container-arabic-instructions {
+        margin-top: 15px;
+        border: #000 2px solid;
+        border-radius: 20px;
+        margin-left: 11px;
+        padding: 10px;
+        padding-top: 10px;
+        text-align: center;
+        width: 303px;
+        background-color: #fff;
+        font-weight: bold;
+    }
+
+    .instruction-container-english-instructions {
+        margin-top: 15px;
+        border: #000 2px solid;
+        border-radius: 20px;
+        margin-left: 11px;
+        padding: 10px;
+        padding-top: 10px;
+        text-align: center;
+        width: 303px;
+        background-color: #fff;
+        font-weight: bold;
+    }
+}
+@media only screen and (max-width: 349px) {
+    .NavContainer {
+        height: 78px;
+        padding: -40px;
+
+    }
+
+    .logo-img {
+        height: 50px;
+        width: 50px;
+        left: 75px;
+        margin-right: 30px;
+    }
+
+    .header-h1 {
+        font-size: 19px !important;
+        left: 85px !important;
+        top: 16px !important;
+        font-weight: bold !important;
+    }
+    .FourthIcon{
+        padding: 5px !important;
+        border-radius: 50% !important;
+        font-size: 20px !important;
+        position: absolute !important;
+        top: 15px !important;
+        height: 29px !important;
+        left: 85% !important;
+        width: 25px !important;
+    }
+    .info-icon {
+        font-size: 24px;
+        border-radius: 50%;
+        width: 35px;
+        height: 36px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        margin-left: 70%;
+        border: #000 solid 3px;
+        font-weight: bold;
+        margin-top: -55px;
+    }
+    .content-container {
+        padding: 5px;
+        gap: 15px;
+    }
+
+    .NavContainer {
+        height: auto;
+        padding: 10px -1px;
+    }
+
+    .logo-img {
+        height: 60px;
+        width: 60px;
+
+    }
+
+    .header-h1 {
+        font-size: 19px;
+        left: 81px;
+        top: 14px;
+    }
+
+
+
+    .FirstIcon,
+    .SecondtIcon,
+    .ThirdIcon,
+    .FourthIcon {
+        font-size: 30px;
+        padding: 4px;
+        top: 15px;
+    }
+
+    .SecondtIcon {
+
+        left: 83%;
+
+    }
+
+    .FourthIcon {
+
+        left: 82%;
+        width: 8%;
+        height: 49%;
+        font-size: 24px;
+        padding-left: 11px;
+
+    }
+
+    .form-container {
+        width: 80%;
+        height: auto;
+        font-size: 15px;
+        margin-left: 31px;
+        margin-bottom: 50px;
+        margin-top: 60px;
+    }
+
+    .form-container label {
+
+        white-space: nowrap;
+        /* يجبر النص على أن يبقى على سطر واحد */
+        font-size: 25px;
+        font-weight: bold;
+    }
+
+    .form-container input {
+        width: 100%;
+        /* Ensure inputs are properly aligned */
+        margin-bottom: 15px;
+    }
+
+
+    .input1 {
+
+        margin-top: 0px;
+        margin-left: 1px;
+
+
+    }
+
+    .input2 {
+        margin-top: 40px;
+        margin-left: 1px;
+
+    }
+
+    .input3 {
+        margin-top: 40px;
+        margin-left: 1px;
+    }
+
+    .saveButton {
+        width: 100%;
+        height: 50px;
+        margin-left: 1%;
+
+        padding-top: 10px;
+
+    }
+
+    .credentials-table {
+        display: none;
+    }
+
+    .instruction-container-arabic-instructions {
+        margin-top: 15px;
+        border: #000 2px solid;
+        border-radius: 20px;
+        margin-left: 11px;
+        padding: 10px;
+        padding-top: 10px;
+        text-align: center;
+        width: 303px;
+        background-color: #fff;
+        font-weight: bold;
+    }
+
+    .instruction-container-english-instructions {
+        margin-top: 15px;
+        border: #000 2px solid;
+        border-radius: 20px;
+        margin-left: 11px;
+        padding: 10px;
+        padding-top: 10px;
+        text-align: center;
+        width: 303px;
+        background-color: #fff;
+        font-weight: bold;
+    } 
+}

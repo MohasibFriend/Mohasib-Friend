@@ -1,0 +1,52 @@
+:root {
+    --bg-color: linear-gradient(to left, #d7dcee, #d7dcee);
+    --text-color: #000000;
+    --toggle-bg: #ccc;
+    --toggle-knob: #ffffff;
+    --background-nav:#a3b6e5;
+    --icon-bg:#fff;
+    --background-companydocs: linear-gradient(to right, #ffffff 25%, rgb(163, 182, 229) 25%);
+    --hover-companydocs:linear-gradient(to right, #ffffff 25%, rgb(131, 155, 218) 25%);
+    --background-navbar:#e0e7ff;
+    --torrgel:#000;
+    --welcome:#fff;
+    --hover-icon:#5894ee;
+    --border:rgb(131, 155, 218);
+    --footer:linear-gradient(to left ,rgb(182, 198, 238) ,rgb(131, 155, 218),rgb(182, 198, 238));
+    --about-hover:#004080;
+    --header:#3968e9;
+    --download-company-hover:rgb(50 77 145);
+    --grid-contanir:#fff;
+    --border-icon:#000;
+    --profile:#fff;
+    --portal-form:#d1d1f1;
+    --portal-submit:#6666ff;
+    --phonesidebarbg:#8da9e2;
+}
+
+[data-theme="dark"] {
+    --bg-color: linear-gradient(to left, #15264d, #a3d3ee);
+    --text-color: #fffafa;
+    --toggle-bg: #555;
+    --toggle-knob: #ffffff;
+    --background-nav:#15264d ;
+    --icon-bg:#15264d;
+    --background-companydocs: linear-gradient(to right, #ffffff 25%, #15264d 25%);
+    --hover-companydocs:linear-gradient(to right, #ffffff 25%, #1746b6 25%);
+    --background-navbar:linear-gradient(to right, #15264d, #a3d3ee);
+    --torrgel:#000000;
+    --welcome:#fff;
+    --hover-icon:#1746b6;
+    --border:#15264d ;
+    --footer:linear-gradient(to left ,#a3d3ee ,#15264d,#a3d3ee);
+    --about-hover:#ffffff;
+    --header:#030233;
+    --download-company-hover:#1746b6;
+    --grid-contanir:linear-gradient(to left, #15264d, #a3d3ee);;
+    --border-icon:#000;
+    --profile:linear-gradient(to right, #15264d, #a3d3ee);
+    --portal-form: linear-gradient(to right, #15264d, #a3d3ee);
+    --portal-submit:#15264d;
+    --phonesidebarbg:#15264d;
+
+}
