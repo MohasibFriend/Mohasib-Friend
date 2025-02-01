@@ -341,6 +341,15 @@ async function fetchClientCredentials() {
                     `;
                     $('#dataTable tbody').append(newRow);
                 });
+                // تخزين clientid و client_secret في sessionStorage كمصفوفة من الكائنات
+                var clientDetails = credentials.map(function(credential) {
+                    return {
+                        clientid: credential.clientid,
+                        client_secret: credential.client_secret
+                    };
+                });
+                sessionStorage.setItem('clientDetails', JSON.stringify(clientDetails));
+                
                 hideSpinner();
                 return; // إذا وجدت الكريدينشالز في الـ sessionStorage، ننهي التنفيذ
             }
@@ -387,6 +396,15 @@ async function fetchClientCredentials() {
                 // تخزين الكريدينشالز في sessionStorage للاستخدام لاحقاً
                 sessionStorage.setItem('clientCredentials', JSON.stringify(data.credentials));
 
+                // تخزين clientid و client_secret معًا في sessionStorage
+                var clientDetails = data.credentials.map(function(credential) {
+                    return {
+                        clientid: credential.clientid,
+                        client_secret: credential.client_secret
+                    };
+                });
+                sessionStorage.setItem('clientDetails', JSON.stringify(clientDetails));
+
                 data.credentials.forEach(function(credential) {
                     var { registration_number, clientid, client_secret } = credential;
                     var newRow = `
@@ -410,7 +428,6 @@ async function fetchClientCredentials() {
         console.error("Error during fetchClientCredentials:", error);
     } finally {
         hideSpinner();
-       
     }
 }
 
