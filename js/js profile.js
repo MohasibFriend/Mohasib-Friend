@@ -386,7 +386,7 @@ async function fetchClientCredentials() {
         console.error("Error during fetchClientCredentials:", error);
     } finally {
         hideSpinner();
-        checkSessionData();
+        
     }
 }
 
