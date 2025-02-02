@@ -1308,6 +1308,7 @@ document.addEventListener("DOMContentLoaded", () => {
           icon.classList.add("success");
           icon.innerHTML = "✔️"; // علامة صح
           message.innerHTML = ".تمت العملية الدفع بنجاح!<br>انت الآن تستمتع بأجمل مميزات المحاسبة مع محاسب فريند";
+          updateSubscriptionUI();
       } else {
           // حالة فشل الدفع
           icon.classList.add("error");
