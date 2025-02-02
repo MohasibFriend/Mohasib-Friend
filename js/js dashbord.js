@@ -1153,44 +1153,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-// Fetch client credentials and update table
-async function fetchClientCredentials() {
-  showSpinner();
-  try {
-    const registrationNumber = sessionStorage.getItem("registrationNumber"); // Replace with your dynamic value
-    const apiUrl =
-      "https://ai5un58stf.execute-api.us-east-1.amazonaws.com/PROD/MFCC";
 
-    const response = await fetch(apiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ registration_number: registrationNumber }),
-    });
-
-    if (response.ok) {
-      const result = await response.json();
-      const credentials = JSON.parse(result.body).credentials[0];
-
-      if (credentials) {
-        sessionStorage.setItem("clientid", credentials.clientid);
-        sessionStorage.setItem("client_secret", credentials.client_secret);
-
-        document.getElementById("clientid").textContent = credentials.clientid;
-        document.getElementById("client_secret").textContent =
-          credentials.client_secret;
-      }
-    } else {
-      console.error("Failed to fetch credentials:", response.status);
-    }
-  } catch (error) {
-    console.error("Error fetching credentials:", error);
-  } finally {
-    // إخفاء السبينر بعد انتهاء العملية سواء نجحت أم لا
-    hideSpinner();
-  }
-}
 // Getting Elements for Logout functionality
 const logoutButton = document.getElementById("logoutButton");
 const logoutModal = document.getElementById("logoutModal");
