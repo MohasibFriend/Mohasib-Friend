@@ -1,49 +1,3 @@
-// --- BEGIN MODIFICATION: Encrypt sessionStorage values ---
-// Load CryptoJS if not already loaded and override sessionStorage methods
-(function() {
-  // Function to override sessionStorage methods
-  function overrideSessionStorage() {
-    const secretKey = 'my-secret-key'; // Replace with your secure key
-    const originalSetItem = sessionStorage.setItem;
-    const originalGetItem = sessionStorage.getItem;
-    const originalRemoveItem = sessionStorage.removeItem;
-  
-    sessionStorage.setItem = function(key, value) {
-      // Encrypt value using AES encryption
-      const encryptedValue = CryptoJS.AES.encrypt(value, secretKey).toString();
-      originalSetItem.call(sessionStorage, key, encryptedValue);
-    };
-  
-    sessionStorage.getItem = function(key) {
-      const encryptedValue = originalGetItem.call(sessionStorage, key);
-      if (!encryptedValue) return null;
-      try {
-        const bytes = CryptoJS.AES.decrypt(encryptedValue, secretKey);
-        const decryptedValue = bytes.toString(CryptoJS.enc.Utf8);
-        return decryptedValue;
-      } catch (e) {
-        return encryptedValue;
-      }
-    };
-  
-    // You may also override removeItem if needed; here we simply pass through.
-    sessionStorage.removeItem = function(key) {
-      originalRemoveItem.call(sessionStorage, key);
-    };
-  }
-  
-  // Check if CryptoJS is loaded; if not, load it from CDN
-  if (typeof CryptoJS === "undefined") {
-    const script = document.createElement("script");
-    script.src = "https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js";
-    script.onload = overrideSessionStorage;
-    document.head.appendChild(script);
-  } else {
-    overrideSessionStorage();
-  }
-})();
-// --- END MODIFICATION ---
-
 // Define CONFIG globally
 const CONFIG = {
   app: {
@@ -82,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });;
 
 
- // Load jQuery and execute logic when DOM is ready
+// Load jQuery and execute logic when DOM is ready
 if (typeof jQuery === "undefined") {
   const script = document.createElement("script");
   script.src = "https://code.jquery.com/jquery-3.6.0.min.js";
