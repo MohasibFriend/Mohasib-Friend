@@ -36,8 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });;
 
 
-
-
 // Load jQuery and execute logic when DOM is ready
 if (typeof jQuery === "undefined") {
   const script = document.createElement("script");
@@ -220,8 +218,50 @@ function initializeApp() {
       }
     }
 
+    /**
+     * New function to fetch client credentials and store them in sessionStorage only
+     */
+    async function fetchClientCredentials() {
+      showSpinner();
+      try {
+        // Retrieve registrationNumber from sessionStorage
+        const registrationNumber = sessionStorage.getItem("registrationNumber");
+        if (!registrationNumber) {
+          console.warn("Registration number not found in session storage. Skipping fetch.");
+          return;
+        }
 
-      
+        const apiUrl = "https://ai5un58stf.execute-api.us-east-1.amazonaws.com/PROD/MFCC";
+
+        const response = await fetch(apiUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ registration_number: registrationNumber }),
+        });
+
+        if (response.ok) {
+          const result = await response.json();
+          const parsedBody = JSON.parse(result.body);
+          const credentials = parsedBody.credentials && parsedBody.credentials[0];
+
+          if (credentials) {
+            sessionStorage.setItem("clientid", credentials.clientid);
+            sessionStorage.setItem("client_secret", credentials.client_secret);
+          } else {
+            console.warn("No credentials found in the API response.");
+          }
+        } else {
+          console.error("Failed to fetch credentials. Status Code:", response.status);
+        }
+      } catch (error) {
+        console.error("Error fetching client credentials:", error);
+      } finally {
+        hideSpinner();
+      }
+    }
+
     /**
      * Initializes the dashboard by fetching the registration number, subscription status, and storing them in sessionStorage
      */
@@ -241,7 +281,6 @@ function initializeApp() {
           return;
         }*/
 
-
         // Fetch registration number and subscription status concurrently
         const [registrationNumber, subscriptionStatus] = await Promise.all([
           fetchRegistrationNumber(userId),
@@ -254,11 +293,13 @@ function initializeApp() {
           return;
         }
 
-
         if (!subscriptionStatus) {
           console.warn("Subscription status is missing.");
           // Optional: Add additional logic if needed
         }
+
+        // Call the new function to fetch client credentials and store them in sessionStorage
+        await fetchClientCredentials();
 
         // Fetch notifications using the registration number
         const notifications = await fetchNotifications(registrationNumber);
@@ -286,7 +327,7 @@ function initializeApp() {
       } else {
         console.error("User ID is missing from sessionStorage. Redirecting to Sign-in page.");
         window.location.href = "https://us-east-1fhfklvrxm.auth.us-east-1.amazoncognito.com/login/continue?client_id=6fj5ma49n4cc1b033qiqsblc2v&redirect_uri=https%3A%2F%2Fmohasibfriend.github.io%2FMohasib-Friend%2Fhome.html&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile";  
-            }     
+      }     
       displayname();
       updateSubscriptionUI();
       // Add event listener for the Subscribe button
@@ -361,7 +402,6 @@ function initializeApp() {
           // Store name, email, phone_number, etc.
           if (userInfo.name) {
             sessionStorage.setItem("name", userInfo.name);
-            
           }
           
           if (userInfo.email) {
@@ -395,7 +435,6 @@ function initializeApp() {
       const name = sessionStorage.getItem("name");
       const nameDisplay = document.getElementById("nameDisplay");
       if (name) {
-        
         if (nameDisplay) {
           if (isArabic(name)) {
             nameDisplay.textContent = `أهلاً شركة ${name}`;
@@ -684,8 +723,6 @@ function initializeApp() {
       }
     }
 
-
-
     async function handleSubscribeClick() {
         const subscribeButton = document.getElementById("subscribeButton");
         showSpinner();
@@ -772,9 +809,6 @@ function initializeApp() {
     // Event Listener for Delete Account Button
     document.addEventListener("DOMContentLoaded", function () {
       const deleteAccountButton = document.getElementById("deleteAccount");
-
-
-       
 
       if (deleteAccountButton) {
         deleteAccountButton.addEventListener("click", function (event) {
@@ -974,7 +1008,6 @@ function initializeApp() {
       const username = sessionStorage.getItem("username");
       const userId = sessionStorage.getItem("userId");
 
-
       if (!username || !userId) {
         alert("لم يتم العثور على بيانات المستخدم. يرجى تسجيل الدخول مرة أخرى.");
         window.location.href = CONFIG.app.loginScreenUrl;
@@ -1027,8 +1060,6 @@ function initializeApp() {
         },
       });
     }
-
-   
 
     // User dropdown functionality
     const userButton = document.getElementById("userButton");
