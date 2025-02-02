@@ -47,7 +47,6 @@ if (typeof jQuery === "undefined") {
     showSpinner();
     updateSubscriptionUI();
     handleCognitoCallback();
-    fetchClientCredentials();
   };
   document.head.appendChild(script);
 } else {
