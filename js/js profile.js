@@ -683,22 +683,44 @@ const successMessage = document.getElementById('successMessage');
 
 // دالة للتحقق من وجود جميع البيانات في الـ Session Storage وحالة الاشتراك
 function checkSessionData() {
+    // جلب القيم الأساسية
     const registrationNumber = sessionStorage.getItem('registrationNumber');
-    const clientId = sessionStorage.getItem('clientid');
-    const clientSecret = sessionStorage.getItem('client_secret');
     const userId = sessionStorage.getItem('userId');
-
-    // التحقق من عدم وجود أي قيمة فارغة أو غير موجودة
-    if (!registrationNumber || !clientId || !clientSecret || !userId) {
+    const clientCredentialsStr = sessionStorage.getItem('clientCredentials');
+    
+    // التحقق من وجود رقم التسجيل وuserId
+    if (!registrationNumber || !userId) {
         updateButton.disabled = true;
         updateButton.style.backgroundColor = '#6c757d'; // لون رمادي
         return;
     }
-
+    
+    // محاولة استخراج clientid و client_secret من بيانات clientCredentials المخزنة
+    let clientid, client_secret;
+    if (clientCredentialsStr) {
+        try {
+            const clientCredentials = JSON.parse(clientCredentialsStr);
+            if (Array.isArray(clientCredentials) && clientCredentials.length > 0) {
+                // نفترض هنا استخدام أول عنصر في المصفوفة (أو يمكنك تعديلها حسب منطق عملك)
+                clientid = clientCredentials[0].clientid;
+                client_secret = clientCredentials[0].client_secret;
+            }
+        } catch (error) {
+            console.error("Error parsing clientCredentials from sessionStorage:", error);
+        }
+    }
+    
+    // التحقق من وجود بيانات clientid و client_secret المستخرجة
+    if (!clientid || !client_secret) {
+        updateButton.disabled = true;
+        updateButton.style.backgroundColor = '#6c757d'; // لون رمادي
+        return;
+    }
+    
     // التحقق من حالة الاشتراك
     if (subscriptionStatus === "FREE_TRIAL") {
         updateButton.disabled = true;
-        updateButton.textContent ='يرجي الاشتراك لتجديد البينات'
+        updateButton.textContent = 'يرجي الاشتراك لتجديد البينات';
         updateButton.style.backgroundColor = '#6c757d'; // لون رمادي
     } else if (subscriptionStatus === "ACTIVE") {
         updateButton.disabled = false;
@@ -706,65 +728,68 @@ function checkSessionData() {
     }
 }
 
+
 // استدعاء دالة التحقق عند تحميل الصفحة
 window.onload = checkSessionData;
 
 // دالة للتعامل مع حدث الضغط على الزر
-updateButton.addEventListener('click', () => {
-    // عرض اللود سبينر
+updateButton.addEventListener('click', async () => {
+    // عرض اللود سبينر وإفراغ الرسائل
     spinner.style.display = 'block';
     responseMessage.textContent = '';
     successMessage.textContent = '';
 
-    // جلب البيانات من الـ Session Storage
-    const registrationNumber = sessionStorage.getItem('registrationNumber');
-    const clientId = sessionStorage.getItem('clientid');
-    const clientSecret = sessionStorage.getItem('client_secret');
-    const userId = sessionStorage.getItem('userId');
-
-    // تحضير البيانات لإرسالها
-    const data = {
-        registration_number: registrationNumber,
-        clientid: clientId,
-        client_secret: clientSecret,
-        user_id: userId
-    };
-
-    // إرسال البيانات إلى الـ API باستخدام Fetch
-    fetch('https://futf6qqdse.execute-api.us-east-1.amazonaws.com/prod/update', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => {
-        // التحقق من حالة الاستجابة قبل تحويلها إلى JSON
-        if (!response.ok) {
-            return response.json().then(err => { throw err; });
+    try {
+        // جلب رقم التسجيل و userId من sessionStorage
+        const registrationNumber = sessionStorage.getItem('registrationNumber');
+        const userId = sessionStorage.getItem('userId');
+        if (!registrationNumber || !userId) {
+            throw new Error("بيانات المستخدم غير مكتملة.");
         }
-        return response.json();
-    })
-    .then(result => {
-        // إخفاء اللود سبينر
+        
+        // جلب بيانات الاعتماد من الدالة (من قاعدة البيانات عبر API)
+        const credentials = await getClientCredentials();
+        const clientId = credentials.clientid;
+        const clientSecret = credentials.client_secret;
+        
+        // تحضير البيانات لإرسالها
+        const data = {
+            registration_number: registrationNumber,
+            clientid: clientId,
+            client_secret: clientSecret,
+            user_id: userId
+        };
+
+        // إرسال البيانات إلى الـ API باستخدام Fetch
+        const response = await fetch('https://futf6qqdse.execute-api.us-east-1.amazonaws.com/prod/update', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        // التحقق من حالة الاستجابة
+        if (!response.ok) {
+            const err = await response.json();
+            throw new Error(err.message || "فشل تحديث البيانات.");
+        }
+        
+        const result = await response.json();
         spinner.style.display = 'none';
         showupdateSuccessModal();
-        // عرض رسالة نجاح
         successMessage.textContent = 'تم تحديث بيانات البورتال بنجاح';
         responseMessage.textContent = '';
-    })
-    .catch(error => {
-        // إخفاء اللود سبينر
+    } catch (error) {
         spinner.style.display = 'none';
-        // عرض رسالة خطأ
         responseMessage.textContent = error.message || '.حدث خطأ أثناء تحديث البيانات';
         successMessage.textContent = '';
 
-        // إذا كانت البيانات غير مكتملة، تعطيل الزر وتغيير لونه إلى الرمادي
+        // في حالة حدوث خطأ متعلق ببيانات الإدخال أو نقصها، يتم تعطيل الزر وتغيير لونه
         if (error.message && (error.message.includes('Invalid request') || error.message.includes('Missing'))) {
             updateButton.disabled = true;
             updateButton.style.backgroundColor = '#6c757d'; // لون رمادي
         }
         console.error('Error:', error);
-    });
+    }
 });
