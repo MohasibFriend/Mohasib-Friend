@@ -9,7 +9,6 @@ const CONFIG = {
     // New API endpoint for creating subscription data (may be redundant based on Lambda)
     notificationIconSelector: "#notificationicon",
     popupMessage: "يرجى إكمال ملفك الشخصي لاستخدام المنصة.",
-    /*loginScreenUrl: "https://us-east-1fhfklvrxm.auth.us-east-1.amazoncognito.com/login/continue?client_id=6fj5ma49n4cc1b033qiqsblc2v&redirect_uri=https%3A%2F%2Fmohasibfriend.github.io%2FMohasib-Friend%2Fhome.html&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile",*/
     userPoolId: "us-east-1_fhFkLvRxM",
     clientId: "6fj5ma49n4cc1b033qiqsblc2v",
   },
@@ -91,7 +90,6 @@ function initializeApp() {
           data: JSON.stringify({ userId }),
         });
 
-
         // Access the 'body' field first and then extract 'registrationNumber'
         let registrationNumber;
 
@@ -133,9 +131,11 @@ function initializeApp() {
 
     /**
      * Fetches the subscription status from the API and stores it in sessionStorage
+     * يمكن استدعاء هذه الدالة مع المعامل forceActive = true لفرض اشتراك ACTIVE في حال نجاح الدفع
+     * @param {boolean} forceActive - إذا true يتم تحديث الاشتراك بالقيمة ACTIVE فوراً
      * @returns {Promise<string|null>} - The subscription status or null if not found
      */
-    async function fetchSubscriptionStatus() {
+    async function fetchSubscriptionStatus(forceActive = false) {
       showSpinner(); // عرض الـ spinner أثناء عملية الجلب
       try {
         const userId = sessionStorage.getItem("userId");
@@ -159,11 +159,14 @@ function initializeApp() {
           phone_number: phone_number || "",
         };
 
-
+        // إضافة باراميتر forceActive إن احتجنا تحديث الاشتراك إلى ACTIVE
         const payload = {
           userId,
           userInfo,
         };
+        if (forceActive) {
+          payload.forceActive = true;  // <-- هذا المهم
+        }
 
         const response = await $.ajax({
           url: CONFIG.app.checkSubscriptionStatusApi,
@@ -174,7 +177,6 @@ function initializeApp() {
           },
           data: JSON.stringify(payload),
         });
-
 
         let subscriptionStatus;
 
@@ -209,7 +211,6 @@ function initializeApp() {
         } else if (error.responseJSON && error.responseJSON.message) {
           alert(`خطأ في جلب حالة الاشتراك: ${error.responseJSON.message}`);
         } else {
-          
           alert("Network Error");
         }
         return null;
@@ -275,12 +276,6 @@ function initializeApp() {
       try {
         const userId = sessionStorage.getItem("userId");
 
-        /*if (!userId) {
-          console.error("User ID not found in sessionStorage. Redirecting to login...");
-          navigateTo(CONFIG.app.loginScreenUrl);
-          return;
-        }*/
-
         // Fetch registration number and subscription status concurrently
         const [registrationNumber, subscriptionStatus] = await Promise.all([
           fetchRegistrationNumber(userId),
@@ -316,8 +311,6 @@ function initializeApp() {
     }
 
     $(document).ready(async function () {
-      //test here
-
       // استدعاء الدالة handleCognitoCallback وانتظار اكتمالها
       await handleCognitoCallback();
       
@@ -739,7 +732,6 @@ function initializeApp() {
                 return;
             }
     
-    
             const payload = {
                 customerProfileId, // استخدام customerProfileId بدل userId
                 returnUrl: "https://mohasibfriend.github.io/Mohasib-Friend/home.html", // تأكد من تحديث هذا الرابط حسب الحاجة
@@ -769,7 +761,6 @@ function initializeApp() {
             const paymentLink = paymentData.paymentLink;
             const userData = paymentData.userData;
     
-    
             if (!paymentLink) {
                 throw new Error("لم يتم استلام رابط الدفع. يرجى الاتصال بالدعم.");
             }
@@ -780,14 +771,12 @@ function initializeApp() {
             console.error("Error generating payment link:", error);
             alert("حدث خطأ أثناء إنشاء رابط الدفع.");
         } finally {
-            hideSpinner()
+            hideSpinner();
             // إعادة تمكين الزر بغض النظر عن النتيجة
             subscribeButton.disabled = false;
         }
     }
     
-    // Rest of your code...
-
     // Load Amazon Cognito Identity SDK if not already loaded
     function loadCognitoSDK(callback) {
       if (typeof AmazonCognitoIdentity === "undefined") {
@@ -1037,7 +1026,6 @@ function initializeApp() {
       // Authenticate user
       cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: function (result) {
-
           // Delete user
           cognitoUser.deleteUser(function (err, result) {
             if (err) {
@@ -1152,7 +1140,7 @@ document.addEventListener("DOMContentLoaded", function () {
       sidebar.style.height = "100%";
       sidebar.style.zIndex = "10"; // رفع ترتيب السايد بار
       nameDisplay.style.zIndex = "1"; // تخفيض ترتيب nameDisplay تحت السايد بار
-      nameDisplay.style.display='none'; // تحريك العنصر إلى اليمين لتجنب تغطيته
+      nameDisplay.style.display='none'; // إخفاء الاسم مؤقتًا
       toggleButton.style.transform = "rotate(360deg)";
       toggleButton.style.display = "none";
       overlay.style.display = "block";
@@ -1171,7 +1159,7 @@ document.addEventListener("DOMContentLoaded", function () {
       sidebar.style.opacity = "0";
       sidebar.style.zIndex = "1"; // إعادة ترتيب السايد بار للوضع الطبيعي
       nameDisplay.style.zIndex = "10"; // إعادة ترتيب nameDisplay ليكون فوق كل شيء
-      nameDisplay.style.display="inline"; // إعادة العنصر إلى مكانه الطبيعي
+      nameDisplay.style.display="inline"; // إظهار الاسم من جديد
       toggleButton.style.transform = "rotate(0deg)";
       toggleButton.style.display = "block";
       overlay.style.display = "none";
@@ -1199,10 +1187,8 @@ if (logoutButton && logoutModal && confirmLogout && cancelLogout) {
 
   // عند النقر على زر "تسجيل خروج" في الكونتينر
   confirmLogout.addEventListener("click", function () {
-    // هنا يمكنك وضع الكود الخاص بتسجيل الخروج
-    // على سبيل المثال، إعادة توجيه المستخدم إلى صفحة تسجيل الدخول
     window.location.href =
-      "https://us-east-1fhfklvrxm.auth.us-east-1.amazoncognito.com/login?client_id=6fj5ma49n4cc1b033qiqsblc2v&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmohasibfriend.github.io%2FMohasib-Friend%2Fhome.html"; // غيّر الرابط حسب حاجتك
+      "https://us-east-1fhfklvrxm.auth.us-east-1.amazoncognito.com/login?client_id=6fj5ma49n4cc1b033qiqsblc2v&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmohasibfriend.github.io%2FMohasib-Friend%2Fhome.html"; 
   });
 
   // عند النقر على زر "إلغاء"، إخفاء الكونتينر
@@ -1223,7 +1209,7 @@ if (logoutButton && logoutModal && confirmLogout && cancelLogout) {
 
     // إعادة التوجيه إلى صفحة تسجيل الدخول بعد تسجيل الخروج
     window.location.href =
-      "https://us-east-1fhfklvrxm.auth.us-east-1.amazoncognito.com/login?client_id=6fj5ma49n4cc1b033qiqsblc2v&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmohasibfriend.github.io%2FMohasib-Friend%2Fhome.html"; // تعديل الرابط إلى صفحة تسجيل الدخول الخاصة بك
+      "https://us-east-1fhfklvrxm.auth.us-east-1.amazoncognito.com/login?client_id=6fj5ma49n4cc1b033qiqsblc2v&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmohasibfriend.github.io%2FMohasib-Friend%2Fhome.html";
   }
 
   // ربط الدالة بزر تسجيل الخروج
@@ -1238,10 +1224,8 @@ if (logoutButton && logoutModal && confirmLogout && cancelLogout) {
   // منع الرجوع إلى الصفحات المحمية بعد تسجيل الخروج
   window.addEventListener("pageshow", function (event) {
     if (event.persisted) {
-      // التحقق مما إذا كان المستخدم قد ضغط على زر "Logout" قبل ذلك
       if (sessionStorage.getItem("logoutInitiated") === "true") {
-        // إذا كان sessionStorage فارغًا (المستخدم مسجل الخروج)، إعادة التوجيه إلى صفحة تسجيل الدخول
-        sessionStorage.removeItem("logoutInitiated"); // إزالة القيمة بعد الاستخدام
+        sessionStorage.removeItem("logoutInitiated");
         window.location.href =
           "https://us-east-1fhfklvrxm.auth.us-east-1.amazoncognito.com/login?client_id=6fj5ma49n4cc1b033qiqsblc2v&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmohasibfriend.github.io%2FMohasib-Friend%2Fhome.html";
       }
@@ -1253,8 +1237,8 @@ function showInfo() {
   document.getElementById("infoModal").style.display = "block";
   const nameDisplay = document.getElementById("nameDisplay");
   if (nameDisplay) {
-    nameDisplay.style.zIndex = "1"; // تخفيض ترتيب nameDisplay تحت السايد بار
-    nameDisplay.style.display = 'none'; // تحريك العنصر إلى اليمين لتجنب تغطيته
+    nameDisplay.style.zIndex = "1";
+    nameDisplay.style.display = 'none';
   }
 }
 
@@ -1262,8 +1246,8 @@ function closeModal() {
   document.getElementById("infoModal").style.display = "none";
   const nameDisplay = document.getElementById("nameDisplay");
   if (nameDisplay) {
-    nameDisplay.style.zIndex = "10"; // رفع ترتيب nameDisplay
-    nameDisplay.style.display = 'inline'; // إعادة عرض العنصر
+    nameDisplay.style.zIndex = "10";
+    nameDisplay.style.display = 'inline';
   }
 }
 
@@ -1275,9 +1259,8 @@ window.onclick = function (event) {
   }
 };
 
-// إضافة مستمع حدث للضغط على مفتاح
+// إضافة مستمع حدث للضغط على مفتاح Esc
 window.addEventListener('keydown', function(event) {
-  // التحقق مما إذا كان المفتاح المضغوط هو Esc
   if (event.key === 'Escape' || event.key === 'Esc') {
       closeModal();
   }
@@ -1296,9 +1279,8 @@ document.addEventListener("DOMContentLoaded", () => {
   /**
    * دالة لعرض الكونتينر بناءً على حالة الدفع
    * @param {boolean} isSuccess - حالة الدفع: true إذا نجح، false إذا فشل
-   * @param {string} description - وصف الحالة لعرضه في الرسالة
    */
-  function showPaymentStatus(isSuccess, description) {
+  function showPaymentStatus(isSuccess) {
       const container = document.getElementById("paymentStatusContainer");
       const icon = document.getElementById("paymentStatusIcon");
       const message = document.getElementById("paymentStatusMessage");
@@ -1307,8 +1289,19 @@ document.addEventListener("DOMContentLoaded", () => {
           // حالة نجاح الدفع
           icon.classList.add("success");
           icon.innerHTML = "✔️"; // علامة صح
-          message.innerHTML = ".تمت العملية الدفع بنجاح!<br>انت الآن تستمتع بأجمل مميزات المحاسبة مع محاسب فريند";
-          updateSubscriptionUI();
+
+          // 1) استدعاء الدالة fetchSubscriptionStatus(true) لإجبار حالة الاشتراك = ACTIVE
+          fetchSubscriptionStatus(true)
+            .then(() => {
+              // 2) بعد تحديث الحالة، عرض الرسالة النهائية للمستخدم
+              message.innerHTML = ".تمت العملية الدفع بنجاح!<br>انت الآن تستمتع بأجمل مميزات المحاسبة مع محاسب فريند";
+              // 3) تحديت الواجهة
+              updateSubscriptionUI();
+            })
+            .catch((err) => {
+              console.error("Error forcing subscription to ACTIVE:", err);
+              message.innerHTML = "تم الدفع بنجاح، ولكن حدث خطأ في تحديث حالة الاشتراك.";
+            });
       } else {
           // حالة فشل الدفع
           icon.classList.add("error");
@@ -1355,14 +1348,16 @@ document.addEventListener("DOMContentLoaded", () => {
   // التحقق مما إذا كانت الصفحة تحتوي على معلمة statusDescription
   if (statusDescription !== null) {
       // تحديد إذا ما كانت العملية ناجحة أم لا بناءً على محتوى statusDescription
-      // يمكن تعديل هذه الشروط بناءً على النصوص الفعلية التي تحصل عليها
+      // يمكن تعديل هذه الشروط بناءً على النص الذي تأتي به بوابة الدفع
       const isSuccess = statusDescription.toLowerCase().includes("successfully");
 
       // عرض الكونتينر بناءً على الحالة
-      showPaymentStatus(isSuccess, decodeURIComponent(statusDescription));
+      showPaymentStatus(isSuccess);
   }
 
   // إضافة مستمع للنقر على زر الإغلاق
   const closeButton = document.getElementById("closePaymentStatus");
-  closeButton.addEventListener("click", closePaymentStatus);
+  if (closeButton) {
+    closeButton.addEventListener("click", closePaymentStatus);
+  }
 });
