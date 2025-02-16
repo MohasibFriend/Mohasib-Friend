@@ -1355,10 +1355,13 @@ document.addEventListener("DOMContentLoaded", () => {
       showPaymentStatus(isSuccess);
   }
 
-  // إضافة مستمع للنقر على زر الإغلاق
-  const closeButton = document.getElementById("closePaymentStatus");
-  if (closeButton) {
-    closeButton.addEventListener("click", closePaymentStatus);
-    
-  }
+    // إضافة مستمع للنقر على زر الإغلاق
+    const closeButton = document.getElementById("closePaymentStatus");
+    if (closeButton) {
+    closeButton.addEventListener("click", function () {
+      closePaymentStatus();
+      window.location.reload();
+    });
+}
+
 });
