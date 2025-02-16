@@ -1295,10 +1295,7 @@ document.addEventListener("DOMContentLoaded", () => {
         container.appendChild(okButton);
     }
     
-    // تعيين حدث الضغط على زر OK لإعادة تحميل الصفحة
-    okButton.onclick = function() {
-        window.location.reload();
-    };
+      
 
     if (isSuccess) {
         // حالة نجاح الدفع
@@ -1375,5 +1372,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const closeButton = document.getElementById("closePaymentStatus");
   if (closeButton) {
     closeButton.addEventListener("click", closePaymentStatus);
+    window.location.reload();
   }
 });
