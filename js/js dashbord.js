@@ -1276,41 +1276,57 @@ document.addEventListener("DOMContentLoaded", () => {
       return urlParams.get('statusDescription');
   }
 
+  
   /**
    * دالة لعرض الكونتينر بناءً على حالة الدفع
    * @param {boolean} isSuccess - حالة الدفع: true إذا نجح، false إذا فشل
    */
   function showPaymentStatus(isSuccess) {
-      const container = document.getElementById("paymentStatusContainer");
-      const icon = document.getElementById("paymentStatusIcon");
-      const message = document.getElementById("paymentStatusMessage");
+    const container = document.getElementById("paymentStatusContainer");
+    const icon = document.getElementById("paymentStatusIcon");
+    const message = document.getElementById("paymentStatusMessage");
+    
+    // التأكد من وجود زر OK، وإن لم يكن موجوداً، نقوم بإنشائه
+    let okButton = document.getElementById("paymentStatusOkButton");
+    if (!okButton) {
+        okButton = document.createElement("button");
+        okButton.id = "paymentStatusOkButton";
+        okButton.textContent = "OK";
+        container.appendChild(okButton);
+    }
+    
+    // تعيين حدث الضغط على زر OK لإعادة تحميل الصفحة
+    okButton.onclick = function() {
+        window.location.reload();
+    };
 
-      if (isSuccess) {
-          // حالة نجاح الدفع
-          icon.classList.add("success");
-          icon.innerHTML = "✔️"; // علامة صح
+    if (isSuccess) {
+        // حالة نجاح الدفع
+        icon.classList.add("success");
+        icon.innerHTML = "✔️"; // علامة صح
 
-          // 1) استدعاء الدالة fetchSubscriptionStatus(true) لإجبار حالة الاشتراك = ACTIVE
-          fetchSubscriptionStatus(true)
+        // 1) استدعاء الدالة fetchSubscriptionStatus(true) لإجبار حالة الاشتراك = ACTIVE
+        fetchSubscriptionStatus(true)
             .then(() => {
-              // 2) بعد تحديث الحالة، عرض الرسالة النهائية للمستخدم
-              message.innerHTML = ".تمت العملية الدفع بنجاح!<br>انت الآن تستمتع بأجمل مميزات المحاسبة مع محاسب فريند";
-              // 3) تحديت الواجهة
-              updateSubscriptionUI();
+                // 2) بعد تحديث الحالة، عرض الرسالة النهائية للمستخدم
+                message.innerHTML = ".تمت عملية الدفع بنجاح!<br>انت الآن تستمتع بأجمل مميزات المحاسبة مع محاسب فريند";
+                // 3) تحديث الواجهة
+                updateSubscriptionUI();
             })
             .catch((err) => {
-              console.error("Error forcing subscription to ACTIVE:", err);
-              message.innerHTML = "تم الدفع بنجاح، ولكن حدث خطأ في تحديث حالة الاشتراك.";
+                console.error("Error forcing subscription to ACTIVE:", err);
+                message.innerHTML = "تم الدفع بنجاح، ولكن حدث خطأ في تحديث حالة الاشتراك.";
             });
-      } else {
-          // حالة فشل الدفع
-          icon.classList.add("error");
-          icon.innerHTML = "❌"; // علامة خطأ
-          message.textContent = "فشلت عملية الدفع";
-      }
+    } else {
+        // حالة فشل الدفع
+        icon.classList.add("error");
+        icon.innerHTML = "❌"; // علامة خطأ
+        message.textContent = "فشلت عملية الدفع";
+    }
 
-      container.style.display = "flex";
+    container.style.display = "flex";
   }
+
 
   /**
    * دالة لإغلاق الكونتينر
