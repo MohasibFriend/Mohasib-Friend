@@ -1359,6 +1359,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const closeButton = document.getElementById("closePaymentStatus");
   if (closeButton) {
     closeButton.addEventListener("click", closePaymentStatus);
-    window.location.reload();
+    
   }
 });
