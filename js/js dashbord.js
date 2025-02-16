@@ -1318,7 +1318,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function closePaymentStatus() {
       const container = document.getElementById("paymentStatusContainer");
       container.style.display = "none";
-      window.location.reload();
+      
       // إزالة المعلمات من URL لتجنب إعادة العرض عند إعادة تحميل الصفحة
       const url = new URL(window.location);
       url.searchParams.delete('type');
@@ -1359,5 +1359,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const closeButton = document.getElementById("closePaymentStatus");
   if (closeButton) {
     closeButton.addEventListener("click", closePaymentStatus);
+    window.location.reload();
   }
 });
