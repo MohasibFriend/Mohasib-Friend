@@ -790,33 +790,17 @@ function initializeApp() {
         return new Promise((resolve) => {
             // Create a modal container using jQuery
             const modal = $(`
-                <div id="subscriptionOptionsModal" style="
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background-color: rgba(0,0,0,0.5);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    z-index: 10000;
-                ">
-                    <div style="
-                        background: #fff;
-                        padding: 20px;
-                        border-radius: 8px;
-                        text-align: center;
-                        max-width: 400px;
-                        width: 90%;
-                    ">
+                <div id="subscriptionOptionsModal">
+                    <div class="subscription-modal-content">
                         <h3>اختر نوع الاشتراك</h3>
-                        <button id="monthlyOption" style="margin: 10px; padding: 10px 20px;">اشتراك شهري</button>
-                        <button id="yearlyOption" style="margin: 10px; padding: 10px 20px;">اشتراك سنوي</button>
+                        <button id="monthlyOption">اشتراك شهري</button>
+                        <button id="yearlyOption">اشتراك سنوي</button>
                         <br>
-                        <button id="cancelOption" style="margin: 10px; padding: 10px 20px; background-color: grey; color: #fff;">إلغاء</button>
+                        <button id="cancelOption">إلغاء</button>
                     </div>
                 </div>
+
+
             `);
             $("body").append(modal);
     
