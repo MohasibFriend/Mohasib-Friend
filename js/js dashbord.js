@@ -790,14 +790,16 @@ function initializeApp() {
     
               <!-- زر الاشتراك الشهري -->
               <button id="monthlyOption">اشتراك شهري</button>
-              <div style="margin-bottom: 10px; font-weight:bold;">500 جنيه</div>
+              <div style="margin-bottom: 10px; font-weight:bold;">499 جنيه</div>
     
               <!-- زر الاشتراك السنوي -->
               <button id="yearlyOption">اشتراك سنوي</button>
-              <div style="margin-bottom: 10px; font-weight:bold;">5000 جنيه</div>
+              <div style="margin-bottom: 10px; font-weight:bold;">4999 جنيه</div>
     
               <br>
               <button id="cancelOption">إلغاء</button>
+              <br>
+              <h2>يضاف %14 ضريبة قيمة المضافة</h2>
             </div>
           </div>
         `);
