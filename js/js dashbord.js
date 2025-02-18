@@ -790,11 +790,11 @@ function initializeApp() {
     
               <!-- زر الاشتراك الشهري -->
               <button id="monthlyOption">اشتراك شهري</button>
-              <div style="margin-bottom: 10px; font-weight:bold;">570 جنيه</div>
+              <div style="margin-bottom: 10px; font-weight:bold;">500 جنيه</div>
     
               <!-- زر الاشتراك السنوي -->
               <button id="yearlyOption">اشتراك سنوي</button>
-              <div style="margin-bottom: 10px; font-weight:bold;">5700 جنيه</div>
+              <div style="margin-bottom: 10px; font-weight:bold;">5000 جنيه</div>
     
               <br>
               <button id="cancelOption">إلغاء</button>
