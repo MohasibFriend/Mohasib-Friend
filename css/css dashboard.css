@@ -495,6 +495,10 @@ html::-webkit-scrollbar-thumb:hover {
     z-index: 10000;
 }
 
+.subscribtion-header{
+    color: #000;
+}
+
 #subscriptionOptionsModal .subscription-modal-content {
     background: #fff;
     padding: 20px;
@@ -531,6 +535,7 @@ html::-webkit-scrollbar-thumb:hover {
 #subscriptionOptionsModal button#yearlyOption {
     background-color: var(--icon-bg);
     color: #fff;
+    font-weight: bold;
 }
 
 #subscriptionOptionsModal button#monthlyOption:hover,
@@ -540,12 +545,13 @@ html::-webkit-scrollbar-thumb:hover {
 
 /* Cancel button style */
 #subscriptionOptionsModal button#cancelOption {
-    background-color: grey;
+    background-color: #d30707;
     color: #fff;
+    font-weight: bold;
 }
 
 #subscriptionOptionsModal button#cancelOption:hover {
-    background-color: #666;
+    background-color: #850909;
 }
 
 /* Modal Styling */
