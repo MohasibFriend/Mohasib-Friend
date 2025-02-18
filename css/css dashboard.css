@@ -481,6 +481,85 @@ html::-webkit-scrollbar-thumb:hover {
     color: #fff;
 }
 
+/* Subscription Options Modal Styles */
+#subscriptionOptionsModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+#subscriptionOptionsModal .subscription-modal-content {
+    background: #fff;
+    padding: 20px;
+    border: var(--border) solid 10px;
+    border-radius: 8px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    animation: fadeIn 0.4s;
+}
+
+#subscriptionOptionsModal h3 {
+    margin-bottom: 20px;
+    color: var(--text-color);
+    font-size: 24px;
+}
+
+#subscriptionOptionsModal button {
+    margin: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#subscriptionOptionsModal button:hover {
+    transform: translateY(-5px);
+}
+
+/* Monthly and Yearly buttons share the same base style */
+#subscriptionOptionsModal button#monthlyOption,
+#subscriptionOptionsModal button#yearlyOption {
+    background-color: var(--icon-bg);
+    color: #fff;
+}
+
+#subscriptionOptionsModal button#monthlyOption:hover,
+#subscriptionOptionsModal button#yearlyOption:hover {
+    background-color: var(--hover-icon);
+}
+
+/* Cancel button style */
+#subscriptionOptionsModal button#cancelOption {
+    background-color: grey;
+    color: #fff;
+}
+
+#subscriptionOptionsModal button#cancelOption:hover {
+    background-color: #666;
+}
+
+/* Optional: Use your existing fadeIn keyframes if not already defined */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* Modal Styling */
 .modal {
     display: none;
