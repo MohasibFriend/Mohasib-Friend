@@ -799,7 +799,7 @@ function initializeApp() {
               <br>
               <button id="cancelOption">إلغاء</button>
               <br>
-              <h2>يضاف %14 ضريبة قيمة المضافة</h2>
+              <h2 style="font-size:12px">يضاف %14 ضريبة قيمة المضافة</h2>
             </div>
           </div>
         `);
