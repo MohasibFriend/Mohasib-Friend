@@ -319,7 +319,7 @@ function initializeApp() {
         initializeDashboard();
       } else {
         console.error("User ID is missing from sessionStorage. Redirecting to Sign-in page.");
-        window.location.href = "https://us-east-1fhfklvrxm.auth.us-east-1.amazoncognito.com/login/continue?client_id=6fj5ma49n4cc1b033qiqsblc2v&redirect_uri=https%3A%2F%2Fmohasibfriend.github.io%2FMohasib-Friend%2Fhome.html&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile";
+        window.location.href = "https://us-east-1fhfklvrxm.auth.us-east-1.amazoncognito.com/login/continue?client_id=6fj5ma49n4cc1b033qiqsblc2v&redirect_uri=https%3A%2F%2Fmohasibfriend.github.io%2FMohasib-Friend%2Fhome.html&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile";  
       }     
       displayname();
       updateSubscriptionUI();
@@ -781,43 +781,51 @@ function initializeApp() {
         }
     }
     
-    /**
-     * Presents a modal with both subscription options and returns the selected payment link.
-     * @param {object} paymentData - The payment data containing both monthly and yearly options.
-     * @returns {Promise<string|null>} - A promise that resolves with the chosen payment link, or null if cancelled.
-     */
     function showSubscriptionOptionsModal(paymentData) {
-        return new Promise((resolve) => {
-            // Create a modal container using jQuery
-            const modal = $(`
-                <div id="subscriptionOptionsModal">
-                    <div class="subscription-modal-content">
-                        <h3 class="subscribtion-header">اختر نوع الاشتراك</h3>
-                        <button id="monthlyOption">اشتراك شهري</button>
-                        <button id="yearlyOption">اشتراك سنوي</button>
-                        <br>
-                        <button id="cancelOption">إلغاء</button>
-                    </div>
-                </div>
-
-
-            `);
-            $("body").append(modal);
+      return new Promise((resolve) => {
+        // أنشئ الـ Modal container باستخدام jQuery
+        const modal = $(`
+          <div id="subscriptionOptionsModal">
+            <div class="subscription-modal-content">
+              <h3 class="subscribtion-header">اختر نوع الاشتراك</h3>
     
-            $("#monthlyOption").on("click", function () {
-                modal.remove();
-                resolve(paymentData.monthly.paymentLink);
-            });
-            $("#yearlyOption").on("click", function () {
-                modal.remove();
-                resolve(paymentData.yearly.paymentLink);
-            });
-            $("#cancelOption").on("click", function () {
-                modal.remove();
-                resolve(null);
-            });
+              <!-- زر الاشتراك الشهري -->
+              <button id="monthlyOption">اشتراك شهري</button>
+              <div style="margin-bottom: 10px; font-weight:bold;">570 جنيه</div>
+    
+              <!-- زر الاشتراك السنوي -->
+              <button id="yearlyOption">اشتراك سنوي</button>
+              <div style="margin-bottom: 10px; font-weight:bold;">5700 جنيه</div>
+    
+              <br>
+              <button id="cancelOption">إلغاء</button>
+            </div>
+          </div>
+        `);
+        
+        // أضف المحتوى إلى body
+        $("body").append(modal);
+    
+        // عند الضغط على زر الاشتراك الشهري
+        $("#monthlyOption").on("click", function () {
+          modal.remove();
+          resolve(paymentData.monthly.paymentLink);
         });
+    
+        // عند الضغط على زر الاشتراك السنوي
+        $("#yearlyOption").on("click", function () {
+          modal.remove();
+          resolve(paymentData.yearly.paymentLink);
+        });
+    
+        // عند الضغط على زر الإلغاء
+        $("#cancelOption").on("click", function () {
+          modal.remove();
+          resolve(null);
+        });
+      });
     }
+    
 
     
     // Load Amazon Cognito Identity SDK if not already loaded
