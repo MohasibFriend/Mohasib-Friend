@@ -774,7 +774,6 @@ function initializeApp() {
             }
         } catch (error) {
             console.error("Error generating payment link:", error);
-            alert("حدث خطأ أثناء إنشاء رابط الدفع.");
         } finally {
             hideSpinner();
             subscribeButton.disabled = false;
