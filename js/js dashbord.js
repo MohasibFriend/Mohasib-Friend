@@ -757,25 +757,84 @@ function initializeApp() {
             // Parse the `body` field, which contains the actual data as a JSON string
             const paymentData = JSON.parse(responseJson.body);
     
-            // Access data directly
-            const paymentLink = paymentData.paymentLink;
-            const userData = paymentData.userData;
-    
-            if (!paymentLink) {
+            // If both monthly and yearly options exist, show modal to let the user choose
+            if (paymentData.monthly && paymentData.yearly) {
+                const selectedPaymentLink = await showSubscriptionOptionsModal(paymentData);
+                if (!selectedPaymentLink) {
+                    throw new Error("لم يتم اختيار أي خيار اشتراك.");
+                }
+                // Redirect the user to the selected payment link
+                window.location.href = selectedPaymentLink;
+            }
+            // Fallback to the previous behavior if only one link is provided
+            else if (paymentData.paymentLink) {
+                window.location.href = paymentData.paymentLink;
+            } else {
                 throw new Error("لم يتم استلام رابط الدفع. يرجى الاتصال بالدعم.");
             }
-    
-            // إعادة توجيه المستخدم إلى صفحة الدفع
-            window.location.href = paymentLink;
         } catch (error) {
             console.error("Error generating payment link:", error);
             alert("حدث خطأ أثناء إنشاء رابط الدفع.");
         } finally {
             hideSpinner();
-            // إعادة تمكين الزر بغض النظر عن النتيجة
             subscribeButton.disabled = false;
         }
     }
+    
+    /**
+     * Presents a modal with both subscription options and returns the selected payment link.
+     * @param {object} paymentData - The payment data containing both monthly and yearly options.
+     * @returns {Promise<string|null>} - A promise that resolves with the chosen payment link, or null if cancelled.
+     */
+    function showSubscriptionOptionsModal(paymentData) {
+        return new Promise((resolve) => {
+            // Create a modal container using jQuery
+            const modal = $(`
+                <div id="subscriptionOptionsModal" style="
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0,0,0,0.5);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    z-index: 10000;
+                ">
+                    <div style="
+                        background: #fff;
+                        padding: 20px;
+                        border-radius: 8px;
+                        text-align: center;
+                        max-width: 400px;
+                        width: 90%;
+                    ">
+                        <h3>اختر نوع الاشتراك</h3>
+                        <button id="monthlyOption" style="margin: 10px; padding: 10px 20px;">اشتراك شهري</button>
+                        <button id="yearlyOption" style="margin: 10px; padding: 10px 20px;">اشتراك سنوي</button>
+                        <br>
+                        <button id="cancelOption" style="margin: 10px; padding: 10px 20px; background-color: grey; color: #fff;">إلغاء</button>
+                    </div>
+                </div>
+            `);
+            $("body").append(modal);
+    
+            $("#monthlyOption").on("click", function () {
+                modal.remove();
+                resolve(paymentData.monthly.paymentLink);
+            });
+            $("#yearlyOption").on("click", function () {
+                modal.remove();
+                resolve(paymentData.yearly.paymentLink);
+            });
+            $("#cancelOption").on("click", function () {
+                modal.remove();
+                resolve(null);
+            });
+        });
+    }
+
     
     // Load Amazon Cognito Identity SDK if not already loaded
     function loadCognitoSDK(callback) {
