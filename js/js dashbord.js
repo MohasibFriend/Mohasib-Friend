@@ -607,7 +607,6 @@ function initializeApp() {
             padding: "5px",
             fontSize: "12px",
           });
-          $notificationIcon.css("position", "relative");
           $notificationIcon.append($badge);
         }
         $badge.text(unreadCount).show();
