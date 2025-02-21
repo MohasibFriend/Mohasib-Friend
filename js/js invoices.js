@@ -146,7 +146,6 @@ async function fetchAlarms(registrationNumber) {
 
             if (data && data.body) {
                 const parsedBody = JSON.parse(data.body);
-                console.log(parsedBody);
                 // استخدم الخاصية "alarm" بدل "alarms"
                 displayAlarms(parsedBody.alarm ? [parsedBody.alarm] : []);
             } else {
