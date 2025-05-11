@@ -1,0 +1,254 @@
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to left, #15264d, #71b5dd ,#15264d);
+    color: white;
+    text-align: center;
+    direction: rtl;
+}
+
+html::-webkit-scrollbar {
+    width: 10px; /* عرض شريط التمرير */
+}
+
+html::-webkit-scrollbar-track {
+    background: #f1f1f1; /* لون المسار */
+    border-radius: 10px;  /* حواف دائرية للمسار */
+}
+
+html::-webkit-scrollbar-thumb {
+    background: var(--border);  /* لون المقبض */
+    border-radius: 100px;   /* حواف دائرية للمقبض */
+}
+
+html::-webkit-scrollbar-thumb:hover {
+    background: #2980b9;  /* لون المقبض عند التحويم */
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+}
+.home-button {
+    position: absolute;
+    left: 50%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    transform: translate(-50%, -50%);
+    background-color: #007bff;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s ease;
+}
+
+.home-button:hover {
+    background-color: #0056b3;
+}
+
+.home-button i {
+    font-size: 20px;
+}
+
+.title {
+    font-size: 28px;
+    margin-bottom: 20px;
+    margin-top: 80px;
+} 
+
+.title2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.proposals-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+.proposal {
+    background-color: #001f3f;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    margin: 15px;
+    text-align: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    border: #2063ff solid 3px;
+}
+
+.vote-button {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100px;
+}
+
+.vote-button:disabled {
+    background-color: #6c757d;
+    font-weight: bold;
+    cursor: not-allowed;
+}
+
+.vote-count {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.alert-message {
+    display: none;
+    padding: 10px;
+    margin-bottom: 15px;
+    background-color: #ff4d4d;
+    color: white;
+    border-radius: 5px;
+}
+
+.spinner {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+}
+
+.loader {
+    width: 50px;
+    height: 50px;
+    border: 7px solid #ffffff;
+    border-top: 7px solid rgb(15, 149, 238);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* الهواتف المحمولة (شاشات حتى 600px) */
+@media (max-width: 600px) {
+    .container {
+        width: 95%;
+        padding: 10px;
+    }
+
+    .home-button {
+        font-size: 16px;
+        padding: 10px 20px;
+    }
+
+    .title {
+        font-size: 24px;
+        margin-top: 100px;
+    }
+    .title2 {
+        font-size: 24px;
+        margin-top: 60px;
+    }
+
+
+    .proposals-container {
+        grid-template-columns: 1fr;
+        padding: 20px 10px;
+    }
+
+    .proposal {
+        padding: 15px;
+        margin: 10px;
+    }
+
+    .vote-button {
+        width: 80px;
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}
+
+/* الأجهزة اللوحية (شاشات بين 601px و1024px) */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .container {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .home-button {
+        font-size: 17px;
+        padding: 11px 22px;
+    }
+
+    .title {
+        font-size: 26px;
+        margin-top: 70px;
+    }
+
+    .proposals-container {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 30px 15px;
+    }
+
+    .proposal {
+        padding: 18px;
+        margin: 12px;
+    }
+
+    .vote-button {
+        width: 90px;
+        padding: 9px 18px;
+        font-size: 16px;
+    }
+}
+
+/* الشاشات الكبيرة (أكثر من 1025px) */
+@media (min-width: 1025px) {
+    .container {
+        width: 80%;
+        padding: 20px;
+    }
+
+    .home-button {
+        font-size: 18px;
+        padding: 12px 24px;
+    }
+
+    .title {
+        font-size: 28px;
+        margin-top: 80px;
+    }
+
+    .proposals-container {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 40px 20px;
+    }
+
+    .proposal {
+        padding: 20px;
+        margin: 15px;
+    }
+
+    .vote-button {
+        width: 100px;
+        padding: 10px 20px;
+        font-size: 18px;
+    }
+}

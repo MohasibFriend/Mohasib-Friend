@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <!-- Viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS links -->
+    <link rel="stylesheet" href="css/css dashboard.css">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="shortcut icon" href="img/WhatsApp Image 2024-10-05 at 22.14.21_3245af43.jpg" type="image/x-icon" class="imglogo">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+   
+
+</head>
+<body>
+    <!-- Navigation Container -->
+    <div class="NavContainer" id="NavBar">
+        <img src="img/WhatsApp Image 2024-10-05 at 22.14.21_3245af43.jpg" alt="logo-img" class="logo-img">
+        <h1 class="header-h1">Mohasib Friend</h1>
+        <!-- Icons at the top with the "i" icon -->
+        <div class="icon-container1">
+            <!-- Other icons -->
+            <span class="info-icon" onclick="showInfo()">i</span>
+        </div>
+
+        <!-- Information Modal -->
+        <div id="infoModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <div class="maintran">
+                    <div class="scrollable">
+                        <p class="tran" style="text-align: end;">
+                            مرحبا بك في صفحة التحكم المتطورة لبرنامج محاسب فريند - شريكك المحاسب المثالي! هنا يصبح التحكم في
+                            أمورك المحاسبية سهلا وميسىراً بشكل لا يضاهى. من إدارة وثائق الشركة إلى متابعة الفواتير وإقراراتك
+                            الشهرية، كل شيء متاح لك في مكان واحد، وبكل سهولة!
+                            أفضل ما في الأمر؟ خدامتك دقيقه باستخدام الذكاء الاصطناعي المتطور، مما يضمن عدم حدوث أي خطأ وتحقيق أعلى مستوى من الدقة بدون أي تدخل بشري. وداعا للمشاكل اليدوية واستقبل السرعة والانسيابية التي لا يمكن أن تتميز إلا مع الذكاء الاصطناعي. أدارتك المحاسبيه تبدأ من هنا، حيث تلتقي الراحة بالإتقان وازدهار الأعمال بدون عناء.
+                            كل ما عليك فعله هو ادخال معلومات الدخول لمنظومة الفاتوره الالكترونية
+                            <br>
+                            <p style="font-family: Arial, Helvetica, sans-serif; font-weight: bold; text-align: end;">
+                                ١-تسجيل الدخول
+                                <br>
+                                ٢-ادخل بينات البورتال بشكل صحيح في صفحة الشحصيه
+                                <br>
+                                ٣-دخل المصروفات بشكل صحيح مطابقا للقواعد في صفحة فواتير المصروفات
+                                <br>
+                            </p>
+                        </p>
+                        <p class="tran" style="text-align: start;">
+                            Welcome to the Advanced Control Page of Mohasib Friend - Your Ideal Accounting Partner! Here,
+                            managing your accounting matters becomes incredibly simple and seamless. From managing company documents to
+                            tracking invoices and monthly declarations, everything is available to you in one place with absolute ease!
+
+                            The best part? Your services are backed by advanced AI, ensuring no errors and achieving the highest level of
+                            accuracy without any human intervention. Say goodbye to manual issues and embrace the speed and efficiency that only
+                            AI can offer. Your accounting management journey starts here, where convenience meets perfection and business growth
+                            without hassle.
+
+                            All you need to do is enter your login information for the Electronic Invoice System.
+                            <p style="font-family: Arial, Helvetica, sans-serif; font-weight: bold; text-align: start;">
+                                <br>
+                                1-Sign In
+                                <br>
+                                2-Enter the portal details correctly on the profile page.
+                                <br>
+                                3-Enter the expenses accurately, following the guidelines, on the Expenses Invoices page.
+                            </p>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+
+        <!-- Icon Container -->
+        <div class="icon-container">
+            <span>
+                <div class="SecondtIcon" id="userButton">
+                    <i class="fa fa-user"></i>
+                </div>
+            </span>
+            <div class="overlay" id="dropdownOverlay"></div>
+            <div class="dropdown-container" id="dropdown">
+                <a href="profile.html">الملف الشخصي</a>
+                <a href="#" id="profile">ربط البورتال</a>               
+                <a href="#" id="subscribeButton">اشتراك</a>
+                <div class="setting-group theme-toggle" style="display: flex; align-items: center; padding: 10px;">
+                    <label for="theme-switch"  class="theme-switch">
+                        وضع السطوع
+                    </label>
+                    <label class="switch">
+                        <input type="checkbox" id="theme-switch">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <a href="vote.html" id="profile">اقترحات لتطوير البرنامج</a>
+                <a href="GPT.html" id="profile">المساعد الذكي</a>
+            </div>
+            <div class="ThirdIcon" id="notificationicon">
+                <i class="fa fa-bell"></i>
+            </div>
+
+            <a href="#" class="a">
+                <div class="FourthIcon" id="logoutButton">
+                    <i class="fa fa-sign-out-alt"></i>
+                </div>
+            </a>
+        </div>
+    </div>
+
+        <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const portalLink = document.getElementById("profile");
+
+            function checkRegistration() {
+            const userId = sessionStorage.getItem("userId");
+            const regNum = sessionStorage.getItem("registrationNumber");
+
+            if (userId) {
+                portalLink.href = `https://60157458-015d-4584-b137-8d775ad166dc-00-306z3cr5wcg74.worf.replit.dev/?userId=${encodeURIComponent(userId)}`;
+            }
+
+            if (regNum) {
+                portalLink.style.pointerEvents = "none";        // يعطل الضغط
+                portalLink.style.backgroundColor = "#797575";   // لون رمادي
+                portalLink.style.color = "#fff";                // لون الخط أغمق
+                portalLink.textContent = 'بالطبع انت مسجل';
+                portalLink.style.cursor = "not-allowed";        // شكل الماوس
+            }
+            }
+
+            // أول فحص عند التحميل
+            checkRegistration();
+            // فحص كل ثانية
+            setInterval(checkRegistration, 1000);
+        });
+        </script>
+
+    
+
+    <!-- Spinner -->
+    <div id="spinner" style="display: none;">
+        <div class="loader"></div>
+    </div>
+    <!-- Logout Modal -->
+    <div id="logoutModal" class="modal-logout" style="display: none;">
+        <div class="modal-content-logout">
+            <p>هل أنت متأكد أنك تريد تسجيل الخروج؟</p>
+            <div class="modal-buttons">
+                <button class="confirm-btn" id="confirmLogout">تسجيل خروج</button>  
+                <button class="cancel-btn" id="cancelLogout">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar" style="background-color: #e0e7ff; position: fixed; top: 0; left: -250px; height: 100%; visibility: hidden; opacity: 0;">
+        <a href="Company Document.html" class="menu-item">
+            <div class="icon-button1">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+            <div class="text-container">
+                <div class="title-en">Company Docs</div>
+                <div class="title-ar">وثائق الشركة</div>
+            </div>
+        </a>
+        <a href="Invoices Alarm.html" class="menu-item">
+            <div class="icon-button2">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+            <div class="text-container">
+                <div class="title-en">Invoices</div>
+                <div class="title-ar">فواتير</div>
+            </div>
+        </a>
+        <a href="Monthly Decleration.html" class="menu-item">
+            <div class="icon-button4">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+            <div class="text-container">
+                <div class="title-en">Monthly Declaration</div>
+                <div class="title-ar">الاقرارات الشهرية</div>
+            </div>
+        </a>
+        <a href="Finacial Statment.html" class="menu-item">
+            <div class="icon-button3">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+            <div class="text-container">
+                <div class="title-en">Income Statement</div>
+                <div class="title-ar">قوائم الدخل</div>
+            </div>
+        </a>
+        <a href="Journal.html" class="menu-item">
+            <div class="icon-button5">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+            <div class="text-container">
+                <div class="title-en">Journal</div>
+                <div class="title-ar">اليومية</div>
+            </div>
+        </a>
+        <a href="index Expinsis.html" class="menu-item">
+            <div class="icon-button6">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+            <div class="text-container">
+                <div class="title-en">Expense Invoices</div>
+                <div class="title-ar">فواتير المصروفات</div>
+            </div>
+        </a>
+    </div>
+
+    <!-- Toggle Button for Sidebar -->
+    <div id="toggleButton">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+    </div>
+
+    <!-- Overlay for Sidebar -->
+    <div id="overlay" style="display: none;"></div>
+
+    <!-- Navbar for smaller screens -->
+    <div class="Navbar">
+        <a href="Company Document.html" class="a">
+            <div class="companydocs">
+                <h1 class="textcompanydocs a">Company Docs</h1>
+                <h2 class="textcompanydocs a">وثائق الشركه</h2>
+                <div class="icon">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </a>
+        <a href="Invoices Alarm.html" class="a">
+            <div class="companydocs">
+                <h1 class="textcompanydocs">Invoices</h1>
+                <h2 class="textcompanydocs">الفواتير</h2>
+                <div class="icon">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </a>
+        <a href="Monthly Decleration.html" class="a">
+            <div class="companydocs">
+                <h1 class="textcompanydocs">Monthly Declarations</h1>
+                <h2 class="textcompanydocs">الاقرارات الشهريه</h2>
+                <div class="icon">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </a>
+        <a href="Journal.html" class="a">
+            <div class="companydocs">
+                <h1 class="textcompanydocs">Journal</h1>
+                <h2 class="textcompanydocs">اليومية</h2>
+                <div class="icon">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </a>
+        <a href="Finacial Statment.html" class="a">
+            <div class="companydocs">
+                <h1 class="textcompanydocs">Income Statement</h1>
+                <h2 class="textcompanydocs">قوائم الدخل</h2>
+                <div class="icon">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </a>
+        <a href="index Expinsis.html" class="a">
+            <div class="companydocs">
+                <h1 class="textcompanydocs">Expense Invoices</h1>
+                <h2 class="textcompanydocs">فواتير مصروفات</h2>
+                <div class="icon">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </a>
+    </div>
+    <span id="nameDisplay" class="welcome"></span>
+    <!-- Grid Container -->
+    <div class="grid-container">
+        
+        <a href="Company Document.html" class="a">
+            <div class="contanar-img">
+                <img src="img/comp.png" alt="" class="grid-item">
+            </div>
+        </a>
+        <a href="Invoices Alarm.html" class="a">
+            <div class="contaner-img1">
+                <img src="img/invoices.jpg" alt="" class="grid-item">
+            </div>
+        </a>
+        <a href="Monthly Decleration.html" class="a">
+            <div class="contanir-img2">
+                <img src="img/month.jpg" alt="" class="grid-item">
+            </div>
+        </a>
+        <a href="Finacial Statment.html" class="a">
+            <div class="contaner-img2">
+                <img src="img/finansial.png" alt="" class="grid-item">
+            </div>
+        </a>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="social-links">
+            <a href="https://www.facebook.com/share/17pCH8Vf5s/" target="_blank" class="social-icon">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://www.instagram.com/mohasibfriend.app?igsh=MTFkNHB1NHlvZWZ4bg==" target="_blank" class="social-icon">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.tiktok.com/@mohasib.friendapp" target="_blank" class="social-icon">
+                <i class="fab fa-tiktok"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/mohasib-friend-b252ba339/" target="_blank" class="social-icon">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="https://x.com/MohasibFriend" target="_blank" class="social-icon">
+                <i class="fab fa-x-twitter"></i>
+            </a>
+        </div>
+        <div class="copyright">
+            <a href="About.html" class="About">
+                <p>About Mohasib Friend</p>
+            </a>
+            <a href="Privacy Policy.html" class="About">
+                <p>Privacy Policy</p>
+            </a>
+            <p>© 2024 Mohasib Friend. All rights reserved.</p>
+        </div>
+        <div class="contact-support">
+            <p>Contact Us: <a href="mailto:support@mohasibfriend.com">support@mohasibfriend.com</a></p>
+        </div>
+    </div>
+
+    <!-- Container for Payment Status -->
+    <div id="paymentStatusContainer" class="payment-status-container" style="display: none;">
+        <div class="payment-status-content">
+            <span id="paymentStatusIcon" class="payment-status-icon"></span>
+            <p id="paymentStatusMessage"></p>
+            <button id="closePaymentStatus" class="close-button">OK</button>
+        </div>
+    </div>
+
+
+    <!-- Include your JavaScript file -->
+    <script src="js/js dashbord.js"></script>
+</body>
+
+</html>
