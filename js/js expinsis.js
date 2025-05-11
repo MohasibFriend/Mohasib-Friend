@@ -515,7 +515,7 @@ function showSuccessModal() {
   
     // إنشاء الرسالة
     const messagePara = document.createElement("p");
-    messagePara.innerHTML = ".تم حفظ مصروفاتك بنجاح<br>لكي يصلك الإقرار بدقة عالية، الرجاء الانتظار لمدة 24 ساعة فقط<br>اذا كان الاشتراك نشط لا داعي الانتظار 24 ساعه فقط قم بضغط علي زر تحديث البينات من صفحة ربط البورتال<br>!شكرًا لاستخدامك محاسب فريند";
+    messagePara.innerHTML = ".تم حفظ مصروفاتك بنجاح<br>!شكرًا لاستخدامك محاسب فريند";
 
     messagePara.style.fontSize="18px";
     messagePara.style.fontWeight="bold";
