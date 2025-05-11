@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
         // عرض رد البوت
         if (!answer) {
-          addMessageToChat("bot", "!هذه التقنية في فيد التطوير سيتم فتحها ليكما قريبا");
+          addMessageToChat("bot", "هذه التقنية في قيد التطوير سيتم فتحها ليكما قريبا!");
         } else {
           addMessageToChat("bot", answer);
         }
