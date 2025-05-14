@@ -88,7 +88,7 @@ function isMonthAllowed(month, selectedYear) {
   } else if (subscriptionStatus === 'FREE_TRIAL') {
     if (selectedYear === '2024') {
       // في 2024 للمشترك التجريبي يُسمح فقط بالشهور 1 و6 و12
-      return (month === 1 || month === 6 || month === 12);
+      return (month === 1 ||month === 2 || month === 3 ||month === 4 ||month === 5 ||month === 6 ||month === 7 ||month === 8 ||month === 9 || month === 10 ||month === 11 ||month === 12);
     } else if (selectedYear === '2025') {
       // في 2025 للمشترك التجريبي يُسمح بالشهور 1 و6 والشهر (currentMonth - 1)
       return (month === 1 || month === 6 || month === (currentMonth - 1));
