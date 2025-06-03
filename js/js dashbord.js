@@ -1536,3 +1536,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // ثم كرّر الفetch كل 5 ثواني
   setInterval(fetchRegistrationStatus, 1000);
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (typeof handleCognitoCallback === 'function') {
+    handleCognitoCallback();
+  }
+});
