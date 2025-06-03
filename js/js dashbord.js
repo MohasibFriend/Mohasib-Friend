@@ -1540,5 +1540,6 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
   if (typeof handleCognitoCallback === 'function') {
     handleCognitoCallback();
+    initializeApp();    
   }
 });
