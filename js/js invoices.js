@@ -15,7 +15,7 @@ function checkUserId() {
     if (sessionStorage.getItem("userId")) {
       // إذا وجد userId في sessionStorage يمكن إكمال الكود هنا
     } else {
-      window.location.href = "https://us-east-1fhfklvrxm.auth.us-east-1.amazoncognito.com/login/continue?client_id=6fj5ma49n4cc1b033qiqsblc2v&redirect_uri=https%3A%2F%2Fmohasibfriend.github.io%2FMohasib-Friend%2Fhome.html&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile";
+      window.location.href = "https://us-east-1asnaeuufl.auth.us-east-1.amazoncognito.com/login/continue?client_id=1v5jdad42jojr28bcv13sgds5r&redirect_uri=https%3A%2F%2Fmohasibfriend.com%2Fhome.html&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile";
       //handleCognitoCallback(); // مُعلق وفق طلبك دون تغيير أي شيء آخر
     }
 }
