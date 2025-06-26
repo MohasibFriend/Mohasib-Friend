@@ -1,0 +1,546 @@
+/* تعريف المتغيرات والألوان الرئيسية */
+:root {
+    --primary-color: #102447;
+    --primary-light: #203c6d;
+    --primary-dark: #0a1930;
+    --accent-color: #ff9500;
+    --accent-light: #ffb347;
+    --accent-dark: #e68200;
+    --light-color: #f8f9fa;
+    --dark-color: #212529;
+    --text-color: #e7f0ff;
+    --text-muted: rgba(231, 240, 255, 0.7);
+    --surface-color: #17355c;
+    --shadow-color: rgba(0, 0, 0, 0.2);
+    
+    --shadow-xs: 0 1px 2px var(--shadow-color);
+    --shadow-sm: 0 2px 4px var(--shadow-color);
+    --shadow-md: 0 4px 8px var(--shadow-color);
+    --shadow-lg: 0 8px 16px var(--shadow-color);
+    
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-xl: 28px;
+    --radius-full: 9999px;
+    
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.25s ease;
+    --transition-slow: 0.4s ease;
+    
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-md: 1rem;
+    --font-size-lg: 1.25rem;
+    --font-size-xl: 1.5rem;
+    --font-size-2xl: 2rem;
+    --font-size-3xl: 2.5rem;
+  }
+  
+  /* إعادة ضبط عام */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Tajawal', sans-serif;
+    background-color: var(--primary-dark);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.6;
+    font-weight: 400;
+    text-decoration: none ;
+
+  }
+  
+  /* تخطيط التطبيق الرئيسي */
+  .app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  /* تصميم الهيدر */
+  .app-header {
+    background-color: var(--primary-dark);
+    padding: var(--spacing-md);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow-md);
+    position: relative;
+    z-index: 10;
+    direction: ltr;
+    text-decoration: none ;
+
+  }
+  
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    text-decoration: none ;
+
+  }
+  
+  .brand-icon {
+    font-size: var(--font-size-xl);
+    color: var(--accent-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    background-color: rgba(255, 149, 0, 0.15);
+    border-radius: var(--radius-full);
+  }
+  a{
+    text-decoration: none;
+  }
+  .brand-name {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    margin: 0;
+    color: var(--light-color);    
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  .top-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    text-decoration: none ;
+
+  }
+  
+  .fa-home {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: var(--font-size-lg);
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+  
+  .fa-home:hover {
+    color: var(--accent-color);
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+  
+  /* تصميم واجهة المحادثة */
+  .chat-interface {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    background-color: var(--primary-color);
+    overflow: hidden;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    margin: 0 var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .chat-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-lg);
+    background-color: var(--surface-color);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  
+  .assistant-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+  }
+  
+  .assistant-avatar {
+    width: 42px;
+    height: 42px;
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-light));
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-lg);
+    color: #fff;
+    box-shadow: var(--shadow-sm);
+    
+  }
+  
+  .assistant-status {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .assistant-status h2 {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    margin: 0;
+    margin-bottom: 2px;
+  }
+  
+  .status-indicator {
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+  }
+  
+  .status-indicator::before {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: #4caf50;
+    border-radius: var(--radius-full);
+    margin-left: var(--spacing-xs);
+  }
+  
+  .topbar-actions {
+    display: flex;
+  }
+  
+  .menu-button {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+  }
+  
+  .menu-button:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-color);
+  }
+  
+  /* منطقة المحادثة والرسائل */
+  .messages-area {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--spacing-lg);
+    background:  linear-gradient(to left, #15264d, #30539e, #15264d);
+    position: relative;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+  }
+  
+  .messages-area::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  .messages-area::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-full);
+  }
+  
+  .messages-area::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  /* تصميم بطاقة الترحيب */
+  .welcome-card {
+    background: linear-gradient(135deg, var(--surface-color), rgba(23, 53, 92, 0.7));
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    text-align: center;
+    box-shadow: var(--shadow-md);
+    margin: var(--spacing-lg) 0;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 3px solid #000000;
+  }
+  
+  .welcome-graphic {
+    font-size: var(--font-size-3xl);
+    color: var(--accent-color);
+    background-color: rgba(255, 149, 0, 0.15);
+    width: 80px;
+    height: 80px;
+    margin: 0 auto var(--spacing-lg);
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+  }
+  
+  .welcome-title {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-md);
+    font-weight: 600;
+    color: var(--light-color);
+  }
+  
+  .welcome-text {
+    color: var(--text-muted);
+    font-size: var(--font-size-md);
+    line-height: 1.7;
+  }
+  
+  /* منطقة كتابة الرسائل */
+  .message-composer {
+    padding: var(--spacing-md);
+    background-color: var(--surface-color);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  
+  .composer-container {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-full);
+    padding: var(--spacing-xs) var(--spacing-sm) var(--spacing-xs) var(--spacing-lg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: border-color var(--transition-normal);
+  }
+  
+  .composer-container:focus-within {
+    border-color: rgba(255, 149, 0, 0.5);
+    box-shadow: 0 0 0 2px rgba(255, 149, 0, 0.2);
+  }
+  
+  .message-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: var(--spacing-md) 0;
+    color: var(--text-color);
+    font-size: var(--font-size-md);
+    font-family: 'Tajawal', sans-serif;
+    outline: none;
+  }
+  
+  .message-input::placeholder {
+    color: var(--text-muted);
+  }
+  
+  .send-button {
+    background-color: var(--accent-color);
+    color: var(--dark-color);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+  }
+  
+  .send-button:hover {
+    background-color: var(--accent-light);
+    transform: scale(1.05);
+  }
+  
+  .send-button:active {
+    transform: scale(0.98);
+  }
+  
+  /* تصميم الرسائل */
+  .message {
+    display: flex;
+    flex-direction: column;
+    max-width: 75%;
+    margin-bottom: var(--spacing-lg);
+    animation: fadeIn 0.3s ease;
+    position: relative;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* رسائل المستخدم */
+  .message.user {
+    margin-left: auto;
+    align-items: flex-end;
+  }
+  
+  .message-bubble.user {
+    background-color: var(--accent-color);
+    color: var(--dark-color);
+    border-radius: var(--radius-lg) 0 var(--radius-lg) var(--radius-lg);
+    padding: var(--spacing-md) var(--spacing-lg);
+    box-shadow: var(--shadow-sm);
+    position: relative;
+  }
+  
+  /* رسائل المساعد */
+  .message.bot {
+    margin-right: auto;
+    align-items: flex-start;
+  }
+  
+  .message-bubble.bot {
+    background-color: var(--surface-color);
+    color: var(--text-color);
+    border-radius: 0 var(--radius-lg) var(--radius-lg) var(--radius-lg);
+    padding: var(--spacing-md) var(--spacing-lg);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    max-width: 65%;
+  }
+  
+  .message-time {
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+    margin-top: var(--spacing-xs);
+  }
+  
+  /* إنيميشن مؤشر الكتابة */
+  .typing-indicator {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--surface-color);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-full);
+    margin-bottom: var(--spacing-lg);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .typing-indicator span {
+    width: 8px;
+    height: 8px;
+    margin: 0 2px;
+    border-radius: var(--radius-full);
+    background-color: var(--accent-color);
+    animation: typing 1.4s infinite;
+  }
+  
+  .typing-indicator span:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  
+  .typing-indicator span:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+  
+  @keyframes typing {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.6; }
+    30% { transform: translateY(-6px); opacity: 1; }
+  }
+  
+  /* مؤشر التحميل */
+  .loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(10, 25, 48, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    border-top-color: var(--accent-color);
+    animation: spin 1s ease-in-out infinite;
+  }
+  
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  
+  /* الاستجابة للأجهزة المختلفة */
+  @media (max-width: 768px) {
+    .chat-interface {
+      margin: 0;
+      border-radius: 0;
+      flex: 1;
+    }
+    
+    .app-header {
+      box-shadow: none;
+    }
+    
+    .welcome-card {
+      padding: var(--spacing-lg);
+    }
+    
+    .message {
+      max-width: 85%;
+    }
+    
+    .brand-name {
+      font-size: var(--font-size-md);
+    }
+    
+    .action-button {
+      width: 32px;
+      height: 32px;
+    }
+    .message-bubble.bot {
+      max-width: 60%;
+    }
+  }
+  
+  /* للشاشات الصغيرة جداً */
+  @media (max-width: 480px) {
+    .app-header {
+      padding: var(--spacing-sm) var(--spacing-md);
+    }
+    
+    .chat-topbar {
+      padding: var(--spacing-md);
+    }
+    
+    .messages-area {
+      padding: var(--spacing-md);
+    }
+    
+    .welcome-graphic {
+      width: 60px;
+      height: 60px;
+      font-size: var(--font-size-2xl);
+    }
+    
+    .message {
+      max-width: 90%;
+    }
+    
+    .brand-icon {
+      width: 32px;
+      height: 32px;
+    }
+  }

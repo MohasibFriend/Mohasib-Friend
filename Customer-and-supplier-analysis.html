@@ -1,0 +1,142 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>تحليل العملاء والموردين</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/Customer-and-supplier-analysis.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  
+  <div class="spinner-overlay" id="spinnerOverlay">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">جارٍ التحميل...</span>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- logo with overlay -->
+    <div class="logo-container">
+      <a href="home.html">
+        <img src="img/WhatsApp Image 2024-10-05 at 22.14.21_3245af43.jpg"
+             alt="Logo"
+             class="logo">
+        <div class="overlay">
+          <span>Back</span>
+          <i class="bi bi-arrow-left"></i>
+        </div>
+      </a>
+    </div>
+
+    <h1 class="mb-4 text-center" id="header">تحليل العملاء والموردين</h1>
+
+    <div class="text-center mb-4">
+      <div class="btn-group" role="group">
+        <button id="btnCustomer" class="btn btn-primary" style="font-weight: bold;">العملاء</button>
+        <button id="btnSupplier" class="btn btn-outline-primary" style="font-weight: bold;">الموردين</button>
+        <button id="btnRefresh" class="btn btn-outline-warning d-none" title="تحديث البيانات">
+          <i class="bi bi-arrow-clockwise"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Customer Page -->
+    <div id="customerPage">
+      <div class="stats-section">
+        <div class="row g-2 mb-3">
+          <div class="col-md-6" style="display: none;">
+            <input type="text" id="custSearch" class="form-control" placeholder="ابحث عن عميل">
+          </div>
+          <div class="col-md-6">
+            <select id="custDropdown" class="form-select"></select>
+          </div>
+        </div>
+        <div class="row g-3 align-items-center mb-4">
+          <div class="col-md-4">
+            <div class="card text-center">
+              <div class="card-body">
+                <h5 class="card-title">إجمالي الفواتير</h5>
+                <p class="card-text fs-4" id="custTotalInv">0</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card text-center bg-light"  style="background-color: #ff1c66 !important;">
+              <div class="card-body">
+                <h5 class="card-title">إجمالي الضريبة</h5>
+                <p class="card-text fs-4" id="custTotalVat">0</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 text-center">
+            <button id="custDownload" class="btn-download">تحميل الملف</button>
+          </div>
+        </div>
+      </div>
+      <div class="chart-container mb-4">
+        <canvas id="custChart" width="150" height="150"></canvas>
+      </div>
+      <div class="table-responsive">
+        <input type="text" id="custTableSearch" class="form-control mb-2" placeholder="ابحث في الجدول">
+        <table class="table table-striped" id="custTable">
+          <thead></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Supplier Page -->
+    <div id="supplierPage" class="d-none">
+      <div class="stats-section">
+        <div class="row g-2 mb-3">
+          <div class="col-md-6" style="display: none;">
+            <input type="text" id="suppSearch" class="form-control" placeholder="ابحث عن مورد">
+          </div>
+          <div class="col-md-6">
+            <select id="suppDropdown" class="form-select"></select>
+          </div>
+        </div>
+        <div class="row g-3 align-items-center mb-4">
+          <div class="col-md-4">
+            <div class="card text-center">
+              <div class="card-body">
+                <h5 class="card-title">إجمالي الفواتير</h5>
+                <p class="card-text fs-4" id="suppTotalInv">0</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card text-center bg-light"  style="background-color: #ff1c66 !important;">
+              <div class="card-body">
+                <h5 class="card-title">إجمالي الضريبة</h5>
+                <p class="card-text fs-4" id="suppTotalVat">0</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 text-center">
+            <button id="suppDownload" class="btn-download">تحميل الملف</button>
+          </div>
+        </div>
+      </div>
+      <div class="chart-container mb-4">
+        <canvas id="suppChart" width="150" height="150"></canvas>
+      </div>
+      <div class="table-responsive">
+        <input type="text" id="suppTableSearch" class="form-control mb-2" placeholder="ابحث في الجدول">
+        <table class="table table-striped" id="suppTable">
+          <thead></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/Customer-and-supplier-analysis.js"></script>
+</body>
+</html>

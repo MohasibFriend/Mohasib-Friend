@@ -1,0 +1,1091 @@
+body {
+    background: var(--bg-color);
+    direction: ltr;             /* تحديد اتجاه النص من اليسار لليمين */
+    font-size: var(--font-size-s);  /* استخدام متغير لتحديد حجم الخط */
+    line-height: 1.5;           /* ارتفاع السطر */
+    margin: 0;                  /* إزالة الهوامش */
+    font-family: Arial, Helvetica, sans-serif;  /* الخط الافتراضي للصفحة */
+    overflow: auto;             /* تمكين السكرول على كامل الصفحة */
+    scroll-behavior: smooth;    /* تمكين التمرير السلس */
+}
+
+/* تخصيص شريط التمرير للصفحة */
+html::-webkit-scrollbar {
+    width: 10px;
+    /* عرض شريط التمرير */
+}
+
+html::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    /* لون المسار */
+    border-radius: 10px;
+    /* حواف دائرية للمسار */
+}
+
+html::-webkit-scrollbar-thumb {
+    background: var(--border);
+    /* لون المقبض */
+    border-radius: 100px;
+    /* حواف دائرية للمقبض */
+}
+
+html::-webkit-scrollbar-thumb:hover {
+    background: var(--hover-icon);
+    /* لون المقبض عند التحويم */
+}
+ /* إضافة تأثيرات انتقال */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-50px) , translateX(50%); }
+    to { opacity: 1; transform: translateY(0) , translateX(50%) ; }
+}
+/*Nav start*/
+.NavContainer {
+    height: 100px;
+    margin-top: 5px;
+    position: relative;
+    background-color: var(--background-nav);
+    border: 3px solid black;
+    border-radius: 30px;
+}
+
+.logo-img {
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    margin-left: 10px;
+    margin-top: 8px;
+    border: #000 solid 3px;
+}
+
+.a {
+    text-decoration: none;
+    /* إزالة الخط السفلي من الرابط */
+    color: #000;
+    left: 5px;
+}
+
+.header-h1 {
+    font-size: 16px !important;
+    color: var(--text-color);
+    position: absolute;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    left: 90px;
+    top: 5px;
+}
+
+.FirstIcon,
+.SecondtIcon,
+.ThirdIcon,
+.FourthIcon {
+    border: 3px solid black;
+    padding: 5px;
+    border-radius: 50%;
+    font-size: 35px;
+    position: absolute;
+    top: 20px;
+}
+
+.FirstIcon {
+    left: 78%;
+}
+
+.SecondtIcon {
+    left: 88%;
+}
+
+.ThirdIcon {
+    left: 88%;
+}
+
+.FourthIcon {
+    border: 3px solid var(--border-icon) !important;
+    padding: 5px !important;
+    background-color:var(--icon-bg);
+    border-radius: 50% !important;
+    font-size: 30px !important;
+    position: absolute !important;
+    top: 19px !important;
+    width: 42px !important;
+    height: 47px !important;
+    padding-left: 11px !important;
+    padding-top: 3px !important;
+    left: 94% !important;
+    transition: 0.5s;
+    cursor: pointer;
+    color: var(--text-color);
+}
+.FourthIcon:hover{
+    background-color:var(--hover-icon) !important;
+    color: #fff;
+}
+
+/*Nav End*/
+.info-icon {
+    font-size: 42px;
+    color: var(--text-color);
+    border: 3px solid var(--border-icon) !important;
+    background-color: var(--icon-bg);
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin-left: 89%;
+    border: solid;
+    font-weight: bold;
+    margin-top: -3.8%;
+    transition: 0.5s !important;
+    cursor: pointer;
+}
+
+.info-icon:hover {
+    background-color: var(--hover-icon) !important; 
+    color: #fff !important;
+}
+
+/* Modal Styling */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: var(--border);
+    margin: 15px auto;
+    position: fixed;
+    padding: 20px;
+    border: 1px solid #888;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    top: 50%;
+    left: 50%;
+    max-width: 600px;
+    border-radius: 10px;
+    text-align: left;
+    animation: fadeIn 0.4s;
+}
+
+.maintran {
+    border-radius: 20px;
+    border: #000 solid 3px;
+    background-color: #fff;
+    padding: 10px;
+}
+
+.close {
+    color: #000;
+    float: left;
+    font-size: 28px;
+    font-weight: bold;
+    margin-left: -12px;
+    margin-top: -19px;
+    cursor: pointer;
+    display: none !important;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+}
+
+.scrollable {
+    width: 100%; /* العرض الكامل للعنصر */
+    height: 350px; /* يمكنك ضبط الارتفاع حسب احتياجاتك */
+    overflow-y: auto; /* تفعيل التمرير العمودي */
+    overflow-x: hidden; /* إخفاء التمرير الأفقي */
+    padding: 10px; /* مسافة داخلية اختيارية */
+    box-sizing: border-box; /* لضمان أن الحدود والحشوات لا تؤثر على العرض */
+}
+.scrollable::-webkit-scrollbar {
+    width: 10px; /* عرض الشريط */
+}
+
+.scrollable::-webkit-scrollbar-track {
+    background: #f1f1f1; /* خلفية الشريط */
+    border-radius: 5px; /* تقويس حواف الشريط */
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+    background: var(--border);  /* لون المقبض */
+    border-radius: 5px; /* تقويس حواف الشريط */
+}
+
+.scrollable::-webkit-scrollbar-thumb:hover {
+    background: #2980b9; /* تغيير اللون عند التمرير فوقه */
+}
+/*Body Start*/
+.companycontanir {
+    background-color: #fff;
+    border-radius: 20px;
+    border: #000 solid 4px;
+    width: 600px;
+    height: 75px;
+    margin-left: 652px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.heading {
+    display: block;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    margin-top: 20px;
+    font-weight: bold;
+    unicode-bidi: isolate;
+    color: var(--header);
+    text-align: center;
+}
+
+
+.contanir1 {
+    border: #000 solid 3px;
+    border-radius: 15px;
+    background-color: rgb(163, 182, 229);
+    height: auto;
+    width: 97.6%;
+    padding: 20px 20px;
+    margin-bottom: 30px;
+}
+
+.ar {
+    background-color: #fff;
+    border: #000 solid 2px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 17px;
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.eng {
+    background-color: #fff;
+    border: #000 solid 2px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    padding: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 14px;
+}
+
+#mainContainer{
+    width: 94.5% !important;
+    background-color: var(--background-nav);
+}
+#documentTable{
+    width: auto !important;
+    border: 3px solid black;
+    border-radius: 15px;
+    margin-top: 2px;
+    background-color: rgb(255, 255, 255);
+    font-size: 18px !important;
+    padding-left: 0%;
+    margin-left: 0%;
+}
+
+#mainContainer{
+    margin-left: 0px;
+    width: auto !important;
+    padding-left: 0%;
+    margin-left: 0%;
+}
+input[type="file"], button {
+    font-size: 15px !important;
+    width: 100%;
+}
+#modalContainer{
+    border: var(--border) solid 16px;
+    font-weight: bold;
+    animation: fadeIn 0.4s;
+}
+#expiryDateInput{
+    border: #000 solid 3px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+@media only screen and (min-width: 1501px) and (max-width: 1830px) {
+    .NavContainer {
+        height: 87px;
+        padding: -40px;
+
+    }
+
+    .logo-img {
+        height: 60px;
+        width: 60px;
+        left: 75px;
+        margin-right: 30px;
+    }
+
+    .header-h1 {
+        font-size: 15px !important;
+        left: 79px !important;
+        top: -1px !important;
+    }
+    
+
+    .FirstIcon,
+    .SecondtIcon,
+    .ThirdIcon,
+    .FourthIcon {
+        font-size: 25px;
+        top: 15px;
+    }
+
+    .FirstIcon {
+        left: 62%;
+    }
+
+    .SecondtIcon {
+        left: 73%;
+    }
+
+    .ThirdIcon {
+        left: 71%;
+    }
+
+    .FourthIcon {
+        padding: 5px !important;
+        border-radius: 50% !important;
+        font-size: 30px !important;
+        position: absolute !important;
+        top: 12px !important;
+        width: 42px !important;
+        height: 47px !important;
+        padding-left: 11px !important;
+        padding-top: 3px !important;
+        left: 94% !important;
+    }
+        
+    .info-icon {
+       font-size: 37px !important;
+        border-radius: 50% !important;
+        width: 55px !important;
+        height: 55px !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        cursor: pointer !important;
+        margin-left: 88% !important;
+        font-weight: bold !important;
+        margin-top: -69px !important;
+    }
+   
+    .contanir1{
+        border: #000 solid 3px;
+        border-radius: 15px;
+        background-color: rgb(163, 182, 229);
+        height: auto;
+        width: 87.6% !important;
+        padding: 20px 20px;
+        margin-bottom: 30px;
+    }
+    .companycontanir {
+        width: 73%;
+        height: auto;
+        margin-left: 12%;
+        font-size: 30px !important;
+    }
+
+    .heading {
+        margin-top:10px !important;
+        margin-bottom: 15px !important;
+        font-size: 30px !important;
+        font-weight: bold !important;
+    }
+
+    .uploadButton,
+    .InputsButtons {
+        margin-left: 10%;
+        width: 80%;
+    }
+
+    .TableContainer {
+        height: auto;
+        margin-top: 10px;
+    }
+
+    .table {
+        width: 90%;
+    }
+
+    .btn {
+        width: 70%;
+        margin: 10px auto;
+    }
+    #mainContainer{
+        width: 94.5% !important;
+    }
+    #documentTable{
+        width: auto !important;
+        border: 3px solid black;
+        border-radius: 15px;
+        margin-top: 2px;
+        background-color: rgb(255, 255, 255);
+        font-size: 15px !important;
+        padding-left: 0%;
+        margin-left: 0%;
+    }
+    #mainContainer{
+        margin-left: 0px;
+        width: auto !important;
+        padding-left: 0%;
+        margin-left: 0%;
+    }
+    input[type="file"], button {
+        font-size: 15px !important;
+        width: 100%;
+    }
+
+}
+
+/* Tablets (min-width: 601px and max-width: 1024px) */
+@media only screen and (min-width: 731px) and (max-width: 1500px) {
+    .NavContainer {
+        height: 78px;
+        padding: -40px;
+
+    }
+
+    .logo-img {
+        height: 50px;
+        width: 50px;
+        left: 75px;
+        margin-right: 30px;
+    }
+
+    .header-h1 {
+        font-size: 11px !important;
+        left: 70px !important;
+        top: 6px !important;
+    }
+    
+
+    .FirstIcon,
+    .SecondtIcon,
+    .ThirdIcon,
+    .FourthIcon {
+        font-size: 25px;
+        top: 15px;
+    }
+
+    .FirstIcon {
+        left: 62%;
+    }
+
+    .SecondtIcon {
+        left: 73%;
+    }
+
+    .ThirdIcon {
+        left: 71%;
+    }
+
+    .FourthIcon {
+        padding: 5px !important;
+        border-radius: 50% !important;
+        font-size: 26px !important;
+        position: absolute !important;
+        top: 9px !important;
+        width: 35px !important;
+        height: 41px !important;
+        padding-left: 11px !important;
+        padding-top: 3px !important;
+        left: 92% !important;
+    }
+        
+    .info-icon {
+       font-size: 37px !important;
+        border-radius: 50% !important;
+        width: 47px !important;
+        height: 47px !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        cursor: pointer !important;
+        margin-left: 84% !important;
+        font-weight: bold !important;
+        margin-top: -61px !important;
+    }
+   
+    .contanir1{
+        border: #000 solid 3px;
+        border-radius: 15px;
+        background-color: rgb(163, 182, 229);
+        height: auto;
+        width: 87.6% !important;
+        padding: 20px 20px;
+        margin-bottom: 30px;
+    }
+    .companycontanir {
+        width: 73%;
+        height: auto;
+        margin-left: 12%;
+        font-size: 24px !important;
+    }
+
+    .heading {
+        margin-top: 8px !important;
+        margin-bottom: 15px !important;
+        font-size: 24px !important;
+        font-weight: bold !important;
+    }
+
+    .uploadButton,
+    .InputsButtons {
+        margin-left: 10%;
+        width: 80%;
+    }
+
+    .TableContainer {
+        height: auto;
+        margin-top: 10px;
+    }
+
+    .table {
+        width: 90%;
+    }
+
+    .btn {
+        width: 70%;
+        margin: 10px auto;
+    }
+    #mainContainer{
+        width: 94.5% !important;
+    }
+    #documentTable{
+        width: auto !important;
+        border: 3px solid black;
+        border-radius: 15px;
+        margin-top: 2px;
+        background-color: rgb(255, 255, 255);
+        font-size: 12px !important;
+        padding-left: 0%;
+        margin-left: 0%;
+    }
+    #mainContainer{
+        margin-left: 0px;
+        width: auto !important;
+        padding-left: 0%;
+        margin-left: 0%;
+    }
+    input[type="file"], button {
+        font-size: 12px !important;
+        width: 100%;
+    }
+
+}
+
+
+
+/* Mobile Devices (max-width: 600px) */
+@media only screen and (min-width: 567px) and (max-width: 730px) {
+    .NavContainer {
+        height: 78px;
+        padding: -40px;
+
+    }
+
+    .logo-img {
+        height: 50px;
+        width: 50px;
+        left: 75px;
+        margin-right: 30px;
+    }
+
+    .header-h1 {
+        font-size: 11px !important;
+        left: 70px !important;
+        top: 6px !important;
+    }
+    
+
+    .FirstIcon,
+    .SecondtIcon,
+    .ThirdIcon,
+    .FourthIcon {
+        font-size: 25px;
+        top: 15px;
+    }
+
+    .FirstIcon {
+        left: 62%;
+    }
+
+    .SecondtIcon {
+        left: 73%;
+    }
+
+    .ThirdIcon {
+        left: 71%;
+    }
+
+    .FourthIcon {
+        padding: 5px !important;
+        border-radius: 50% !important;
+        font-size: 26px !important;
+        position: absolute !important;
+        top: 9px !important;
+        width: 35px !important;
+        height: 41px !important;
+        padding-left: 11px !important;
+        padding-top: 3px !important;
+        left: 88% !important;
+    }
+        
+    .info-icon {
+       font-size: 37px !important;
+        border-radius: 50% !important;
+        width: 47px !important;
+        height: 47px !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        cursor: pointer !important;
+        margin-left: 78% !important;
+        font-weight: bold !important;
+        margin-top: -61px !important;
+    }
+   
+    .contanir1{
+        border: #000 solid 3px;
+        border-radius: 15px;
+        background-color: rgb(163, 182, 229);
+        height: auto;
+        width: 87.6% !important;
+        padding: 20px 20px;
+        margin-bottom: 30px;
+    }
+    .companycontanir {
+        width: 73%;
+        height: auto !important;
+        margin-left: 12% !important;
+        font-size: 24px !important;
+    }
+
+    .heading {
+        margin-top: 8px !important;
+        margin-bottom: 15px !important;
+        font-size: 20px !important;
+        font-weight: bold !important;
+    }
+
+    .uploadButton,
+    .InputsButtons {
+        margin-left: 10%;
+        width: 80%;
+    }
+
+    .TableContainer {
+        height: auto;
+        margin-top: 10px;
+    }
+
+    .table {
+        width: 90%;
+    }
+
+    .btn {
+        width: 70%;
+        margin: 10px auto;
+    }
+    #documentTable{
+        width: auto !important;
+        border: 3px solid black !important;
+        border-radius: 15px !important;
+        margin-top: 2px !important;
+        background-color: rgb(255, 255, 255) !important;
+        font-size: 7px !important;
+        padding-left: 0% !important;
+        margin-left: 0% !important;
+    }
+    #mainContainer{
+        margin-left: 0px;
+        width: auto !important;
+        padding-left: 0%;
+        margin-left: 0%;
+    }
+    input[type="file"], button {
+        font-size: 7px !important;
+        width: 100%;
+    }
+
+}
+/* Mobile Devices (max-width: 600px) */
+@media only screen and (min-width: 401px) and (max-width: 566px) {
+    .NavContainer {
+        height: 78px;
+        padding: -40px;
+
+    }
+
+    .logo-img {
+        height: 50px;
+        width: 50px;
+        left: 75px;
+        margin-right: 30px;
+    }
+
+    .header-h1 {
+        font-size: 11px !important;
+        left: 70px !important;
+        top: 6px !important;
+    }
+    
+
+    .FirstIcon,
+    .SecondtIcon,
+    .ThirdIcon,
+    .FourthIcon {
+        font-size: 25px;
+        top: 15px;
+    }
+
+    .FirstIcon {
+        left: 60%;
+    }
+
+    .SecondtIcon {
+        left: 73%;
+    }
+
+    .ThirdIcon {
+        left: 71%;
+    }
+
+    .FourthIcon {
+        left: 81% !important;
+        width: 35px !important;
+        height: 38px !important;
+        font-size: 26px !important;
+        padding-left: 11px !important;
+        top: 12px !important;
+    }
+        
+    .info-icon {
+        font-size: 34px !important;
+        border-radius: 50% !important;
+        width: 45px !important;
+        height: 45px !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        cursor: pointer !important;
+        margin-left: 67% !important;
+        font-weight: bold !important;
+        margin-top: -57px !important;
+    }
+   
+    .contanir1{
+        border: #000 solid 3px;
+        border-radius: 15px;
+        background-color: rgb(163, 182, 229);
+        height: auto;
+        width: 87.6% !important;
+        padding: 20px 20px;
+        margin-bottom: 30px;
+    }
+    .companycontanir {
+        width: 73% !important; /* العرض بنسبة 73% */
+        height: auto !important; /* الارتفاع 80 بيكسل */
+        margin-left: 12% !important; /* المسافة من اليسار بنسبة 12% */
+    }
+
+    .heading {
+        margin-top: 8px !important; /* مسافة العلوية 8px */
+        margin-bottom: 15px !important; /* مسافة السفلية 15px */
+        font-size: 20px !important; /* حجم الخط 24px */
+        font-weight: bold !important; /* سمك الخط عريض */
+    }
+
+    .uploadButton,
+    .InputsButtons {
+        margin-left: 10%;
+        width: 80%;
+    }
+
+    .TableContainer {
+        height: auto;
+        margin-top: 10px;
+    }
+
+    .table {
+        width: 90%;
+    }
+
+    .btn {
+        width: 70%;
+        margin: 10px auto;
+    }
+
+    #documentTable{
+        width: auto !important;
+        border: 3px solid black !important;
+        border-radius: 15px !important;
+        margin-top: 2px !important;
+        background-color: rgb(255, 255, 255) !important;
+        font-size: 5px !important;
+        padding-left: 0% !important;
+        margin-left: 0% !important;
+
+    }
+    #mainContainer{
+        margin-left: 0px;
+        width: auto !important;
+        padding-left: 0%;
+        padding-left: 0%;
+        margin-left: 0%;
+    }
+    input[type="file"], button {
+        font-size: 5px !important;
+        width: 100% !important;
+    }
+    
+
+}
+@media only screen and (min-width: 351px) and (max-width: 400px) {
+    .NavContainer {
+        height: 78px;
+        padding: -40px;
+
+    }
+
+    .logo-img {
+        height: 50px !important;
+        width: 50px !important;
+        left: 75px !important;
+        margin-right: 30px !important;
+        margin-top: 10px !important;
+    }
+
+    .header-h1 {
+        font-size: 9px !important;
+        left: 70px !important;
+        top: 13px !important;
+    }
+    
+
+    .FirstIcon,
+    .SecondtIcon,
+    .ThirdIcon,
+    .FourthIcon {
+        font-size: 25px;
+        
+    }
+
+    .FirstIcon {
+        left: 60%;
+    }
+
+    .SecondtIcon {
+        left: 73%;
+    }
+
+    .ThirdIcon {
+        left: 71%;
+    }
+
+    .FourthIcon {
+        left: 81% !important;
+        width: 33px !important;
+        height: 35px !important;
+        font-size: 24px !important;
+        padding-left: 9px !important;
+        top: 12px !important;
+    }
+        
+    .info-icon {
+        font-size: 34px !important;
+        border-radius: 50% !important;
+        width: 40px !important;
+        height: 40px !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        cursor: pointer !important;
+        margin-left: 65% !important;
+        font-weight: bold !important;
+        margin-top: -59px !important;
+    }
+   
+    .contanir1{
+        border: #000 solid 3px;
+        border-radius: 15px;
+        background-color: rgb(163, 182, 229);
+        height: auto;
+        width: 87.6% !important;
+        padding: 20px 20px;
+        margin-bottom: 30px;
+    }
+    .companycontanir {
+        width: 73%;
+        height: auto;
+        margin-left: 12%;
+        font-size: 18px !important;
+    }
+
+    .heading {
+        margin-top: 25px;
+        margin-bottom: 15px;
+        font-size: 20px !important;
+        font-weight: bold;
+    }
+
+    .uploadButton,
+    .InputsButtons {
+        margin-left: 10%;
+        width: 80%;
+    }
+
+    .TableContainer {
+        height: auto;
+        margin-top: 10px;
+    }
+
+    .table {
+        width: 90%;
+    }
+
+    .btn {
+        width: 70%;
+        margin: 10px auto;
+    }
+   
+    #documentTable{
+        width: auto !important;
+        border: 3px solid black !important;
+        border-radius: 15px !important;
+        margin-top: 2px !important;
+        background-color: rgb(255, 255, 255) !important;
+        font-size: 5px !important;
+        padding-left: 0% !important;
+        margin-left: 0% !important;
+
+    }
+    #mainContainer{
+        margin-left: 0px;
+        padding: 10px !important;
+        width: auto !important;
+        padding-left: 0%;
+        padding-left: 0%;
+        margin-left: 0%;
+    }
+    input[type="file"], button {
+        font-size: 5px !important;
+        width: 100% !important;
+    }
+}
+@media only screen and (max-width: 350px) {
+    .NavContainer {
+        height: 78px;
+        padding: -40px;
+
+    }
+
+    .logo-img {
+        height: 50px;
+        width: 50px;
+        left: 75px;
+        margin-right: 30px;
+    }
+
+    .header-h1 {
+        font-size: 8px !important;
+        left: 70px !important;
+        top: 16px !important;
+    }
+    .FourthIcon{
+        padding: 5px !important;
+        background-color: #fff !important;
+        border-radius: 50% !important;
+        font-size: 20px !important;
+        position: absolute !important;
+        top: 15px !important;
+        height: 29px !important;
+        left: 85% !important;
+        width: 25px !important;
+    }
+    .info-icon {
+        font-size: 24px;
+        border-radius: 50%;
+        width: 35px;
+        height: 36px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        margin-left: 70%;
+        font-weight: bold;
+        margin-top: -55px;
+    }
+    .companycontanir {
+        width: 73%;
+        height: 80px;
+        margin-left: 12%;
+    }
+    .heading{
+        margin-top: 20px;
+        margin-bottom: 15px;
+        font-size: 17px !important;
+        font-weight: bold;
+    }
+   
+    #documentTable{
+        width: auto !important;
+        border: 3px solid black !important;
+        border-radius: 15px !important;
+        margin-top: 2px !important;
+        background-color: rgb(255, 255, 255) !important;
+        font-size: 1px !important;
+        padding-left: 0% !important;
+        margin-left: 0% !important;
+
+    }
+    #mainContainer{
+        margin-left: 0px !important;
+        width: auto !important;
+        
+    }
+    input[type="file"], button {
+        font-size: 3px !important;
+        width: 100% !important;
+    }
+    
+}
+@media only screen and (max-width: 349px) {
+    #documentTable{
+        width: auto !important;
+        border: 3px solid black !important;
+        border-radius: 15px !important;
+        margin-top: 2px !important;
+        background-color: rgb(255, 255, 255) !important;
+        font-size: 1px !important;
+        padding-left: 0% !important;
+        margin-left: 0% !important;
+
+    }
+    #mainContainer{
+        margin-left: 0px !important;
+        width: auto !important;
+        
+    }
+    input[type="file"], button {
+        font-size:1px !important;
+        width: 100% !important;
+    }
+}

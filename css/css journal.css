@@ -1,0 +1,1300 @@
+body {
+    background: var(--bg-color);
+    direction: ltr;             /* تحديد اتجاه النص من اليسار لليمين */
+    font-size: var(--font-size-s);  /* استخدام متغير لتحديد حجم الخط */
+    line-height: 1.5;           /* ارتفاع السطر */
+    margin: 0;                  /* إزالة الهوامش */
+    font-family: Arial, Helvetica, sans-serif;  /* الخط الافتراضي للصفحة */
+    overflow: auto;             /* تمكين السكرول على كامل الصفحة */
+    scroll-behavior: smooth;    /* تمكين التمرير السلس */
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-50px) , translateX(50%); }
+    to { opacity: 1; transform: translateY(0) , translateX(50%) ; }
+}
+/* تخصيص شريط التمرير للصفحة */
+html::-webkit-scrollbar {
+    width: 10px; /* عرض شريط التمرير */
+}
+
+html::-webkit-scrollbar-track {
+    background: #f1f1f1; /* لون المسار */
+    border-radius: 10px;  /* حواف دائرية للمسار */
+}
+
+html::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 100px;   /* حواف دائرية للمقبض */
+}
+
+html::-webkit-scrollbar-thumb:hover {
+    background: var(--hover-icon);
+}
+
+/* Default Styling (Desktop) */
+.NavContainer {
+    height: 100px;
+    margin-top: 5px;
+    position: relative;
+    background-color: var(--background-nav);
+    border: 3px solid black;
+    border-radius: 30px;
+}
+
+.logo-img {
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    margin-left: 10px;
+    margin-top: 8px;
+    border: #000 solid 3px;
+}
+
+.a {
+    text-decoration: none;
+    /* إزالة الخط السفلي من الرابط */
+    color: #000;
+    left: 5px;
+}
+
+.header-h1 {
+    font-size: 16px !important;
+    color: var(--text-color);
+    position: absolute;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    left: 90px;
+    top: 5px;
+}
+
+.FirstIcon,
+.SecondtIcon,
+.ThirdIcon,
+.FourthIcon {
+    border: 3px solid black;
+    padding: 5px;
+    background-color: #fff;
+    border-radius: 50%;
+    font-size: 35px;
+    position: absolute;
+    top: 20px;
+}
+
+.FirstIcon {
+    left: 78%;
+}
+
+.SecondtIcon {
+    left: 88%;
+}
+
+.ThirdIcon {
+    left: 88%;
+}
+
+.FourthIcon {
+    border: 3px solid var(--border-icon) !important;
+    padding: 5px !important;
+    background-color:var(--icon-bg);
+    border-radius: 50% !important;
+    font-size: 30px !important;
+    position: absolute !important;
+    top: 19px !important;
+    width: 42px !important;
+    height: 47px !important;
+    padding-left: 11px !important;
+    padding-top: 3px !important;
+    left: 94% !important;
+    transition: 0.5s;
+    color: var(--text-color);
+
+}
+.FourthIcon:hover{
+    background-color:var(--hover-icon) !important;
+    color: #fff;
+}
+
+/*Nav End*/
+.info-icon {
+    font-size: 42px;
+    color: var(--text-color);
+    border: 3px solid var(--border-icon) !important;
+    background-color: var(--icon-bg);
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin-left: 89%;
+    border: solid;
+    font-weight: bold;
+    margin-top: -3.8%;
+    transition: 0.5s !important;
+}
+
+.info-icon:hover {
+    background-color: var(--hover-icon) !important; 
+    color: #fff !important;
+}
+/* أنماط السبينر */
+#spinner {
+    display: none; /* مخفي بشكل افتراضي */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+
+}
+
+.loader {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+/*Nav End*/
+
+/* Modal Styling */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: var(--border);
+    margin: 15px auto;
+    position: fixed;
+    padding: 20px;
+    border: 1px solid #888;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    top: 50%;
+    left: 50%;
+    max-width: 600px;
+    border-radius: 10px;
+    text-align: left;
+    animation: fadeIn 0.4s;
+}
+
+.maintran {
+    border-radius: 20px;
+    border: #000 solid 3px;
+    background-color: #fff;
+    padding: 10px;
+}
+
+.close {
+    color: #000;
+    float: left;
+    font-size: 28px;
+    font-weight: bold;
+    margin-left: -12px;
+    margin-top: -19px;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+}
+
+.scrollable {
+    width: 100%; /* العرض الكامل للعنصر */
+    height: 350px; /* يمكنك ضبط الارتفاع حسب احتياجاتك */
+    overflow-y: auto; /* تفعيل التمرير العمودي */
+    overflow-x: hidden; /* إخفاء التمرير الأفقي */
+    padding: 10px; /* مسافة داخلية اختيارية */
+    box-sizing: border-box; /* لضمان أن الحدود والحشوات لا تؤثر على العرض */
+}
+.scrollable::-webkit-scrollbar {
+    width: 10px; /* عرض الشريط */
+}
+
+.scrollable::-webkit-scrollbar-track {
+    background: #f1f1f1; /* خلفية الشريط */
+    border-radius: 5px; /* تقويس حواف الشريط */
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+    background: var(--border);  /* لون المقبض */
+    border-radius: 5px; /* تقويس حواف الشريط */
+}
+
+.scrollable::-webkit-scrollbar-thumb:hover {
+    background: #2980b9; /* تغيير اللون عند التمرير فوقه */
+}
+.title {
+    background-color: #fff;
+    border-radius: 20px;
+    border: #000 solid 4px;
+    width: 600px;
+    height: 75px;
+    margin-left: 652px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.heading {
+    display: block;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    margin-top: 20px;
+    font-weight: bold;
+    unicode-bidi: isolate;
+    color: var(--header);
+    text-align: center;
+}
+
+/* حاوية الأزرار */
+.buttons-container {
+    display: flex;
+    /* استخدام Flexbox لجعل الأزرار تظهر في خط واحد */
+    gap: 20px;
+    /* المسافة بين الأزرار */
+    align-items: center;
+    /* ضمان أن الأزرار في نفس المستوى عموديًا */
+    justify-content: center;
+    /* محاذاة الأزرار إلى منتصف الحاوية */
+    margin-top: 20px;
+    /* إضافة مسافة من الأعلى للحاوية */
+}
+
+/* تنسيق الزر الأول */
+.button {
+    height: 50px;
+    width: 280px;
+    display: inline-block;
+    border: 3px solid black;
+    background-color: rgb(163, 182, 229);
+    color: rgb(0, 0, 0);
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 13px;
+    display: none;
+    margin-top: PX;
+    transition-duration: 0.5s;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.5, 1.6, 0.4, 0.7);
+}
+
+.button:hover {
+    background-color: #5b73cf;
+
+}
+
+/* تنسيق الزر الثاني */
+.btn {
+    height: 50px;
+    /* التأكد من أن ارتفاع الأزرار متساوي */
+    width: 250px;
+    /* عرض الزر الثاني كما هو مطلوب */
+    border-radius: 20px;
+    border: #000 solid 3px;
+    background-color: rgb(163, 182, 229);
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    display: none;
+    transition-duration: 0.5s;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.5, 1.6, 0.4, 0.7);
+}
+
+.btn:hover {
+    background-color: #5b73cf;
+    letter-spacing: 3px;
+}
+
+.t1 {
+    margin-top: 3px;
+    font-size: 15px;
+}
+
+.t2 {
+    margin-top: -10px;
+}
+
+
+
+
+/*Table start*/
+
+.tableConainer {
+    background-color: aquamarine;
+    height: 150px;
+
+}
+
+.table {
+    border: 3px solid gray;
+}
+
+
+/*Table end*/
+
+.Download {
+    height: 25px;
+    width: 100px;
+    border: 3px solid black;
+    background-color: #5b73cf;
+    color: beige;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.update {
+    height: 25px;
+    width: 100px;
+    border: 3px solid black;
+    background-color: #5b73cf;
+    color: beige;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.journal-tabel {
+    width: 80%;
+
+}
+
+.uploud {
+    height: 25px;
+    width: 100px;
+    border: 3px solid black;
+    background-color: #5b73cf;
+    color: beige;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.contanimain {
+    border: #000 solid 3px;
+    border-radius: 15px;
+    background-color: var(--border) ;
+    height: 90%;
+    padding: 40px 20px;
+    margin-bottom: 50px;
+
+}
+
+.CONTANIER {
+    background: var(--background-navbar);
+    border: #000 SOLID 3PX;
+    border-radius: 10px;
+    height: 250px;
+    padding: 0px 20px;
+}
+
+.contanir1 {
+    background-color: rgb(163, 182, 229);
+    border: #000 solid 3px;
+    border-radius: 20px;
+    height: auto;
+    padding: 15px;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.ar {
+    background-color: #fff;
+    border: #000 solid 2px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.eng {
+    background-color: #fff;
+    border: #000 solid 2px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    padding: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 14px;
+}
+
+#loadingBadge {
+    display: none;
+    /* مخفي بشكل افتراضي */
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(0, 0, 0, 0.1);
+    border-top: 5px solid #3498db;
+    /* يمكنك تغيير اللون هنا */
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    /* دوران دائم */
+    z-index: 1000;
+    /* لعرضه فوق باقي المحتويات */
+}
+
+/* الحركة الدورانية */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+
+
+
+@media only screen and (min-width: 1501px) and (max-width: 1830px) {
+    .NavContainer {
+        height: 87px;
+        padding: -40px;
+
+    }
+
+    .logo-img {
+        height: 60px;
+        width: 60px;
+        left: 75px;
+        margin-right: 30px;
+    }
+
+    .header-h1 {
+        font-size: 15px !important;
+        left: 79px !important;
+        top: -1px !important;
+    }
+    
+
+    .FirstIcon,
+    .SecondtIcon,
+    .ThirdIcon,
+    .FourthIcon {
+        font-size: 25px;
+        top: 15px;
+    }
+
+    .FirstIcon {
+        left: 62%;
+    }
+
+    .SecondtIcon {
+        left: 73%;
+    }
+
+    .ThirdIcon {
+        left: 71%;
+    }
+
+    .FourthIcon {
+        border-radius: 50% !important;
+        font-size: 30px !important;
+        position: absolute !important;
+        top: 12px !important;
+        width: 42px !important;
+        height: 47px !important;
+        padding-left: 11px !important;
+        padding-top: 3px !important;
+        left: 94% !important;
+    }
+        
+    .info-icon {
+       font-size: 37px !important;
+        border-radius: 50% !important;
+        width: 55px !important;
+        height: 55px !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        cursor: pointer !important;
+        margin-left: 88% !important;
+        border: #000 solid 3px !important;
+        font-weight: bold !important;
+        margin-top: -69px !important;
+    }
+   
+    .title {
+        width: 73%;
+        height: auto;
+        margin-left: 12%;
+        font-size: 30px !important;
+    }
+
+    .heading {
+        margin-top:10px !important;
+        margin-bottom: 15px !important;
+        font-size: 30px !important;
+        font-weight: bold !important;
+    }
+    /* حاوية الأزرار */
+    .buttons-container {
+        display: flex;
+        /* استخدام Flexbox لجعل الأزرار تظهر في خط واحد */
+        gap: 20px;
+        /* المسافة بين الأزرار */
+        align-items: center;
+        /* ضمان أن الأزرار في نفس المستوى عموديًا */
+        justify-content: center;
+        /* محاذاة الأزرار إلى منتصف الحاوية */
+        margin-top: 20px;
+        /* إضافة مسافة من الأعلى للحاوية */
+    }
+
+    /* تنسيق الزر الأول */
+    .button {
+        height: 60px;
+        width: 200px;
+        display: none;
+        border: 3px solid black;
+        background-color: rgb(163, 182, 229);
+        color: rgb(0, 0, 0);
+        border-radius: 20px;
+        font-weight: bold;
+        margin-top: 0PX;
+    }
+
+    /* تنسيق الزر الثاني */
+    .btn {
+        height: 60px;
+        /* التأكد من أن ارتفاع الأزرار متساوي */
+        width: 250px;
+        /* عرض الزر الثاني كما هو مطلوب */
+        border-radius: 20px;
+        border: #000 solid 3px;
+        background-color: rgb(163, 182, 229);
+        display: none;
+        color: rgb(0, 0, 0);
+        font-weight: bold;
+    }
+
+
+}
+@media only screen and (min-width: 1501px) and (max-width: 1830px) {
+    .NavContainer {
+        height: 87px;
+        padding: -40px;
+
+    }
+
+    .logo-img {
+        height: 60px;
+        width: 60px;
+        left: 75px;
+        margin-right: 30px;
+    }
+
+    .header-h1 {
+        font-size: 15px !important;
+        left: 79px !important;
+        top: -1px !important;
+    }
+    
+
+    .FirstIcon,
+    .SecondtIcon,
+    .ThirdIcon,
+    .FourthIcon {
+        font-size: 25px;
+        top: 15px;
+    }
+
+    .FirstIcon {
+        left: 62%;
+    }
+
+    .SecondtIcon {
+        left: 73%;
+    }
+
+    .ThirdIcon {
+        left: 71%;
+    }
+
+    .FourthIcon {
+        padding: 5px !important;
+        border-radius: 50% !important;
+        font-size: 30px !important;
+        position: absolute !important;
+        top: 12px !important;
+        width: 42px !important;
+        height: 47px !important;
+        padding-left: 11px !important;
+        padding-top: 3px !important;
+        left: 94% !important;
+    }
+        
+    .info-icon {
+       font-size: 37px !important;
+        border-radius: 50% !important;
+        width: 55px !important;
+        height: 55px !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        cursor: pointer !important;
+        margin-left: 88% !important;
+        border: #000 solid 3px !important;
+        font-weight: bold !important;
+        margin-top: -69px !important;
+    }
+   
+    .title {
+        width: 73%;
+        height: auto;
+        margin-left: 12%;
+        font-size: 30px !important;
+    }
+
+    .heading {
+        margin-top:10px !important;
+        margin-bottom: 15px !important;
+        font-size: 30px !important;
+        font-weight: bold !important;
+    }
+    /* حاوية الأزرار */
+    .buttons-container {
+        display: flex;
+        /* استخدام Flexbox لجعل الأزرار تظهر في خط واحد */
+        gap: 20px;
+        /* المسافة بين الأزرار */
+        align-items: center;
+        /* ضمان أن الأزرار في نفس المستوى عموديًا */
+        justify-content: center;
+        /* محاذاة الأزرار إلى منتصف الحاوية */
+        margin-top: 20px;
+        /* إضافة مسافة من الأعلى للحاوية */
+    }
+
+    /* تنسيق الزر الأول */
+    .button {
+        height: 60px;
+        width: 200px;
+        display: inline-block;
+        border: 3px solid black;
+        background-color: rgb(163, 182, 229);
+        color: rgb(0, 0, 0);
+        border-radius: 20px;
+        font-weight: bold;
+        margin-top: 0PX;
+    }
+
+    /* تنسيق الزر الثاني */
+    .btn {
+        height: 60px;
+        /* التأكد من أن ارتفاع الأزرار متساوي */
+        width: 250px;
+        /* عرض الزر الثاني كما هو مطلوب */
+        border-radius: 20px;
+        border: #000 solid 3px;
+        background-color: rgb(163, 182, 229);
+        color: rgb(0, 0, 0);
+        font-weight: bold;
+    }
+
+
+}
+
+/* Media Queries for Tablet Devices (min-width: 601px and max-width: 1024px) */
+@media only screen and (min-width: 731px) and (max-width: 1500px) {
+    .NavContainer {
+        height: 78px;
+        padding: -40px;
+
+    }
+
+    .logo-img {
+        height: 50px;
+        width: 50px;
+        left: 75px;
+        margin-right: 30px;
+    }
+
+    .header-h1 {
+        font-size: 11px !important;
+        left: 70px !important;
+        top: 6px !important;
+    }
+    
+
+    .FirstIcon,
+    .SecondtIcon,
+    .ThirdIcon,
+    .FourthIcon {
+        font-size: 25px;
+        top: 15px;
+    }
+
+    .FirstIcon {
+        left: 62%;
+    }
+
+    .SecondtIcon {
+        left: 73%;
+    }
+
+    .ThirdIcon {
+        left: 71%;
+    }
+
+    .FourthIcon {
+        padding: 5px !important;
+        border-radius: 50% !important;
+        font-size: 26px !important;
+        position: absolute !important;
+        top: 9px !important;
+        width: 35px !important;
+        height: 41px !important;
+        padding-left: 11px !important;
+        padding-top: 3px !important;
+        left: 92% !important;
+    }
+        
+    .info-icon {
+       font-size: 37px !important;
+        border-radius: 50% !important;
+        width: 47px !important;
+        height: 47px !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        cursor: pointer !important;
+        margin-left: 84% !important;
+        border: #000 solid 3px !important;
+        font-weight: bold !important;
+        margin-top: -61px !important;
+    }
+   
+    .title {
+        width: 73%;
+        height: auto;
+        margin-left: 12%;
+        font-size: 24px !important;
+    }
+
+    .heading {
+        margin-top: 8px !important;
+        margin-bottom: 15px !important;
+        font-size: 24px !important;
+        font-weight: bold !important;
+    }
+    .button {
+
+        margin-top: 5px;
+        width: 200px;
+        height: 60px;
+    }
+
+    .Result {
+
+        margin-left: 90px;
+    }
+
+    .tableConainer {
+        height: auto;
+        padding: 15px;
+        padding-left: -30px;
+
+    }
+    
+    .Download,
+    .update,
+    .uploud {
+        width: 80%;
+        margin: 15px auto;
+        height: 40px;
+    }
+
+    .btn {
+        width: 200px;
+        margin-left: -90px;
+        margin-top: 5px;
+        height: 60px;
+    }
+
+    .contanimain {
+        padding: 30px;
+    }
+
+    .CONTANIER {
+        padding-right: 100px;
+    }
+}
+
+/* Media Queries for Mobile Devices (max-width: 600px) */
+@media only screen and (min-width: 567px) and (max-width: 730px) {
+    .NavContainer {
+        height: 78px;
+        padding: -40px;
+
+    }
+
+    .logo-img {
+        height: 50px;
+        width: 50px;
+        left: 75px;
+        margin-right: 30px;
+    }
+
+    .header-h1 {
+        font-size: 11px !important;
+        left: 70px !important;
+        top: 6px !important;
+    }
+    
+
+    .FirstIcon,
+    .SecondtIcon,
+    .ThirdIcon,
+    .FourthIcon {
+        font-size: 25px;
+        top: 15px;
+    }
+
+    .FirstIcon {
+        left: 62%;
+    }
+
+    .SecondtIcon {
+        left: 73%;
+    }
+
+    .ThirdIcon {
+        left: 71%;
+    }
+
+    .FourthIcon {
+        padding: 5px !important;
+        border-radius: 50% !important;
+        font-size: 26px !important;
+        position: absolute !important;
+        top: 9px !important;
+        width: 35px !important;
+        height: 41px !important;
+        padding-left: 11px !important;
+        padding-top: 3px !important;
+        left: 88% !important;
+    }
+        
+    .info-icon {
+       font-size: 37px !important;
+        border-radius: 50% !important;
+        width: 47px !important;
+        height: 47px !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        cursor: pointer !important;
+        margin-left: 78% !important;
+        border: #000 solid 3px !important;
+        font-weight: bold !important;
+        margin-top: -61px !important;
+    }
+ 
+    .title {
+        width: 73%;
+        height: auto !important;
+        margin-left: 12% !important;
+        font-size: 24px !important;
+    }
+
+    .heading {
+        margin-top: 8px !important;
+        margin-bottom: 15px !important;
+        font-size: 20px !important;
+        font-weight: bold !important;
+    }
+    .button {
+        margin-top: 5px;
+        width: 140px;
+        height: 75px;
+    }
+
+    .tableConainer {
+        height: auto;
+        padding: 10px;
+    }
+
+    .Download,
+    .update,
+    .uploud {
+        width: 90%;
+        margin: 10px auto;
+        height: 35px;
+    }
+
+    .btn {
+        width: 200px;
+        margin-top: 5px;
+        height: 60px;
+    }
+
+    .contanimain {
+        padding: 20px;
+    }
+
+    .CONTANIER {
+        padding: 20px;
+    }
+   
+}
+@media only screen and (min-width: 401px) and (max-width: 566px) {
+    .NavContainer {
+        height: 78px;
+        padding: -40px;
+
+    }
+
+    .logo-img {
+        height: 50px;
+        width: 50px;
+        left: 75px;
+        margin-right: 30px;
+    }
+
+    .header-h1 {
+        font-size: 11px !important;
+        left: 70px !important;
+        top: 6px !important;
+    }
+    
+
+    .FirstIcon,
+    .SecondtIcon,
+    .ThirdIcon,
+    .FourthIcon {
+        font-size: 25px;
+        top: 15px;
+    }
+
+    .FirstIcon {
+        left: 60%;
+    }
+
+    .SecondtIcon {
+        left: 73%;
+    }
+
+    .ThirdIcon {
+        left: 71%;
+    }
+
+    .FourthIcon {
+        left: 81% !important;
+        width: 35px !important;
+        height: 38px !important;
+        font-size: 26px !important;
+        padding-left: 11px !important;
+        top: 12px !important;
+    }
+        
+    .info-icon {
+        font-size: 34px !important;
+        border-radius: 50% !important;
+        width: 45px !important;
+        height: 45px !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        cursor: pointer !important;
+        margin-left: 67% !important;
+        border: #000 solid 3px !important;
+        font-weight: bold !important;
+        margin-top: -57px !important;
+    }
+    
+    .contanir1{
+        border: #000 solid 3px;
+        border-radius: 15px;
+        background-color: rgb(163, 182, 229);
+        height: auto;
+        width: 87.6% !important;
+        padding: 20px 20px;
+        margin-bottom: 30px;
+    }
+    .title {
+        width: 73% !important; /* العرض بنسبة 73% */
+        height: auto !important; /* الارتفاع 80 بيكسل */
+        margin-left: 12% !important; /* المسافة من اليسار بنسبة 12% */
+    }
+
+    .heading {
+        margin-top: 8px !important; /* مسافة العلوية 8px */
+        margin-bottom: 15px !important; /* مسافة السفلية 15px */
+        font-size: 20px !important; /* حجم الخط 24px */
+        font-weight: bold !important; /* سمك الخط عريض */
+    }
+
+    .button {
+        margin-top: 5px;
+        width: 140px;
+        height: 75px;
+    }
+
+    .tableConainer {
+        height: auto;
+        padding: 10px;
+    }
+
+    .Download,
+    .update,
+    .uploud {
+        width: 90%;
+        margin: 10px auto;
+        height: 35px;
+    }
+
+    .btn {
+        width: 200px;
+        margin-top: 5px;
+        height: 60px;
+    }
+
+    .contanimain {
+        padding: 20px;
+    }
+
+    .CONTANIER {
+        padding: 20px;
+    }
+   
+}
+@media only screen and (min-width: 351px) and (max-width: 400px) {
+    .NavContainer {
+        height: 78px;
+        padding: -40px;
+
+    }
+
+    .logo-img {
+        height: 50px !important;
+        width: 50px !important;
+        left: 75px !important;
+        margin-right: 30px !important;
+        margin-top: 10px !important;
+    }
+
+    .header-h1 {
+        font-size: 9px !important;
+        left: 70px !important;
+        top: 13px !important;
+    }
+    
+
+    .FirstIcon,
+    .SecondtIcon,
+    .ThirdIcon,
+    .FourthIcon {
+        font-size: 25px;
+        
+    }
+
+    .FirstIcon {
+        left: 60%;
+    }
+
+    .SecondtIcon {
+        left: 73%;
+    }
+
+    .ThirdIcon {
+        left: 71%;
+    }
+
+    .FourthIcon {
+        left: 81% !important;
+        width: 33px !important;
+        height: 35px !important;
+        font-size: 24px !important;
+        padding-left: 9px !important;
+        top: 12px !important;
+    }
+        
+    .info-icon {
+        font-size: 34px !important;
+        border-radius: 50% !important;
+        width: 40px !important;
+        height: 40px !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        cursor: pointer !important;
+        margin-left: 65% !important;
+        border: #000 solid 3px !important;
+        font-weight: bold !important;
+        margin-top: -59px !important;
+    }
+    
+
+    .contanir1{
+        border: #000 solid 3px;
+        border-radius: 15px;
+        background-color: rgb(163, 182, 229);
+        height: auto;
+        width: 87.6% !important;
+        padding: 20px 20px;
+        margin-bottom: 30px;
+    }
+    .title {
+        width: 73%;
+        height: 90px;
+        margin-left: 12%;
+        font-size: 18px !important;
+    }
+
+    /*.heading {
+        margin-top: 25px;
+        margin-bottom: 15px;
+        font-size: 19px !important;
+        font-weight: bold;
+    }*/
+
+    .button {
+        margin-top: 5px;
+        width: 140px;
+        height: 75px;
+    }
+
+    .tableConainer {
+        height: auto;
+        padding: 10px;
+    }
+
+    .Download,
+    .update,
+    .uploud {
+        width: 90%;
+        margin: 10px auto;
+        height: 35px;
+    }
+
+    .btn {
+        width: 200px;
+        margin-top: 5px;
+        height: 60px;
+    }
+
+    .contanimain {
+        padding: 20px;
+    }
+
+    .CONTANIER {
+        padding: 20px;
+    }
+   
+}
+@media only screen and (max-width: 350px) {
+    .NavContainer {
+        height: 78px;
+        padding: -40px;
+
+    }
+
+    .logo-img {
+        height: 50px;
+        width: 50px;
+        left: 75px;
+        margin-right: 30px;
+    }
+
+    .header-h1 {
+        font-size: 8px !important;
+        left: 70px !important;
+        top: 16px !important;
+    }
+    .FourthIcon{
+        padding: 5px !important;
+        border-radius: 50% !important;
+        font-size: 20px !important;
+        position: absolute !important;
+        top: 15px !important;
+        height: 29px !important;
+        left: 85% !important;
+        width: 25px !important;
+    }
+    .info-icon {
+        font-size: 24px;
+        color: #000;
+        border-radius: 50%;
+        width: 35px;
+        height: 36px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        margin-left: 70%;
+        border: #000 solid 3px;
+        font-weight: bold;
+        margin-top: -55px;
+    }
+    .title {
+        width: 73%;
+        height: auto;
+        margin-left: 12%;
+    }
+    .heading{
+        margin-top: 20px;
+        margin-bottom: 15px;
+        font-size: 17px !important;
+        font-weight: bold;
+    }
+   
+ 
+    .button {
+        margin-top: 5px;
+        width: 140px;
+        height: 75px;
+    }
+
+    .tableConainer {
+        height: auto;
+        padding: 10px;
+    }
+
+    .Download,
+    .update,
+    .uploud {
+        width: 90%;
+        margin: 10px auto;
+        height: 35px;
+    }
+
+    .btn {
+        width: 200px;
+        margin-top: 5px;
+        height: 60px;
+    }
+
+    .contanimain {
+        padding: 20px;
+    }
+
+    .CONTANIER {
+        padding: 20px;
+    }
+}

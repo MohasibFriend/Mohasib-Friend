@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="shortcut icon" href="img/WhatsApp Image 2024-10-05 at 22.14.21_3245af43.jpg" type="your-favicon.ico"
+        class="imglogo">
+    <link rel="stylesheet" href="css/css journal.css">
+    <link rel="stylesheet" href="css/variables.css">
+    <title>Journal</title>
+    <div class="NavContainer">
+        <a href="home.html">
+            <img src="img/WhatsApp Image 2024-10-05 at 22.14.21_3245af43.jpg" alt="" class="logo-img">
+        </a>
+        <a href="home.html" class="a">
+            <div class="header-h1">
+                <h1>Mohasib Friend</h1>
+            </div>
+        </a>
+        <a href="home.html" class="a">
+            <div class="FourthIcon">
+                <i class="fas fa-home " herf=""></i> <!-- أيقونة المنزل -->
+            </div>
+        </a>
+        <!-- Icons at the top with the "i" icon -->
+        <div class="icon-container1">
+            <!-- Other icons -->
+            <span class="info-icon" onclick="showInfo()">i</span>
+        </div>
+
+        <!-- Information Modal -->
+        <div id="infoModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <div class="maintran">
+                    <div class="scrollable">
+                        <p class="tran" style="text-align: center;">
+                        <p style="text-align: center; font-family: Arial, Helvetica, sans-serif; font-weight: bold;">
+                            دليل الصفحة</p>
+                        <p style="text-align: center; font-family: Arial, Helvetica, sans-serif; font-weight: bold;">هذه
+                            الصفحة تتيح لك تخزين الوثائق الأساسية للشركة بأنواعها المختلفة، مع ميزة التنبيه التلقائي عند
+                            اقتراب
+                            هذه الصفحة تحتوي على نموذج لملف اليومية الذي يمكنك تنزيله من خلال زر "Download"، حيث ستجد
+                            القيود اليومية
+                            الخاصة بفواتير المبيعات والمشتريات جاهزة داخل الملف. كل ما عليك فعله هو إضافة القيود اليومية
+                            التي لا
+                            تتوفر بياناتها على موقع الفاتورة الإلكترونية، ثم إعادة رفع الملف من خلال زر "Upload". عندها
+                            سيتم حذف
+                            الملف القديم واستبداله بالجديد للحصول على قوائم الدخل المحدثة.
+
+                        </p>
+
+                        <p class="tran" style="text-align: start;">
+                        <p style="text-align: center; font-family: Arial, Helvetica, sans-serif; font-weight: bold;">
+                            Page Guide</p>
+                        <p style="text-align: center; font-family: Arial, Helvetica, sans-serif; font-weight: bold;">
+                            This page contains a template for the journal file, which you can download using the "Download" button.
+                            Inside the file, you'll find the journal entries for sales and purchase invoices already prepared. All
+                            you need to do is add the journal entries that aren't available on the Electronic Invoice Portal, then
+                            re-upload the file using the "Upload" button. The old file will then be deleted and replaced with the
+                            new one to obtain updated financial statements.</p>
+                        </p>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</head>
+
+<body>
+    <!-- عنصر السبينر -->
+    <div id="spinner">
+        <div class="loader"></div>
+    </div>
+    <div class="title">
+        <h1 class="heading">Journal - اليومية</h1>
+    </div>
+
+    <div class="contanimain">
+        <div class="CONTANIER">
+            <div id="Result" class="Result">
+                <div id="loadingBadge" class="loading-spinner">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+<script src="js/js journal.js"></script>
+
+</html>

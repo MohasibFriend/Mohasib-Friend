@@ -1,0 +1,293 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: var(--bg-color);
+    color: #2d3748;
+    direction: rtl; /* لجعل النصوص من اليمين إلى اليسار */
+    font-weight: bold;
+    overflow-x: hidden;
+}
+
+/* تخصيص شريط التمرير للصفحة */
+html::-webkit-scrollbar {
+    width: 10px;
+    /* عرض شريط التمرير */
+}
+
+html::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    /* لون المسار */
+    border-radius: 10px;
+    /* حواف دائرية للمسار */
+}
+
+html::-webkit-scrollbar-thumb {
+    background: var(--border);
+    /* لون المقبض */
+    border-radius: 100px;
+    /* حواف دائرية للمقبض */
+}
+
+html::-webkit-scrollbar-thumb:hover {
+    background: var(--hover-icon);
+    /* لون المقبض عند التحويم */
+}
+
+/* أنماط السبينر */
+#spinner {
+    display: none; /* مخفي بشكل افتراضي */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+
+}
+
+.loader {
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #3498db;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes dropEffect {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+.profile-container {
+    direction: lrt;
+    width: 80%;
+    margin: 50px auto;
+    background: var(--profile);
+    border-radius: 10px;
+    border: #000 solid 3px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: right; /* لضبط النصوص إلى اليمين */
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.logo{
+    width: 70px;
+    height: 70px;
+    border: #000 solid 3px;
+    border-radius: 50px;
+}
+.profile-header h1 {
+    font-size: 24px;
+    color: var(--text-color);
+}
+
+.profile-header p {
+    font-size: 16px;
+    color: var(--text-color);
+}
+
+.profile-table {
+    animation: dropEffect 0.5s ease-out;
+    opacity: 1;
+    transform: translateY(0);
+    border-radius: 20px;
+    padding: 0px;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 100%;
+    border-spacing: 5px;
+    overflow-x: hidden;
+}
+
+.profile-table th, .profile-table td {
+    text-align: center;  
+    padding: 12px 15px;  
+    border-radius: 20px;
+    color: #000;
+    border: 1px solid #7a7777;
+    overflow-wrap: break-word;
+    
+}
+
+.profile-table th:first-child,
+.profile-table td:first-child {
+    white-space: nowrap; /* يمنع التفاف النص في العمود الأول */
+    word-wrap: break-word; /* للسماح بالتفاف الكلمات الطويلة */
+
+}
+
+.profile-table th:nth-child(1),
+.profile-table td:nth-child(1) {
+    width: 1%; /* يحدد العمود الأول ليأخذ أقل عرض */
+    word-wrap: break-word; /* للسماح بالتفاف الكلمات الطويلة */
+
+}
+
+.profile-table th {
+    background-color: var(--background-nav);
+    color: #fff;
+    font-weight: bold;
+    width: 100%;
+    border: #000 solid 3px;
+    border-collapse: collapse;
+}
+
+.profile-table td {
+    color: #000;
+    font-size: 16px;
+    height: auto;
+    min-height: 20px;
+    word-wrap: break-word; /* للسماح بالتفاف الكلمات الطويلة */
+    overflow-wrap: break-word;
+    
+}
+
+.profile-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+
+.home-btn{
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 8px 12px;
+    background-color: #2980b9;
+    cursor: pointer;
+    font-weight: bold;
+    color: #fff;
+    border: solid 3px #000;
+    border-radius: 10px;
+    transition: 0.9s;   
+    margin-top: 10px;
+    box-shadow: 0 2px 5px #fff; /* الظل الافتراضي */
+    transition: box-shadow 0.3s ease, transform 0.3s ease, background-color 0.4s ease;; /* تأثير الحركة */
+}
+.home-btn:hover{
+    background-color: #005081;
+    box-shadow: 0 8px 15px rgba(255, 255, 255, 0); /* ظل أعمق */
+    transform: translateY(-15px); /* رفع العنصر قليلاً */
+}
+
+.delete-btn{
+    padding: 8px 12px;
+    background-color: #e02323;
+    cursor: pointer;
+    font-weight: bold;
+    color: #fff;
+    border: solid 3px #000;
+    border-radius: 10px;
+    transition: 0.9s; 
+    margin-right: 45%;
+    margin-top: 35px;
+    box-shadow: 0 2px 5px #fff; /* الظل الافتراضي */
+    transition: box-shadow 0.3s ease, transform 0.3s ease, background-color 0.4s ease;; /* تأثير الحركة */
+    transform: translate(-50%, -50%);
+
+}
+
+.delete-btn:hover{
+    background-color: #8b0e0e;
+    box-shadow: 0 8px 15px rgba(255, 255, 255, 0); /* ظل أعمق */
+}
+.change-password-btn{
+    padding: 8px 12px;
+    background-color: #2980b9;
+    cursor: pointer;
+    font-weight: bold;
+    color: #fff;
+    border: solid 3px #000;
+    border-radius: 10px;
+    transition: 0.9s; 
+    margin-right: 45%;
+    margin-top: 10px;
+    box-shadow: 0 2px 5px #fff; /* الظل الافتراضي */
+    transition: box-shadow 0.3s ease, transform 0.3s ease, background-color 0.4s ease;; /* تأثير الحركة */
+
+}
+
+.change-password-btn:hover{
+    background-color: #1f587e;
+    box-shadow: 0 8px 15px rgba(255, 255, 255, 0); /* ظل أعمق */
+}
+.icon-container {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.icon-container i {
+    font-size: 50px;
+    color: #4a5568;
+}
+.edit-icon {
+    cursor: pointer;
+    color: #3498db;
+    margin-left: 10px;
+    transition: color 0.3s;
+}
+
+.edit-icon:hover {
+    color: #2980b9;
+}
+/* إضافة تنسيقات لرسائل الخطأ */
+.error-message {
+    color: #dc3545; /* اللون الأحمر */
+    font-size: 14px;
+    margin-top: 5px;
+    display: none; /* مخفي بشكل افتراضي */
+}
+
+.error-message.visible {
+    display: block;
+}
+
+@media only screen and (max-width: 650px) {
+    .profile-table {
+        animation: dropEffect 0.5s ease-out;
+        opacity: 1;
+        transform: translateY(0);
+        border-radius: 20px;
+        padding: 0px;
+        font-family: Arial, Helvetica, sans-serif;
+        width: 100%;
+        border-spacing: 5px;
+        overflow-x: hidden;
+        margin-right: -13px;
+    }
+  
+    .profile-table th, .profile-table td {
+        text-align: center;
+        padding: 5px !important;
+        border: 1px solid #7a7777;
+    }
+   
+    .profile-table td {
+        color: #2d3748;
+        font-size: 12px !important;
+        width: 300px;
+        word-wrap: break-word !important; /* للسماح بالتفاف الكلمات الطويلة */
+        overflow-wrap: break-word !important;
+    }
+
+    #togglePassword{
+        display: none;
+    }
+    .delete-btn{
+        margin-right: 35%;
+    }
+    .change-password-btn{
+        margin-right: 35%;
+    }
+}

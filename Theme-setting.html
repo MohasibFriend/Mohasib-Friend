@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إعدادات الثيم</title>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #000000;
+            --toggle-bg: #ccc;
+            --toggle-knob: #ffffff;
+            --primary-color: #2196F3;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #121212;
+            --text-color: #ffffff;
+            --toggle-bg: #555;
+            --toggle-knob: #ffffff;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            background-color: var(--bg-color);
+            padding: 30px 50px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            width: 90%;
+            max-width: 400px;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.8em;
+        }
+
+        .setting-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .setting-group label {
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .setting-group .icon {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .switch input { 
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0;
+            right: 0; bottom: 0;
+            background-color: var(--toggle-bg);
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px; width: 18px;
+            left: 3px; bottom: 3px;
+            background-color: var(--toggle-knob);
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px 30px;
+            }
+            h1 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>إعدادات الثيم</h1>
+
+        <!-- إعدادات وضع الثيم -->
+        <div class="setting-group theme-toggle">
+            <label for="theme-switch">
+                <span class="icon">🌙</span>
+                Dark Mode
+            </label>
+            <label class="switch">
+                <input type="checkbox" id="theme-switch">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <!-- إعدادات الإشعارات -->
+        <div class="setting-group notifications">
+            <label for="notifications-switch">
+                <span class="icon">🔔</span>
+                الإشعارات
+            </label>
+            <label class="switch">
+                <input type="checkbox" id="notifications-switch">
+                <span class="slider"></span>
+            </label>
+        </div>
+    </div>
+
+    <script>
+       // theme-script.js
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // عناصر الصفحة
+            const themeSwitch = document.getElementById('theme-switch');
+            const notificationsSwitch = document.getElementById('notifications-switch');
+
+            // تحميل الإعدادات المحفوظة من localStorage
+            // تحميل الثيم
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            themeSwitch.checked = savedTheme === 'dark';
+
+            // تحميل إعدادات الإشعارات
+            const savedNotifications = localStorage.getItem('notifications') === 'true';
+            notificationsSwitch.checked = savedNotifications;
+
+            // تحديث الإعدادات عند تغيير الثيم
+            themeSwitch.addEventListener('change', () => {
+                const theme = themeSwitch.checked ? 'dark' : 'light';
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+            });
+
+            // تحديث الإعدادات عند تغيير الإشعارات
+            notificationsSwitch.addEventListener('change', () => {
+                const notifications = notificationsSwitch.checked;
+                localStorage.setItem('notifications', notifications);
+                // يمكن إضافة كود لتفعيل أو تعطيل الإشعارات بناءً على الحالة
+                if (notifications) {
+                    console.log("تم تفعيل الإشعارات");
+                    // كود لتفعيل الإشعارات
+                } else {
+                    console.log("تم تعطيل الإشعارات");
+                    // كود لتعطيل الإشعارات
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>
