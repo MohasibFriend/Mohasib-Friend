@@ -1,6 +1,7 @@
 // إزالة استخدام الرقم التسجيلي الثابت وجلبه من sessionStorage
 const registrationNumber = sessionStorage.getItem('registrationNumber'); // جلب الرقم التسجيلي من Session Storage
 const subscriptionStatus = sessionStorage.getItem('subscriptionStatus'); // جلب حالة الاشتراك من Session Storage
+const userId =sessionStorage.getItem('userId')
 /// دالة لفحص وجود userId في sessionStorage والتصرف بناءً عليه
 function checkUserId() {
     if (sessionStorage.getItem("userId")) {
@@ -168,7 +169,7 @@ async function fetchAndDisplayExistingFile(showSpinnerFlag = true) {
   }
 
   try {
-    const payload = { registration_number: registrationNumber };
+    const payload = { userId: userId };
 
     const response = await fetch(
       "https://cauntkqx43.execute-api.us-east-1.amazonaws.com/prod/mf_fetch_journal",
