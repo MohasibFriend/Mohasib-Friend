@@ -187,7 +187,7 @@ function createPageElements() {
 async function fetchDataByRegistrationNumber(resultDiv, spinner, showSpinner = true) {
   try {
       if (showSpinner) spinner.style.display = 'block';
-      const requestBody = { registration_number: registrationNumber ,userId:userId};
+      const requestBody = { userId:userId};
 
       const response = await fetch('https://cauntkqx43.execute-api.us-east-1.amazonaws.com/prod/mf_fech_monthly_decleration', {
           method: 'POST',
