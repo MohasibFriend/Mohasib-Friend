@@ -14,8 +14,10 @@ const CONFIG = {
   },
 };
 
+//sessionStorage.setItem("userId","84c89448-10c1-70b2-afec-779114a2db39")
 let subscriptionDays = null;
 
+/*sessionStorage.setItem("userId","55555")*/
 // home-script.js
 document.addEventListener('DOMContentLoaded', () => {
   // الحصول على عناصر السويتش
@@ -36,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });;
 
-
+const userId = sessionStorage.getItem("userId");
 // Load jQuery and execute logic when DOM is ready
 if (typeof jQuery === "undefined") {
   const script = document.createElement("script");
@@ -273,7 +275,7 @@ function initializeApp() {
         //await fetchClientCredentials();
 
         // Fetch notifications using the registration number
-        const notifications = await fetchNotifications(registrationNumber);
+        const notifications = await fetchNotifications(userId);
         updateNotificationIcon(notifications);
 
         // Update subscription UI based on status
@@ -526,9 +528,9 @@ function initializeApp() {
      * @param {string} registrationNumber - The registration number
      * @returns {Promise<Array>} - Array of notifications
      */
-    async function fetchNotifications(registrationNumber) {
+    async function fetchNotifications(userId) {
       try {
-        const data = { registrationNumber };
+        const data = { userId };
         const response = await apiCall(CONFIG.app.getNotificationsApi, {
           method: "POST",
           headers: {
