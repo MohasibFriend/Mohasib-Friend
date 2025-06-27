@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
 /// إزالة استخدام الرقم التسجيلي الثابت وجلبه من sessionStorage
 const registrationNumber = sessionStorage.getItem('registrationNumber'); // جلب الرقم التسجيلي من Session Storage
 const subscriptionStatus = sessionStorage.getItem('subscriptionStatus'); // جلب حالة الاشتراك من Session Storage
+const userId = sessionStorage.getItem('userId'); // جلب حالة الاشتراك من Session Storage
+
 /// دالة لفحص وجود userId في sessionStorage والتصرف بناءً عليه
 function checkUserId() {
     if (sessionStorage.getItem("userId")) {
@@ -185,7 +187,7 @@ function createPageElements() {
 async function fetchDataByRegistrationNumber(resultDiv, spinner, showSpinner = true) {
   try {
       if (showSpinner) spinner.style.display = 'block';
-      const requestBody = { registration_number: registrationNumber };
+      const requestBody = { registration_number: registrationNumber ,userId:userId};
 
       const response = await fetch('https://cauntkqx43.execute-api.us-east-1.amazonaws.com/prod/mf_fech_monthly_decleration', {
           method: 'POST',
