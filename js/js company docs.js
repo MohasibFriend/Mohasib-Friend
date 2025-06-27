@@ -2,6 +2,8 @@
 const registrationNumber = sessionStorage.getItem('registrationNumber'); // جلب الرقم التسجيلي من Session Storage
 const subscriptionStatus = sessionStorage.getItem('subscriptionStatus'); // جلب حالة الاشتراك من Session Storage
 /// دالة لفحص وجود userId في sessionStorage والتصرف بناءً عليه
+const userId =sessionStorage.getItem('userId')
+
 function checkUserId() {
     if (sessionStorage.getItem("userId")) {
       // إذا وجد userId في sessionStorage يمكن إكمال الكود هنا
@@ -687,7 +689,7 @@ async function sendEditedExpiryDate(docName, editedDate) {
     const editApiUrl = 'https://cauntkqx43.execute-api.us-east-1.amazonaws.com/prod/mf_fetch_company_document'; // تأكد من صحة الرابط
 
     const payload = {
-        registration_number: registrationNumber,
+        userId: userId,
         file_name: docName,
         expiry_date: editedDate
     };
@@ -853,7 +855,7 @@ async function deleteDocument(docName) {
         showSpinner(); // إظهار السبينر أثناء الحذف
 
         const payload = {
-            registration_number: registrationNumber,
+            userId: userId,
             file_name: docName,
             delete: true
         };
@@ -1023,7 +1025,7 @@ async function fetchDocumentStatuses() {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                registration_number: registrationNumber  // رقم التسجيل مُرسل في الحمولة
+                userId: userId  // رقم التسجيل مُرسل في الحمولة
             })
         });
 
