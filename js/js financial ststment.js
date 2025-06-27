@@ -2,6 +2,8 @@
 const registrationNumber = sessionStorage.getItem('registrationNumber'); // جلب الرقم التسجيلي من Session Storage
 const subscriptionStatus = sessionStorage.getItem('subscriptionStatus'); // جلب حالة الاشتراك من Session Storage
 /// دالة لفحص وجود userId في sessionStorage والتصرف بناءً عليه
+const userId =sessionStorage.getItem('userId')
+
 function checkUserId() {
     if (sessionStorage.getItem("userId")) {
       // إذا وجد userId في sessionStorage يمكن إكمال الكود هنا
@@ -203,7 +205,7 @@ async function fetchFiles(showSpinnerFlag = true) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                registration_number: registrationNumber
+                userId: userId
             })
         });
 
