@@ -1,5 +1,6 @@
 // جلب الرقم التسجيلي من الـ sessionStorage لاحقاً (مؤقت)
 const registrationNumber = sessionStorage.getItem('registrationNumber'); // جلب الرقم التسجيلي من Session Storage
+const userId =sessionStorage.getItem('userId')
 
 /// دالة لفحص وجود userId في sessionStorage والتصرف بناءً عليه
 function checkUserId() {
@@ -273,7 +274,7 @@ async function uploadExcelFile() {
         const base64Excel = btoa(String.fromCharCode(...new Uint8Array(fileContent)));
 
         const data = {
-            registration_number: registrationNumber,
+            userId: userId,
             file: {
                 content: base64Excel
             }
@@ -321,7 +322,7 @@ async function fetchPresignedUrl() {
     }
 
     const data = {
-        registration_number: registrationNumber
+        userId: userId
         // لا يتم تضمين ملف هنا
     };
 
