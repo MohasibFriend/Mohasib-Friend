@@ -56,39 +56,59 @@ function hideSpinner() {
 
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Fetch data from sessionStorage
-  const data = {
-    name: sessionStorage.getItem("name") || "غير متوفر",
-    username: sessionStorage.getItem("username") || "غير متوفر",
-    email: sessionStorage.getItem("email") || "غير متوفر",
-    phone_number: sessionStorage.getItem("phone_number") || "غير متوفر",
-    registrationNumber:sessionStorage.getItem("registrationNumber") || "غير متوفر",
+  // Retrieve raw values from sessionStorage
+  const rawYear  = sessionStorage.getItem("yearDays");
+  const rawMonth = sessionStorage.getItem("monthDays");
 
-  };
+  // Parse to integers or leave as null
+  let yearDays  = rawYear  !== null ? parseInt(rawYear, 10)  : null;
+  let monthDays = rawMonth !== null ? parseInt(rawMonth, 10) : null;
 
-  // Update table cells with data
-  document.getElementById("name").textContent = data.name;
-  document.getElementById("username").textContent = data.username;
-  document.getElementById("email").textContent = data.email;
-  document.getElementById("phone_number").textContent = data.phone_number;
-  document.getElementById("registrationNumber").textContent =
-    data.registrationNumber;
-  
+  // Treat non-numeric values as 0
+  if (yearDays  !== null && isNaN(yearDays))  yearDays  = 0;
+  if (monthDays !== null && isNaN(monthDays)) monthDays = 0;
 
-  // If any data is missing, fetch it from the server
-  if (data.clientid === "غير متوفر" || data.client_secret === "غير متوفر") {
-    fetchClientCredentials();
+  // Calculate total days if at least one value exists
+  const totalDays = (yearDays  ?? 0) + (monthDays ?? 0);
+  let expiryDate;
+
+  if (yearDays === null && monthDays === null) {
+    expiryDate = "Not available";
+  } else {
+    // Get current time in Cairo timezone
+    const nowCairo = new Date(
+      new Date().toLocaleString("en-US", { timeZone: "Africa/Cairo" })
+    );
+    // Add totalDays in milliseconds
+    const expiry = new Date(nowCairo.getTime() + totalDays * 24 * 60 * 60 * 1000);
+    // Format as MM/DD/YYYY in Cairo timezone
+    expiryDate = expiry.toLocaleDateString("en-US", {
+      timeZone: "Africa/Cairo",
+      year:  "numeric",
+      month: "2-digit",
+      day:   "2-digit"
+    });
   }
 
-  // إضافة مستمع لأيقونات التحرير
-  const editIcons = document.querySelectorAll(".edit-icon");
-  editIcons.forEach((icon) => {
-    icon.addEventListener("click", function () {
-      const field = this.getAttribute("data-field");
-      showEditModal(field);
-    });
-  });
+  const data = {
+    name:               sessionStorage.getItem("name")               || "غير متوقر",
+    username:           sessionStorage.getItem("username")           || "غير متوقر",
+    email:              sessionStorage.getItem("email")              || "غير متوقر",
+    phone_number:       sessionStorage.getItem("phone_number")       || "غير متوقر",
+    registrationNumber: sessionStorage.getItem("registrationNumber") || "غير متوقر",
+    expiredate:         expiryDate
+  };
+
+  // Update DOM
+  document.getElementById("name").textContent               = data.name;
+  document.getElementById("username").textContent           = data.username;
+  document.getElementById("email").textContent              = data.email;
+  document.getElementById("phone_number").textContent       = data.phone_number;
+  document.getElementById("registrationNumber").textContent = data.registrationNumber;
+  document.getElementById("expiredate").textContent         = data.expiredate;
 });
+
+
 
 // Fetch client credentials and update table
 /*async function fetchClientCredentials() {
