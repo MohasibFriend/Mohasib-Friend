@@ -689,7 +689,7 @@ async function sendEditedExpiryDate(docName, editedDate) {
     const editApiUrl = 'https://cauntkqx43.execute-api.us-east-1.amazonaws.com/prod/mf_fetch_company_document'; // تأكد من صحة الرابط
 
     const payload = {
-        userId: userId,
+        userId : userId ,
         file_name: docName,
         expiry_date: editedDate
     };
@@ -797,7 +797,7 @@ async function uploadDocument(file, docName, row) {
         const fileBase64 = await toBase64(file);
 
         const payload = {
-            registration_number: registrationNumber,
+            userId: userId,
             file_name: docName,
             file_content: fileBase64
         };
