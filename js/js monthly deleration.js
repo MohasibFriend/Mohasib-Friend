@@ -6,8 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
 /// إزالة استخدام الرقم التسجيلي الثابت وجلبه من sessionStorage
 const registrationNumber = sessionStorage.getItem('registrationNumber'); // جلب الرقم التسجيلي من Session Storage
 const subscriptionStatus = sessionStorage.getItem('subscriptionStatus'); // جلب حالة الاشتراك من Session Storage
-const userId = sessionStorage.getItem('userId'); // جلب حالة الاشتراك من Session Storage
-
+const userId = sessionStorage.getItem('userId')
 /// دالة لفحص وجود userId في sessionStorage والتصرف بناءً عليه
 function checkUserId() {
     if (sessionStorage.getItem("userId")) {
@@ -187,7 +186,7 @@ function createPageElements() {
 async function fetchDataByRegistrationNumber(resultDiv, spinner, showSpinner = true) {
   try {
       if (showSpinner) spinner.style.display = 'block';
-      const requestBody = { userId:userId};
+      const requestBody = { userId:userId };
 
       const response = await fetch('https://cauntkqx43.execute-api.us-east-1.amazonaws.com/prod/mf_fech_monthly_decleration', {
           method: 'POST',
@@ -199,7 +198,6 @@ async function fetchDataByRegistrationNumber(resultDiv, spinner, showSpinner = t
 
       if (response.ok) {
           const parsedBody = JSON.parse(responseData.body);
-
           fetchedSales = parsedBody.sales || [];
           fetchedPurchases = parsedBody.purchases || [];
           fetchedAggregates = {
@@ -211,10 +209,10 @@ async function fetchDataByRegistrationNumber(resultDiv, spinner, showSpinner = t
             aggregate_purchases_sum_v: parsedBody.aggregate_purchases_sum_v,
             aggregate_purchases_yearly: parsedBody.aggregate_purchases_yearly || [],
             aggregate_sales_yearly: parsedBody.aggregate_sales_yearly || [],
-            total_sum_v_purchases_yearly: parsedBody.total_sum_v_purchases_yearly || {},
-            total_sum_w_purchases_yearly: parsedBody.total_sum_w_purchases_yearly || {},
-            total_sum_v_sales_yearly: parsedBody.total_sum_v_sales_yearly || {},
-            total_sum_w_sales_yearly: parsedBody.total_sum_w_sales_yearly || {}
+            total_sum_v_purchases_yearly: parsedBody.sum_v_purchases_yearly   || {},
+            total_sum_w_purchases_yearly: parsedBody.sum_w_purchases_yearly   || {},
+            total_sum_v_sales_yearly:     parsedBody.sum_v_sales_yearly       || {},
+            total_sum_w_sales_yearly:     parsedBody.sum_w_sales_yearly       || {}
           };
 
           // تحديث السيشن ستورج بالبيانات الجديدة
@@ -441,10 +439,10 @@ function displayDeclarations(resultDiv, salesData, purchasesData, aggregateData,
   // 1. إجمالي المشتريات، 2. إجمالي المبيعات، 3. السنة.
   const aggregateRow = document.createElement("tr");
 
-  const totalSumVSales = aggregateData.total_sum_v_sales_yearly[selectedYear] || 0;
-  const totalSumWSales = aggregateData.total_sum_w_sales_yearly[selectedYear] || 0;
-  const totalSumVPurchases = aggregateData.total_sum_v_purchases_yearly[selectedYear] || 0;
-  const totalSumWPurchases = aggregateData.total_sum_w_purchases_yearly[selectedYear] || 0;
+  const totalSumVSales     = aggregateData.total_sum_v_sales_yearly[selectedYear]    || 0;
+  const totalSumWSales     = aggregateData.total_sum_w_sales_yearly[selectedYear]    || 0;
+  const totalSumVPurchases = aggregateData.total_sum_v_purchases_yearly[selectedYear]|| 0;
+  const totalSumWPurchases = aggregateData.total_sum_w_purchases_yearly[selectedYear]|| 0;
   // الخلية الثالثة: السنة
   const yearCell = document.createElement("td");
   yearCell.style.padding = "10px";
