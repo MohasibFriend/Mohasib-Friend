@@ -686,7 +686,7 @@ function formatDateForInput(dateString) {
 
 // **دالة لإرسال تاريخ الانتهاء المعدل إلى API**
 async function sendEditedExpiryDate(docName, editedDate) {
-    const editApiUrl = 'https://cauntkqx43.execute-api.us-east-1.amazonaws.com/prod/mf_fetch_company_document'; // تأكد من صحة الرابط
+    const editApiUrl = 'https://ma0sx37da7.execute-api.us-east-1.amazonaws.com/prod/mf_fetch_company_document'; // تأكد من صحة الرابط
 
     const payload = {
         userId : userId ,
@@ -789,7 +789,7 @@ function refreshPage() {
 
 // Function to Upload Document to Lambda
 async function uploadDocument(file, docName, row) {
-    const uploadApiUrl = 'https://cauntkqx43.execute-api.us-east-1.amazonaws.com/prod/mf_fetch_company_document';  // استبدل بالرابط الفعلي لـ Lambda
+    const uploadApiUrl = 'https://ma0sx37da7.execute-api.us-east-1.amazonaws.com/prod/mf_fetch_company_document';  // استبدل بالرابط الفعلي لـ Lambda
 
     try {
         showSpinner(); // إظهار السبينر أثناء الرفع
@@ -849,7 +849,7 @@ async function uploadDocument(file, docName, row) {
 
 // Function to Delete Document
 async function deleteDocument(docName) {
-    const deleteApiUrl = 'https://cauntkqx43.execute-api.us-east-1.amazonaws.com/prod/mf_fetch_company_document';
+    const deleteApiUrl = 'https://ma0sx37da7.execute-api.us-east-1.amazonaws.com/prod/mf_fetch_company_document';
 
     try {
         showSpinner(); // إظهار السبينر أثناء الحذف
@@ -1014,7 +1014,7 @@ function updateTableWithStatus(fileDetails) {
 
 // Function to Fetch Document Statuses from Lambda
 async function fetchDocumentStatuses() {
-    const fetchApiUrl = 'https://cauntkqx43.execute-api.us-east-1.amazonaws.com/prod/mf_fetch_company_document';
+    const fetchApiUrl = 'https://ma0sx37da7.execute-api.us-east-1.amazonaws.com/prod/mf_fetch_company_document';
 
     try {
         showSpinner(); // إظهار السبينر أثناء الجلب
@@ -1037,7 +1037,7 @@ async function fetchDocumentStatuses() {
                 data = JSON.parse(data.body);
             } catch (e) {
                 console.error('Error parsing JSON string:', e);
-                alert('.برجاء ادخال البينات في صفحة ربط البورتال');
+                
                 return [];
             }
         }
@@ -1049,7 +1049,7 @@ async function fetchDocumentStatuses() {
             updateTableWithStatus([data]); // تمرير البيانات كمصفوفة
         } else {
             console.error('Invalid response structure:', data);
-            alert('.برجاء ادخال البينات في صفحة ربط البورتال');
+            
         }
     } catch (error) {
         console.error('Error fetching document statuses:', error);
