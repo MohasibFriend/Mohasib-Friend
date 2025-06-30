@@ -188,7 +188,7 @@ async function fetchDataByRegistrationNumber(resultDiv, spinner, showSpinner = t
       if (showSpinner) spinner.style.display = 'block';
       const requestBody = { userId:userId };
 
-      const response = await fetch('https://cauntkqx43.execute-api.us-east-1.amazonaws.com/prod/mf_fech_monthly_decleration', {
+      const response = await fetch('https://ma0sx37da7.execute-api.us-east-1.amazonaws.com/prod/mf_fech_monthly_decleration', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(requestBody)
