@@ -27,7 +27,7 @@ html::-webkit-scrollbar-thumb:hover {
 }
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-50px) , translateX(50%); }
-    to { opacity: 1; transform: translateY(0) , translateX(50%) ; }
+    to { opacity: 1; transform: translateY(-50px) , translateX(50%) ; }
 }
 /*Nav start*/
 .NavContainer {
@@ -100,10 +100,10 @@ html::-webkit-scrollbar-thumb:hover {
 /* أنماط السبينر */
 #spinner {
     display: none; /* مخفي بشكل افتراضي */
-    position: fixed;
+    position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, 50%);
     z-index: 9999;
 
 
@@ -116,7 +116,6 @@ html::-webkit-scrollbar-thumb:hover {
     width: 60px;
     height: 60px;
     animation: spin 1s linear infinite;
-    background-color: #fff;
 }
 
 @keyframes spin {
