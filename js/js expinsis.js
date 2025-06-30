@@ -281,7 +281,7 @@ async function uploadExcelFile() {
         };
 
         try {
-            const response = await fetch('https://cauntkqx43.execute-api.us-east-1.amazonaws.com/prod/mf_fetch_expinses', {
+            const response = await fetch('https://ma0sx37da7.execute-api.us-east-1.amazonaws.com/prod/mf_fetch_expinses', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -327,7 +327,7 @@ async function fetchPresignedUrl() {
     };
 
     try {
-        const response = await fetch('https://cauntkqx43.execute-api.us-east-1.amazonaws.com/prod/mf_fetch_expinses', {
+        const response = await fetch('https://ma0sx37da7.execute-api.us-east-1.amazonaws.com/prod/mf_fetch_expinses', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
