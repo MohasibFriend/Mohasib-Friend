@@ -740,7 +740,7 @@ const spinnerHTML = `
         display: none;
         justify-content: center;
         align-items: center;
-        position: fixed;
+        position: absolute;
         top: 0;
         left: 0;
         width: 100%;
