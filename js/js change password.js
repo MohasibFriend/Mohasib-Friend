@@ -73,7 +73,7 @@ yesBtn.addEventListener('click', async () => {
 
     try {
         const res = await fetch(
-            'https://cauntkqx43.execute-api.us-east-1.amazonaws.com/prod/mf_fetch_change_password',
+            'https://ma0sx37da7.execute-api.us-east-1.amazonaws.com/prod/mf_fetch_change_password',
             {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
