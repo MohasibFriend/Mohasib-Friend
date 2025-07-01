@@ -918,10 +918,15 @@ function showPaymentStatus(isSuccess) {
   const statusDescription = getStatusDescription();
 
   // التحقق مما إذا كانت الصفحة تحتوي على معلمة statusDescription
-  if (statusDescription !== null) {
+ if (statusDescription !== null) {
     // تحديد إذا ما كانت العملية ناجحة أم لا بناءً على محتوى statusDescription
     // يمكن تعديل هذه الشروط بناءً على النص الذي تأتي به بوابة الدفع
-    const isSuccess = statusDescription.toLowerCase().includes("successfully");
+    const desc = statusDescription.toLowerCase();
+    const isSuccess =
+    desc.includes("successfully") ||
+    desc.includes("successful") ||
+    desc.includes("successfull") ||
+    desc.includes("successul");
 
     // عرض الكونتينر بناءً على الحالة
     showPaymentStatus(isSuccess);
