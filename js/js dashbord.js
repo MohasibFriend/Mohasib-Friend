@@ -1324,7 +1324,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (isSuccess) {
       icon.classList.add("success");
       icon.innerHTML = "✔️";
-
+      container.style.display = "flex";
       // استرجاع المدة المختارة
       const days = parseInt(sessionStorage.getItem("subscriptionDays") || "0", 10) || null;
 
