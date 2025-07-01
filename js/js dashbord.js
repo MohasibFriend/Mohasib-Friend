@@ -13,9 +13,9 @@ const CONFIG = {
     clientId: "1v5jdad42jojr28bcv13sgds5r",
   },
 };
-sessionStorage.setItem("userId", "84c89448-10c1-70b2-afec-779114a2db39")
+//sessionStorage.setItem("userId", "84c89448-10c1-70b2-afec-779114a2db39")
 let subscriptionDays = null;
-sessionStorage.setItem("monthDays", "30");
+//sessionStorage.setItem("monthDays", "30");
 
 /*sessionStorage.setItem("userId","55555")*/
 // home-script.js
