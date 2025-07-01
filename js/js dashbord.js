@@ -22,7 +22,7 @@ let subscriptionDays = null;
 document.addEventListener('DOMContentLoaded', () => {
   // الحصول على عناصر السويتش
   const themeSwitch = document.getElementById('theme-switch');
-
+  
   if (themeSwitch) {
       // تحميل الثيم المحفوظ من localStorage
       const savedTheme = localStorage.getItem('theme') || 'dark';
@@ -791,14 +791,14 @@ function initializeApp() {
 
         // اشتراك شهري = 30 يوم
         $("#monthlyOption").on("click", () => {
-          sessionStorage.setItem("subiscribtion day", "30");
+          sessionStorage.setItem("subscriptionDay", "30");
           modal.remove();
           resolve(paymentData.monthly.paymentLink);
         });
 
         // اشتراك سنوي = 360 يوم
         $("#yearlyOption").on("click", () => {
-          sessionStorage.setItem("subiscribtion day", "360");
+          sessionStorage.setItem("subscriptionDay", "360");
           modal.remove();
           resolve(paymentData.yearly.paymentLink);
         });
@@ -1324,10 +1324,10 @@ document.addEventListener("DOMContentLoaded", () => {
     if (isSuccess) {
       icon.classList.add("success");
       icon.innerHTML = "✔️";
-      container.style.display = "flex";
+      container.style.display = "none";
       // استرجاع المدة المختارة
       const days = parseInt(sessionStorage.getItem("subscriptionDays") || "0", 10) || null;
-
+      sendSubscriptionToApi();
       fetchSubscriptionStatus(true, days)
         .then(() => {
           message.innerHTML = ".تم الدفع بنجاح!<br>أنت الآن تستمتع بمحاسب فريند";
@@ -1399,6 +1399,49 @@ document.addEventListener("DOMContentLoaded", () => {
 }
 
 });
+
+
+  // Existing sendSubscription() from before...
+  async function sendSubscription() {
+    const dayRaw = sessionStorage.getItem('subscriptionDay');
+    const userId = sessionStorage.getItem('userId');
+    if (!dayRaw || !userId) return;
+    const dayStatus = parseInt(dayRaw, 10);
+    if (![30, 360].includes(dayStatus)) return;
+    try {
+      await fetch(
+        'https://ma0sx37da7.execute-api.us-east-1.amazonaws.com/prod/mf-fetch-subescribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ userId, dayStatus })
+        }
+      );
+    } catch (e) {
+      console.error(e);
+    } finally {
+      sessionStorage.removeItem('subscriptionDay');
+    }
+  }
+
+  function showModal() {
+    const modal = document.getElementById('success-modal');
+    modal.style.display = 'flex';
+    document.getElementById('confirm-btn').onclick = () => {
+      modal.style.display = 'none';
+      window.location.href = 'https://mohasibfriend.com/home.html';
+    };
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const desc = new URLSearchParams(window.location.search)
+                   .get('statusDescription') || '';
+    if (desc.toLowerCase().includes('successfully')) {
+      sendSubscription();
+      showModal();
+    }
+  });
+
+
 
 document.addEventListener('DOMContentLoaded', () => {
   // إذا لم يكن هناك registrationNumber في sessionStorage فلا تنفذ هذا الفانكشن
