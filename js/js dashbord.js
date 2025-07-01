@@ -791,14 +791,14 @@ function initializeApp() {
 
         // اشتراك شهري = 30 يوم
         $("#monthlyOption").on("click", () => {
-          sessionStorage.setItem("monthDays", "30");
+          sessionStorage.setItem("subiscribtion day", "30");
           modal.remove();
           resolve(paymentData.monthly.paymentLink);
         });
 
         // اشتراك سنوي = 360 يوم
         $("#yearlyOption").on("click", () => {
-          sessionStorage.setItem("yearDays", "360");
+          sessionStorage.setItem("subiscribtion day", "360");
           modal.remove();
           resolve(paymentData.yearly.paymentLink);
         });
