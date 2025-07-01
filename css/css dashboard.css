@@ -6,10 +6,11 @@ body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
 }
-.theme-switch{
-    margin-right: -50px; 
-    cursor: pointer; 
-    width: 100%; 
+
+.theme-switch {
+    margin-right: -50px;
+    cursor: pointer;
+    width: 100%;
     color: #fff !important;
 }
 
@@ -19,7 +20,7 @@ body {
     display: inline-block;
     width: 40px;
     height: 20px;
-    
+
 }
 
 .switch input {
@@ -39,12 +40,14 @@ body {
     transition: .4s;
     border-radius: 34px;
 }
+
 .setting-group {
     background-color: var(--background-nav);
-    border-radius:8px ;
+    border-radius: 8px;
     margin-bottom: 1px;
     align-items: center;
 }
+
 .slider:before {
     position: absolute;
     content: "";
@@ -55,6 +58,68 @@ body {
     background-color: white;
     transition: .4s;
     border-radius: 50%;
+}
+
+/* Backdrop */
+#success-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+/* Container */
+#success-modal .modal-container {
+    background: #fff;
+    padding: 2rem 1.5rem;
+    border-radius: 1.5rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    max-width: 320px;
+    width: 50%;
+    font-family: system-ui, sans-serif;
+    border: #15264d 16px solid;
+}
+
+/* Icon */
+#success-modal .success-icon {
+    font-size: 4rem;
+    color: #28a745;
+    margin-bottom: 1rem;
+}
+
+/* Text */
+#success-modal .success-text {
+    font-size: 1.125rem;
+    color: #333;
+    margin-bottom: 1.75rem;
+    line-height: 1.4;
+}
+
+/* Button */
+#confirm-btn {
+    padding: 0.75rem 1.5rem;
+    background: #166eb6;
+    color: #fff;
+    border: none;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.2s, transform 0.1s;
+}
+
+#confirm-btn:hover {
+    background: #1662a1;
+    transform: translateY(-5px);
+    transition: 0.2s;
+
+}
+
+#confirm-btn:active {
+    transform: scale(0.98);
 }
 
 input:checked+.slider {
@@ -89,23 +154,31 @@ html::-webkit-scrollbar-thumb:hover {
     background: var(--hover-icon);
     /* لون المقبض عند التحويم */
 }
+
 .sidebar::-webkit-scrollbar {
-    width: 10px; /* عرض الشريط */
+    width: 10px;
+    /* عرض الشريط */
 }
 
 .sidebar::-webkit-scrollbar-track {
-    background: #f1f1f1; /* خلفية الشريط */
-    border-radius: 5px; /* تقويس حواف الشريط */
+    background: #f1f1f1;
+    /* خلفية الشريط */
+    border-radius: 5px;
+    /* تقويس حواف الشريط */
 }
 
 .sidebar::-webkit-scrollbar-thumb {
-    background: #3498db; /* لون الشريط */
-    border-radius: 5px; /* تقويس حواف الشريط */
+    background: #3498db;
+    /* لون الشريط */
+    border-radius: 5px;
+    /* تقويس حواف الشريط */
 }
 
 .sidebar::-webkit-scrollbar-thumb:hover {
-    background: #2980b9; /* تغيير اللون عند التمرير فوقه */
+    background: #2980b9;
+    /* تغيير اللون عند التمرير فوقه */
 }
+
 /*Nav start*/
 .NavContainer {
     height: 100px;
@@ -139,7 +212,7 @@ html::-webkit-scrollbar-thumb:hover {
 .FirstIcon {
     border: 3px solid black;
     padding: 5px;
-    background-color:var(--icon-bg);
+    background-color: var(--icon-bg);
     align-items: center;
     justify-content: center;
     width: 50px;
@@ -153,7 +226,7 @@ html::-webkit-scrollbar-thumb:hover {
 
 
 .SecondtIcon {
-    background-color:var(--icon-bg);
+    background-color: var(--icon-bg);
     border: 3px solid var(--border-icon);
     align-items: center;
     justify-content: center;
@@ -166,8 +239,9 @@ html::-webkit-scrollbar-thumb:hover {
     transition: 0.5s;
     cursor: pointer;
 }
-.SecondtIcon:hover{
-    background-color:var(--hover-icon) !important;
+
+.SecondtIcon:hover {
+    background-color: var(--hover-icon) !important;
     color: #fff;
 }
 
@@ -183,9 +257,11 @@ html::-webkit-scrollbar-thumb:hover {
         transform: translateY(0), translateX(50%);
     }
 }
+
 /* أنماط السبينر */
 #spinner {
-    display: none; /* مخفي بشكل افتراضي */
+    display: none;
+    /* مخفي بشكل افتراضي */
     position: absolute;
     top: 50%;
     left: 50%;
@@ -201,13 +277,19 @@ html::-webkit-scrollbar-thumb:hover {
     width: 100px;
     height: 100px;
     animation: spin 1s linear infinite;
-    
+
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
+
 .dropdown-container {
     display: none;
     position: fixed;
@@ -270,7 +352,7 @@ html::-webkit-scrollbar-thumb:hover {
 
 .ThirdIcon {
     border: 3px solid var(--border-icon);
-    background-color:var(--icon-bg);
+    background-color: var(--icon-bg);
     align-items: center;
     justify-content: center;
     width: 50px;
@@ -282,10 +364,12 @@ html::-webkit-scrollbar-thumb:hover {
     transition: 0.5s;
     cursor: pointer;
 }
-.ThirdIcon:hover{
+
+.ThirdIcon:hover {
     background-color: var(--hover-icon) !important;
     color: #fff;
 }
+
 .badge {
     position: absolute;
     top: -16px !important;
@@ -310,17 +394,19 @@ html::-webkit-scrollbar-thumb:hover {
     width: 50px;
     border-radius: 50%;
     font-size: 35PX;
-    background-color:var(--icon-bg);
+    background-color: var(--icon-bg);
     position: absolute;
     left: 95%;
     top: 15PX;
     transition: 0.5s;
     cursor: pointer;
 }
-.FourthIcon:hover{
+
+.FourthIcon:hover {
     background-color: rgb(194, 2, 2) !important;
     color: #fff;
 }
+
 /* أسلوب الكونتينر */
 .modal-logout {
     display: none;
@@ -389,9 +475,11 @@ html::-webkit-scrollbar-thumb:hover {
     background-color: #417a8b;
     letter-spacing: 1px;
 }
-.welcome{
+
+.welcome {
     font-weight: bold;
-    position: absolute; /* تضمن ظهور العنصر في مكان محدد */
+    position: absolute;
+    /* تضمن ظهور العنصر في مكان محدد */
     border-radius: 10px;
     background-color: var(--welcome);
     border: var(--border) 10px solid;
@@ -405,8 +493,9 @@ html::-webkit-scrollbar-thumb:hover {
     width: 600px;
     text-align: center;
     font-size: 18px;
-    
+
 }
+
 .scrollable {
     width: 100%;
     /* العرض الكامل للعنصر */
@@ -449,9 +538,11 @@ html::-webkit-scrollbar-thumb:hover {
 .fa {
     margin-left: 10px;
 }
-.fa-bars{
+
+.fa-bars {
     color: var(--torrgel);
 }
+
 /* Icon Styling */
 .icon-container1 {
     display: flex;
@@ -462,7 +553,7 @@ html::-webkit-scrollbar-thumb:hover {
 .info-icon {
     font-size: 42px;
     color: var(--text-color);
-    background-color:var(--icon-bg);
+    background-color: var(--icon-bg);
     border-radius: 50%;
     width: 55px;
     height: 55px;
@@ -489,7 +580,7 @@ html::-webkit-scrollbar-thumb:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -729,9 +820,11 @@ html::-webkit-scrollbar-thumb:hover {
 .companydocs:hover {
     background: var(--hover-companydocs);
     letter-spacing: 2px;
-    transform: translateY(-5px); /* رفع العنصر قليلاً */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 1); /* إضافة ظل أسود واضح */
-    
+    transform: translateY(-5px);
+    /* رفع العنصر قليلاً */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
+    /* إضافة ظل أسود واضح */
+
 }
 
 .assitantbtn {
@@ -824,7 +917,7 @@ html::-webkit-scrollbar-thumb:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background:var(--footer);
+    background: var(--footer);
     color: #333;
     padding: 0px;
     padding-right: 5px;
@@ -850,42 +943,47 @@ html::-webkit-scrollbar-thumb:hover {
     /* إزالة الخلفية */
     border: none;
     /* إزالة الحدود */
-    
+
 }
+
 .footer .social-icon .fa-facebook-f {
     background-color: #0262c9;
     color: #fff;
-    border-radius:3px;
+    border-radius: 3px;
     padding: 3px;
     padding-left: 6px;
     padding-right: 6px;
 }
-.footer .social-icon .fa-instagram{
-    background: linear-gradient(to left , rgb(240, 12, 107),rgb(140, 0, 255));
+
+.footer .social-icon .fa-instagram {
+    background: linear-gradient(to left, rgb(240, 12, 107), rgb(140, 0, 255));
     color: #fff;
-    border-radius:3px;
+    border-radius: 3px;
     padding: 3px;
 }
+
 .footer .social-icon .fa-tiktok {
     background-color: #000;
     color: #fff;
-    border-radius:3px;
+    border-radius: 3px;
     padding: 3px;
     padding-left: 6px;
     padding-right: 6px;
 }
+
 .footer .social-icon .fa-linkedin-in {
     background-color: #007bff;
     color: #fff;
-    border-radius:3px;
+    border-radius: 3px;
     padding: 3px;
     padding-left: 6px;
     padding-right: 6px;
 }
-.footer .social-icon .fa-x-twitter{
+
+.footer .social-icon .fa-x-twitter {
     background-color: #000;
     color: #fff;
-    border-radius:3px;
+    border-radius: 3px;
     padding: 3px;
     padding-left: 6px;
     padding-right: 6px;
@@ -906,16 +1004,19 @@ html::-webkit-scrollbar-thumb:hover {
     transform: translateY(-10px);
 
 }
-.About{
+
+.About {
     text-decoration: none;
     color: #fff;
     transition: 0.4s;
 }
-.About:hover{
+
+.About:hover {
     letter-spacing: 2px;
     color: var(--about-hover);
-     
+
 }
+
 .footer .copyright {
     text-align: center;
     font-size: px;
@@ -938,7 +1039,7 @@ html::-webkit-scrollbar-thumb:hover {
 .footer .contact-support a:hover {
     color: #002e5d;
     text-decoration: none;
-   
+
 }
 
 /* Styles for the Payment Status Container */
@@ -1006,7 +1107,7 @@ html::-webkit-scrollbar-thumb:hover {
     .NavContainer {
         height: 80px;
         margin-top: 5px;
-        
+
     }
 
     .logo-img {
@@ -1088,7 +1189,7 @@ html::-webkit-scrollbar-thumb:hover {
         margin-top: -70PX;
     }
 
-    .welcome{
+    .welcome {
         font-weight: bold;
         border-radius: 10px;
         margin-left: 600px;
@@ -1216,7 +1317,7 @@ html::-webkit-scrollbar-thumb:hover {
     .NavContainer {
         height: 80px;
         margin-top: 5px;
-        
+
     }
 
     .logo-img {
@@ -1297,7 +1398,8 @@ html::-webkit-scrollbar-thumb:hover {
         font-weight: bold;
         margin-top: -72px;
     }
-    .welcome{
+
+    .welcome {
         font-weight: bold;
         border-radius: 10px;
         margin-left: 600px;
@@ -1310,6 +1412,7 @@ html::-webkit-scrollbar-thumb:hover {
         text-align: center;
         font-size: 18px;
     }
+
     .grid-container {
         width: 732px;
         height: 775px;
@@ -1412,18 +1515,20 @@ html::-webkit-scrollbar-thumb:hover {
     .sidebar {
         display: none;
     }
-    
+
 }
+
 @media only screen and (min-width: 1196px) and (max-width: 1362px) {
     .footer {
         margin-top: 154px !important;
     }
 }
+
 @media only screen and (min-width: 1196px) and (max-width: 1362px) {
     .NavContainer {
         height: 80px;
         margin-top: 5px;
-        
+
     }
 
     .logo-img {
@@ -1520,7 +1625,7 @@ html::-webkit-scrollbar-thumb:hover {
     }
 
 
-    .welcome{
+    .welcome {
         font-weight: bold;
         border-radius: 10px;
         margin-left: 570px;
@@ -1538,7 +1643,7 @@ html::-webkit-scrollbar-thumb:hover {
         width: 561px;
         height: 676px;
         margin-left: 520px;
-        margin-top: -813px !important; 
+        margin-top: -813px !important;
     }
 
     .grid-item {
@@ -1738,7 +1843,7 @@ html::-webkit-scrollbar-thumb:hover {
         text-align: left;
     }
 
-    .welcome{
+    .welcome {
         font-weight: bold;
         border-radius: 10px;
         margin-left: 570px;
@@ -1997,7 +2102,7 @@ html::-webkit-scrollbar-thumb:hover {
         padding: 10px;
 
     }
-  
+
     .sidebar {
         width: 250px;
         height: 168% !important;
@@ -2042,7 +2147,7 @@ html::-webkit-scrollbar-thumb:hover {
         border: 2px solid #000;
         flex-grow: 1;
         margin-bottom: 57%;
-        
+
     }
 
     .icon-button1 {
@@ -2148,7 +2253,7 @@ html::-webkit-scrollbar-thumb:hover {
         display: none;
     }
 
-    .welcome{
+    .welcome {
         font-weight: bold;
         border-radius: 10px;
         margin-left: 280px;
@@ -2161,6 +2266,7 @@ html::-webkit-scrollbar-thumb:hover {
         text-align: center;
         font-size: 18px;
     }
+
     .grid-container {
         grid-template-columns: 1fr;
         justify-content: center;
@@ -2224,9 +2330,10 @@ html::-webkit-scrollbar-thumb:hover {
         font-weight: bold;
         font-family: Arial, Helvetica, sans-serif;
     }
-   .footer{
-    padding-top: 10px;
-   }
+
+    .footer {
+        padding-top: 10px;
+    }
 }
 
 @media only screen and (min-width: 720px) and (max-width: 850px) {
@@ -2508,7 +2615,8 @@ html::-webkit-scrollbar-thumb:hover {
     .Navbar {
         display: none;
     }
-    .welcome{
+
+    .welcome {
         font-weight: bold;
         border-radius: 10px;
         margin-left: 200px;
@@ -2521,6 +2629,7 @@ html::-webkit-scrollbar-thumb:hover {
         text-align: center;
         font-size: 15px;
     }
+
     .grid-container {
         grid-template-columns: 1fr;
         justify-content: center;
@@ -2584,6 +2693,7 @@ html::-webkit-scrollbar-thumb:hover {
         font-weight: bold;
         font-family: Arial, Helvetica, sans-serif;
     }
+
     .footer {
         flex-direction: column;
         text-align: center;
@@ -2884,7 +2994,7 @@ html::-webkit-scrollbar-thumb:hover {
         display: none;
     }
 
-    .welcome{
+    .welcome {
         font-weight: bold;
         border-radius: 10px;
         margin-left: 170px;
@@ -2961,6 +3071,7 @@ html::-webkit-scrollbar-thumb:hover {
         font-weight: bold;
         font-family: Arial, Helvetica, sans-serif;
     }
+
     .footer {
         flex-direction: column;
         text-align: center;
@@ -3259,7 +3370,7 @@ html::-webkit-scrollbar-thumb:hover {
         display: none;
     }
 
-    .welcome{
+    .welcome {
         font-weight: bold;
         border-radius: 10px;
         margin-left: 120px;
@@ -3272,6 +3383,7 @@ html::-webkit-scrollbar-thumb:hover {
         text-align: center;
         font-size: 18px;
     }
+
     .grid-container {
         grid-template-columns: 1fr;
         justify-content: center;
@@ -3334,6 +3446,7 @@ html::-webkit-scrollbar-thumb:hover {
         font-weight: bold;
         font-family: Arial, Helvetica, sans-serif;
     }
+
     .footer {
         flex-direction: column;
         text-align: center;
@@ -3476,7 +3589,7 @@ html::-webkit-scrollbar-thumb:hover {
 
     }
 
- 
+
     .sidebar {
         width: 250px;
         height: 168% !important;
@@ -3627,7 +3740,7 @@ html::-webkit-scrollbar-thumb:hover {
         display: none;
     }
 
-    .welcome{
+    .welcome {
         font-weight: bold;
         border-radius: 10px;
         margin-left: 120px;
@@ -3703,6 +3816,7 @@ html::-webkit-scrollbar-thumb:hover {
         font-weight: bold;
         font-family: Arial, Helvetica, sans-serif;
     }
+
     .footer {
         flex-direction: column;
         text-align: center;
@@ -3736,7 +3850,7 @@ html::-webkit-scrollbar-thumb:hover {
         margin-top: 30px;
         margin-right: 30px;
     }
-   
+
     .slider {
         position: absolute;
         cursor: pointer;
@@ -3749,6 +3863,7 @@ html::-webkit-scrollbar-thumb:hover {
         border-radius: 34px;
         width: 10px !important;
     }
+
     .header-h1 {
         font-size: 15px !important;
         font-weight: bold;
@@ -4014,7 +4129,7 @@ html::-webkit-scrollbar-thumb:hover {
         display: none;
     }
 
-    .welcome{
+    .welcome {
         font-weight: bold;
         border-radius: 10px;
         margin-left: 100px;
@@ -4090,6 +4205,7 @@ html::-webkit-scrollbar-thumb:hover {
         font-weight: bold;
         font-family: Arial, Helvetica, sans-serif;
     }
+
     .footer {
         flex-direction: column;
         text-align: center;
@@ -4391,7 +4507,7 @@ html::-webkit-scrollbar-thumb:hover {
         display: none;
     }
 
-    .welcome{
+    .welcome {
         font-weight: bold;
         border-radius: 10px;
         margin-left: 70px;
@@ -4467,6 +4583,7 @@ html::-webkit-scrollbar-thumb:hover {
         font-weight: bold;
         font-family: Arial, Helvetica, sans-serif;
     }
+
     .footer {
         flex-direction: column;
         text-align: center;
