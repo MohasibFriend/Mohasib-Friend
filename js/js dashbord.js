@@ -13,9 +13,9 @@ const CONFIG = {
     clientId: "1v5jdad42jojr28bcv13sgds5r",
   },
 };
-
-//sessionStorage.setItem("userId","84c89448-10c1-70b2-afec-779114a2db39")
+sessionStorage.setItem("userId", "84c89448-10c1-70b2-afec-779114a2db39")
 let subscriptionDays = null;
+sessionStorage.setItem("monthDays", "30");
 
 /*sessionStorage.setItem("userId","55555")*/
 // home-script.js
@@ -24,17 +24,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const themeSwitch = document.getElementById('theme-switch');
 
   if (themeSwitch) {
-      // تحميل الثيم المحفوظ من localStorage
-      const savedTheme = localStorage.getItem('theme') || 'dark';
-      document.documentElement.setAttribute('data-theme', savedTheme);
-      themeSwitch.checked = savedTheme === 'light';
+    // تحميل الثيم المحفوظ من localStorage
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    themeSwitch.checked = savedTheme === 'light';
 
-      // تحديث الثيم عند تغيير السويتش
-      themeSwitch.addEventListener('change', () => {
-          const theme = themeSwitch.checked ? 'light' : 'dark';
-          document.documentElement.setAttribute('data-theme', theme);
-          localStorage.setItem('theme', theme);
-      });
+    // تحديث الثيم عند تغيير السويتش
+    themeSwitch.addEventListener('change', () => {
+      const theme = themeSwitch.checked ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+    });
   }
 });;
 
@@ -62,7 +62,7 @@ function initializeApp() {
   (function () {
     // Flag to prevent multiple initializations
     let isDashboardInitialized = false;
-    
+
     /**
      * Function to show the spinner
      */
@@ -118,7 +118,7 @@ function initializeApp() {
 
           // Store 'registrationNumber' in sessionStorage
           sessionStorage.setItem("registrationNumber", registrationNumber);
-          
+
 
           return registrationNumber;
         } else {
@@ -134,68 +134,7 @@ function initializeApp() {
       }
     }
 
-    /**
-     * Fetches the subscription status from the API and stores it in sessionStorage
-     * يمكن استدعاء هذه الدالة مع المعامل forceActive = true لفرض اشتراك ACTIVE في حال نجاح الدفع
-     * @param {boolean} forceActive - إذا true يتم تحديث الاشتراك بالقيمة ACTIVE فوراً
-     * @returns {Promise<string|null>} - The subscription status or null if not found
-     */
-      async function fetchSubscriptionStatus(forceActive = false, days = null) {
-        showSpinner();
-        try {
-          const userId       = sessionStorage.getItem("userId");
-          const accessToken  = sessionStorage.getItem("accessToken");
-          const username     = sessionStorage.getItem("username");
-          const name         = sessionStorage.getItem("name");
-          const email        = sessionStorage.getItem("email");
-          const phone_number = sessionStorage.getItem("phone_number");
 
-          if (!userId) {
-            console.error("User ID not found in sessionStorage.");
-            navigateTo(CONFIG.app.loginScreenUrl);
-            return null;
-          }
-
-          const userInfo = { username, name, email, phone_number };
-
-          const payload = { userId, userInfo };
-          if (forceActive) payload.forceActive = true;
-          if (days)        payload.subscriptionDays = days;
-
-          const response = await $.ajax({
-            url:   CONFIG.app.checkSubscriptionStatusApi,
-            method:"POST",
-            headers:{
-              "Content-Type": "application/json",
-              "Authorization": `Bearer ${accessToken}`
-            },
-            data: JSON.stringify(payload)
-          });
-
-          // --- فك الاستجابة
-          const body = typeof response.body === "string"
-                        ? JSON.parse(response.body)
-                        : response;
-
-          const { status, monthDays = 0, yearDays = 0 } = body || {};
-
-          if (status) {
-            sessionStorage.setItem("subscriptionStatus", status);
-            sessionStorage.setItem("monthDays" , monthDays.toString());
-            sessionStorage.setItem("yearDays"  , yearDays.toString());
-            return status;
-          }
-
-          console.warn("Subscription status not found:", response);
-          return null;
-
-        } catch (err) {
-          console.error("Error fetching subscription status:", err);
-          return null;
-        } finally {
-          hideSpinner();
-        }
-      }
 
     /**
      * New function to fetch client credentials and store them in sessionStorage only
@@ -280,7 +219,7 @@ function initializeApp() {
 
         // Update subscription UI based on status
         updateSubscriptionUI();
-        
+
         // Display the user's name in the dashboard
         displayname();
       } catch (error) {
@@ -291,15 +230,15 @@ function initializeApp() {
     $(document).ready(async function () {
       // استدعاء الدالة handleCognitoCallback وانتظار اكتمالها
       await handleCognitoCallback();
-      
+
       // بعد انتهاء handleCognitoCallback، التحقق من وجود userId في sessionStorage
       if (sessionStorage.getItem("userId")) {
         initializeDashboard();
       } else {
         console.error("User ID is missing from sessionStorage. Redirecting to Sign-in page.");
-        window.location.href = "https://us-east-1asnaeuufl.auth.us-east-1.amazoncognito.com/login?client_id=1v5jdad42jojr28bcv13sgds5r&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmohasibfriend.com%2Fhome.html";  
-       
-       } 
+        window.location.href = "https://us-east-1asnaeuufl.auth.us-east-1.amazoncognito.com/login?client_id=1v5jdad42jojr28bcv13sgds5r&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmohasibfriend.com%2Fhome.html";
+
+      }
       displayname();
       updateSubscriptionUI();
       // Add event listener for the Subscribe button
@@ -375,7 +314,7 @@ function initializeApp() {
           if (userInfo.name) {
             sessionStorage.setItem("name", userInfo.name);
           }
-          
+
           if (userInfo.email) {
             sessionStorage.setItem("email", userInfo.email);
           }
@@ -577,14 +516,14 @@ function initializeApp() {
       if (unreadCount > 0) {
         if ($badge.length === 0) {
           $badge = $("<span>", { class: "badge" }).css({
-           /* position: "absolute",
-            top: "0",
-            right: "0",
-            backgroundColor: "red",
-            color: "white",
-            borderRadius: "50%",
-            padding: "5px",
-            fontSize: "12px",*/
+            /* position: "absolute",
+             top: "0",
+             right: "0",
+             backgroundColor: "red",
+             color: "white",
+             borderRadius: "50%",
+             padding: "5px",
+             fontSize: "12px",*/
           });
           $notificationIcon.append($badge);
         }
@@ -694,397 +633,7 @@ function initializeApp() {
       }
     }
 
-    async function handleSubscribeClick() {
-        const subscribeButton = document.getElementById("subscribeButton");
-        showSpinner();
-        try {
-            // تعطيل الزر لمنع النقرات المتعددة
-            subscribeButton.disabled = true;
     
-            // استرجاع تفاصيل المستخدم من sessionStorage
-            const customerProfileId = sessionStorage.getItem("userId");
-    
-            if (!customerProfileId) {
-                alert("معلومات المستخدم مفقودة. يرجى تسجيل الدخول مرة أخرى.");
-                navigateTo(CONFIG.app.loginScreenUrl);
-                return;
-            }
-    
-            const payload = {
-                customerProfileId, // استخدام customerProfileId بدل userId
-                returnUrl: "https://mohasibfriend.com/home.html", // تأكد من تحديث هذا الرابط حسب الحاجة
-            };
-    
-            // استدعاء API لإنشاء رابط الدفع
-            const generatePaymentResponse = await fetch(CONFIG.app.generatePaymentLinkApi, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(payload),
-            });
-    
-            if (!generatePaymentResponse.ok) {
-                const errorData = await generatePaymentResponse.json();
-                throw new Error(errorData.message || "فشل في إنشاء رابط الدفع. يرجى المحاولة مرة أخرى.");
-            }
-    
-            // Parse the main response
-            const responseJson = await generatePaymentResponse.json();
-    
-            // Parse the `body` field, which contains the actual data as a JSON string
-            const paymentData = JSON.parse(responseJson.body);
-    
-            // If both monthly and yearly options exist, show modal to let the user choose
-            if (paymentData.monthly && paymentData.yearly) {
-                const selectedPaymentLink = await showSubscriptionOptionsModal(paymentData);
-                if (!selectedPaymentLink) {
-                    throw new Error("لم يتم اختيار أي خيار اشتراك.");
-                }
-                // Redirect the user to the selected payment link
-                window.location.href = selectedPaymentLink;
-            }
-            // Fallback to the previous behavior if only one link is provided
-            else if (paymentData.paymentLink) {
-                window.location.href = paymentData.paymentLink;
-            } else {
-                throw new Error("لم يتم استلام رابط الدفع. يرجى الاتصال بالدعم.");
-            }
-        } catch (error) {
-            console.error("Error generating payment link:", error);
-        } finally {
-            hideSpinner();
-            subscribeButton.disabled = false;
-        }
-    }
-    
-    function showSubscriptionOptionsModal(paymentData) {
-      return new Promise((resolve) => {
-        const modal = $(`
-          <div id="subscriptionOptionsModal">
-            <div class="subscription-modal-content">
-              <h3 class="subscription-header">اختر نوع الاشتراك</h3>
-
-              <button id="monthlyOption">اشتراك شهري</button>
-              <div style="margin-bottom:10px;font-weight:bold;">500 جنيه</div>
-
-              <button id="yearlyOption">اشتراك سنوي</button>
-              <div style="margin-bottom:10px;font-weight:bold;">5000 جنيه</div>
-
-              <br><button id="cancelOption">إلغاء</button><br>
-              <h2 style="font-size:12px">يضاف %14 ضريبة قيمة مضافة</h2>
-            </div>
-          </div>
-        `);
-        $("body").append(modal);
-
-        // تعطيل زر الاشتراك الشهري فقط إذا فيه قيمة حقيقية مخزّنة (وليست null أو "null")
-        const storedMonth = sessionStorage.getItem("monthDays");
-        if (storedMonth !== null && storedMonth !== "null") {
-          $("#monthlyOption")
-            .prop("disabled", true)
-            .css({
-              "background-color": "gray",
-              "cursor": "not-allowed"
-            });
-        }
-
-        // اشتراك شهري = 30 يوم
-        $("#monthlyOption").on("click", () => {
-          sessionStorage.setItem("monthDays", "30");
-          modal.remove();
-          resolve(paymentData.monthly.paymentLink);
-        });
-
-        // اشتراك سنوي = 360 يوم
-        $("#yearlyOption").on("click", () => {
-          sessionStorage.setItem("yearDays", "360");
-          modal.remove();
-          resolve(paymentData.yearly.paymentLink);
-        });
-
-        $("#cancelOption").on("click", () => {
-          modal.remove();
-          resolve(null);
-        });
-      });
-    }
-
-    
-
-    
-    // Load Amazon Cognito Identity SDK if not already loaded
-    function loadCognitoSDK(callback) {
-      if (typeof AmazonCognitoIdentity === "undefined") {
-        const script = document.createElement("script");
-        script.src = "https://unpkg.com/amazon-cognito-identity-js@5.2.4/dist/amazon-cognito-identity.min.js";
-
-        script.onload = function () {
-          callback();
-        };
-        script.onerror = function () {
-          console.error("Failed to load Amazon Cognito Identity SDK.");
-        };
-        document.head.appendChild(script);
-      } else {
-        callback();
-      }
-    }
-
-    // Event Listener for Delete Account Button
-    document.addEventListener("DOMContentLoaded", function () {
-      const deleteAccountButton = document.getElementById("deleteAccount");
-
-      if (deleteAccountButton) {
-        deleteAccountButton.addEventListener("click", function (event) {
-          event.preventDefault();
-          showDeleteAccountConfirmation();
-        });
-      }
-    });
-
-    // Function to show delete account confirmation modal
-    function showDeleteAccountConfirmation() {
-      // Remove existing modal if present
-      const existingModal = document.getElementById("deleteAccountModal");
-      if (existingModal) {
-        existingModal.remove();
-      }
-
-      // Create modal overlay
-      const modalOverlay = document.createElement("div");
-      modalOverlay.id = "deleteAccountModal";
-      modalOverlay.style.position = "fixed";
-      modalOverlay.style.top = "0";
-      modalOverlay.style.left = "0";
-      modalOverlay.style.width = "100%";
-      modalOverlay.style.height = "100%";
-      modalOverlay.style.backgroundColor = "rgba(0,0,0,0.5)";
-      modalOverlay.style.display = "flex";
-      modalOverlay.style.alignItems = "center";
-      modalOverlay.style.justifyContent = "center";
-      modalOverlay.style.zIndex = "1000";
-
-      // Create modal content
-      const modalContent = document.createElement("div");
-      modalContent.style.backgroundColor = "#fff";
-      modalContent.style.padding = "20px";
-      modalContent.style.borderRadius = "5px";
-      modalContent.style.textAlign = "center";
-      modalContent.style.maxWidth = "400px";
-      modalContent.style.width = "80%";
-
-      // Create message
-      const messagePara = document.createElement("p");
-      messagePara.textContent = "هل أنت متأكد أنك تريد حذف حسابك؟ سيتم حذف جميع بياناتك بشكل دائم.";
-
-      // Create buttons
-      const confirmButton = document.createElement("button");
-      confirmButton.textContent = "تأكيد حذف الحساب";
-      confirmButton.style.marginTop = "15px";
-      confirmButton.style.padding = "10px 20px";
-      confirmButton.style.border = "none";
-      confirmButton.style.backgroundColor = "#dc3545"; // Danger color
-      confirmButton.style.color = "#fff";
-      confirmButton.style.borderRadius = "5px";
-      confirmButton.style.cursor = "pointer";
-      confirmButton.style.marginRight = "10px";
-
-      const cancelButton = document.createElement("button");
-      cancelButton.textContent = "إلغاء";
-      cancelButton.style.marginTop = "15px";
-      cancelButton.style.padding = "10px 20px";
-      cancelButton.style.border = "none";
-      cancelButton.style.backgroundColor = "#6c757d"; // Secondary color
-      cancelButton.style.color = "#fff";
-      cancelButton.style.borderRadius = "5px";
-      cancelButton.style.cursor = "pointer";
-
-      // Append elements
-      modalContent.appendChild(messagePara);
-      modalContent.appendChild(confirmButton);
-      modalContent.appendChild(cancelButton);
-      modalOverlay.appendChild(modalContent);
-      document.body.appendChild(modalOverlay);
-
-      // Event listeners for buttons
-      confirmButton.addEventListener("click", function () {
-        modalOverlay.remove();
-        loadCognitoSDK(function () {
-          showPasswordConfirmationModal();
-        });
-      });
-
-      cancelButton.addEventListener("click", function () {
-        modalOverlay.remove();
-      });
-
-      // Close modal when clicking outside
-      modalOverlay.addEventListener("click", function (event) {
-        if (event.target == modalOverlay) {
-          modalOverlay.remove();
-        }
-      });
-    }
-
-    // Function to show password confirmation modal
-    function showPasswordConfirmationModal() {
-      // Remove existing modal if present
-      const existingModal = document.getElementById("passwordConfirmationModal");
-      if (existingModal) {
-        existingModal.remove();
-      }
-
-      // Create modal overlay
-      const modalOverlay = document.createElement("div");
-      modalOverlay.id = "passwordConfirmationModal";
-      modalOverlay.style.position = "fixed";
-      modalOverlay.style.top = "0";
-      modalOverlay.style.left = "0";
-      modalOverlay.style.width = "100%";
-      modalOverlay.style.height = "100%";
-      modalOverlay.style.backgroundColor = "rgba(0,0,0,0.5)";
-      modalOverlay.style.display = "flex";
-      modalOverlay.style.alignItems = "center";
-      modalOverlay.style.justifyContent = "center";
-      modalOverlay.style.zIndex = "1000";
-
-      // Create modal content
-      const modalContent = document.createElement("div");
-      modalContent.style.backgroundColor = "#fff";
-      modalContent.style.padding = "20px";
-      modalContent.style.borderRadius = "5px";
-      modalContent.style.textAlign = "center";
-      modalContent.style.maxWidth = "400px";
-      modalContent.style.width = "80%";
-
-      // Create message
-      const messagePara = document.createElement("p");
-      messagePara.textContent = "يرجى إدخال كلمة المرور الخاصة بك لتأكيد حذف الحساب.";
-
-      // Create password input
-      const passwordInput = document.createElement("input");
-      passwordInput.type = "password";
-      passwordInput.placeholder = "كلمة المرور";
-      passwordInput.style.width = "100%";
-      passwordInput.style.padding = "10px";
-      passwordInput.style.marginTop = "10px";
-      passwordInput.style.border = "1px solid #ced4da";
-      passwordInput.style.borderRadius = "4px";
-
-      // Create buttons
-      const confirmButton = document.createElement("button");
-      confirmButton.textContent = "تأكيد حذف الحساب";
-      confirmButton.style.marginTop = "15px";
-      confirmButton.style.padding = "10px 20px";
-      confirmButton.style.border = "none";
-      confirmButton.style.backgroundColor = "#dc3545"; // Danger color
-      confirmButton.style.color = "#fff";
-      confirmButton.style.borderRadius = "5px";
-      confirmButton.style.cursor = "pointer";
-      confirmButton.style.marginRight = "10px";
-
-      const cancelButton = document.createElement("button");
-      cancelButton.textContent = "إلغاء";
-      cancelButton.style.marginTop = "15px";
-      cancelButton.style.padding = "10px 20px";
-      cancelButton.style.border = "none";
-      cancelButton.style.backgroundColor = "#6c757d"; // Secondary color
-      cancelButton.style.color = "#fff";
-      cancelButton.style.borderRadius = "5px";
-      cancelButton.style.cursor = "pointer";
-
-      // Append elements
-      modalContent.appendChild(messagePara);
-      modalContent.appendChild(passwordInput);
-      modalContent.appendChild(confirmButton);
-      modalContent.appendChild(cancelButton);
-      modalOverlay.appendChild(modalContent);
-      document.body.appendChild(modalOverlay);
-
-      // Event listeners for buttons
-      confirmButton.addEventListener("click", function () {
-        const password = passwordInput.value.trim();
-        if (password) {
-          modalOverlay.remove();
-          loadCognitoSDK(function () {
-            validatePasswordAndDeleteAccount(password);
-          });
-        } else {
-          alert("يرجى إدخال كلمة المرور.");
-        }
-      });
-
-      cancelButton.addEventListener("click", function () {
-        modalOverlay.remove();
-      });
-
-      // Close modal when clicking outside
-      modalOverlay.addEventListener("click", function (event) {
-        if (event.target == modalOverlay) {
-          modalOverlay.remove();
-        }
-      });
-    }
-
-    // Function to validate password and delete account
-    function validatePasswordAndDeleteAccount(password) {
-
-      const username = sessionStorage.getItem("username");
-      const userId = sessionStorage.getItem("userId");
-
-      if (!username || !userId) {
-        alert("لم يتم العثور على بيانات المستخدم. يرجى تسجيل الدخول مرة أخرى.");
-        window.location.href = CONFIG.app.loginScreenUrl;
-        return;
-      }
-
-      // User Pool Data
-      const poolData = {
-        UserPoolId: CONFIG.app.userPoolId,
-        ClientId: CONFIG.app.clientId,
-      };
-
-      const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
-
-      const userData = {
-        Username: username,
-        Pool: userPool,
-      };
-
-      const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
-
-      const authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails({
-        Username: username,
-        Password: password,
-      });
-
-      // Authenticate user
-      cognitoUser.authenticateUser(authenticationDetails, {
-        onSuccess: function (result) {
-          // Delete user
-          cognitoUser.deleteUser(function (err, result) {
-            if (err) {
-              console.error("Error deleting user:", err);
-              alert(err.message || JSON.stringify(err));
-              return;
-            }
-            alert("تم حذف حسابك بنجاح.");
-            sessionStorage.clear();
-            window.location.href = CONFIG.app.loginScreenUrl;
-          });
-        },
-        onFailure: function (err) {
-          console.error("Authentication failed:", err);
-          if (err.code === "NotAuthorizedException") {
-            alert("كلمة المرور التي أدخلتها غير صحيحة، يرجى المحاولة مرة أخرى.");
-          } else {
-            alert(err.message || JSON.stringify(err));
-          }
-        },
-      });
-    }
-
     // User dropdown functionality
     const userButton = document.getElementById("userButton");
     const dropdown = document.getElementById("dropdown");
@@ -1110,6 +659,164 @@ function initializeApp() {
         dropdownOverlay.style.display = "none";
       });
     }
+
+    ///////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Fetches the subscription status from the API and stores it in sessionStorage
+     * يمكن استدعاء هذه الدالة مع المعامل forceActive = true لفرض اشتراك ACTIVE في حال نجاح الدفع
+     * @param {boolean} forceActive - إذا true يتم تحديث الاشتراك بالقيمة ACTIVE فوراً
+     * @param {number|null} days - عدد الأيام للاشتراك (30 أو 360)
+     * @returns {Promise<string|null>} - The subscription status or null if not found
+     */
+    async function fetchSubscriptionStatus(forceActive = false, days = null) {
+      showSpinner();
+      try {
+        const userId      = sessionStorage.getItem("userId");
+        const accessToken = sessionStorage.getItem("accessToken");
+        const username    = sessionStorage.getItem("username");
+        const name        = sessionStorage.getItem("name");
+        const email       = sessionStorage.getItem("email");
+        const phone_number= sessionStorage.getItem("phone_number");
+
+        if (!userId) {
+          console.error("User ID not found in sessionStorage.");
+          navigateTo(CONFIG.app.loginScreenUrl);
+          return null;
+        }
+
+        const userInfo = { username, name, email, phone_number };
+        const payload  = { userId, userInfo, forceActive };
+        if (days != null) payload.subscriptionDays = days;
+
+        const response = await $.ajax({
+          url:    CONFIG.app.checkSubscriptionStatusApi,
+          method: "POST",
+          headers: {
+            "Content-Type":  "application/json",
+            "Authorization": `Bearer ${accessToken}`
+          },
+          data: JSON.stringify(payload)
+        });
+
+        const body = typeof response.body === "string"
+          ? JSON.parse(response.body)
+          : response;
+
+        const { status, monthDays = 0, yearDays = 0 } = body || {};
+
+        if (status) {
+          sessionStorage.setItem("subscriptionStatus", status);
+          sessionStorage.setItem("monthDays",     monthDays.toString());
+          sessionStorage.setItem("yearDays",      yearDays.toString());
+          return status;
+        }
+
+        console.warn("Subscription status not found:", response);
+        return null;
+      } catch (err) {
+        console.error("Error fetching subscription status:", err);
+        return null;
+      } finally {
+        hideSpinner();
+      }
+    }
+async function handleSubscribeClick() {
+  const btn = document.getElementById("subscribeButton");
+  showSpinner();
+  btn.disabled = true;
+
+  try {
+    const customerProfileId = sessionStorage.getItem("userId");
+    if (!customerProfileId) {
+      alert("معلومات المستخدم مفقودة. يرجى تسجيل الدخول مرة أخرى.");
+      navigateTo(CONFIG.app.loginScreenUrl);
+      return;
+    }
+
+    const payload = {
+      customerProfileId,
+      returnUrl: "https://mohasibfriend.com/home.html"
+    };
+
+    const res = await fetch(CONFIG.app.generatePaymentLinkApi, {
+      method:  "POST",
+      headers: { "Content-Type": "application/json" },
+      body:    JSON.stringify(payload)
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.message || "فشل في إنشاء رابط الدفع.");
+    }
+
+    const json       = await res.json();
+    const paymentData= JSON.parse(json.body);
+
+    if (paymentData.monthly && paymentData.yearly) {
+      const link = await showSubscriptionOptionsModal(paymentData);
+      if (!link) throw new Error("لم يتم اختيار أي خيار اشتراك.");
+      window.location.href = link;
+    }
+    else if (paymentData.paymentLink) {
+      window.location.href = paymentData.paymentLink;
+    }
+    else {
+      throw new Error("لم يتم استلام رابط الدفع.");
+    }
+
+  } catch (error) {
+    console.error("Error generating payment link:", error);
+  } finally {
+    hideSpinner();
+    btn.disabled = false;
+  }
+}
+
+  function showSubscriptionOptionsModal(paymentData) {
+  return new Promise((resolve) => {
+    const modal = $(`
+      <div id="subscriptionOptionsModal">
+        <div class="subscription-modal-content">
+          <h3 class="subscription-header">اختر نوع الاشتراك</h3>
+          <button id="monthlyOption">اشتراك شهري</button>
+          <div style="margin-bottom:10px;font-weight:bold;">500 جنيه</div>
+          <button id="yearlyOption">اشتراك سنوي</button>
+          <div style="margin-bottom:10px;font-weight:bold;">5000 جنيه</div>
+          <br><button id="cancelOption">إلغاء</button><br>
+          <h2 style="font-size:12px">يضاف %14 ضريبة قيمة مضافة</h2>
+        </div>
+      </div>
+    `);
+    $("body").append(modal);
+
+    // تعطيل الشهري إذا سبق للمستخدم الاشتراك
+    const stored = sessionStorage.getItem("subscriptionDays");
+    if (stored) {
+      $("#monthlyOption")
+        .prop("disabled", true)
+        .css({ "background-color": "gray", "cursor": "not-allowed" });
+    }
+
+    $("#monthlyOption").on("click", () => {
+      sessionStorage.setItem("subscriptionDays", "30");
+      modal.remove();
+      resolve(paymentData.monthly.paymentLink);
+    });
+    $("#yearlyOption").on("click", () => {
+      sessionStorage.setItem("subscriptionDays", "360");
+      modal.remove();
+      resolve(paymentData.yearly.paymentLink);
+    });
+    $("#cancelOption").on("click", () => {
+      modal.remove();
+      resolve(null);
+    });
+  });
+}
+
+
+
+
 
     /**
      * Updates the subscription button UI based on the subscription status
@@ -1140,167 +847,8 @@ function initializeApp() {
   })();
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  const sidebar = document.getElementById("sidebar");
-  const toggleButton = document.getElementById("toggleButton");
-  const overlay = document.getElementById("overlay");
-  const nameDisplay = document.getElementById("nameDisplay"); // عنصر الكلمة الترحيبية
-
-  if (sidebar && toggleButton && overlay && nameDisplay) {
-    toggleButton.addEventListener("click", () => {
-      if (sidebar.style.left === "0px") {
-        closeSidebar();
-      } else {
-        openSidebar();
-      }
-    });
-
-    overlay.addEventListener("click", () => {
-      closeSidebar();
-    });
-
-    document.body.addEventListener("click", (event) => {
-      if (
-        !sidebar.contains(event.target) &&
-        !toggleButton.contains(event.target) &&
-        sidebar.style.left === "0px"
-      ) {
-        closeSidebar();
-      }
-    });
-
-    function openSidebar() {
-      sidebar.style.left = "0px";
-      sidebar.style.visibility = "visible";
-      sidebar.style.opacity = "1";
-      sidebar.style.height = "100%";
-      sidebar.style.zIndex = "10"; // رفع ترتيب السايد بار
-      nameDisplay.style.zIndex = "1"; // تخفيض ترتيب nameDisplay تحت السايد بار
-      nameDisplay.style.display='none'; // إخفاء الاسم مؤقتًا
-      toggleButton.style.transform = "rotate(360deg)";
-      toggleButton.style.display = "none";
-      overlay.style.display = "block";
-      overlay.style.position = "absolute";
-      overlay.style.top = "102px";
-      overlay.style.left = "253px";
-      overlay.style.width = "35%";
-      overlay.style.height = "169%";
-      overlay.style.backgroundColor = "rgba(0, 0, 0, 0)";
-      overlay.style.zIndex = "9";
-    }
-
-    function closeSidebar() {
-      sidebar.style.left = "-250px";
-      sidebar.style.visibility = "hidden";
-      sidebar.style.opacity = "0";
-      sidebar.style.zIndex = "1"; // إعادة ترتيب السايد بار للوضع الطبيعي
-      nameDisplay.style.zIndex = "10"; // إعادة ترتيب nameDisplay ليكون فوق كل شيء
-      nameDisplay.style.display="inline"; // إظهار الاسم من جديد
-      toggleButton.style.transform = "rotate(0deg)";
-      toggleButton.style.display = "block";
-      overlay.style.display = "none";
-    }
-  } else {
-    console.error(
-      "One or more elements are missing: sidebar, toggleButton, overlay, or nameDisplay."
-    );
-  }
-});
 
 
-// Getting Elements for Logout functionality
-const logoutButton = document.getElementById("logoutButton");
-const logoutModal = document.getElementById("logoutModal");
-const confirmLogout = document.getElementById("confirmLogout");
-const cancelLogout = document.getElementById("cancelLogout");
-
-// عند النقر على زر تسجيل الخروج، عرض الكونتينر
-if (logoutButton && logoutModal && confirmLogout && cancelLogout) {
-  logoutButton.addEventListener("click", function (event) {
-    event.preventDefault(); // منع السلوك الافتراضي للرابط
-    logoutModal.style.display = "block";
-  });
-
-  // عند النقر على زر "تسجيل خروج" في الكونتينر
-  confirmLogout.addEventListener("click", function () {
-    window.location.href =
-      "https://us-east-1asnaeuufl.auth.us-east-1.amazoncognito.com/login?client_id=1v5jdad42jojr28bcv13sgds5r&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmohasibfriend.com%2Fhome.html"; 
-  });
-
-  // عند النقر على زر "إلغاء"، إخفاء الكونتينر
-  cancelLogout.addEventListener("click", function () {
-    logoutModal.style.display = "none";
-  });
-
-  // إخفاء الكونتينر عند النقر خارج محتواه
-  window.addEventListener("click", function (event) {
-    if (event.target == logoutModal) {
-      logoutModal.style.display = "none";
-    }
-  });
-
-  function signOutAndClearSession() {
-    // مسح جميع البيانات من sessionStorage
-    sessionStorage.clear();
-
-    // إعادة التوجيه إلى صفحة تسجيل الدخول بعد تسجيل الخروج
-    window.location.href =
-      "https://us-east-1asnaeuufl.auth.us-east-1.amazoncognito.com/login?client_id=1v5jdad42jojr28bcv13sgds5r&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmohasibfriend.com%2Fhome.html";
-  }
-
-  // ربط الدالة بزر تسجيل الخروج
-  confirmLogout.addEventListener("click", signOutAndClearSession);
-
-  // استمع إلى حدث الضغط على زر "Logout"
-  confirmLogout.addEventListener("click", function () {
-    // تخزين قيمة في sessionStorage للإشارة إلى تسجيل الخروج
-    sessionStorage.setItem("logoutInitiated", "true");
-  });
-
-  // منع الرجوع إلى الصفحات المحمية بعد تسجيل الخروج
-  window.addEventListener("pageshow", function (event) {
-    if (event.persisted) {
-      if (sessionStorage.getItem("logoutInitiated") === "true") {
-        sessionStorage.removeItem("logoutInitiated");
-        window.location.href =
-          "https://us-east-1asnaeuufl.auth.us-east-1.amazoncognito.com/login?client_id=1v5jdad42jojr28bcv13sgds5r&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmohasibfriend.com%2Fhome.html";
-      }
-    }
-  });
-}
-
-function showInfo() {
-  document.getElementById("infoModal").style.display = "block";
-  const nameDisplay = document.getElementById("nameDisplay");
-  if (nameDisplay) {
-    nameDisplay.style.zIndex = "1";
-    nameDisplay.style.display = 'none';
-  }
-}
-
-function closeModal() {
-  document.getElementById("infoModal").style.display = "none";
-  const nameDisplay = document.getElementById("nameDisplay");
-  if (nameDisplay) {
-    nameDisplay.style.zIndex = "10";
-    nameDisplay.style.display = 'inline';
-  }
-}
-
-// Close the modal when clicking outside the content
-window.onclick = function (event) {
-  const infoModal = document.getElementById("infoModal");
-  if (infoModal && event.target == infoModal) {
-    closeModal();
-  }
-};
-
-// إضافة مستمع حدث للضغط على مفتاح Esc
-window.addEventListener('keydown', function(event) {
-  if (event.key === 'Escape' || event.key === 'Esc') {
-      closeModal();
-  }
-});
 
 document.addEventListener("DOMContentLoaded", () => {
   /**
@@ -1308,97 +856,89 @@ document.addEventListener("DOMContentLoaded", () => {
    * إذا لم توجد، تعيد القيمة null
    */
   function getStatusDescription() {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get('statusDescription');
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('statusDescription');
   }
 
-  /**
-   * دالة لعرض الكونتينر بناءً على حالة الدفع
-   * @param {boolean} isSuccess - حالة الدفع: true إذا نجح، false إذا فشل
-   */
-  function showPaymentStatus(isSuccess) {
-    const container = document.getElementById("paymentStatusContainer");
-    const icon = document.getElementById("paymentStatusIcon");
-    const message = document.getElementById("paymentStatusMessage");
+/**
+ * يعرض حالة الدفع الناجحة أو الفاشلة
+ * @param {boolean} isSuccess
+ */
+function showPaymentStatus(isSuccess) {
+  const container = document.getElementById("paymentStatusContainer");
+  const icon      = document.getElementById("paymentStatusIcon");
+  const message   = document.getElementById("paymentStatusMessage");
 
-    if (isSuccess) {
-      icon.classList.add("success");
-      icon.innerHTML = "✔️";
-      container.style.display = "flex";
-      // استرجاع المدة المختارة
-      const days = parseInt(sessionStorage.getItem("subscriptionDays") || "0", 10) || null;
+  container.style.display = "flex";
 
-      fetchSubscriptionStatus(true, days)
-        .then(() => {
-          message.innerHTML = ".تم الدفع بنجاح!<br>أنت الآن تستمتع بمحاسب فريند";
-          updateSubscriptionUI();
-          sessionStorage.removeItem("subscriptionDays"); // تنظيف
-        })
-        .catch((err) => {
-          console.error("Error forcing subscription to ACTIVE:", err);
-          message.innerHTML = "تم الدفع، ولكن حدث خطأ في تحديث حالة الاشتراك.";
-        });
-    } else {
-      icon.classList.add("error");
-      icon.innerHTML = "❌";
-      message.textContent = "فشلت عملية الدفع";
-    }
+  if (isSuccess) {
+    icon.classList.add("success");
+    icon.innerHTML = "✔️";
 
-    container.style.display = "flex";
+    const stored = sessionStorage.getItem("subscriptionDays");
+    const days   = stored ? parseInt(stored, 10) : null;
+
+    fetchSubscriptionStatus(true, days)
+      .then(() => {
+        message.innerHTML = ".تم الدفع بنجاح!<br>أنت الآن تستمتع بمحاسب فريند";
+        updateSubscriptionUI();
+        sessionStorage.removeItem("subscriptionDays");
+      })
+      .catch((err) => {
+        console.error("Error forcing subscription to ACTIVE:", err);
+        message.textContent = "تم الدفع، ولكن حدث خطأ في تحديث حالة الاشتراك.";
+      });
+  } else {
+    icon.classList.add("error");
+    icon.innerHTML = "❌";
+    message.textContent = "فشلت عملية الدفع";
   }
+}
+
+
   /**
    * دالة لإغلاق الكونتينر
    */
   function closePaymentStatus() {
-      const container = document.getElementById("paymentStatusContainer");
-      container.style.display = "none";
-      
-      // إزالة المعلمات من URL لتجنب إعادة العرض عند إعادة تحميل الصفحة
-      const url = new URL(window.location);
-      url.searchParams.delete('type');
-      url.searchParams.delete('referenceNumber');
-      url.searchParams.delete('merchantRefNumber');
-      url.searchParams.delete('orderAmount');
-      url.searchParams.delete('paymentAmount');
-      url.searchParams.delete('fawryFees');
-      url.searchParams.delete('orderStatus');
-      url.searchParams.delete('paymentMethod');
-      url.searchParams.delete('paymentTime');
-      url.searchParams.delete('cardLastFourDigits');
-      url.searchParams.delete('customerName');
-      url.searchParams.delete('customerProfileId');
-      url.searchParams.delete('authNumber');
-      url.searchParams.delete('signature');
-      url.searchParams.delete('taxes');
-      url.searchParams.delete('statusCode');
-      url.searchParams.delete('statusDescription');
-      url.searchParams.delete('basketPayment');
-      window.history.replaceState({}, document.title, url.toString());
-  }
+  const container = document.getElementById("paymentStatusContainer");
+  container.style.display = "none";
 
+  const url = new URL(window.location);
+  [
+    "type","referenceNumber","merchantRefNumber","orderAmount",
+    "paymentAmount","fawryFees","orderStatus","paymentMethod",
+    "paymentTime","cardLastFourDigits","customerName",
+    "customerProfileId","authNumber","signature","taxes",
+    "statusCode","statusDescription","basketPayment"
+  ].forEach(p => url.searchParams.delete(p));
+
+  window.history.replaceState({}, document.title, url.toString());
+}
   // استخراج وصف الحالة من URL
   const statusDescription = getStatusDescription();
 
   // التحقق مما إذا كانت الصفحة تحتوي على معلمة statusDescription
   if (statusDescription !== null) {
-      // تحديد إذا ما كانت العملية ناجحة أم لا بناءً على محتوى statusDescription
-      // يمكن تعديل هذه الشروط بناءً على النص الذي تأتي به بوابة الدفع
-      const isSuccess = statusDescription.toLowerCase().includes("successfully");
+    // تحديد إذا ما كانت العملية ناجحة أم لا بناءً على محتوى statusDescription
+    // يمكن تعديل هذه الشروط بناءً على النص الذي تأتي به بوابة الدفع
+    const isSuccess = statusDescription.toLowerCase().includes("successfully");
 
-      // عرض الكونتينر بناءً على الحالة
-      showPaymentStatus(isSuccess);
+    // عرض الكونتينر بناءً على الحالة
+    showPaymentStatus(isSuccess);
   }
 
-    // إضافة مستمع للنقر على زر الإغلاق
-    const closeButton = document.getElementById("closePaymentStatus");
-    if (closeButton) {
+  // إضافة مستمع للنقر على زر الإغلاق
+  const closeButton = document.getElementById("closePaymentStatus");
+  if (closeButton) {
     closeButton.addEventListener("click", function () {
       closePaymentStatus();
       window.location.reload();
     });
-}
+  }
 
 });
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
 
 document.addEventListener('DOMContentLoaded', () => {
   // إذا لم يكن هناك registrationNumber في sessionStorage فلا تنفذ هذا الفانكشن
@@ -1518,5 +1058,168 @@ document.addEventListener('DOMContentLoaded', () => {
   if (typeof handleCognitoCallback === 'function') {
     handleCognitoCallback();
     initializeApp();
+  }
+});
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+// Getting Elements for Logout functionality
+const logoutButton = document.getElementById("logoutButton");
+const logoutModal = document.getElementById("logoutModal");
+const confirmLogout = document.getElementById("confirmLogout");
+const cancelLogout = document.getElementById("cancelLogout");
+
+// عند النقر على زر تسجيل الخروج، عرض الكونتينر
+if (logoutButton && logoutModal && confirmLogout && cancelLogout) {
+  logoutButton.addEventListener("click", function (event) {
+    event.preventDefault(); // منع السلوك الافتراضي للرابط
+    logoutModal.style.display = "block";
+  });
+
+  // عند النقر على زر "تسجيل خروج" في الكونتينر
+  confirmLogout.addEventListener("click", function () {
+    window.location.href =
+      "https://us-east-1asnaeuufl.auth.us-east-1.amazoncognito.com/login?client_id=1v5jdad42jojr28bcv13sgds5r&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmohasibfriend.com%2Fhome.html";
+  });
+
+  // عند النقر على زر "إلغاء"، إخفاء الكونتينر
+  cancelLogout.addEventListener("click", function () {
+    logoutModal.style.display = "none";
+  });
+
+  // إخفاء الكونتينر عند النقر خارج محتواه
+  window.addEventListener("click", function (event) {
+    if (event.target == logoutModal) {
+      logoutModal.style.display = "none";
+    }
+  });
+
+  function signOutAndClearSession() {
+    // مسح جميع البيانات من sessionStorage
+    sessionStorage.clear();
+
+    // إعادة التوجيه إلى صفحة تسجيل الدخول بعد تسجيل الخروج
+    window.location.href =
+      "https://us-east-1asnaeuufl.auth.us-east-1.amazoncognito.com/login?client_id=1v5jdad42jojr28bcv13sgds5r&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmohasibfriend.com%2Fhome.html";
+  }
+
+  // ربط الدالة بزر تسجيل الخروج
+  confirmLogout.addEventListener("click", signOutAndClearSession);
+
+  // استمع إلى حدث الضغط على زر "Logout"
+  confirmLogout.addEventListener("click", function () {
+    // تخزين قيمة في sessionStorage للإشارة إلى تسجيل الخروج
+    sessionStorage.setItem("logoutInitiated", "true");
+  });
+
+  // منع الرجوع إلى الصفحات المحمية بعد تسجيل الخروج
+  window.addEventListener("pageshow", function (event) {
+    if (event.persisted) {
+      if (sessionStorage.getItem("logoutInitiated") === "true") {
+        sessionStorage.removeItem("logoutInitiated");
+        window.location.href =
+          "https://us-east-1asnaeuufl.auth.us-east-1.amazoncognito.com/login?client_id=1v5jdad42jojr28bcv13sgds5r&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmohasibfriend.com%2Fhome.html";
+      }
+    }
+  });
+}
+
+function showInfo() {
+  document.getElementById("infoModal").style.display = "block";
+  const nameDisplay = document.getElementById("nameDisplay");
+  if (nameDisplay) {
+    nameDisplay.style.zIndex = "1";
+    nameDisplay.style.display = 'none';
+  }
+}
+
+function closeModal() {
+  document.getElementById("infoModal").style.display = "none";
+  const nameDisplay = document.getElementById("nameDisplay");
+  if (nameDisplay) {
+    nameDisplay.style.zIndex = "10";
+    nameDisplay.style.display = 'inline';
+  }
+}
+
+// Close the modal when clicking outside the content
+window.onclick = function (event) {
+  const infoModal = document.getElementById("infoModal");
+  if (infoModal && event.target == infoModal) {
+    closeModal();
+  }
+};
+
+// إضافة مستمع حدث للضغط على مفتاح Esc
+window.addEventListener('keydown', function (event) {
+  if (event.key === 'Escape' || event.key === 'Esc') {
+    closeModal();
+  }
+});
+////////////////////////////////////////////////////////////////////////////////
+document.addEventListener("DOMContentLoaded", function () {
+  const sidebar = document.getElementById("sidebar");
+  const toggleButton = document.getElementById("toggleButton");
+  const overlay = document.getElementById("overlay");
+  const nameDisplay = document.getElementById("nameDisplay"); // عنصر الكلمة الترحيبية
+
+  if (sidebar && toggleButton && overlay && nameDisplay) {
+    toggleButton.addEventListener("click", () => {
+      if (sidebar.style.left === "0px") {
+        closeSidebar();
+      } else {
+        openSidebar();
+      }
+    });
+
+    overlay.addEventListener("click", () => {
+      closeSidebar();
+    });
+
+    document.body.addEventListener("click", (event) => {
+      if (
+        !sidebar.contains(event.target) &&
+        !toggleButton.contains(event.target) &&
+        sidebar.style.left === "0px"
+      ) {
+        closeSidebar();
+      }
+    });
+
+    function openSidebar() {
+      sidebar.style.left = "0px";
+      sidebar.style.visibility = "visible";
+      sidebar.style.opacity = "1";
+      sidebar.style.height = "100%";
+      sidebar.style.zIndex = "10"; // رفع ترتيب السايد بار
+      nameDisplay.style.zIndex = "1"; // تخفيض ترتيب nameDisplay تحت السايد بار
+      nameDisplay.style.display = 'none'; // إخفاء الاسم مؤقتًا
+      toggleButton.style.transform = "rotate(360deg)";
+      toggleButton.style.display = "none";
+      overlay.style.display = "block";
+      overlay.style.position = "absolute";
+      overlay.style.top = "102px";
+      overlay.style.left = "253px";
+      overlay.style.width = "35%";
+      overlay.style.height = "169%";
+      overlay.style.backgroundColor = "rgba(0, 0, 0, 0)";
+      overlay.style.zIndex = "9";
+    }
+
+    function closeSidebar() {
+      sidebar.style.left = "-250px";
+      sidebar.style.visibility = "hidden";
+      sidebar.style.opacity = "0";
+      sidebar.style.zIndex = "1"; // إعادة ترتيب السايد بار للوضع الطبيعي
+      nameDisplay.style.zIndex = "10"; // إعادة ترتيب nameDisplay ليكون فوق كل شيء
+      nameDisplay.style.display = "inline"; // إظهار الاسم من جديد
+      toggleButton.style.transform = "rotate(0deg)";
+      toggleButton.style.display = "block";
+      overlay.style.display = "none";
+    }
+  } else {
+    console.error(
+      "One or more elements are missing: sidebar, toggleButton, overlay, or nameDisplay."
+    );
   }
 });
