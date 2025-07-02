@@ -81,21 +81,22 @@ document.addEventListener("DOMContentLoaded", () => {
     );
     // Add totalDays in milliseconds
     const expiry = new Date(nowCairo.getTime() + totalDays * 24 * 60 * 60 * 1000);
-    // Format as MM/DD/YYYY in Cairo timezone
-    expiryDate = expiry.toLocaleDateString("en-US", {
+
+    // Format as dd/mm/yy in Cairo timezone
+    expiryDate = expiry.toLocaleDateString("en-GB", {
       timeZone: "Africa/Cairo",
-      year:  "numeric",
+      day:   "2-digit",
       month: "2-digit",
-      day:   "2-digit"
+      year:  "numeric"
     });
   }
 
   const data = {
-    name:               sessionStorage.getItem("name")               || "غير متوقر",
-    username:           sessionStorage.getItem("username")           || "غير متوقر",
-    email:              sessionStorage.getItem("email")              || "غير متوقر",
-    phone_number:       sessionStorage.getItem("phone_number")       || "غير متوقر",
-    registrationNumber: sessionStorage.getItem("registrationNumber") || "غير متوقر",
+    name:               sessionStorage.getItem("name")               || "غير متوفر",
+    username:           sessionStorage.getItem("username")           || "غير متوفر",
+    email:              sessionStorage.getItem("email")              || "غير متوفر",
+    phone_number:       sessionStorage.getItem("phone_number")       || "غير متوفر",
+    registrationNumber: sessionStorage.getItem("registrationNumber") || "غير متوفر",
     expiredate:         expiryDate
   };
 
@@ -107,7 +108,6 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("registrationNumber").textContent = data.registrationNumber;
   document.getElementById("expiredate").textContent         = data.expiredate;
 });
-
 
 
 // Fetch client credentials and update table
