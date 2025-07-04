@@ -154,7 +154,6 @@ async function fetchAlarms(userId) {
         ? parsedBody.invoices
         : [];
       displayAlarms(invoices);
-      console.log(invoices)
     } else {
       console.warn("No body data found in API response.");
       displayAlarms([]);
