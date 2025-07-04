@@ -12,22 +12,22 @@ document.addEventListener('DOMContentLoaded', () => {
  * دالة لإظهار السبينر
  */
 function showSpinner() {
-    if (typeof $ !== 'undefined') {
-        $("#spinner").show();
-    } else {
-        console.warn("jQuery غير محملة. لا يمكن إظهار السبينر.");
-    }
+  if (typeof $ !== 'undefined') {
+    $("#spinner").show();
+  } else {
+    console.warn("jQuery غير محملة. لا يمكن إظهار السبينر.");
+  }
 }
 
 /**
  * دالة لإخفاء السبينر
  */
 function hideSpinner() {
-    if (typeof $ !== 'undefined') {
-        $("#spinner").hide();
-    } else {
-        console.warn("jQuery غير محملة. لا يمكن إخفاء السبينر.");
-    }
+  if (typeof $ !== 'undefined') {
+    $("#spinner").hide();
+  } else {
+    console.warn("jQuery غير محملة. لا يمكن إخفاء السبينر.");
+  }
 }
 
 // إزالة استخدام الرقم التسجيلي الثابت وجلبه من sessionStorage
@@ -195,11 +195,14 @@ function displayAlarms(invoices) {
     display: flex; flex-direction: column; min-height: 100vh;
     font-family: Arial, Helvetica, sans-serif; padding: 20px;
     box-sizing: border-box;
+
   }
   #alarmsContainer {
     flex-grow: 1; max-height: calc(100vh - 110px);
     overflow-y: auto; padding: 10px; background-color: #fff;
     border-radius: 10px;
+    position: relative; /* مهم لعمل sticky */
+
   }
   /* يجعل الجدول يحدد عرض الأعمدة حسب المحتوى الأكبر */
   #alarmsTable {
@@ -209,6 +212,10 @@ function displayAlarms(invoices) {
     width: 100%;
     border-spacing: 10px;
     overflow-x: auto;
+  }
+  #alarmsTable th{
+    position: sticky;
+    top: 0;
   }
   /* منع كسر النص داخل الخلايا لضمان عرض الكلمة كاملة */
   #alarmsTable th,
