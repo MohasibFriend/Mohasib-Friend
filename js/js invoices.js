@@ -299,6 +299,7 @@ style.innerHTML = `
     padding: 10px;
     text-align: center;
     border-bottom: 3px solid #000;
+    font-weight: bold
   }
 
   #detailsTable thead th {
