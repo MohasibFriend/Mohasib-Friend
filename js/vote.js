@@ -39,7 +39,10 @@ function showAlert(msg) {
   setTimeout(() => alertMessage.style.display = 'none', 3000);
 }
 function sanitize(text) {
-  return text.replace(/[^a-zA-Z0-9\-]/g, '_');
+// اسمح بأي حرف أو رقم (حتى عربي)، واستبدل الفراغات وعلامات الترقيم بــ_
+return text
+  .trim()
+  .replace(/[^\p{L}\p{N}]+/gu, '_');
 }
 
 function renderProposals(list) {
