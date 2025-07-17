@@ -36,30 +36,29 @@ html::-webkit-scrollbar-thumb:hover {
 
 /* أنماط السبينر */
 #spinner {
-    display: none; /* مخفي بشكل افتراضي */
+    display: none !important; /* مخفي بشكل افتراضي */
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, 50%);
     z-index: 9999;
+
 
 }
 
 .loader {
-    border: 16px solid #f3f3f3;
-    border-top: 16px solid #3498db;
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
     border-radius: 50%;
-    width: 100px;
-    height: 100px;
+    width: 60px;
+    height: 60px;
     animation: spin 1s linear infinite;
-    display: none;
 }
 
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
-
 @keyframes dropEffect {
     0% {
         transform: translateY(-100%);
