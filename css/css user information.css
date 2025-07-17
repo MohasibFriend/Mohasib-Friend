@@ -52,6 +52,7 @@ html::-webkit-scrollbar-thumb:hover {
     width: 100px;
     height: 100px;
     animation: spin 1s linear infinite;
+    display: none;
 }
 
 @keyframes spin {
@@ -289,5 +290,6 @@ html::-webkit-scrollbar-thumb:hover {
     }
     .change-password-btn{
         margin-right: 35%;
+        font-size: 10px;
     }
 }
