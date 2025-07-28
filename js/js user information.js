@@ -40,21 +40,24 @@ const CONFIG = {
   },
 };
 
-/**
- * دالة لإظهار السبينر
- */
 function showSpinner() {
-  $("#spinner").show();
+    if (typeof $ !== 'undefined') {
+        $("#spinner").show();
+    } else {
+        console.warn("jQuery غير محملة. لا يمكن إظهار السبينر.");
+    }
 }
 
 /**
  * دالة لإخفاء السبينر
  */
 function hideSpinner() {
-  $("#spinner").hide();
+    if (typeof $ !== 'undefined') {
+        $("#spinner").hide();
+    } else {
+        console.warn("jQuery غير محملة. لا يمكن إخفاء السبينر.");
+    }
 }
-
-
 document.addEventListener("DOMContentLoaded", () => {
   // Retrieve raw values from sessionStorage
   const rawYear  = sessionStorage.getItem("yearDays");
@@ -95,6 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
     name:               sessionStorage.getItem("name")               || "غير متوفر",
     username:           sessionStorage.getItem("username")           || "غير متوفر",
     email:              sessionStorage.getItem("email")              || "غير متوفر",
+    email2:             sessionStorage.getItem("email2")             || "غير متوفر",
     phone_number:       sessionStorage.getItem("phone_number")       || "غير متوفر",
     registrationNumber: sessionStorage.getItem("registrationNumber") || "غير متوفر",
     expiredate:         expiryDate
@@ -104,51 +108,32 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("name").textContent               = data.name;
   document.getElementById("username").textContent           = data.username;
   document.getElementById("email").textContent              = data.email;
+  document.getElementById("reserveEmailText").textContent   = data.email2;
   document.getElementById("phone_number").textContent       = data.phone_number;
   document.getElementById("registrationNumber").textContent = data.registrationNumber;
   document.getElementById("expiredate").textContent         = data.expiredate;
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+  const textEl = document.getElementById('reserveEmailText');
+  const iconEl = document.getElementById('reserveEmailIcon');
+  const email2 = sessionStorage.getItem('email2');
 
-// Fetch client credentials and update table
-/*async function fetchClientCredentials() {
-  showSpinner();
-  try {
-    const registrationNumber = sessionStorage.getItem("registrationNumber"); // Replace with your dynamic value
-    const apiUrl =
-      "https://ai5un58stf.execute-api.us-east-1.amazonaws.com/PROD/MFCC";
-
-    const response = await fetch(apiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ registration_number: registrationNumber }),
-    });
-
-    if (response.ok) {
-      const result = await response.json();
-      const credentials = JSON.parse(result.body).credentials[0];
-
-      if (credentials) {
-        sessionStorage.setItem("clientid", credentials.clientid);
-        sessionStorage.setItem("client_secret", credentials.client_secret);
-
-        document.getElementById("clientid").textContent = credentials.clientid;
-        document.getElementById("client_secret").textContent =
-          credentials.client_secret;
-      }
-    } else {
-      console.error("Failed to fetch credentials:", response.status);
-    }
-  } catch (error) {
-    console.error("Error fetching credentials:", error);
-  } finally {
-    // إخفاء السبينر بعد انتهاء العملية سواء نجحت أم لا
-    hideSpinner();
+  if (email2) {
+    textEl.textContent = email2;
+    iconEl.className = 'fas fa-pencil-alt';   // أيقونة القلم
+    iconEl.title = 'تعديل البريد الاحتياطي';
+  } else {
+    textEl.textContent = 'غير متوفر';
+    iconEl.className = 'fas fa-plus';         // أيقونة زائد
+    iconEl.title = 'إضافة بريد احتياطي';
   }
-}*/
 
+  iconEl.addEventListener('click', () => {
+    // هنا تفتح المودال لإضافة/تعديل البريد
+    console.log('فتح شاشة إضافة/تعديل البريد الاحتياطي');
+  });
+});
 // التحقق من تحميل مكتبة AmazonCognitoIdentity، إذا لم تكن محملة، قم بتحميلها
 function loadCognitoSDK(callback) {
   if (typeof AmazonCognitoIdentity === "undefined") {
@@ -906,6 +891,7 @@ function showEditModal(field) {
   });
 }
 
+
 /**
  * عرض نافذة إدخال كلمة المرور لتأكيد التعديل
  * @param {string} field - حقل البيانات المراد تعديله
@@ -1180,7 +1166,6 @@ function validatePasswordAndUpdateAccount(
   password,
   modalOverlay
 ) {
-  showSpinner();
 
   const username = sessionStorage.getItem("username");
   const userId = sessionStorage.getItem("userId");
@@ -1244,7 +1229,6 @@ function validatePasswordAndUpdateAccount(
           break;
         default:
           console.error("حقل غير معروف:", field);
-          hideSpinner();
       }
     },
     onFailure: function (err) {
@@ -1436,3 +1420,4 @@ function getFieldLabel(field) {
       return field;
   }
 }
+
