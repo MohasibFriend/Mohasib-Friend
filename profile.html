@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,26 +8,28 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="css/css user information.css">
     <link rel="stylesheet" href="css/variables.css">
-    <link rel="shortcut icon"
-    href="img/WhatsApp Image 2024-10-05 at 22.14.21_3245af43.jpg"
-    type="your-favicon.ico" class="imglogo">
-     <!-- Font Awesome -->
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="shortcut icon" href="img/WhatsApp Image 2024-10-05 at 22.14.21_3245af43.jpg" type="your-favicon.ico"
+        class="imglogo">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </head>
+
 <body>
+    <div id="spinner">
+        <div class="loader"></div>
+    </div>
     <div class="profile-container">
         <div class="profile-header">
-            <a href="home.html"><img src="img/WhatsApp Image 2024-10-05 at 22.14.21_3245af43.jpg" alt="" srcset="" class="logo"></a>
+            <a href="home.html"><img src="img/WhatsApp Image 2024-10-05 at 22.14.21_3245af43.jpg" alt="" srcset=""
+                    class="logo"></a>
             <h1>الملف الشخصي</h1>
             <p>تفاصيل حسابك المسجلة</p>
             <a href="home.html"><button id="home" class="home-btn">Home</button></a>
         </div>
 
-        <div id="spinner">
-            <div class="loader"></div>
-        </div>
+
         <div class="table-contanir">
             <table class="profile-table">
                 <thead>
@@ -46,6 +49,13 @@
                         <td>البريد الإلكتروني:</td>
                         <td id="email" style="  word-break: break-all;">غير متوفر</td>
                     </tr>
+                   <tr>
+                <td>البريد الإلكتروني الاحتياطي:</td>
+                <td id="Reserve_email" style="word-break: break-all;">
+                    <span id="reserveEmailText">غير متوفر</span>
+                   <a href="Reserve email.html"> <i id="reserveEmailIcon" class="fas fa-plus" style="margin-left:8px; cursor:pointer; color: #000;"></i></a>
+                </td>
+                </tr>
                     <tr>
                         <td>رقم التلفون:</td>
                         <td id="phone_number">غير متوفر</td>
@@ -58,18 +68,19 @@
                         <td>رقم التسجيل الضريبي:</td>
                         <td id="registrationNumber">غير متوفر</td>
                     </tr>
-                   <tr>
+                    <tr>
                         <td>تاريخ الانتهاء:</td>
                         <td id="expiredate">غير متوفر</td>
-                    </tr>                    
-                    
+                    </tr>
+
                 </tbody>
             </table>
         </div>
-        <a href="change password.html" ><button class="change-password-btn">portal password change</button></a>
+        <a href="change password.html"><button class="change-password-btn">portal password change</button></a>
         <a href="" id="deleteAccount"><button class="delete-btn">حذف الحساب</button></a>
     </div>
 
 </body>
 <script src="js/js user information.js"></script>
+
 </html>
