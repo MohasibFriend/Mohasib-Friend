@@ -13,7 +13,6 @@ function showError(msg) {
 document.addEventListener('DOMContentLoaded', () => {
     if (!sessionStorage.getItem('sessionId'))
         sessionStorage.setItem('sessionId', crypto.randomUUID());
-    sessionStorage.setItem('userId', 'e42894a8-3061-70d2-124d-3b1a3552bcca');
 
     setupCountdown();
     showEmail();
