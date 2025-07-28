@@ -810,7 +810,39 @@ function initializeApp() {
       });
     }
 
-    
+     const add_email = 'https://c9zlhqnedk.execute-api.us-east-1.amazonaws.com/prod/add-email';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    fetchConfirmedEmail();
+  });
+
+  async function fetchConfirmedEmail() {
+    const userId = sessionStorage.getItem('userId');
+    if (!userId) return console.warn('لا يوجد userId في الجلسة.');
+
+    try {
+      const res = await fetch(add_email, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId })
+      });
+      const payload = await res.json();
+      // إذا body جاء كنص JSON، parse
+      const data = payload.body ? JSON.parse(payload.body) : payload;
+      const status = data.statusCode ?? res.status;
+
+      if (status === 200 && data.email) {
+        // خزن البريد المؤكد في الجلسة باسم email2
+        sessionStorage.setItem('email2', data.email);
+        console.log('تم جلب البريد المؤكد:', data.email);
+        // هنا تقدر تحدث الواجهة إن أحببت
+      } else {
+        console.warn(data.message || 'لا يوجد بريد مؤكد لهذا المستخدم.');
+      }
+    } catch (err) {
+      console.error('خطأ في جلب البريد المؤكد:', err);
+    }
+  }
 
     
     // Load Amazon Cognito Identity SDK if not already loaded
