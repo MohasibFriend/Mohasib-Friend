@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link rel="stylesheet" href="css/Reserve email.css">
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="css/variables.css">
+  <title>إضافة البريد الإلكتروني والتحقق</title>
+  
+</head>
+<body>
+  <!-- Header (full-width, like Invoices page) -->
+  <div class="app-header">
+    <img src="img/WhatsApp Image 2024-10-05 at 22.14.21_3245af43.jpg" alt="محاسب فريند" class="app-logo">
+    <span class="app-title">Mohasib Friend</span>
+    <div class="app-actions">
+       <a href="home.html" class="a">
+            <div class="FourthIcon">
+                <i class="fas fa-home " herf=""></i> <!-- أيقونة المنزل -->
+            </div>
+        </a>
+    </div>
+  </div>
+
+  <!-- Overlay spinner -->
+  <div id="overlay-spinner">
+    <div class="spinner"></div>
+  </div>
+  <!-- Error popup -->
+  <div id="error-popup"></div>
+
+  <!-- Email input form -->
+  <div id="email-container" class="card">
+    <h2>أضف بريدك الإلكتروني</h2>
+    <input type="email" id="email-input" placeholder="example@domain.com" />
+    <button id="verify-btn">تحقق</button>
+  </div>
+
+  <!-- Verification code form -->
+  <div id="code-container" class="card" style="display:none;">
+    <h2>أدخل رمز التحقق</h2>
+    <input type="text" id="code-input" placeholder="6 أرقام" maxlength="6" />
+    <div class="button-group">
+      <button id="add-email-btn">إضافة البريد</button>
+      <button id="resend-btn" disabled>Resend</button>
+    </div>
+  </div>
+
+  <script src="js/Reserve email.js"></script>
+</body>
+</html>
