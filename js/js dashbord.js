@@ -913,7 +913,6 @@ async function fetchConfirmedEmail() {
 
     if (status === 200 && data.email2) {
       sessionStorage.setItem('email2', data.email2);
-      console.log('تم جلب البريد المؤكد:', data.email2);
       // حدّث الواجهة حسب الحاجة
     } else {
       console.warn(data.message || 'لا يوجد بريد مؤكد لهذا المستخدم.');
@@ -1278,4 +1277,5 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeApp();
   }
 });
+
 
