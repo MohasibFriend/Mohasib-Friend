@@ -14,10 +14,8 @@ const CONFIG = {
   },
 };
 
-//sessionStorage.setItem("userId","84c89448-10c1-70b2-afec-779114a2db39")
 let subscriptionDays = null;
 
-/*sessionStorage.setItem("userId","55555")*/
 // home-script.js
 document.addEventListener('DOMContentLoaded', () => {
   // الحصول على عناصر السويتش
@@ -197,49 +195,6 @@ function initializeApp() {
         }
       }
 
-    /**
-     * New function to fetch client credentials and store them in sessionStorage only
-     */
-    /*async function fetchClientCredentials() {
-      showSpinner();
-      try {
-        // Retrieve registrationNumber from sessionStorage
-        const registrationNumber = sessionStorage.getItem("registrationNumber");
-        if (!registrationNumber) {
-          console.warn("Registration number not found in session storage. Skipping fetch.");
-          return;
-        }
-
-        const apiUrl = "https://ai5un58stf.execute-api.us-east-1.amazonaws.com/PROD/MFCC";
-
-        const response = await fetch(apiUrl, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ registration_number: registrationNumber }),
-        });
-
-        if (response.ok) {
-          const result = await response.json();
-          const parsedBody = JSON.parse(result.body);
-          const credentials = parsedBody.credentials && parsedBody.credentials[0];
-
-          if (credentials) {
-            sessionStorage.setItem("clientid", credentials.clientid);
-            sessionStorage.setItem("client_secret", credentials.client_secret);
-          } else {
-            console.warn("No credentials found in the API response.");
-          }
-        } else {
-          console.error("Failed to fetch credentials. Status Code:", response.status);
-        }
-      } catch (error) {
-        console.error("Error fetching client credentials:", error);
-      } finally {
-        hideSpinner();
-      }
-    }*/
 
     /**
      * Initializes the dashboard by fetching the registration number, subscription status, and storing them in sessionStorage
@@ -766,10 +721,10 @@ function initializeApp() {
               <h3 class="subscription-header">اختر نوع الاشتراك</h3>
 
               <button id="monthlyOption">اشتراك شهري</button>
-              <div style="margin-bottom:10px;font-weight:bold;">100 جنيه</div>
+              <div style="margin-bottom:10px;font-weight:bold;">500 جنيه</div>
 
               <button id="yearlyOption">اشتراك سنوي</button>
-              <div style="margin-bottom:10px;font-weight:bold;">700 جنيه</div>
+              <div style="margin-bottom:10px;font-weight:bold;">5000 جنيه</div>
 
               <br><button id="cancelOption">إلغاء</button><br>
               <h2 style="font-size:12px">يضاف %14 ضريبة قيمة مضافة</h2>
@@ -810,312 +765,9 @@ function initializeApp() {
       });
     }
 
-     const add_email = 'https://c9zlhqnedk.execute-api.us-east-1.amazonaws.com/prod/add-email';
-
-  document.addEventListener('DOMContentLoaded', () => {
-    fetchConfirmedEmail();
-  });
-
-  async function fetchConfirmedEmail() {
-    const userId = sessionStorage.getItem('userId');
-    if (!userId) return console.warn('لا يوجد userId في الجلسة.');
-
-    try {
-      const res = await fetch(add_email, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId })
-      });
-      const payload = await res.json();
-      // إذا body جاء كنص JSON، parse
-      const data = payload.body ? JSON.parse(payload.body) : payload;
-      const status = data.statusCode ?? res.status;
-
-      if (status === 200 && data.email) {
-        // خزن البريد المؤكد في الجلسة باسم email2
-        sessionStorage.setItem('email2', data.email);
-        console.log('تم جلب البريد المؤكد:', data.email);
-        // هنا تقدر تحدث الواجهة إن أحببت
-      } else {
-        console.warn(data.message || 'لا يوجد بريد مؤكد لهذا المستخدم.');
-      }
-    } catch (err) {
-      console.error('خطأ في جلب البريد المؤكد:', err);
-    }
-  }
+    
 
     
-    // Load Amazon Cognito Identity SDK if not already loaded
-    function loadCognitoSDK(callback) {
-      if (typeof AmazonCognitoIdentity === "undefined") {
-        const script = document.createElement("script");
-        script.src = "https://unpkg.com/amazon-cognito-identity-js@5.2.4/dist/amazon-cognito-identity.min.js";
-
-        script.onload = function () {
-          callback();
-        };
-        script.onerror = function () {
-          console.error("Failed to load Amazon Cognito Identity SDK.");
-        };
-        document.head.appendChild(script);
-      } else {
-        callback();
-      }
-    }
-
-    // Event Listener for Delete Account Button
-    document.addEventListener("DOMContentLoaded", function () {
-      const deleteAccountButton = document.getElementById("deleteAccount");
-
-      if (deleteAccountButton) {
-        deleteAccountButton.addEventListener("click", function (event) {
-          event.preventDefault();
-          showDeleteAccountConfirmation();
-        });
-      }
-    });
-
-    // Function to show delete account confirmation modal
-    function showDeleteAccountConfirmation() {
-      // Remove existing modal if present
-      const existingModal = document.getElementById("deleteAccountModal");
-      if (existingModal) {
-        existingModal.remove();
-      }
-
-      // Create modal overlay
-      const modalOverlay = document.createElement("div");
-      modalOverlay.id = "deleteAccountModal";
-      modalOverlay.style.position = "fixed";
-      modalOverlay.style.top = "0";
-      modalOverlay.style.left = "0";
-      modalOverlay.style.width = "100%";
-      modalOverlay.style.height = "100%";
-      modalOverlay.style.backgroundColor = "rgba(0,0,0,0.5)";
-      modalOverlay.style.display = "flex";
-      modalOverlay.style.alignItems = "center";
-      modalOverlay.style.justifyContent = "center";
-      modalOverlay.style.zIndex = "1000";
-
-      // Create modal content
-      const modalContent = document.createElement("div");
-      modalContent.style.backgroundColor = "#fff";
-      modalContent.style.padding = "20px";
-      modalContent.style.borderRadius = "5px";
-      modalContent.style.textAlign = "center";
-      modalContent.style.maxWidth = "400px";
-      modalContent.style.width = "80%";
-
-      // Create message
-      const messagePara = document.createElement("p");
-      messagePara.textContent = "هل أنت متأكد أنك تريد حذف حسابك؟ سيتم حذف جميع بياناتك بشكل دائم.";
-
-      // Create buttons
-      const confirmButton = document.createElement("button");
-      confirmButton.textContent = "تأكيد حذف الحساب";
-      confirmButton.style.marginTop = "15px";
-      confirmButton.style.padding = "10px 20px";
-      confirmButton.style.border = "none";
-      confirmButton.style.backgroundColor = "#dc3545"; // Danger color
-      confirmButton.style.color = "#fff";
-      confirmButton.style.borderRadius = "5px";
-      confirmButton.style.cursor = "pointer";
-      confirmButton.style.marginRight = "10px";
-
-      const cancelButton = document.createElement("button");
-      cancelButton.textContent = "إلغاء";
-      cancelButton.style.marginTop = "15px";
-      cancelButton.style.padding = "10px 20px";
-      cancelButton.style.border = "none";
-      cancelButton.style.backgroundColor = "#6c757d"; // Secondary color
-      cancelButton.style.color = "#fff";
-      cancelButton.style.borderRadius = "5px";
-      cancelButton.style.cursor = "pointer";
-
-      // Append elements
-      modalContent.appendChild(messagePara);
-      modalContent.appendChild(confirmButton);
-      modalContent.appendChild(cancelButton);
-      modalOverlay.appendChild(modalContent);
-      document.body.appendChild(modalOverlay);
-
-      // Event listeners for buttons
-      confirmButton.addEventListener("click", function () {
-        modalOverlay.remove();
-        loadCognitoSDK(function () {
-          showPasswordConfirmationModal();
-        });
-      });
-
-      cancelButton.addEventListener("click", function () {
-        modalOverlay.remove();
-      });
-
-      // Close modal when clicking outside
-      modalOverlay.addEventListener("click", function (event) {
-        if (event.target == modalOverlay) {
-          modalOverlay.remove();
-        }
-      });
-    }
-
-    // Function to show password confirmation modal
-    function showPasswordConfirmationModal() {
-      // Remove existing modal if present
-      const existingModal = document.getElementById("passwordConfirmationModal");
-      if (existingModal) {
-        existingModal.remove();
-      }
-
-      // Create modal overlay
-      const modalOverlay = document.createElement("div");
-      modalOverlay.id = "passwordConfirmationModal";
-      modalOverlay.style.position = "fixed";
-      modalOverlay.style.top = "0";
-      modalOverlay.style.left = "0";
-      modalOverlay.style.width = "100%";
-      modalOverlay.style.height = "100%";
-      modalOverlay.style.backgroundColor = "rgba(0,0,0,0.5)";
-      modalOverlay.style.display = "flex";
-      modalOverlay.style.alignItems = "center";
-      modalOverlay.style.justifyContent = "center";
-      modalOverlay.style.zIndex = "1000";
-
-      // Create modal content
-      const modalContent = document.createElement("div");
-      modalContent.style.backgroundColor = "#fff";
-      modalContent.style.padding = "20px";
-      modalContent.style.borderRadius = "5px";
-      modalContent.style.textAlign = "center";
-      modalContent.style.maxWidth = "400px";
-      modalContent.style.width = "80%";
-
-      // Create message
-      const messagePara = document.createElement("p");
-      messagePara.textContent = "يرجى إدخال كلمة المرور الخاصة بك لتأكيد حذف الحساب.";
-
-      // Create password input
-      const passwordInput = document.createElement("input");
-      passwordInput.type = "password";
-      passwordInput.placeholder = "كلمة المرور";
-      passwordInput.style.width = "100%";
-      passwordInput.style.padding = "10px";
-      passwordInput.style.marginTop = "10px";
-      passwordInput.style.border = "1px solid #ced4da";
-      passwordInput.style.borderRadius = "4px";
-
-      // Create buttons
-      const confirmButton = document.createElement("button");
-      confirmButton.textContent = "تأكيد حذف الحساب";
-      confirmButton.style.marginTop = "15px";
-      confirmButton.style.padding = "10px 20px";
-      confirmButton.style.border = "none";
-      confirmButton.style.backgroundColor = "#dc3545"; // Danger color
-      confirmButton.style.color = "#fff";
-      confirmButton.style.borderRadius = "5px";
-      confirmButton.style.cursor = "pointer";
-      confirmButton.style.marginRight = "10px";
-
-      const cancelButton = document.createElement("button");
-      cancelButton.textContent = "إلغاء";
-      cancelButton.style.marginTop = "15px";
-      cancelButton.style.padding = "10px 20px";
-      cancelButton.style.border = "none";
-      cancelButton.style.backgroundColor = "#6c757d"; // Secondary color
-      cancelButton.style.color = "#fff";
-      cancelButton.style.borderRadius = "5px";
-      cancelButton.style.cursor = "pointer";
-
-      // Append elements
-      modalContent.appendChild(messagePara);
-      modalContent.appendChild(passwordInput);
-      modalContent.appendChild(confirmButton);
-      modalContent.appendChild(cancelButton);
-      modalOverlay.appendChild(modalContent);
-      document.body.appendChild(modalOverlay);
-
-      // Event listeners for buttons
-      confirmButton.addEventListener("click", function () {
-        const password = passwordInput.value.trim();
-        if (password) {
-          modalOverlay.remove();
-          loadCognitoSDK(function () {
-            validatePasswordAndDeleteAccount(password);
-          });
-        } else {
-          alert("يرجى إدخال كلمة المرور.");
-        }
-      });
-
-      cancelButton.addEventListener("click", function () {
-        modalOverlay.remove();
-      });
-
-      // Close modal when clicking outside
-      modalOverlay.addEventListener("click", function (event) {
-        if (event.target == modalOverlay) {
-          modalOverlay.remove();
-        }
-      });
-    }
-
-    // Function to validate password and delete account
-    function validatePasswordAndDeleteAccount(password) {
-
-      const username = sessionStorage.getItem("username");
-      const userId = sessionStorage.getItem("userId");
-
-      if (!username || !userId) {
-        alert("لم يتم العثور على بيانات المستخدم. يرجى تسجيل الدخول مرة أخرى.");
-        window.location.href = CONFIG.app.loginScreenUrl;
-        return;
-      }
-
-      // User Pool Data
-      const poolData = {
-        UserPoolId: CONFIG.app.userPoolId,
-        ClientId: CONFIG.app.clientId,
-      };
-
-      const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
-
-      const userData = {
-        Username: username,
-        Pool: userPool,
-      };
-
-      const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
-
-      const authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails({
-        Username: username,
-        Password: password,
-      });
-
-      // Authenticate user
-      cognitoUser.authenticateUser(authenticationDetails, {
-        onSuccess: function (result) {
-          // Delete user
-          cognitoUser.deleteUser(function (err, result) {
-            if (err) {
-              console.error("Error deleting user:", err);
-              alert(err.message || JSON.stringify(err));
-              return;
-            }
-            alert("تم حذف حسابك بنجاح.");
-            sessionStorage.clear();
-            window.location.href = CONFIG.app.loginScreenUrl;
-          });
-        },
-        onFailure: function (err) {
-          console.error("Authentication failed:", err);
-          if (err.code === "NotAuthorizedException") {
-            alert("كلمة المرور التي أدخلتها غير صحيحة، يرجى المحاولة مرة أخرى.");
-          } else {
-            alert(err.message || JSON.stringify(err));
-          }
-        },
-      });
-    }
 
     // User dropdown functionality
     const userButton = document.getElementById("userButton");
@@ -1239,7 +891,39 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
+const add_email = 'https://c9zlhqnedk.execute-api.us-east-1.amazonaws.com/prod/add-email';
 
+document.addEventListener('DOMContentLoaded', () => {
+  fetchConfirmedEmail();
+});
+
+async function fetchConfirmedEmail() {
+  const userId = sessionStorage.getItem('userId');
+  if (!userId) return console.warn('لا يوجد userId في الجلسة.');
+
+  try {
+    const res = await fetch(add_email, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId })
+    });
+    const payload = await res.json();
+    // إذا body جاء كنص JSON، parse
+    const data = payload.body ? JSON.parse(payload.body) : payload;
+    const status = data.statusCode ?? res.status;
+
+    if (status === 200 && data.email) {
+      // خزن البريد المؤكد في الجلسة باسم email2
+      sessionStorage.setItem('email2', data.email);
+      console.log('تم جلب البريد المؤكد:', data.email);
+      // هنا تقدر تحدث الواجهة إن أحببت
+    } else {
+      console.warn(data.message || 'لا يوجد بريد مؤكد لهذا المستخدم.');
+    }
+  } catch (err) {
+    console.error('خطأ في جلب البريد المؤكد:', err);
+  }
+}
 // Getting Elements for Logout functionality
 const logoutButton = document.getElementById("logoutButton");
 const logoutModal = document.getElementById("logoutModal");
