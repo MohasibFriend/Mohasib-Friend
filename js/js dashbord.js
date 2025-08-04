@@ -908,15 +908,13 @@ async function fetchConfirmedEmail() {
       body: JSON.stringify({ userId })
     });
     const payload = await res.json();
-    // إذا body جاء كنص JSON، parse
     const data = payload.body ? JSON.parse(payload.body) : payload;
-    const status = data.statusCode ?? res.status;
+    const status = res.status;  // استخدم مباشرة حالة الـ HTTP
 
-    if (status === 200 && data.email) {
-      // خزن البريد المؤكد في الجلسة باسم email2
-      sessionStorage.setItem('email2', data.email);
-      console.log('تم جلب البريد المؤكد:', data.email);
-      // هنا تقدر تحدث الواجهة إن أحببت
+    if (status === 200 && data.email2) {
+      sessionStorage.setItem('email2', data.email2);
+      console.log('تم جلب البريد المؤكد:', data.email2);
+      // حدّث الواجهة حسب الحاجة
     } else {
       console.warn(data.message || 'لا يوجد بريد مؤكد لهذا المستخدم.');
     }
@@ -924,6 +922,7 @@ async function fetchConfirmedEmail() {
     console.error('خطأ في جلب البريد المؤكد:', err);
   }
 }
+
 // Getting Elements for Logout functionality
 const logoutButton = document.getElementById("logoutButton");
 const logoutModal = document.getElementById("logoutModal");
@@ -1279,3 +1278,4 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeApp();
   }
 });
+
