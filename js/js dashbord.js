@@ -721,10 +721,10 @@ function initializeApp() {
               <h3 class="subscription-header">اختر نوع الاشتراك</h3>
 
               <button id="monthlyOption">اشتراك شهري</button>
-              <div style="margin-bottom:10px;font-weight:bold;">500 جنيه</div>
+              <div style="margin-bottom:10px;font-weight:bold;">100 جنيه</div>
 
               <button id="yearlyOption">اشتراك سنوي</button>
-              <div style="margin-bottom:10px;font-weight:bold;">5000 جنيه</div>
+              <div style="margin-bottom:10px;font-weight:bold;">700 جنيه</div>
 
               <br><button id="cancelOption">إلغاء</button><br>
               <h2 style="font-size:12px">يضاف %14 ضريبة قيمة مضافة</h2>
@@ -1277,5 +1277,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeApp();
   }
 });
+
 
 
