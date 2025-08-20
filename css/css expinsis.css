@@ -1,3 +1,7 @@
+/* ===== Root & Base ===== */
+:root{
+  --page-max: 1200px;
+}
 body {
     background: var(--bg-color);
     direction: ltr;
@@ -7,28 +11,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     overflow-x: hidden;
 }
-/* تخصيص شريط التمرير للصفحة */
-html::-webkit-scrollbar {
-    width: 10px; /* عرض شريط التمرير */
-}
 
-html::-webkit-scrollbar-track {
-    background: #f1f1f1; /* لون المسار */
-    border-radius: 10px;  /* حواف دائرية للمسار */
-}
-
-html::-webkit-scrollbar-thumb {
-    background: var(--border);
-    border-radius: 100px;   /* حواف دائرية للمقبض */
-}
-
-html::-webkit-scrollbar-thumb:hover {
-    background: var(--hover-icon);
-}
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-50px) , translateX(50%); }
-    to { opacity: 1; transform: translateY(-50px) , translateX(50%) ; }
-}
 /*Nav start*/
 .NavContainer {
     height: 100px;
@@ -97,31 +80,7 @@ html::-webkit-scrollbar-thumb:hover {
     background-color:var(--hover-icon) !important;
     color: #fff;
 }
-/* أنماط السبينر */
-#spinner {
-    display: none; /* مخفي بشكل افتراضي */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, 50%);
-    z-index: 9999;
 
-
-}
-
-.loader {
-    border: 8px solid #f3f3f3;
-    border-top: 8px solid #3498db;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
 /*Nav End*/
 .info-icon {
     font-size: 42px;
@@ -146,141 +105,7 @@ html::-webkit-scrollbar-thumb:hover {
     background-color: var(--hover-icon) !important; 
     color: #fff !important;
 }
-/* Modal Styling */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-}
 
-.modal-content {
-    background-color: var(--border);
-    margin: 15px auto;
-    position: fixed;
-    padding: 20px;
-    border: 1px solid #888;
-    transform: translate(-50%, -50%);
-    width: 80%;
-    top: 50%;
-    left: 50%;
-    max-width: 600px;
-    border-radius: 10px;
-    text-align: left;
-    animation: fadeIn 0.4s;
-}
-
-.maintran {
-    border-radius: 20px;
-    border: #000 solid 3px;
-    background-color: #fff;
-    padding: 10px;
-}
-
-.close {
-    color: #000;
-    float: left;
-    font-size: 28px;
-    font-weight: bold;
-    margin-left: -12px;
-    margin-top: -19px;
-    cursor: pointer;
-    display: none;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-}
-
-.scrollable {
-    width: 100%; /* العرض الكامل للعنصر */
-    height: 350px; /* يمكنك ضبط الارتفاع حسب احتياجاتك */
-    overflow-y: auto; /* تفعيل التمرير العمودي */
-    overflow-x: hidden; /* إخفاء التمرير الأفقي */
-    padding: 10px; /* مسافة داخلية اختيارية */
-    box-sizing: border-box; /* لضمان أن الحدود والحشوات لا تؤثر على العرض */
-}
-.scrollable::-webkit-scrollbar {
-    width: 10px; /* عرض الشريط */
-}
-
-.scrollable::-webkit-scrollbar-track {
-    background: #f1f1f1; /* خلفية الشريط */
-    border-radius: 5px; /* تقويس حواف الشريط */
-}
-
-.scrollable::-webkit-scrollbar-thumb {
-    background: var(--border);  /* لون المقبض */
-    border-radius: 5px; /* تقويس حواف الشريط */
-}
-
-.scrollable::-webkit-scrollbar-thumb:hover {
-    background: #2980b9; /* تغيير اللون عند التمرير فوقه */
-}
-.fileInput {
-    border-radius: 15px;
-    border: #000 solid;
-    margin-left: 400px;
-    margin-top: 90px;
-}
-
-.uploadButton {
-    border-radius: 15px;
-    border: #000 solid;
-    background-color: var(--background-nav);
-    height: 40px;
-    margin-left: 600px;
-    margin-top: 40px;
-    font-weight: bold;
-    font-size: 25px;
-}
-
-.UPLOAD {
-    border: #000 solid 3px;
-    border-radius: 15px;
-    background-color: var(--background-nav);
-    height: 900px;
-
-    padding: 15px ;
-    margin: 10px auto;
-}
-
-.expenses {
-    background-color: #fff;
-    border-radius: 20px;
-    border: #000 solid 4px;
-    width: 600px;
-    height: 75px;
-    margin-left: 652px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.text {
-    display: block;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 32px;
-    margin-top: 15px;
-    font-weight: bold;
-    unicode-bidi: isolate;
-    color: var(--header);
-    text-align: center;
-}
-
-.contanir1 {
-    background-color: var(--background-nav);
-    border: #000 solid 3px;
-    border-radius: 20px;
-    height: auto;
-    padding: 15px;
-}
 
 @media only screen and (min-width: 1501px) and (max-width: 1830px) {
     .NavContainer {
@@ -332,25 +157,7 @@ html::-webkit-scrollbar-thumb:hover {
         margin-top: -69px !important;
     }
    
-    .contanir1{
-        border: #000 solid 3px;
-        border-radius: 15px;
-        background-color: rgb(163, 182, 229);
-        height: auto;
-        width: 87.6% !important;
-        padding: 20px 20px;
-        margin-bottom: 30px;
-    }
-    .expenses {
-        width: 73%;
-        height: auto;
-        margin-left: 12%;
-        font-size: 30px !important;
-    }
 
-    #container {
-        width: 95%;
-    }
  
 }
 @media only screen and (min-width: 731px) and (max-width: 1500px) {
@@ -422,39 +229,7 @@ html::-webkit-scrollbar-thumb:hover {
         margin-top: -61px !important;
     }
   
-    .expenses {
-        width: 73%;
-        height: auto;
-        margin-left: 12%;
-        font-size: 24px !important;
-    }
-
-    #container {
-        width: 95%;
-    }
-    .ar {
-        background-color: #fff;
-        border: #000 solid 2px;
-        border-radius: 20px;
-        font-weight: bold;
-        font-size: 16px;
-        padding: 10px;
-        margin-bottom: 10px;
-        margin-top: 10px;
-        text-align: center;
-    }
-    
-    .eng {
-        background-color: #fff;
-        border: #000 solid 2px;
-        border-radius: 20px;
-        margin-bottom: 10px;
-        font-weight: bold;
-        padding: 10px;
-        font-family: Arial, Helvetica, sans-serif;
-        text-align: center;
-        font-size: 14px;
-    }
+ 
 }
 @media only screen and (max-width: 731px){
     .downloadImage{
@@ -543,31 +318,7 @@ html::-webkit-scrollbar-thumb:hover {
         font-size: 2em;
     }
 
-    .uploadButton,
-    .InputsButtons {
-        margin-left: 10%;
-        width: 70%;
-    }
-    .downloadImage{
-        width: 80% !important;
-    }
-    .UPLOAD {
-        padding-right: 20px;
-    }
 
-    .TableContainer {
-        height: auto;
-        margin-top: 15px;
-    }
-
-    .table {
-        width: 100%;
-    }
-
-    .btn {
-        width: 80%;
-        margin: 15px auto;
-    }
 }
 
 /* Mobile Devices (max-width: 600px) */
@@ -648,28 +399,7 @@ html::-webkit-scrollbar-thumb:hover {
         font-size: 1.5em;
     }
 
-    .text{
-        font-size: 20px;
-    }
-    .uploadButton,
-    .InputsButtons {
-        margin-left: 10%;
-        width: 80%;
-    }
 
-    .TableContainer {
-        height: auto;
-        margin-top: 10px;
-    }
-
-    .table {
-        width: 100%;
-    }
-
-    .btn {
-        width: 90%;
-        margin: 10px auto;
-    }
 }
 @media only screen and (min-width: 351px) and (max-width: 400px) {
     .NavContainer {
@@ -737,27 +467,7 @@ html::-webkit-scrollbar-thumb:hover {
         margin-top: -59px !important;
     }
    
-    .contanir1{
-        border: #000 solid 3px;
-        border-radius: 15px;
-        background-color: rgb(163, 182, 229);
-        height: auto;
-        width: 87.6% !important;
-        padding: 20px 20px;
-        margin-bottom: 30px;
-    }
-    .downloadImage{
-        width: 80% !important;
-    }
-    .expenses{
-        width: 73%;
-        height: auto;
-        margin-left: 12%;
-        font-size: 15px !important;
-    }
-    .text{
-        font-size: 20px !important;
-    }
+   
 }
 @media only screen and (max-width: 350px) {
     .NavContainer {
@@ -802,16 +512,186 @@ html::-webkit-scrollbar-thumb:hover {
         font-weight: bold;
         margin-top: -55px;
     }
-    .downloadImage{
-        width: 80% !important;
-    }
-    .expenses{
-        width: 73%;
-        height: auto;
-        margin-left: 12%;
-        font-size: 15px !important;
-    }
-    .text{
-        font-size: 20px !important;
-    }
+
 }
+
+/* Scrollbar */
+html::-webkit-scrollbar{ width:10px; }
+html::-webkit-scrollbar-track{ background:#f1f1f1; border-radius:10px; }
+html::-webkit-scrollbar-thumb{ background:var(--border); border-radius:100px; }
+html::-webkit-scrollbar-thumb:hover{ background:var(--hover-icon); }
+
+/* ===== Containers (New Layout) ===== */
+.UPLOAD{
+  max-width: var(--page-max);
+  width: min(96vw, var(--page-max));
+  margin: 16px auto;
+  padding: 16px;
+  background-color: var(--background-nav);
+  border: 3px solid #000;
+  border-radius: 16px;
+  box-sizing: border-box;
+  height: auto !important;      /* كان 900px — اتشال */
+  min-height: 420px;
+}
+
+.expenses{
+  max-width: var(--page-max);
+  width: min(96vw, var(--page-max));
+  margin: 12px auto;
+  padding: 10px 14px;
+  background: #fff;
+  border: 3px solid #000;
+  border-radius: 16px;
+  height: auto !important;
+}
+
+.text{
+  margin: 8px 6px;
+  font-weight: 700;
+  font-size: clamp(20px, 2.2vw, 32px);
+  color: var(--header);
+  text-align: center;
+}
+
+/* Card that wraps the table content */
+.mf-card{
+  background: var(--background-navbar);
+  border: 3px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  min-height: 360px;
+}
+
+/* ===== Table ===== */
+.row-editing td:not(:first-child), .cell-editing{
+  background:#fff8d1;
+  outline:2px solid var(--hover-icon);
+  outline-offset:-2px;
+}
+
+.mf-table{
+  width:100%;
+  border-collapse: separate;
+  border-spacing:0;
+  background:#fff;
+  border:3px solid var(--border);
+  border-radius:14px;
+  overflow:hidden;
+  table-layout: fixed;           /* منع تمدد الأعمدة */
+}
+
+.mf-table thead th{
+  background: var(--background-nav);
+  font-weight: bold;
+  color:#ffffff !important;
+  border-bottom:1px solid var(--border);
+  padding:10px 12px;
+  text-align:left;
+  font-size:14px;
+}
+
+.mf-table td{
+  border-bottom:1px solid var(--border);
+  padding:10px 12px;
+  text-align:left;
+  font-size:14px;
+  color:#000 !important;
+  word-break: break-word;        /* أسماء عربية طويلة */
+}
+
+.mf-table tr:last-child td{ border-bottom:none; }
+
+/* ===== Bottom Actions Bar (sticky) ===== */
+.mf-actions{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  margin-top:14px;
+  padding:10px 12px;
+  background:var(--background-navbar);
+  border-top:1px solid var(--border);
+  border-radius:0 0 14px 14px;
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+}
+
+/* ===== Buttons ===== */
+.mf-btn{
+  background: var(--background-nav);
+  color:#fff;
+  border:2px solid #000;
+  border-radius:10px;
+  padding:8px 14px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:.25s ease;
+}
+.mf-btn:hover{ transform:scale(1.04); background:var(--hover-icon); }
+.mf-btn-sm{ padding:4px 10px; margin-right:6px; }
+
+/* ===== Error Box ===== */
+.mf-error{
+  background:#ffefef;
+  border:2px solid #ff5a5a;
+  color:#b00000;
+  padding:12px 16px;
+  border-radius:10px;
+  margin:12px auto;
+  width:fit-content;
+}
+
+/* ===== Spinner (Overlay) ===== */
+#spinner{
+  position: fixed; inset:0;
+  display: flex;                    /* ظاهر كـ Flex مع تحكم بالرؤية عبر الفئة */
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,.25);
+  z-index: 9999;
+  opacity: 0;                       /* افتراضي مخفي */
+  pointer-events: none;
+  transition: opacity .2s ease;
+}
+#spinner.is-visible{
+  opacity: 1;
+  pointer-events: auto;
+}
+#spinner .loader{
+  border: 8px solid rgba(255,255,255,.6);
+  border-top: 8px solid var(--background-nav);
+  border-radius: 50%;
+  width: 64px; height: 64px;
+  animation: spin 1s linear infinite;
+  box-shadow: 0 6px 18px rgba(0,0,0,.25) inset;
+}
+@keyframes spin{ 0%{transform:rotate(0)} 100%{transform:rotate(360deg)} }
+
+
+/* ===== Modal ===== */
+.modal{ display:none; position:fixed; inset:0; background-color:rgba(0,0,0,.5); z-index:1000; }
+.modal-content{
+  background-color:var(--border);
+  position:fixed; top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  width:80%; max-width:600px; border-radius:10px;
+  padding:20px; animation:fadeIn .4s; border:1px solid #888;
+}
+@keyframes fadeIn{ from{opacity:0; transform:translate(-50%,-60%)} to{opacity:1; transform:translate(-50%,-50%)} }
+.maintran{ border-radius:20px; border:#000 solid 3px; background-color:#fff; padding:10px; }
+.close{ color:#000; float:left; font-size:28px; font-weight:bold; margin-left:-12px; margin-top:-19px; cursor:pointer; display:block;}
+
+/* Scrollable text in modal */
+.scrollable{ width:100%; height:350px; overflow-y:auto; overflow-x:hidden; padding:10px; box-sizing:border-box; }
+.scrollable::-webkit-scrollbar{ width:10px; }
+.scrollable::-webkit-scrollbar-track{ background:#f1f1f1; border-radius:5px; }
+.scrollable::-webkit-scrollbar-thumb{ background:var(--border); border-radius:5px; }
+.scrollable::-webkit-scrollbar-thumb:hover{ background:#2980b9; }
+
+/* ===== Responsive (global) ===== */
+@media (max-width: 768px){
+  .UPLOAD, .expenses{ width: min(86vw, var(--page-max)); }
+  .mf-btn{ padding:8px 12px; }
+}
+
