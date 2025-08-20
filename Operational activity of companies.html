@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/variables.css">
+    <title>نشاط الشركة</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to left, #15264d, #a3d3ee);
+            ;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .app-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #0c113b;
+            padding: 8px 16px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            direction: ltr;
+            height: 50px;
+        }
+
+        .app-header .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .app-header .logo img {
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+        }
+
+        .app-header h1 {
+            color: #fff;
+            font-size: 1.2rem;
+            margin: 0 0 0 12px;
+        }
+
+        .app-header .actions button {
+            background: transparent;
+            border: none;
+            width: 36px;
+            height: 36px;
+            margin-left: 10px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .app-header .actions button::before {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 100%;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .app-header .actions button.info::before {
+            background-image: url('info-icon.svg');
+        }
+
+        .app-header .actions button.home::before {
+            background-image: url('home-icon.svg');
+        }
+
+        .main-card {
+            background: rgba(255, 255, 255, 0.9);
+            border: 4px solid #0c113b;
+            border-radius: 24px;
+            padding: 20px;
+            max-width: 720px;
+            margin: 24px auto;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            width: 80%;
+        }
+
+        .main-card h2 {
+            text-align: center;
+            color: #0c113b;
+            font-size: 1.6rem;
+            margin: 0;
+        }
+
+        .search-bar {
+            background: #0c113b;
+            padding: 12px 16px;
+            border-radius: 30px;
+            margin: 20px 0;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 10px 14px;
+            border: none;
+            border-radius: 20px;
+            font-size: 1rem;
+        }
+
+        .container {
+            background: #fff;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .container h1 {
+            text-align: center;
+            color: #0c113b;
+            margin-bottom: 16px;
+            font-size: 1.4rem;
+        }
+
+        .container label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #0c113b;
+        }
+
+        .container input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 16px;
+            border: 1px solid #000000;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+            color: #333;
+        }
+
+        .checkbox-item input {
+            margin-left: 8px;
+            accent-color: #0a72e2;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-group button {
+            flex: 1;
+            padding: 12px;
+            background: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .btn-group button.delete {
+            background: #e74c3c;
+        }
+
+        .btn-group button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        #spinnerOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        #notification {
+            position: fixed;
+            top: 20px;
+            /* المسافة من أعلى الشاشة */
+            left: 50%;
+            /* ضع الإشعار في منتصف العرض */
+            transform: translateX(-50%);
+            /* عوّض نصف عرضه ليتمركز تماماً */
+            min-width: 200px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            background-color: #2ecc71;
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            z-index: 1001;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        #notification.error {
+            background-color: #e74c3c;
+        }
+
+        #confirmOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, .6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1002;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* صندوق الحوار */
+        #confirmBox {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 300px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .3);
+        }
+
+        #confirmBox p {
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        #confirmBox button {
+            margin: 0 8px;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        #confirmBox button.ok {
+            background: #3498db;
+            color: #fff;
+        }
+
+        #confirmBox button.cancel {
+            background: #e74c3c;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="notification"></div>
+    <div id="confirmOverlay">
+        <div id="confirmBox">
+            <p id="confirmMessage"></p>
+            <button class="ok">موافق</button>
+            <button class="cancel">إلغاء</button>
+        </div>
+    </div>
+    <header class="app-header">
+        <a href="home.html">
+            <div class="logo">
+                <img src="img/WhatsApp Image 2024-10-05 at 22.14.21_3245af43.jpg" alt="Logo" />
+                <h1>Mohasib Friend</h1>
+            </div>
+        </a>
+        <div class="actions">
+            <button class="info"></button>
+            <button class="home"></button>
+        </div>
+    </header>
+
+    <div class="main-card">
+        <h2 style="margin-bottom: 18px;">فصل مصروفات النشاط</h2>
+
+        <div class="container">
+            <label for="activity">نشاط الشركة</label>
+            <input type="text" id="activity" placeholder="مثلاً: الصناعة والتصدير" />
+
+            <label>طبيعة المصروفات الشركة</label>
+            <div class="checkbox-group" id="expensesGroup"></div>
+
+            <div class="btn-group">
+                <button id="saveBtn">حفظ</button>
+                <button id="deleteBtn" class="delete">مسح</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="spinnerOverlay">
+        <div class="spinner"></div>
+    </div>
+
+    <script>
+        function checkUserId() {
+            if (sessionStorage.getItem("userId")) {
+                // إذا وجد userId في sessionStorage يمكن إكمال الكود هنا
+            } else {
+                window.location.href = "https://us-east-1asnaeuufl.auth.us-east-1.amazoncognito.com/login/continue?client_id=1v5jdad42jojr28bcv13sgds5r&redirect_uri=https%3A%2F%2Fmohasibfriend.com%2Fhome.html&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile";
+            }
+        }
+
+        // عند تحميل الصفحة، نفذ الدالة أولاً ثم كل ثانية
+        window.addEventListener('load', function () {
+            checkUserId(); // تنفيذ الدالة عند تحميل الصفحة
+            setInterval(checkUserId, 500); // إعادة تنفيذ الدالة كل 1 ثانية
+        });
+
+        const API_URL = 'https://ma0sx37da7.execute-api.us-east-1.amazonaws.com/prod/mf-mf-Operational-activity-of-companies';
+        const categories = [
+            'إيجار', 'إصلاح وصيانة', 'اشتراكات',
+            'تليفونات وتلكس', 'إنترنت', 'بوفية وضيافة', 'علاج', 'مصروفات نظافته',
+            'مستلزمات كمبيوتر', 'كهرباء و مياه',
+            'م.مطبوعات وادوات كتابية وحاسب', 'م.سفر و انتقال',
+            'رسوم وضرائب', 'أصول ثابتة',
+            'م.سيارات'
+        ];
+
+        const userId = sessionStorage.getItem('userId');
+        const spinner = document.getElementById('spinnerOverlay');
+        const activityInput = document.getElementById('activity');
+        const expensesGroup = document.getElementById('expensesGroup');
+        const saveBtn = document.getElementById('saveBtn');
+        const deleteBtn = document.getElementById('deleteBtn');
+        const notification = document.getElementById('notification');
+        const confirmOverlay = document.getElementById('confirmOverlay');
+        const confirmMessage = document.getElementById('confirmMessage');
+        const okBtn = confirmOverlay.querySelector('button.ok');
+        const cancelBtn = confirmOverlay.querySelector('button.cancel');
+
+        // عرض الإشعار في منتصف الشاشة
+        function showNotification(message, type = 'success') {
+            notification.textContent = message;
+            notification.className = type === 'error' ? 'error' : '';
+            notification.style.opacity = '1';
+            notification.style.pointerEvents = 'auto';
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.pointerEvents = 'none';
+            }, 3000);
+        }
+
+        // صندوق تأكيد مخصص
+        function confirmDialog(msg) {
+            return new Promise(resolve => {
+                confirmMessage.textContent = msg;
+                confirmOverlay.style.display = 'flex';
+
+                const cleanup = () => {
+                    confirmOverlay.style.display = 'none';
+                    okBtn.removeEventListener('click', onOk);
+                    cancelBtn.removeEventListener('click', onCancel);
+                };
+                const onOk = () => { cleanup(); resolve(true); };
+                const onCancel = () => { cleanup(); resolve(false); };
+
+                okBtn.addEventListener('click', onOk);
+                cancelBtn.addEventListener('click', onCancel);
+            });
+        }
+
+        function showSpinner() { spinner.style.display = 'flex'; }
+        function hideSpinner() { spinner.style.display = 'none'; }
+        function clearFields() {
+            activityInput.value = '';
+            expensesGroup.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+        }
+
+        // تهيئة checkboxes
+        categories.forEach(cat => {
+            const div = document.createElement('div');
+            div.className = 'checkbox-item';
+            const cb = document.createElement('input');
+            cb.type = 'checkbox';
+            cb.value = cat;
+            const lbl = document.createElement('label');
+            lbl.textContent = cat;
+            div.append(cb, lbl);
+            expensesGroup.append(div);
+        });
+
+        async function fetchData() {
+            clearFields();
+            showSpinner();
+            if (!userId) { hideSpinner(); return; }
+            try {
+                const res = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'fetch', user_id: userId })
+                });
+                if (!res.ok) throw new Error(`Fetch failed (${res.status})`);
+                const result = await res.json();
+                const payload = result.body ? JSON.parse(result.body) : result;
+                (payload.content || '').split('\n').forEach(line => {
+                    if (line.startsWith('النشاط')) {
+                        activityInput.value = line.split(':')[1].trim();
+                    }
+                    if (line.startsWith('طبيعة المصروفات')) {
+                        line.split(':')[1].split(',').map(s => s.trim()).forEach(val => {
+                            const cb = Array.from(expensesGroup.querySelectorAll('input'))
+                                .find(c => c.value === val);
+                            if (cb) cb.checked = true;
+                        });
+                    }
+                });
+            } catch (err) {
+                console.error('Error in fetchData:', err);
+                showNotification('خطأ في جلب البيانات', 'error');
+            } finally {
+                hideSpinner();
+            }
+        }
+
+        async function saveData() {
+            const activity = activityInput.value.trim();
+            const checked = Array.from(expensesGroup.querySelectorAll('input:checked')).map(c => c.value);
+            if (!activity || checked.length === 0) {
+                showNotification('الرجاء تعبئة جميع الحقول', 'error');
+                return;
+            }
+            saveBtn.disabled = true;
+            showSpinner();
+            try {
+                const res = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'insert',
+                        user_id: userId,
+                        activity,
+                        expenses: checked.join(', ')
+                    })
+                });
+                if (!res.ok) throw new Error(`Save failed (${res.status})`);
+                showNotification('تم الحفظ بنجاح');
+            } catch (err) {
+                console.error('Error in saveData:', err);
+                showNotification('خطأ أثناء الحفظ', 'error');
+            } finally {
+                hideSpinner();
+                saveBtn.disabled = false;
+            }
+        }
+
+        async function deleteData() {
+            const ok = await confirmDialog('هل أنت متأكد من مسح جميع البيانات؟');
+            if (!ok) return;
+            deleteBtn.disabled = true;
+            showSpinner();
+            try {
+                const res = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'delete', user_id: userId })
+                });
+                if (!res.ok) throw new Error(`Delete failed (${res.status})`);
+                showNotification('تم المسح بنجاح');
+                clearFields();
+            } catch (err) {
+                console.error('Error in deleteData:', err);
+                showNotification('خطأ أثناء المسح', 'error');
+            } finally {
+                hideSpinner();
+                deleteBtn.disabled = false;
+            }
+        }
+
+        window.addEventListener('load', fetchData);
+        saveBtn.addEventListener('click', saveData);
+        deleteBtn.addEventListener('click', deleteData);
+    </script>
+</body>
+
+</html>
