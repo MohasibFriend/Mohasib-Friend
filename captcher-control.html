@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="shortcut icon" href="img/WhatsApp Image 2024-10-05 at 22.14.21_3245af43.jpg" type="image/x-icon" />
+    <title>Mohasib Friend — Captcha Control</title>
+    <link rel="stylesheet" href="css/captcher-control.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="title-wrap">
+                <img src="img/WhatsApp Image 2024-10-05 at 22.14.21_3245af43.jpg" alt="" class="logo">
+                <div><h1 class="title">Captcha Control</h1></div>
+            </div>
+            <div class="actions">
+                <button class="btn" onclick="goHome()">🏠 الصفحة الرئيسية</button>
+                <button class="btn btn-primary" onclick="goSubscribe()">🧩 شحن الإضافة</button>
+            </div>
+        </div>
+
+        <!-- Counter ONLY -->
+        <div class="counter-bar">
+            <span id="counter" class="counter-big"><span>Time</span><span class="num">—</span>&nbsp;</span>
+            <button class="btn" onclick="reloadData()">↻ تحديث</button>
+        </div>
+
+        <!-- Card -->
+        <div class="card">
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width:76px;">#</th>
+                            <th>الاسم</th>
+                            <th>المستخدم</th>
+                            <th style="width:320px;">إجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pairsBody"></tbody>
+                </table>
+            </div>
+
+            <div id="emptyState" class="empty" style="display:none;">لا توجد بيانات بعد.</div>
+
+            <hr class="divider" />
+
+            <!-- Add row -->
+            <div class="grid">
+                <div>
+                    <input id="addName" type="text" placeholder="اسم ">
+                </div>
+
+                <div>
+                    <div class="hint-anchor">
+                        <input id="addUser" type="text" placeholder="User Id ">
+                        <!-- hint popup -->
+                        <div id="userHint" class="hint-pop" aria-hidden="true">
+                            <div class="hint-card">
+                                <img src="img/WhatsApp Image 2025-08-30 at 18.19.24_c09e6ec8.jpg" alt="مثال على قيمة User Id">
+                                <div class="hint-note">نموذج لقيمة <b>User&nbsp;ID</b> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-ok" onclick="addPair()">➕ إضافة</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="overlay" aria-hidden="true">
+        <div class="box">
+            <div class="spinner" aria-hidden="true"></div>
+            <div id="loadingText">جارٍ التحديث…</div>
+        </div>
+    </div>
+
+    <!-- Custom Alert/Confirm -->
+    <div id="alertOverlay" class="alert-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="alert-box" role="document">
+            <h3 id="alertTitle" class="alert-title">تنبيه</h3>
+            <p id="alertMsg" class="alert-text"></p>
+            <div class="alert-actions" id="alertBtns"></div>
+        </div>
+    </div>
+
+<script src="js/captcher-control.js"></script>
+</body>
+</html>
