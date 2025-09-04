@@ -24,7 +24,7 @@ window.addEventListener('load', () => {
   setInterval(checkUserId, 500);
 });
 
-/* Spinner (class-based, not jQuery) */
+/* Spinner (class-based) */
 function showSpinner(){
   const s = document.getElementById('spinner');
   if (s) s.classList.add('is-visible');
@@ -33,6 +33,7 @@ function hideSpinner(){
   const s = document.getElementById('spinner');
   if (s) s.classList.remove('is-visible');
 }
+
 /* Helpers */
 function normalizeApiResponse(payload) {
   if (!payload) return {};
@@ -46,7 +47,7 @@ const container = document.getElementById('UPLOAD2');
 /* ===== Render Table + Edit Logic ===== */
 function renderTable(headers, rows) {
   container.innerHTML = "";
-  container.className = "mf-card"; // بدل الـ inline styles
+  container.className = "mf-card";
 
   let dirty = false, btnSave = null, btnCancel = null;
   function setDirty(v){
@@ -88,7 +89,6 @@ function renderTable(headers, rows) {
   function makeRow(cells = Array.from({length: headers.length}, () => "")) {
     const tr = document.createElement('tr');
 
-    // actions
     const tdActions = document.createElement('td');
     const btnEdit = document.createElement('button');
     const btnDel  = document.createElement('button');
@@ -100,7 +100,6 @@ function renderTable(headers, rows) {
     tdActions.appendChild(btnDel);
     tr.appendChild(tdActions);
 
-    // data cells
     cells.forEach((v, idx) => {
       const td = document.createElement('td');
       td.textContent = v ?? "";
@@ -111,14 +110,12 @@ function renderTable(headers, rows) {
       tr.appendChild(td);
     });
 
-    // toggle edit
     btnEdit.addEventListener('click', () => {
       const editing = tr.dataset.editing === '1';
       toggleRowEdit(tr, !editing);
       btnEdit.textContent = editing ? 'Edit' : 'Done';
     });
 
-    // delete row
     btnDel.addEventListener('click', () => {
       tbody.removeChild(tr);
       setDirty(true);
@@ -149,7 +146,14 @@ function renderTable(headers, rows) {
   btnCancel.className = 'mf-btn';
   btnCancel.style.display = 'none';
 
+  // NEW: Upload Excel Sheet
+  const btnUploadModal = document.createElement('button');
+  btnUploadModal.textContent = 'Upload Excel Sheet';
+  btnUploadModal.className = 'mf-btn';
+  btnUploadModal.addEventListener('click', openUploadModal);
+
   bottomBar.appendChild(btnAdd);
+  bottomBar.appendChild(btnUploadModal);
   bottomBar.appendChild(btnSave);
   bottomBar.appendChild(btnCancel);
   container.appendChild(bottomBar);
@@ -212,7 +216,7 @@ async function fetchExpenses() {
   }
 }
 
-/* Save */
+/* Save (manual) */
 async function saveExpenses(headers, rows) {
   const userId = sessionStorage.getItem('userId');
   if (!userId) return;
@@ -243,7 +247,125 @@ async function saveExpenses(headers, rows) {
   }
 }
 
-/* Info modal helpers (needed by HTML) */
+/* ===== Upload Modal Logic ===== */
+function openUploadModal(){
+  const m = document.getElementById('uploadModal');
+  if (!m) return;
+
+  // جهّز لينك القالب
+  prepareTemplateLink().catch(console.error);
+
+  m.style.display = 'block';
+  m.setAttribute('aria-hidden','false');
+
+  const btn = document.getElementById('btnUploadSheet');
+  if (btn && !btn.__bound){
+    btn.addEventListener('click', onUploadClick);
+    btn.__bound = true;
+  }
+}
+
+function closeUploadModal(){
+  const m = document.getElementById('uploadModal');
+  if (!m) return;
+  m.style.display = 'none';
+  m.setAttribute('aria-hidden','true');
+  const msg = document.getElementById('uploadMsg');
+  if (msg) msg.textContent = '';
+  const inp = document.getElementById('xlsFile');
+  if (inp) inp.value = '';
+}
+
+async function prepareTemplateLink(){
+  const userId = sessionStorage.getItem('userId');
+  if (!userId) return;
+  const a = document.getElementById('btnDownloadTemplate');
+  if (!a) return;
+
+  showSpinner();
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ userId, action: 'get_template' })
+    });
+    const payload = await res.json();
+    const data = normalizeApiResponse(payload);
+    if (data && data.file_b64) {
+      const byteChars = atob(data.file_b64);
+      const byteNums = new Array(byteChars.length);
+      for (let i=0; i<byteChars.length; i++) byteNums[i] = byteChars.charCodeAt(i);
+      const blob = new Blob([new Uint8Array(byteNums)], {type: data.mime || 'application/octet-stream'});
+      const url = URL.createObjectURL(blob);
+      a.href = url;
+      a.download = data.filename || 'expenses-template.xlsx';
+    }
+  } catch (e) {
+    console.error('template error:', e);
+  } finally {
+    hideSpinner();
+  }
+}
+
+function fileToBase64(file){
+  return new Promise((resolve, reject) => {
+    const fr = new FileReader();
+    fr.onload = () => {
+      const base64 = fr.result.split(',')[1]; // remove data:... prefix
+      resolve(base64);
+    };
+    fr.onerror = reject;
+    fr.readAsDataURL(file);
+  });
+}
+
+async function onUploadClick(){
+  const userId = sessionStorage.getItem('userId');
+  if (!userId) return;
+
+  const inp = document.getElementById('xlsFile');
+  const msg = document.getElementById('uploadMsg');
+  if (!inp || !inp.files || !inp.files[0]) {
+    if (msg) msg.textContent = 'اختَر ملف Excel أولاً.';
+    return;
+  }
+
+  const file = inp.files[0];
+  if (!/\.xlsx$/i.test(file.name)) {
+    if (msg) msg.textContent = 'الملف يجب أن يكون .xlsx';
+    return;
+  }
+
+  showSpinner();
+  try {
+    const fileBase64 = await fileToBase64(file);
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ userId, action: 'upload_sheet', fileBase64 })
+    });
+    const payload = await res.json();
+    const data = normalizeApiResponse(payload);
+
+    if (res.ok && data && data.message === 'uploaded_and_merged') {
+      if (msg) msg.textContent = `تم الرفع والدمج: أُضيف ${data.stats.added} صف وتم تحديث ${data.stats.updated}.`;
+      // أعِد تحميل الجدول
+      await fetchExpenses();
+      // اغلق بعد ثواني
+      setTimeout(closeUploadModal, 800);
+    } else {
+      if (msg) msg.textContent = 'فشل الرفع/الدمج. راجع الكونسول.';
+      console.error('upload error:', data || payload);
+    }
+  } catch (e) {
+    if (msg) msg.textContent = 'خطأ أثناء الرفع.';
+    console.error(e);
+  } finally {
+    hideSpinner();
+  }
+}
+
+/* Info + Upload modal helpers used by HTML buttons */
 function showInfo(){
   const m = document.getElementById('infoModal');
   if (m){ m.style.display = 'block'; m.setAttribute('aria-hidden','false'); }
@@ -252,6 +374,7 @@ function closeModal(){
   const m = document.getElementById('infoModal');
   if (m){ m.style.display = 'none'; m.setAttribute('aria-hidden','true'); }
 }
+function closeUploadModalPublic(){ closeUploadModal(); } // لو احتجته بالـ HTML
 
 /* Boot */
 (function boot() {
