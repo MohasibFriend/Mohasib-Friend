@@ -668,6 +668,35 @@ html::-webkit-scrollbar-thumb:hover{ background:var(--hover-icon); }
 }
 @keyframes spin{ 0%{transform:rotate(0)} 100%{transform:rotate(360deg)} }
 
+/* Upload Modal helpers */
+
+.close-x {
+    position: absolute;
+    top: 5px;
+    right: 2px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+#uploadMsg{ color: var(--header); }
+/* عشان input يبقى في النص */
+.upload-center {
+  display: flex;
+  justify-content: center;
+  margin: 12px 0;
+}
+
+/* الزرارين تحت الانبوت ومتمركزين */
+.upload-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 12px 0;
+}
 
 /* ===== Modal ===== */
 .modal{ display:none; position:fixed; inset:0; background-color:rgba(0,0,0,.5); z-index:1000; }
