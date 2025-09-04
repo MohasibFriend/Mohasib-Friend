@@ -34,6 +34,23 @@
       <span class="info-icon" onclick="showInfo()">i</span>
     </div>
   </div>
+<!-- Upload Modal -->
+<div id="uploadModal" class="modal" aria-hidden="true">
+  <div class="modal-content" style="position:relative">
+    <button class="close-x" onclick="closeUploadModal()" aria-label="Close">&times;</button>
+    <div class="maintran">
+      <h3 class="heading" style="text-align:center;margin:6px 0">رفع شيت المصروفات</h3>
+      <div class="upload-row" style="display:flex;gap:8px;align-items:center;justify-content:center;margin:12px 0;flex-wrap:wrap;border: 3px solid #000; border-radius: 5px;padding: 10px;">
+        <input id="xlsFile" type="file" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+      </div>
+      <div class="upload-buttons">
+        <button id="btnUploadSheet" class="mf-btn">Upload</button>
+        <a id="btnDownload-Template" class="mf-btn" style="text-decoration: none;" href="https://mf-lambda-function.s3.us-east-1.amazonaws.com/Expenses_Templete.xlsx"  rel="noopener">Download empty sheet</a>
+      </div>
+      <div id="uploadMsg" style="text-align:center;font-weight:bold;"></div>
+    </div>
+  </div>
+</div>
 
   <!-- Info Modal -->
   <div id="infoModal" class="modal" aria-hidden="true">
