@@ -99,7 +99,6 @@ header nav a:hover {
     margin-top: -207px;
     border: #0e97e7 solid 5px;
     border-radius: 20px;
-    width:12%;
 }
 
 .logo {
@@ -356,7 +355,7 @@ footer a:hover {
     }
 
     .hero h1 {
-        font-size: 28px;
+        font-size: 32px;
         margin-top: -100px;
         margin-bottom: -10px;
     }
@@ -369,7 +368,6 @@ footer a:hover {
         margin-top: -212px;
         border: #0e97e7 solid 5px;
         border-radius: 20px;
-        width:14%;
     }
     .logo {
         margin-right: 76%;
@@ -526,6 +524,9 @@ footer a:hover {
     .feature-card h3 {
         font-size: 1.2rem;
     }
+    .aa{
+        font-size: 12px;
+    }
 }
 
 @media (max-width: 370px) {
@@ -568,5 +569,4 @@ footer a:hover {
     .dropdown-button {
        font-size: 10px;
     }
-
 }
