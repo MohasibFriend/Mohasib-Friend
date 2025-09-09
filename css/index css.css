@@ -99,6 +99,7 @@ header nav a:hover {
     margin-top: -207px;
     border: #0e97e7 solid 5px;
     border-radius: 20px;
+    width:200px;
 }
 
 .logo {
@@ -570,3 +571,4 @@ footer a:hover {
        font-size: 10px;
     }
 }
+
