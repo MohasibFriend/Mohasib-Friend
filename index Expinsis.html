@@ -1,29 +1,33 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Expenses</title>
 
   <!-- Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
 
   <!-- Variables + Main CSS -->
-  <link rel="stylesheet" href="css/variables.css"/>
-  <link rel="stylesheet" href="css/css expinsis.css"/>
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/css expinsis.css" />
 
-  <link rel="shortcut icon" href="img/WhatsApp Image 2024-10-05 at 22.14.21_3245af43.jpg" type="image/x-icon"/>
+  <link rel="shortcut icon" href="img/WhatsApp Image 2024-10-05 at 22.14.21_3245af43.jpg" type="image/x-icon" />
 </head>
+
 <body>
 
   <!-- Nav -->
   <div class="NavContainer">
     <a href="home.html" class="a">
-      <img src="img/WhatsApp Image 2024-10-05 at 22.14.21_3245af43.jpg" alt="Logo" class="logo-img"/>
+      <img src="img/WhatsApp Image 2024-10-05 at 22.14.21_3245af43.jpg" alt="Logo" class="logo-img" />
     </a>
 
     <a href="home.html" class="a">
-      <div class="header-h1"><h1>Mohasib Friend</h1></div>
+      <div class="header-h1">
+        <h1>Mohasib Friend</h1>
+      </div>
     </a>
 
     <a href="home.html" class="a">
@@ -34,23 +38,27 @@
       <span class="info-icon" onclick="showInfo()">i</span>
     </div>
   </div>
-<!-- Upload Modal -->
-<div id="uploadModal" class="modal" aria-hidden="true">
-  <div class="modal-content" style="position:relative">
-    <button class="close-x" onclick="closeUploadModal()" aria-label="Close">&times;</button>
-    <div class="maintran">
-      <h3 class="heading" style="text-align:center;margin:6px 0">رفع شيت المصروفات</h3>
-      <div class="upload-row" style="display:flex;gap:8px;align-items:center;justify-content:center;margin:12px 0;flex-wrap:wrap;border: 3px solid #000; border-radius: 5px;padding: 10px;">
-        <input id="xlsFile" type="file" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+  <!-- Upload Modal -->
+  <div id="uploadModal" class="modal" aria-hidden="true">
+    <div class="modal-content" style="position:relative">
+      <button class="close-x" onclick="closeUploadModal()" aria-label="Close">&times;</button>
+      <div class="maintran">
+        <h3 class="heading" style="text-align:center;margin:6px 0">رفع شيت المصروفات</h3>
+        <div class="upload-row"
+          style="display:flex;gap:8px;align-items:center;justify-content:center;margin:12px 0;flex-wrap:wrap;border: 3px solid #000; border-radius: 5px;padding: 10px;">
+          <input id="xlsFile" type="file"
+            accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+        </div>
+        <div class="upload-buttons">
+          <button id="btnUploadSheet" class="mf-btn">Upload</button>
+          <a id="btnDownload-Template" class="mf-btn" style="text-decoration: none;"
+            href="https://mf-lambda-function.s3.us-east-1.amazonaws.com/Expenses_Templete.xlsx" rel="noopener">Download
+            empty sheet</a>
+        </div>
+        <div id="uploadMsg" style="text-align:center;font-weight:bold;"></div>
       </div>
-      <div class="upload-buttons">
-        <button id="btnUploadSheet" class="mf-btn">Upload</button>
-        <a id="btnDownload-Template" class="mf-btn" style="text-decoration: none;" href="https://mf-lambda-function.s3.us-east-1.amazonaws.com/Expenses_Templete.xlsx"  rel="noopener">Download empty sheet</a>
-      </div>
-      <div id="uploadMsg" style="text-align:center;font-weight:bold;"></div>
     </div>
   </div>
-</div>
 
   <!-- Info Modal -->
   <div id="infoModal" class="modal" aria-hidden="true">
@@ -64,7 +72,7 @@
             صفحة المصروفات مصممة لرفع ملف Excel يحتوي على أرقام التسجيل الضريبي للشركات في العمود الأول،
             وأسماء الشركات في العمود الثاني. تُسجل هذه الشركات كمصروفات، ولا تُضم لإقرار قيمة مضافة.
           </p>
-          <hr/>
+          <hr />
           <p style="text-align:center;font-family:Arial,Helvetica,sans-serif;font-weight:bold">Page Guide</p>
           <p style="text-align:center;font-family:Arial,Helvetica,sans-serif;font-weight:bold">
             Upload an Excel with tax registration numbers in column A and company names in column B.
@@ -76,7 +84,9 @@
   </div>
 
   <!-- Spinner -->
-  <div id="spinner"><div class="loader"></div></div>
+  <div id="spinner">
+    <div class="loader"></div>
+  </div>
 
   <!-- Header Card -->
   <div class="expenses">
@@ -85,10 +95,12 @@
 
   <!-- Page Container -->
   <div id="UPLOAD3" class="UPLOAD">
+    <a href="Expinsess invoice.html"><button style="margin-bottom: 5px; margin-top: -15px;" class="mf-btn">بيانات الفواتير</button></a>
     <div id="UPLOAD2"><!-- JS will render the table here --></div>
   </div>
 
   <!-- App JS -->
   <script src="js/js expinsis.js"></script>
 </body>
+
 </html>
