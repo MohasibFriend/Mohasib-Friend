@@ -1,0 +1,358 @@
+:root {
+    --bg: linear-gradient(to left, #15264d, #a3d3ee);
+    --card: #101826;
+    --muted: #9aa4b2;
+    --text: #e7eaf0;
+    --accent: #06b6d4;
+    --ok: #22c55e;
+    --danger: #ef4444;
+    --border: #1f2837;
+    --chip: #0f172a;
+}
+
+html,
+body {
+    height: 100%
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu
+}
+
+/* زر الرجوع (يسار الشاشة) */
+.back-btn {
+    position: fixed;
+    left: 16px;
+    top: 16px;
+    z-index: 40;
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    background: rgba(16, 24, 38, .85);
+    border: 1px solid rgba(31, 40, 55, .8);
+    backdrop-filter: blur(3px);
+    color: var(--text);
+    text-decoration: none;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .25);
+    transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+}
+
+.back-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, .3);
+    background: rgba(16, 24, 38, .95);
+}
+
+.back-btn:active {
+    transform: translateY(0);
+}
+
+.back-btn .icon {
+    font-size: 20px;
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+.back-btn .tip {
+    position: absolute;
+    left: 54px;
+    top: 50%;
+    transform: translateY(-50%);
+    white-space: nowrap;
+    background: #0f172a;
+    border: 1px solid var(--border);
+    padding: 6px 8px;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--text);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s ease;
+}
+
+.back-btn:hover .tip {
+    opacity: 1;
+}
+
+.wrap {
+    max-width: 1200px;
+    margin: auto;
+    padding: 16px
+}
+
+/* Toolbar */
+.toolbar {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 12px
+}
+
+.toolbar .spacer {
+    flex: 1
+}
+
+input,
+select,
+button {
+    background: #0e1624;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px
+}
+
+input::placeholder {
+    color: var(--muted)
+}
+
+.btn {
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    cursor: pointer
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: #00222a;
+    border: none
+}
+
+.btn-ok {
+    background: var(--ok);
+    border: none
+}
+
+.btn-danger {
+    background: var(--danger);
+    border: none
+}
+
+.chip {
+    display: inline-block;
+    background: #0f172a;
+    padding: 4px 8px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    font-size: 12px
+}
+
+/* Card & table */
+.card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 12px
+}
+
+/* Scroll container */
+.table-container {
+    width: 100%;
+    max-height: 70vh;
+    overflow: auto;
+    direction: ltr;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 12px;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 8px;
+    direction: rtl;
+}
+
+#tbl {
+    min-width: 1400px;
+}
+
+thead th {
+    position: sticky;
+    top: 0;
+    background: var(--card);
+    z-index: 2;
+    font-weight: 600;
+    color: var(--muted);
+    text-align: start;
+    padding: 8px;
+    white-space: nowrap
+}
+
+tbody td {
+    background: #0f172a;
+    border-top: 1px solid #0e1522;
+    border-bottom: 1px solid #0e1522;
+    padding: 8px;
+    vertical-align: middle
+}
+
+tbody tr td:first-child {
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px
+}
+
+tbody tr td:last-child {
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px
+}
+
+.status-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px
+}
+
+.switch {
+    position: relative;
+    width: 46px;
+    height: 26px;
+    border-radius: 999px;
+    background: #243044;
+    border: 1px solid #1b2535;
+    transition: all .2s
+}
+
+.switch input {
+    display: none
+}
+
+.switch .knob {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #94a3b8;
+    transition: all .2s
+}
+
+.switch.on {
+    background: #094b49
+}
+
+.switch.on .knob {
+    right: 22px;
+    background: #22c55e
+}
+
+.muted {
+    color: var(--muted);
+    font-size: 12px
+}
+
+/* Overlay spinner */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(3, 6, 12, .55);
+    backdrop-filter: blur(2px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 50
+}
+
+.spinner {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 6px solid #162235;
+    border-top-color: var(--accent);
+    animation: spin 1s linear infinite
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg)
+    }
+}
+
+/* Responsive – بدون تغيير بصري للمحتوى الأساسي */
+@media (max-width: 900px) {
+    .hide-md {
+        display: none
+    }
+
+    table {
+        font-size: 14px
+    }
+
+    .back-btn {
+        width: 42px;
+        height: 42px
+    }
+}
+
+@media (max-width: 600px) {
+    .wrap {
+        padding: 12px
+    }
+
+    table {
+        font-size: 13px
+    }
+
+    .btn {
+        padding: 8px 10px
+    }
+
+    input,
+    select {
+        padding: 8px
+    }
+
+    .back-btn {
+        left: 12px;
+        top: 12px;
+        width: 40px;
+        height: 40px
+    }
+
+    .back-btn .tip {
+        display: none
+    }
+
+    /* نخفي التلميح على الشاشات الصغيرة لتفادي التزاحم */
+}
+
+@media (max-width: 380px) {
+    .back-btn {
+        left: 10px;
+        top: 10px;
+        width: 36px;
+        height: 36px
+    }
+
+    .back-btn .icon {
+        font-size: 18px
+    }
+}
+
+/* Toast */
+.toast {
+    position: fixed;
+    bottom: 16px;
+    left: 16px;
+    background: #0f172a;
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 10px 12px;
+    border-radius: 10px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: .25s;
+    z-index: 60
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0)
+}
