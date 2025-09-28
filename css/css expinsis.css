@@ -641,7 +641,12 @@ html::-webkit-scrollbar-thumb:hover{ background:var(--hover-icon); }
   margin:12px auto;
   width:fit-content;
 }
-
+#UPLOAD3 {
+  display: flex;
+  justify-content: center;   /* توسيط أفقي */
+  align-items: center;       /* توسيط رأسي (اختياري) */
+  flex-direction: column;    /* يحافظ على الترتيب العمودي للزر والجدول */
+}
 /* ===== Spinner (Overlay) ===== */
 #spinner{
   position: fixed; inset:0;
@@ -723,4 +728,5 @@ html::-webkit-scrollbar-thumb:hover{ background:var(--hover-icon); }
   .UPLOAD, .expenses{ width: min(86vw, var(--page-max)); }
   .mf-btn{ padding:8px 12px; }
 }
+
 
