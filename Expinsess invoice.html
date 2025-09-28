@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>لوحة المصروفات – تعديل الحالة</title>
+  <link rel="stylesheet" href="css/expinses invoice.css">
+</head>
+
+<body>
+  <!-- زر الرجوع -->
+  <a class="back-btn" href="index%20Expinsis.html" aria-label="رجوع إلى صفحة المصروفات">
+    <span class="icon">←</span>
+    <span class="tip">عودة إلى الرئيسية</span>
+  </a>
+
+  <div class="overlay" id="overlay">
+    <div class="spinner"></div>
+  </div>
+  <div class="toast" id="toast"></div>
+
+  <div class="wrap">
+    <div class="toolbar">
+      <div class="chip">لوحة المصروفات</div>
+      <div class="spacer"></div>
+      <input id="search" type="search" placeholder="ابحث: الرقم الداخلي / اسم البائع / العملة / رقم البائع..." />
+      <!-- نص الخيارات بالعربي، القيم كما هي (show/hide) -->
+      <select id="statusFilter">
+        <option value="">كل الحالات</option>
+        <option value="show">مصروفات</option>
+        <option value="hide">مشتريات</option>
+      </select>
+      <select id="currencyFilter">
+        <option value="">كل العملات</option>
+        <option value="EGP">EGP</option>
+        <option value="USD">USD</option>
+      </select>
+      <button id="undoBtn" class="btn">↶ تراجع </button>
+      <button id="redoBtn" class="btn">↷ إعادة</button>
+      <button id="cancelBtn" class="btn btn-danger">✖ إلغاء التعديلات</button>
+      <button id="saveBtn" class="btn btn-primary">💾 حفظ التعديلات</button>
+    </div>
+
+    <div class="card">
+      <div class="muted" id="meta"></div>
+
+      <div class="table-container">
+        <table id="tbl">
+          <thead>
+            <tr>
+              <th>نوع المستند</th>
+              <th>الرقم الداخلى</th>
+              <th>تاريخ الإصدار</th>
+              <th class="hide-md">عملة</th>
+              <th>قيمة الفاتورة</th>
+              <th class="hide-md">ضريبة القيمة المضافة</th>
+              <th class="hide-md">ضريبة الجدول</th>
+              <th class="hide-md">خصم تحت الحساب</th>
+              <th class="hide-md">خصم الفاتورة</th>
+              <th>إجمالى</th>
+              <th>مصروفات الفاتوره</th>
+              <th class="hide-md">الرقم الضريبى للبائع</th>
+              <th>إسم البائع</th>
+              <th>الحاله</th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/expinses invoice.js"></script>
+</body>
+
+</html>
