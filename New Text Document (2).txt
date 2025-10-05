@@ -1,0 +1,83 @@
+#include <iostream>
+using namespace std;
+
+bool checkThirty(int a, int b) {
+    return (a == 30 || b == 30 || (a + b) == 30);
+}
+
+int main() {
+    int a, b;
+    cin >> a >> b;
+    if (checkThirty(a, b))
+        cout << 1;
+    else
+        cout << 0;
+    return 0;
+}
+
+------------------------------------------------------------
+
+#include <iostream>
+using namespace std;
+
+int calculatesum(int arr[], int n) {
+    int sum = 0;
+    for (int i = 0; i < n; i++) {
+        sum += arr[i];
+    }
+    return sum;
+}
+
+int main2() {
+    int arr[5];
+    for (int i = 0; i < 5; i++) {
+        cin >> arr[i];
+    }
+    cout << "Array elements: ";
+    for (int i = 0; i < 5; i++) {
+        cout << arr[i] << " ";
+    }
+    int sum = calculatesum(arr, 5);
+    cout << "\nSum = " << sum;
+    return 0;
+}
+
+------------------------------------------------------------
+
+#include <iostream>
+using namespace std;
+
+class Employee {
+protected:
+    string name;
+    int id;
+public:
+    Employee(string n, int i) {
+        name = n;
+        id = i;
+    }
+    virtual void display() {
+        cout << "Name: " << name << ", ID: " << id << endl;
+    }
+};
+
+class Manager : public Employee {
+private:
+    string department;
+public:
+    Manager(string n, int i, string d) : Employee(n, i) {
+        department = d;
+    }
+    void display() override {
+        cout << "Name: " << name << ", ID: " << id 
+             << ", Department: " << department << endl;
+    }
+};
+
+int main3() {
+    Employee e("Ali", 101);
+    Manager m("Sara", 102, "Finance");
+    e.display();
+    m.display();
+    return 0;
+}
