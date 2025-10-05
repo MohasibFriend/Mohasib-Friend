@@ -28,7 +28,7 @@ int calculatesum(int arr[], int n) {
     return sum;
 }
 
-int main2() {
+int main() {
     int arr[5];
     for (int i = 0; i < 5; i++) {
         cin >> arr[i];
@@ -74,7 +74,7 @@ public:
     }
 };
 
-int main3() {
+int main() {
     Employee e("Ali", 101);
     Manager m("Sara", 102, "Finance");
     e.display();
