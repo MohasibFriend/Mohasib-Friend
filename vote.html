@@ -25,7 +25,13 @@
         <div id="alert-message" class="alert-message"></div>
         <div id="proposals-container" class="proposals-container"></div>
     </div>
-
+  <script>
+    if (window.location.pathname.endsWith(".html")) {
+      var newUrl = window.location.pathname.replace(".html", "");
+      window.location.replace(newUrl);
+    }
+  </script>
   <script src="js/vote.js"></script>
 </body>
 </html>
+
