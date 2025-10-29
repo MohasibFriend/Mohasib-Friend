@@ -102,5 +102,11 @@
   <!-- App JS -->
   <script src="js/js expinsis.js"></script>
 </body>
-
+  <script>
+    if (window.location.pathname.endsWith(".html")) {
+      var newUrl = window.location.pathname.replace(".html", "");
+      window.location.replace(newUrl);
+    }
+  </script>
 </html>
+
