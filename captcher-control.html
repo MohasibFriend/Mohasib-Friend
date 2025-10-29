@@ -94,10 +94,16 @@
             <div class="alert-actions" id="alertBtns"></div>
         </div>
     </div>
-
+  <script>
+    if (window.location.pathname.endsWith(".html")) {
+      var newUrl = window.location.pathname.replace(".html", "");
+      window.location.replace(newUrl);
+    }
+  </script>
 <script src="js/captcher-control.js"></script>
 </body>
 </html>
+
 
 
 
