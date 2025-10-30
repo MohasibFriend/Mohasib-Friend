@@ -23,6 +23,14 @@
   <!-- استيراد ملف CSS الخاص بنا -->
   <link rel="stylesheet" href="css/css GPT.css">
 </head>
+<script>
+(function () {
+  // لو أنت حالياً على /home.html، اظهرها /home من غير إعادة تحميل
+  if (/\.html$/.test(location.pathname)) {
+    history.replaceState(null, '', location.pathname.replace(/\.html$/, '') + location.search + location.hash);
+  }
+})();
+</script>
 <body>
   <div class="app-container">
     <!-- شريط التطبيق العلوي -->

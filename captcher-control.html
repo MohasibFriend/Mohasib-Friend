@@ -10,7 +10,14 @@
     <link rel="stylesheet" href="css/captcher-control.css">
 
 </head>
-
+<script>
+(function () {
+  // لو أنت حالياً على /home.html، اظهرها /home من غير إعادة تحميل
+  if (/\.html$/.test(location.pathname)) {
+    history.replaceState(null, '', location.pathname.replace(/\.html$/, '') + location.search + location.hash);
+  }
+})();
+</script>
 <body>
     <div class="container">
         <!-- Header -->

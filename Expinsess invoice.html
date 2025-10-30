@@ -9,7 +9,14 @@
   <link rel="shortcut icon" href="img/WhatsApp Image 2024-10-05 at 22.14.21_3245af43.jpg" type="image/x-icon" />
 
 </head>
-
+<script>
+(function () {
+  // لو أنت حالياً على /home.html، اظهرها /home من غير إعادة تحميل
+  if (/\.html$/.test(location.pathname)) {
+    history.replaceState(null, '', location.pathname.replace(/\.html$/, '') + location.search + location.hash);
+  }
+})();
+</script>
 <body>
   <!-- زر الرجوع -->
   <a class="back-btn" href="index%20Expinsis.html" aria-label="رجوع إلى صفحة المصروفات">

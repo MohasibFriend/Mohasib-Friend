@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<script>
+(function () {
+  // لو أنت حالياً على /home.html، اظهرها /home من غير إعادة تحميل
+  if (/\.html$/.test(location.pathname)) {
+    history.replaceState(null, '', location.pathname.replace(/\.html$/, '') + location.search + location.hash);
+  }
+})();
+</script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

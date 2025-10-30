@@ -175,7 +175,14 @@
     <footer>
         <p data-lang-ar="© 2024 محاسب فريند - شريكك الذكي في إدارة حساباتك." data-lang-en="© 2024 Account Friend - Your Smart Partner in Account Management.">© 2024 محاسب فريند - شريكك الذكي في إدارة حساباتك.</p>
     </footer>
-
+<script>
+(function () {
+  // لو أنت حالياً على /home.html، اظهرها /home من غير إعادة تحميل
+  if (/\.html$/.test(location.pathname)) {
+    history.replaceState(null, '', location.pathname.replace(/\.html$/, '') + location.search + location.hash);
+  }
+})();
+</script>
 <script src="js/js About.js"></script>
 </body>
 </html>

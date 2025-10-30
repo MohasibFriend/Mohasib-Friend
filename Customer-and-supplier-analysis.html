@@ -10,6 +10,14 @@
   <link rel="stylesheet" href="css/Customer-and-supplier-analysis.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+<script>
+(function () {
+  // لو أنت حالياً على /home.html، اظهرها /home من غير إعادة تحميل
+  if (/\.html$/.test(location.pathname)) {
+    history.replaceState(null, '', location.pathname.replace(/\.html$/, '') + location.search + location.hash);
+  }
+})();
+</script>
 <body>
   
   <div class="spinner-overlay" id="spinnerOverlay">

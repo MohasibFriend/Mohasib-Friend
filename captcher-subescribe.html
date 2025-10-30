@@ -1,43 +1,52 @@
-  <!doctype html>
-  <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<!doctype html>
+<html lang="en" dir="ltr">
 
-    <link rel="stylesheet" href="css/variables.css">
-    <link rel="shortcut icon" href="img/WhatsApp Image 2024-10-05 at 22.14.21_3245af43.jpg" type="image/x-icon" />
-    <title>Mohasib Friend — Plans</title>
-    <link rel="stylesheet" href="css/captcher-subsecribe.css">
-    
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
-  <body>
-    <div class="container">
-      <a href="captcher-control.html" class="back-btn" aria-label="Back to Captcher Control">← Back</a>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="shortcut icon" href="img/WhatsApp Image 2024-10-05 at 22.14.21_3245af43.jpg" type="image/x-icon" />
+  <title>Mohasib Friend — Plans</title>
+  <link rel="stylesheet" href="css/captcher-subsecribe.css">
 
-      <h1 class="page-title">Mohasib Friend Plans</h1>
-      <p class="subtitle">Choose a plan and you’ll be redirected to a secure checkout automatically.</p>
+</head>
+<script>
+(function () {
+  // لو أنت حالياً على /home.html، اظهرها /home من غير إعادة تحميل
+  if (/\.html$/.test(location.pathname)) {
+    history.replaceState(null, '', location.pathname.replace(/\.html$/, '') + location.search + location.hash);
+  }
+})();
+</script>
+<body>
+  <div class="container">
+    <a href="captcher-control.html" class="back-btn" aria-label="Back to Captcher Control">← Back</a>
 
-      <div id="plans" class="plans"></div>
+    <h1 class="page-title">Mohasib Friend Plans</h1>
+    <p class="subtitle">Choose a plan and you’ll be redirected to a secure checkout automatically.</p>
+
+    <div id="plans" class="plans"></div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <div id="overlay" class="overlay">
+    <div class="big-spinner" role="status" aria-label="Loading"></div>
+  </div>
+
+  <!-- ===== Result Modal (success/error) ===== -->
+  <div id="result" class="result-wrap" aria-hidden="true">
+    <div class="result-card" role="dialog" aria-modal="true" aria-live="assertive">
+      <div id="resIcon" class="result-icon ok">✓</div>
+      <div id="resTitle" class="result-title">تم الدفع</div>
+      <p id="resSub" class="result-sub">تمت العملية بنجاح.</p>
+      <button id="resBtn" class="result-btn ok">تم</button>
     </div>
+  </div>
 
-    <div id="toast" class="toast"></div>
+  <script src="js/captcher-subescribe.js"></script>
 
-    <div id="overlay" class="overlay">
-      <div class="big-spinner" role="status" aria-label="Loading"></div>
-    </div>
+</body>
 
-    <!-- ===== Result Modal (success/error) ===== -->
-    <div id="result" class="result-wrap" aria-hidden="true">
-      <div class="result-card" role="dialog" aria-modal="true" aria-live="assertive">
-        <div id="resIcon" class="result-icon ok">✓</div>
-        <div id="resTitle" class="result-title">تم الدفع</div>
-        <p id="resSub" class="result-sub">تمت العملية بنجاح.</p>
-        <button id="resBtn" class="result-btn ok">تم</button>
-      </div>
-    </div>
-
-    <script src="js/captcher-subescribe.js"></script>
-
-  </body>
-  </html>
-
+</html>

@@ -7,6 +7,14 @@
     <title>حول محاسب فريند | About Account Friend</title>
    
 </head>
+<script>
+(function () {
+  // لو أنت حالياً على /home.html، اظهرها /home من غير إعادة تحميل
+  if (/\.html$/.test(location.pathname)) {
+    history.replaceState(null, '', location.pathname.replace(/\.html$/, '') + location.search + location.hash);
+  }
+})();
+</script>
 <body>
 
     <header>
