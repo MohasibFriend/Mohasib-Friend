@@ -98,10 +98,18 @@
     <a href="Expinsess invoice.html"><button style="margin-bottom: 5px; margin-top: -15px;" class="mf-btn">بيانات الفواتير</button></a>
     <div id="UPLOAD2"><!-- JS will render the table here --></div>
   </div>
-
+<script>
+(function () {
+  // لو أنت حالياً على /home.html، اظهرها /home من غير إعادة تحميل
+  if (/\.html$/.test(location.pathname)) {
+    history.replaceState(null, '', location.pathname.replace(/\.html$/, '') + location.search + location.hash);
+  }
+})();
+</script>
   <!-- App JS -->
   <script src="js/js expinsis.js"></script>
 </body>
 
 </html>
+
 
