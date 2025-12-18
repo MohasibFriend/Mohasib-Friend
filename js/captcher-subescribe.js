@@ -1,12 +1,4 @@
-/* =============================
-  Session & theme
-==============================*/
-function checkUserId() {
-    if (!sessionStorage.getItem("userId")) {
-        window.location.href =
-            "https://us-east-1asnaeuufl.auth.us-east-1.amazoncognito.com/login/continue?client_id=1v5jdad42jojr28bcv13sgds5r&redirect_uri=https%3A%2F%2Fmohasibfriend.com%2Fhome.html&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile";
-    }
-}
+
 
 window.addEventListener('load', () => {
     const savedTheme = localStorage.getItem('theme') || 'dark';
@@ -250,4 +242,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // وإلا نعرض الخطط كالمعتاد
     renderPlans();
+
 });
