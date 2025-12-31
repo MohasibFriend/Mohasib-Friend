@@ -1,29 +1,29 @@
 // إزالة استخدام الرقم التسجيلي الثابت وجلبه من sessionStorage
-const registrationNumber = sessionStorage.getItem('registrationNumber'); // جلب الرقم التسجيلي من Session Storage
-const subscriptionStatus = sessionStorage.getItem('subscriptionStatus'); // جلب حالة الاشتراك من Session Storage
-const userId =sessionStorage.getItem('userId')
+const registrationNumber = sessionStorage.getItem("registrationNumber"); // جلب الرقم التسجيلي من Session Storage
+const subscriptionStatus = sessionStorage.getItem("subscriptionStatus"); // جلب حالة الاشتراك من Session Storage
+const userId = sessionStorage.getItem("userId");
+
 /// دالة لفحص وجود userId في sessionStorage والتصرف بناءً عليه
 function checkUserId() {
-    if (sessionStorage.getItem("userId")) {
-      // إذا وجد userId في sessionStorage يمكن إكمال الكود هنا
-    } else {
-      window.location.href = "https://us-east-1asnaeuufl.auth.us-east-1.amazoncognito.com/login/continue?client_id=1v5jdad42jojr28bcv13sgds5r&redirect_uri=https%3A%2F%2Fmohasibfriend.com%2Fhome.html&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile";
-      //handleCognitoCallback(); // مُعلق وفق طلبك دون تغيير أي شيء آخر
-    }
+  if (sessionStorage.getItem("userId")) {
+    // إذا وجد userId في sessionStorage يمكن إكمال الكود هنا
+  } else {
+    window.location.href =
+      "https://us-east-1asnaeuufl.auth.us-east-1.amazoncognito.com/login/continue?client_id=1v5jdad42jojr28bcv13sgds5r&redirect_uri=https%3A%2F%2Fmohasibfriend.com%2Fhome.html&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile";
+    //handleCognitoCallback(); // مُعلق وفق طلبك دون تغيير أي شيء آخر
+  }
 }
 
 // عند تحميل الصفحة، نفذ الدالة أولاً ثم كل ثانية
-window.addEventListener('load', function() {
-    checkUserId(); // تنفيذ الدالة عند تحميل الصفحة
-    setInterval(checkUserId, 500); // إعادة تنفيذ الدالة كل 1 ثانية
+window.addEventListener("load", function () {
+  checkUserId(); // تنفيذ الدالة عند تحميل الصفحة
+  setInterval(checkUserId, 500); // إعادة تنفيذ الدالة كل 1 ثانية
 });
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   // جلب الثيم من localStorage
-  const savedTheme = localStorage.getItem('theme') || 'dark';
-  document.documentElement.setAttribute('data-theme', savedTheme);
-
-  // يمكنك إضافة المزيد من الكود هنا للتعامل مع الإشعارات إذا لزم الأمر
+  const savedTheme = localStorage.getItem("theme") || "dark";
+  document.documentElement.setAttribute("data-theme", savedTheme);
 });
 
 /**
@@ -100,7 +100,7 @@ function createPageElements() {
     return;
   }
 
-  // إنشاء زر تحميل الملف
+  // إنشاء زر تحميل الملف (لو حبيت تستخدمه بعدين)
   const fileInput = document.createElement("input");
   fileInput.type = "file";
   fileInput.id = "fileUpload";
@@ -152,7 +152,6 @@ function createPageElements() {
     updateTable(sessionFiles, false);
   }
   // إذا لم توجد بيانات، يتم تفعيل السبينر وتطبيق تأثير drop عند التحديث
-  // يتم تمرير true إذا لم توجد بيانات في sessionStorage، false وإلا
   fetchAndDisplayExistingFile(!sessionFiles);
 }
 
@@ -194,7 +193,7 @@ async function fetchAndDisplayExistingFile(showSpinnerFlag = true) {
       }
       // تحديث الـ sessionStorage بالبيانات الجديدة
       sessionStorage.setItem("files", JSON.stringify(filesData));
-      // عرض البيانات مع تأثير drop إذا تم تفعيل السبينر (أي لم تكن هناك بيانات مسبقة)
+      // عرض البيانات
       updateTable(filesData, showSpinnerFlag);
     } else {
       console.error("Failed to fetch existing file from database.");
@@ -216,7 +215,7 @@ function updateTable(files, animateDrop = true) {
   if (table) {
     table.style.animation = animateDrop ? "dropEffect 0.3s ease-out" : "none";
   }
-  
+
   const tbody = document.querySelector("tbody");
   tbody.innerHTML = ""; // مسح المحتويات السابقة
 
@@ -244,7 +243,7 @@ function updateTable(files, animateDrop = true) {
     // محاولة مطابقة التاريخ الكامل بصيغة يمكن أن تكون إما YYYY-MM-DD أو D-M-YYYY
     const fullDateMatch = filename.match(/_(\d{1,2}-\d{1,2}-\d{4})\.xlsx$/);
     if (fullDateMatch) {
-      const dateParts = fullDateMatch[1].split('-');
+      const dateParts = fullDateMatch[1].split("-");
       // إذا كان الجزء الأول عبارة عن 4 أرقام، نفترض الصيغة YYYY-MM-DD
       if (dateParts[0].length === 4) {
         extractedYear = dateParts[0];
@@ -264,6 +263,8 @@ function updateTable(files, animateDrop = true) {
         extractedYear = getCurrentDate();
       }
     }
+
+    console.log("FILE:", filename, "=> YEAR:", extractedYear);
 
     const row = document.createElement("tr");
 
@@ -287,7 +288,7 @@ function updateTable(files, animateDrop = true) {
     downloadBtn.style.display = "block";
     downloadBtn.style.margin = "10px auto";
     downloadBtn.style.width = "100%";
-    downloadBtn.style.transition="0.3s";
+    downloadBtn.style.transition = "0.3s";
     downloadBtn.style.height = "50px";
     downloadBtn.style.backgroundColor = "var(--background-nav)";
     downloadBtn.style.border = "2px solid black";
@@ -296,21 +297,21 @@ function updateTable(files, animateDrop = true) {
     downloadBtn.style.cursor = "pointer";
 
     // تأثيرات التمرير للزر
-    downloadBtn.addEventListener('mouseover', function () {
-      downloadBtn.style.backgroundColor = 'var(--download-company-hover)';
-      downloadBtn.style.color = '#fff';
-      downloadBtn.style.boxShadow = '0px 4px 6px rgba(0, 0, 0, 0.2)';
+    downloadBtn.addEventListener("mouseover", function () {
+      downloadBtn.style.backgroundColor = "var(--download-company-hover)";
+      downloadBtn.style.color = "#fff";
+      downloadBtn.style.boxShadow = "0px 4px 6px rgba(0, 0, 0, 0.2)";
     });
 
-    downloadBtn.addEventListener('mouseout', function () {
-      downloadBtn.style.backgroundColor = 'var(--background-nav)';
-      downloadBtn.style.color = 'var(--text-color)';
-      downloadBtn.style.boxShadow = 'none';
+    downloadBtn.addEventListener("mouseout", function () {
+      downloadBtn.style.backgroundColor = "var(--background-nav)";
+      downloadBtn.style.color = "var(--text-color)";
+      downloadBtn.style.boxShadow = "none";
     });
 
-    // التحقق من حالة الاشتراك أو إذا كان الملف ينتمي لعام 2024
-    if (extractedYear === "2024") {
-      // إذا كان الملف لعام 2024، يتم تفعيل زر التحميل بغض النظر عن حالة الاشتراك
+    // ✅ التحقق من حالة الاشتراك أو إذا كان الملف ينتمي لأحد الأعوام 2024 أو 2025 أو 2026
+    if (["2024", "2025", "2026"].includes(extractedYear)) {
+      // لو الملف لأي سنة من 2024 أو 2025 أو 2026 يبقى متاح تحميله للجميع
       downloadBtn.addEventListener("click", () => {
         const link = document.createElement("a");
         link.href = downloadUrl;
@@ -320,7 +321,7 @@ function updateTable(files, animateDrop = true) {
         document.body.removeChild(link);
       });
     } else {
-      if (subscriptionStatus === 'ACTIVE') {
+      if (subscriptionStatus === "ACTIVE") {
         downloadBtn.addEventListener("click", () => {
           const link = document.createElement("a");
           link.href = downloadUrl;
@@ -329,7 +330,7 @@ function updateTable(files, animateDrop = true) {
           link.click();
           document.body.removeChild(link);
         });
-      } else if (subscriptionStatus === 'FREE_TRIAL') {
+      } else if (subscriptionStatus === "FREE_TRIAL") {
         downloadBtn.textContent = "للمشتركين فقط";
         downloadBtn.disabled = true;
         downloadBtn.classList.add("disabled-button");
@@ -343,7 +344,7 @@ function updateTable(files, animateDrop = true) {
     downloadCell.appendChild(downloadBtn);
     row.appendChild(downloadCell);
 
-    // إضافة زر "Update" إذا كان الاشتراك نشط فقط
+    // إضافة زر "Update" (مخفي حالياً، لو حبيت تستخدمه بعدين)
     const updateCell = document.createElement("td");
     updateCell.style.textAlign = "center";
     const updateBtn = document.createElement("button");
@@ -381,7 +382,6 @@ function initApp() {
   $(document).ready(function () {
     createPageElements();
     addUploadButtonListener();
-    // Removed duplicate call to fetchAndDisplayExistingFile()
   });
 }
 
@@ -443,17 +443,17 @@ function closeModal() {
 }
 
 // Close the modal when clicking outside the content
-window.onclick = function(event) {
+window.onclick = function (event) {
   const infoModal = document.getElementById("infoModal");
   if (infoModal && event.target == infoModal) {
-      closeModal();
+    closeModal();
   }
-}
+};
 
 // إضافة مستمع حدث للضغط على مفتاح
-window.addEventListener('keydown', function(event) {
+window.addEventListener("keydown", function (event) {
   // التحقق مما إذا كان المفتاح المضغوط هو Esc
-  if (event.key === 'Escape' || event.key === 'Esc') {
-      closeModal();
+  if (event.key === "Escape" || event.key === "Esc") {
+    closeModal();
   }
 });

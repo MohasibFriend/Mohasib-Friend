@@ -6,24 +6,26 @@ document.addEventListener('DOMContentLoaded', () => {
 /// إزالة استخدام الرقم التسجيلي الثابت وجلبه من sessionStorage
 const registrationNumber = sessionStorage.getItem('registrationNumber'); // جلب الرقم التسجيلي من Session Storage
 const subscriptionStatus = sessionStorage.getItem('subscriptionStatus'); // جلب حالة الاشتراك من Session Storage
-const userId = sessionStorage.getItem('userId')
+const userId = sessionStorage.getItem('userId');
+
 /// دالة لفحص وجود userId في sessionStorage والتصرف بناءً عليه
 function checkUserId() {
-    if (sessionStorage.getItem("userId")) {
-      // إذا وجد userId في sessionStorage يمكن إكمال الكود هنا
-    } else {
-      window.location.href = "https://us-east-1asnaeuufl.auth.us-east-1.amazoncognito.com/login/continue?client_id=1v5jdad42jojr28bcv13sgds5r&redirect_uri=https%3A%2F%2Fmohasibfriend.com%2Fhome.html&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile";
-      //handleCognitoCallback(); // مُعلق وفق طلبك دون تغيير أي شيء آخر
-    }
+  if (sessionStorage.getItem("userId")) {
+    // إذا وجد userId في sessionStorage يمكن إكمال الكود هنا
+  } else {
+    window.location.href =
+      "https://us-east-1asnaeuufl.auth.us-east-1.amazoncognito.com/login/continue?client_id=1v5jdad42jojr28bcv13sgds5r&redirect_uri=https%3A%2F%2Fmohasibfriend.com%2Fhome.html&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile";
+    //handleCognitoCallback(); // مُعلق وفق طلبك دون تغيير أي شيء آخر
+  }
 }
 
 // عند تحميل الصفحة، نفذ الدالة أولاً ثم كل ثانية
-window.addEventListener('load', function() {
-    checkUserId(); // تنفيذ الدالة عند تحميل الصفحة
-    setInterval(checkUserId, 500); // إعادة تنفيذ الدالة كل 1 ثانية
+window.addEventListener('load', function () {
+  checkUserId(); // تنفيذ الدالة عند تحميل الصفحة
+  setInterval(checkUserId, 500); // إعادة تنفيذ الدالة كل 1 ثانية
 });
 
-const currentMonth = new Date().getMonth() + 1; 
+const currentMonth = new Date().getMonth() + 1;
 
 // متغيرات لتخزين البيانات بعد الجلب
 let fetchedSales = [];
@@ -36,12 +38,16 @@ let fetchedAggregates = {};
  * والنمط الجديد (e.g., "552331333_purchases_2024-01.xlsx")
  */
 function getYearFromFileName(fullKey) {
-  const fileName = fullKey.split("/").pop(); 
+  const fileName = fullKey.split("/").pop();
   const parts = fileName.split("_");
-  let year = "2025"; // القيمة الافتراضية
+  let year = "2026"; // القيمة الافتراضية
 
   for (const part of parts) {
-    if (part.startsWith("2024") || part.startsWith("2025")) {
+    if (
+      part.startsWith("2024") ||
+      part.startsWith("2025") ||
+      part.startsWith("2026")
+    ) {
       year = part.split("-")[0];
       break;
     }
@@ -56,7 +62,7 @@ function getYearFromFileName(fullKey) {
  * والنمط الجديد (e.g., "552331333_purchases_2024-01.xlsx")
  */
 function extractMonthFromKey(fullKey) {
-  const fileName = fullKey.split("/").pop(); 
+  const fileName = fullKey.split("/").pop();
   const parts = fileName.split("_");
 
   if (parts.length >= 4) {
@@ -88,10 +94,10 @@ function isMonthAllowed(month, selectedYear) {
     return true;
   } else if (subscriptionStatus === 'FREE_TRIAL') {
     if (selectedYear === '2024') {
-      // في 2024 للمشترك التجريبي يُسمح فقط بالشهور 1 و6 و12
-      return (month === 1 ||month === 2 || month === 3 ||month === 4 ||month === 5 ||month === 6 ||month === 7 ||month === 8 ||month === 9 || month === 10 ||month === 11 ||month === 12);
-    } else if (selectedYear === '2025') {
-      // في 2025 للمشترك التجريبي يُسمح بالشهور 1 و6 والشهر (currentMonth - 1)
+      // في 2024 للمشترك التجريبي نسمح بكل الشهور
+      return true;
+    } else if (selectedYear === '2025' || selectedYear === '2026') {
+      // في 2025 و 2026 للمشترك التجريبي يُسمح بالشهور 1 و 6 و (currentMonth - 1)
       return (month === 1 || month === 6 || month === (currentMonth - 1));
     }
   }
@@ -100,7 +106,7 @@ function isMonthAllowed(month, selectedYear) {
 
 /**
  * دالة loadDeclarationsFromSession:
- * تحاول جلب الإقرارات من السيشن ستورج وعرضها (افتراضيًا لسنة 2025) بدون تأثير الـ drop.
+ * تحاول جلب الإقرارات من السيشن ستورج وعرضها (افتراضيًا لسنة 2026) بدون تأثير الـ drop.
  */
 function loadDeclarationsFromSession(resultDiv) {
   const sessionData = sessionStorage.getItem("declarations");
@@ -110,8 +116,8 @@ function loadDeclarationsFromSession(resultDiv) {
       fetchedSales = parsedData.sales || [];
       fetchedPurchases = parsedData.purchases || [];
       fetchedAggregates = parsedData.aggregates || {};
-      // عرض البيانات افتراضيًا لسنة 2025 بدون تأثير drop
-      displayDeclarations(resultDiv, fetchedSales, fetchedPurchases, fetchedAggregates, "2025", false);
+      // عرض البيانات افتراضيًا لسنة 2026 بدون تأثير drop
+      displayDeclarations(resultDiv, fetchedSales, fetchedPurchases, fetchedAggregates, "2026", false);
       return true;
     } catch (e) {
       console.error("Error parsing session declarations:", e);
@@ -144,13 +150,13 @@ function createPageElements() {
   spinner.style.display = "none";
   resultContainer.appendChild(spinner);
 
-  if (window.matchMedia("(max-width: 768px)").matches) { 
-      spinner.style.width = "60px";
-      spinner.style.height = "60px";
-      spinner.style.top = "90%";
-      spinner.style.left = "40%";
+  if (window.matchMedia("(max-width: 768px)").matches) {
+    spinner.style.width = "60px";
+    spinner.style.height = "60px";
+    spinner.style.top = "90%";
+    spinner.style.left = "40%";
   }
-  
+
   const container = document.createElement("div");
   container.style.width = "99%";
   container.style.height = "1055px";
@@ -185,57 +191,57 @@ function createPageElements() {
 // جلب البيانات من الـ API مع متغير إضافي لتحديد تشغيل السبينر وتطبيق تأثير drop
 async function fetchDataByRegistrationNumber(resultDiv, spinner, showSpinner = true) {
   try {
-      if (showSpinner) spinner.style.display = 'block';
-      const requestBody = { userId:userId };
+    if (showSpinner) spinner.style.display = 'block';
+    const requestBody = { userId: userId };
 
-      const response = await fetch('https://ma0sx37da7.execute-api.us-east-1.amazonaws.com/prod/mf_fech_monthly_decleration', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(requestBody)
-      });
+    const response = await fetch('https://ma0sx37da7.execute-api.us-east-1.amazonaws.com/prod/mf_fech_monthly_decleration', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(requestBody)
+    });
 
-      const responseData = await response.json();
+    const responseData = await response.json();
 
-      if (response.ok) {
-          const parsedBody = JSON.parse(responseData.body);
-          fetchedSales = parsedBody.sales || [];
-          fetchedPurchases = parsedBody.purchases || [];
-          fetchedAggregates = {
-            aggregate_sales_url: parsedBody.aggregate_sales_url,
-            aggregate_sales_sum_w: parsedBody.aggregate_sales_sum_w,
-            aggregate_sales_sum_v: parsedBody.aggregate_sales_sum_v,
-            aggregate_purchases_url: parsedBody.aggregate_purchases_url,
-            aggregate_purchases_sum_w: parsedBody.aggregate_purchases_sum_w,
-            aggregate_purchases_sum_v: parsedBody.aggregate_purchases_sum_v,
-            aggregate_purchases_yearly: parsedBody.aggregate_purchases_yearly || [],
-            aggregate_sales_yearly: parsedBody.aggregate_sales_yearly || [],
-            total_sum_v_purchases_yearly: parsedBody.sum_v_purchases_yearly   || {},
-            total_sum_w_purchases_yearly: parsedBody.sum_w_purchases_yearly   || {},
-            total_sum_v_sales_yearly:     parsedBody.sum_v_sales_yearly       || {},
-            total_sum_w_sales_yearly:     parsedBody.sum_w_sales_yearly       || {}
-          };
+    if (response.ok) {
+      const parsedBody = JSON.parse(responseData.body);
+      fetchedSales = parsedBody.sales || [];
+      fetchedPurchases = parsedBody.purchases || [];
+      fetchedAggregates = {
+        aggregate_sales_url: parsedBody.aggregate_sales_url,
+        aggregate_sales_sum_w: parsedBody.aggregate_sales_sum_w,
+        aggregate_sales_sum_v: parsedBody.aggregate_sales_sum_v,
+        aggregate_purchases_url: parsedBody.aggregate_purchases_url,
+        aggregate_purchases_sum_w: parsedBody.aggregate_purchases_sum_w,
+        aggregate_purchases_sum_v: parsedBody.aggregate_purchases_sum_v,
+        aggregate_purchases_yearly: parsedBody.aggregate_purchases_yearly || [],
+        aggregate_sales_yearly: parsedBody.aggregate_sales_yearly || [],
+        total_sum_v_purchases_yearly: parsedBody.sum_v_purchases_yearly || {},
+        total_sum_w_purchases_yearly: parsedBody.sum_w_purchases_yearly || {},
+        total_sum_v_sales_yearly: parsedBody.sum_v_sales_yearly || {},
+        total_sum_w_sales_yearly: parsedBody.sum_w_sales_yearly || {}
+      };
 
-          // تحديث السيشن ستورج بالبيانات الجديدة
-          const sessionDataToStore = {
-            sales: fetchedSales,
-            purchases: fetchedPurchases,
-            aggregates: fetchedAggregates
-          };
-          sessionStorage.setItem("declarations", JSON.stringify(sessionDataToStore));
+      // تحديث السيشن ستورج بالبيانات الجديدة
+      const sessionDataToStore = {
+        sales: fetchedSales,
+        purchases: fetchedPurchases,
+        aggregates: fetchedAggregates
+      };
+      sessionStorage.setItem("declarations", JSON.stringify(sessionDataToStore));
 
-          // عند عرض البيانات بعد الفيتش:
-          // إذا لم توجد بيانات من السيشن (showSpinner === true) نطبّق تأثير drop،
-          // أما إذا وُجدت بيانات مسبقاً (showSpinner === false) لا نطبّق التأثير.
-          displayDeclarations(resultDiv, fetchedSales, fetchedPurchases, fetchedAggregates, "2025", showSpinner);
+      // عند عرض البيانات بعد الفيتش:
+      // لو مفيش بيانات قديمة في السيشن (showSpinner === true) نطبّق drop
+      // لو في بيانات قديمة (showSpinner === false) منغيرش أنيميشن
+      displayDeclarations(resultDiv, fetchedSales, fetchedPurchases, fetchedAggregates, "2026", showSpinner);
 
-      } else {
-          resultDiv.textContent = `Error fetching data: ${responseData.message || 'Unknown error'}`;
-      }
+    } else {
+      resultDiv.textContent = `Error fetching data: ${responseData.message || 'Unknown error'}`;
+    }
   } catch (error) {
-      console.error('Error fetching declarations:', error);
-      resultDiv.textContent = 'Error fetching declarations';
+    console.error('Error fetching declarations:', error);
+    resultDiv.textContent = 'Error fetching declarations';
   } finally {
-      if (showSpinner) spinner.style.display = 'none';
+    if (showSpinner) spinner.style.display = 'none';
   }
 }
 
@@ -251,7 +257,7 @@ function displayDeclarations(resultDiv, salesData, purchasesData, aggregateData,
   const sales = (salesData || [])
     .filter(s => getYearFromFileName(s.s3_key) === selectedYear)
     .sort((a, b) => a.s3_key.localeCompare(b.s3_key));
-  
+
   // فلترة المشتريات بناءً على السنة
   const purchases = (purchasesData || [])
     .filter(p => getYearFromFileName(p.s3_key) === selectedYear)
@@ -309,7 +315,7 @@ function displayDeclarations(resultDiv, salesData, purchasesData, aggregateData,
     dateCell.style.fontSize = "15px";
     dateCell.style.fontWeight = "bold";
     dateCell.style.borderCollapse = "collapse";
-    dateCell.style.borderBottom = "3px solid #000"; 
+    dateCell.style.borderBottom = "3px solid #000";
     dateCell.style.color = "var(--text-color)";
     dateCell.textContent = formattedMonth;
     row.appendChild(dateCell);
@@ -353,7 +359,7 @@ function displayDeclarations(resultDiv, salesData, purchasesData, aggregateData,
     const salesCell = document.createElement("td");
     salesCell.style.padding = "20px";
     salesCell.style.borderCollapse = "collapse";
-    salesCell.style.borderBottom = "3px solid #000"; 
+    salesCell.style.borderBottom = "3px solid #000";
 
     if (salesMonths.has(formattedMonth)) {
       const sale = salesMonths.get(formattedMonth);
@@ -395,7 +401,7 @@ function displayDeclarations(resultDiv, salesData, purchasesData, aggregateData,
     const purchasesCell = document.createElement("td");
     purchasesCell.style.padding = "20px";
     purchasesCell.style.borderCollapse = "collapse";
-    purchasesCell.style.borderBottom = "3px solid #000"; 
+    purchasesCell.style.borderBottom = "3px solid #000";
 
     if (purchasesMonths.has(formattedMonth)) {
       const purchase = purchasesMonths.get(formattedMonth);
@@ -439,28 +445,29 @@ function displayDeclarations(resultDiv, salesData, purchasesData, aggregateData,
   // 1. إجمالي المشتريات، 2. إجمالي المبيعات، 3. السنة.
   const aggregateRow = document.createElement("tr");
 
-  const totalSumVSales     = aggregateData.total_sum_v_sales_yearly[selectedYear]    || 0;
-  const totalSumWSales     = aggregateData.total_sum_w_sales_yearly[selectedYear]    || 0;
-  const totalSumVPurchases = aggregateData.total_sum_v_purchases_yearly[selectedYear]|| 0;
-  const totalSumWPurchases = aggregateData.total_sum_w_purchases_yearly[selectedYear]|| 0;
+  const totalSumVSales = (aggregateData.total_sum_v_sales_yearly && aggregateData.total_sum_v_sales_yearly[selectedYear]) || 0;
+  const totalSumWSales = (aggregateData.total_sum_w_sales_yearly && aggregateData.total_sum_w_sales_yearly[selectedYear]) || 0;
+  const totalSumVPurchases = (aggregateData.total_sum_v_purchases_yearly && aggregateData.total_sum_v_purchases_yearly[selectedYear]) || 0;
+  const totalSumWPurchases = (aggregateData.total_sum_w_purchases_yearly && aggregateData.total_sum_w_purchases_yearly[selectedYear]) || 0;
+
   // الخلية الثالثة: السنة
   const yearCell = document.createElement("td");
   yearCell.style.padding = "10px";
   yearCell.style.fontSize = "15px";
   yearCell.style.fontWeight = "bold";
   yearCell.style.borderCollapse = "collapse";
-  yearCell.style.borderBottom = "3px solid #000"; 
+  yearCell.style.borderBottom = "3px solid #000";
   yearCell.style.color = "var(--text-color)";
   yearCell.innerHTML = selectedYear;
   aggregateRow.appendChild(yearCell);
- 
+
   // الخلية الثانية: إجمالي المبيعات
   const salesAggregateCell = document.createElement("td");
   salesAggregateCell.style.padding = "10px";
   salesAggregateCell.style.fontSize = "15px";
   salesAggregateCell.style.fontWeight = "bold";
   salesAggregateCell.style.borderCollapse = "collapse";
-  salesAggregateCell.style.borderBottom = "3px solid #000"; 
+  salesAggregateCell.style.borderBottom = "3px solid #000";
   salesAggregateCell.style.color = "var(--text-color)";
   salesAggregateCell.innerHTML = `
     المبيعات: ${totalSumVSales.toLocaleString()}<br>
@@ -473,7 +480,7 @@ function displayDeclarations(resultDiv, salesData, purchasesData, aggregateData,
   purchasesAggregateCell.style.fontSize = "15px";
   purchasesAggregateCell.style.fontWeight = "bold";
   purchasesAggregateCell.style.borderCollapse = "collapse";
-  purchasesAggregateCell.style.borderBottom = "3px solid #000"; 
+  purchasesAggregateCell.style.borderBottom = "3px solid #000";
   purchasesAggregateCell.style.color = "var(--text-color)";
   purchasesAggregateCell.innerHTML = `
     المشتريات: ${totalSumVPurchases.toLocaleString()}<br>
@@ -485,7 +492,7 @@ function displayDeclarations(resultDiv, salesData, purchasesData, aggregateData,
   resultDiv.appendChild(table);
 }
 
-// زر التحميل للتجميعة السنوية
+// زر التحميل للتجميعة السنوية (لو حبيت تستخدمه بعدين)
 function createButton(downloadUrl, text, isEnabled = true) {
   if (isEnabled && downloadUrl) {
     const button = document.createElement("a");
@@ -571,34 +578,48 @@ function closeModal() {
   document.getElementById("infoModal").style.display = "none";
 }
 
-window.onclick = function(event) {
+window.onclick = function (event) {
   if (event.target == document.getElementById("infoModal")) {
-      closeModal();
+    closeModal();
   }
-}
+};
 
-window.addEventListener('keydown', function(event) {
+window.addEventListener('keydown', function (event) {
   if (event.key === 'Escape' || event.key === 'Esc') {
-      closeModal();
+    closeModal();
   }
-}); // <-- تم إضافة القوس المغلق هنا
+}); // <-- القوس المقفول
 
 // تغيير السنة عند النقر على الراديو
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   const year2024Radio = document.getElementById("year2024");
   const year2025Radio = document.getElementById("year2025");
+  const year2026Radio = document.getElementById("year2026");
 
-  year2024Radio.addEventListener("change", function() {
-    if (this.checked) {
-      const resultDiv = document.getElementById("resultDiv");
-      displayDeclarations(resultDiv, fetchedSales, fetchedPurchases, fetchedAggregates, "2024", false);
-    }
-  });
+  if (year2024Radio) {
+    year2024Radio.addEventListener("change", function () {
+      if (this.checked) {
+        const resultDiv = document.getElementById("resultDiv");
+        displayDeclarations(resultDiv, fetchedSales, fetchedPurchases, fetchedAggregates, "2024", false);
+      }
+    });
+  }
 
-  year2025Radio.addEventListener("change", function() {
-    if (this.checked) {
-      const resultDiv = document.getElementById("resultDiv");
-      displayDeclarations(resultDiv, fetchedSales, fetchedPurchases, fetchedAggregates, "2025", false);
-    }
-  });
+  if (year2025Radio) {
+    year2025Radio.addEventListener("change", function () {
+      if (this.checked) {
+        const resultDiv = document.getElementById("resultDiv");
+        displayDeclarations(resultDiv, fetchedSales, fetchedPurchases, fetchedAggregates, "2025", false);
+      }
+    });
+  }
+
+  if (year2026Radio) {
+    year2026Radio.addEventListener("change", function () {
+      if (this.checked) {
+        const resultDiv = document.getElementById("resultDiv");
+        displayDeclarations(resultDiv, fetchedSales, fetchedPurchases, fetchedAggregates, "2026", false);
+      }
+    });
+  }
 });

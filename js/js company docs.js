@@ -2,13 +2,7 @@
 const registrationNumber = sessionStorage.getItem('registrationNumber'); // جلب الرقم التسجيلي من Session Storage
 const subscriptionStatus = sessionStorage.getItem('subscriptionStatus'); // جلب حالة الاشتراك من Session Storage
 /// دالة لفحص وجود userId في sessionStorage والتصرف بناءً عليه
-const userId = sessionStorage.getItem('userId');
-
-// إعداد worker لمكتبة PDF.js (لو متحمّلة في الصفحة)
-if (typeof pdfjsLib !== 'undefined') {
-    pdfjsLib.GlobalWorkerOptions.workerSrc =
-        "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/legacy/build/pdf.worker.min.js";
-}
+const userId =sessionStorage.getItem('userId')
 
 function checkUserId() {
     if (sessionStorage.getItem("userId")) {
@@ -24,6 +18,8 @@ window.addEventListener('load', function() {
     checkUserId(); // تنفيذ الدالة عند تحميل الصفحة
     setInterval(checkUserId, 500); // إعادة تنفيذ الدالة كل 1 ثانية
 });
+
+
 
 document.addEventListener('DOMContentLoaded', () => {
     // جلب الثيم من localStorage
@@ -286,7 +282,7 @@ function createDocumentRow(documentName, uniqueId, isDuplicate = false, original
     const fileInput = document.createElement('input');
     fileInput.type = 'file';
     fileInput.id = `file${uniqueId}`;
-    fileInput.accept = '.pdf,.doc,.docx,.jpg,.png,.jpeg,.webp,.xlsx';
+    fileInput.accept = '.pdf,.doc,.docx,.jpg,.png,.xlsx';
     fileInput.style.backgroundColor = 'var(--background-nav)';
     fileInput.style.border = '2px solid black';
     fileInput.style.borderRadius = '10px';
@@ -309,16 +305,14 @@ function createDocumentRow(documentName, uniqueId, isDuplicate = false, original
     if (subscriptionStatus === 'ACTIVE') {
         isUploadAllowed = true; // يُسمح بتحميل جميع الوثائق
     } else if (subscriptionStatus === 'FREE_TRIAL') {
-        // يُسمح فقط بتحميل البطاقة الضريبية والقيمة المضافة
-        if (
-            documentName === 'Tax Card - البطاقة الضريبية' ||
-            documentName === 'Value Added Tax Certificate - شهادة ضريبة القيمة المضافة'
-        ) {
+        // يُسمح فقط بتحميل البطاقة الضريبية
+        if (documentName === 'Tax Card - البطاقة الضريبية' || documentName === 'Value Added Tax Certificate - شهادة ضريبة القيمة المضافة') {
             isUploadAllowed = true;
         } else {
             isUploadAllowed = false;
         }
     }
+    
 
     // تعطيل اختيار الملف إذا لم يُسمح بالتحميل
     if (!isUploadAllowed) {
@@ -494,42 +488,6 @@ function toBase64(file) {
     });
 }
 
-// دالة لتحويل أول صفحة من ملف PDF إلى صورة (Blob PNG)
-async function convertPdfToImageBlob(file) {
-    // التأكد إن pdfjsLib موجودة
-    if (typeof pdfjsLib === 'undefined') {
-        throw new Error('PDF.js library is not loaded.');
-    }
-
-    // قراءة ملف الـ PDF كـ ArrayBuffer
-    const arrayBuffer = await file.arrayBuffer();
-
-    // فتح الـ PDF باستخدام PDF.js
-    const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-
-    // جلب الصفحة الأولى
-    const page = await pdf.getPage(1);
-
-    // تكبير بمقياس 2 علشان دقة أعلى
-    const viewport = page.getViewport({ scale: 2 });
-
-    // إنشاء Canvas بنفس مقاس الصفحة
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
-    canvas.width = Math.floor(viewport.width);
-    canvas.height = Math.floor(viewport.height);
-
-    // رسم الصفحة على الـ Canvas
-    await page.render({ canvasContext: ctx, viewport }).promise;
-
-    // تحويل الـ Canvas إلى Blob (صورة PNG)
-    const blob = await new Promise((resolve) => {
-        canvas.toBlob(resolve, "image/png");
-    });
-
-    return blob; // نرجّع Blob للصورة
-}
-
 // Function to Create and Display the Expiry Date Confirmation Modal
 function createExpiryDateModal(docName, currentExpiryDate, onConfirm) {
     // إنشاء تراكب النافذة المنبثقة
@@ -570,7 +528,7 @@ function createExpiryDateModal(docName, currentExpiryDate, onConfirm) {
     docNameElem.style.width = 'auto';
     docNameElem.style.padding = '15px';
     docNameElem.style.borderRadius = '10px';
-    docNameElem.style.border = '3px #000 solid';
+    docNameElem.style.border = '3px #000 solid'
     docNameElem.style.color='var( --text-color)';
     modalContainer.appendChild(docNameElem);
 
@@ -637,6 +595,46 @@ function createExpiryDateModal(docName, currentExpiryDate, onConfirm) {
     modalContainer.appendChild(buttonsContainer);
     modalOverlay.appendChild(modalContainer);
     document.body.appendChild(modalOverlay);
+
+    // دالة لجعل النافذة المنبثقة قابلة للسحب (اختياري)
+    function makeModalDraggable(modalOverlay, modalContainer) {
+        let isDragging = false;
+        let offsetX = 0;
+        let offsetY = 0;
+
+        modalContainer.addEventListener('mousedown', function (e) {
+            isDragging = true;
+            offsetX = e.clientX - modalContainer.offsetLeft;
+            offsetY = e.clientY - modalContainer.offsetTop;
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
+        });
+
+        function onMouseMove(e) {
+            if (isDragging) {
+                const newLeft = e.clientX - offsetX;
+                const newTop = e.clientY - offsetY;
+
+                // منع النافذة من الخروج خارج نطاق العرض
+                const maxLeft = window.innerWidth - modalContainer.offsetWidth;
+                const maxTop = window.innerHeight - modalContainer.offsetHeight;
+                const boundedLeft = Math.max(0, Math.min(newLeft, maxLeft));
+                const boundedTop = Math.max(0, Math.min(newTop, maxTop));
+
+                modalContainer.style.left = `${boundedLeft}px`;
+                modalContainer.style.top = `${boundedTop}px`;
+            }
+        }
+
+        function onMouseUp() {
+            isDragging = false;
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+        }
+    }
+
+    // جعل النافذة المنبثقة قابلة للسحب (اختياري)
+    // makeModalDraggable(modalOverlay, modalContainer); // يمكنك تفعيلها إذا كنت تريد جعل النافذة قابلة للسحب
 
     // مستمعات الأحداث للأزرار
     cancelButton.addEventListener('click', () => {
@@ -789,48 +787,19 @@ function refreshPage() {
     location.reload();
 }
 
-// ✅ Function to Upload Document to Lambda (معدّلة لدعم PDF → صورة)
+// Function to Upload Document to Lambda
 async function uploadDocument(file, docName, row) {
     const uploadApiUrl = 'https://ma0sx37da7.execute-api.us-east-1.amazonaws.com/prod/mf_fetch_company_document';  // استبدل بالرابط الفعلي لـ Lambda
 
     try {
         showSpinner(); // إظهار السبينر أثناء الرفع
 
-        let fileForUpload = file;
-        let originalMimeType = file.type || '';
-        let convertedFromPdf = false;
-
-        // لو الملف PDF → نحوله لأول صفحة كصورة PNG
-        if (file.type === 'application/pdf') {
-            if (typeof pdfjsLib === 'undefined') {
-                alert('لا يمكن تحويل ملفات PDF لأن مكتبة PDF.js غير محملة في الصفحة.');
-                hideSpinner();
-                return;
-            }
-
-            const imageBlob = await convertPdfToImageBlob(file);
-
-            if (!imageBlob) {
-                alert('فشل تحويل ملف الـ PDF إلى صورة.');
-                hideSpinner();
-                return;
-            }
-
-            fileForUpload = imageBlob;
-            originalMimeType = 'image/png';
-            convertedFromPdf = true;
-        }
-
-        // تحويل الملف (سواء كان صورة أصلًا أو صورة ناتجة من PDF) إلى Base64
-        const fileBase64 = await toBase64(fileForUpload);
+        const fileBase64 = await toBase64(file);
 
         const payload = {
             userId: userId,
             file_name: docName,
-            file_content: fileBase64,
-            original_mime_type: file.type || '',
-            stored_mime_type: originalMimeType,
-            converted_from_pdf: convertedFromPdf
+            file_content: fileBase64
         };
 
         const response = await fetch(uploadApiUrl, {
@@ -860,7 +829,6 @@ async function uploadDocument(file, docName, row) {
                 if (isDateChanged) {
                     await sendEditedExpiryDate(docName, editedDate);
                 } else {
-                    // لا شيء
                 }
 
                 // تحديث الصفحة بعد التعامل مع تاريخ الانتهاء
@@ -936,7 +904,11 @@ function normalizeText(text) {
 function updateTableWithStatus(fileDetails) {
     const tbody = document.querySelector('tbody');
 
+
     fileDetails.forEach((fileDetail) => {
+        // التحقق مما إذا كان fileDetail يحتوي على ملفات
+
+
         if (fileDetail.files && fileDetail.files.length > 0) {
             fileDetail.files.forEach(file => {
 
@@ -1020,8 +992,9 @@ function updateTableWithStatus(fileDetails) {
                     if (file.download_url) {
                         downloadButton.disabled = false;
                         downloadButton.onclick = () => {
-                            const signedURL = file.download_url;
+                            const signedURL = file.download_url;  // تعيين اسم افتراضي مع امتداد .pdf
                             if (signedURL) {
+                                // فتح الرابط في تبويب جديد
                                 window.open(signedURL, '_blank');
                             } else {
                                 alert('فشل في الحصول على رابط التنزيل.');
@@ -1052,7 +1025,7 @@ async function fetchDocumentStatuses() {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                userId: userId
+                userId: userId  // رقم التسجيل مُرسل في الحمولة
             })
         });
 
@@ -1064,15 +1037,19 @@ async function fetchDocumentStatuses() {
                 data = JSON.parse(data.body);
             } catch (e) {
                 console.error('Error parsing JSON string:', e);
+                
                 return [];
             }
         }
+
+        // تسجيل البيانات للتصحيح
 
         // التأكد من وجود data.files
         if (response.ok && data.files) {
             updateTableWithStatus([data]); // تمرير البيانات كمصفوفة
         } else {
             console.error('Invalid response structure:', data);
+            
         }
     } catch (error) {
         console.error('Error fetching document statuses:', error);
@@ -1095,6 +1072,12 @@ const logoutButton = document.getElementById("logoutbutton");
 if (logoutButton) {
     logoutButton.addEventListener("click", logOutAndClearSession);
 }
+
+// Function to Upload Document to Lambda
+// (تم تعريفها سابقًا)
+
+// Function to Delete Document
+// (تم تعريفها سابقًا)
 
 // Function to Initialize the App
 function initApp() {
@@ -1136,6 +1119,7 @@ style.textContent = `
 
         }
 
+       
         #documentTable {
             font-size: 4px;
             margin-Left : -5% !important;
@@ -1164,7 +1148,7 @@ style.textContent = `
             font-size: 7px;
             width: 100%;
         }
-    } */
+    }*/
 `;
 document.head.appendChild(style);
 

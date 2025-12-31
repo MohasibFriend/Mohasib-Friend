@@ -399,7 +399,7 @@ html::-webkit-scrollbar-thumb:hover {
     background: var(--background-navbar);
     border: #000 SOLID 3PX;
     border-radius: 10px;
-    height: 250px;
+    height: 340px;
     padding: 0px 20px;
 }
 

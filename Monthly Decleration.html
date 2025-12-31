@@ -9,90 +9,97 @@
 })();
 </script>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-    <link rel="shortcut icon" href="img/WhatsApp Image 2024-10-05 at 22.14.21_3245af43.jpg" type="your-favicon.ico"
-    class="imglogo">
-    <link rel="stylesheet" href="css/variables.css">
-    <link rel="stylesheet" href="css/css monthly decleration.css">
-    <title>Monthly Decleration</title>
-    <div class="NavContainer">
-        <a href="home.html">
-            <img src="img/WhatsApp Image 2024-10-05 at 22.14.21_3245af43.jpg" alt="" class="logo-img">
-        </a>
-        <a href="home.html" class="a">
-            <div class="header-h1">
-                <h1>Mohasib Friend</h1>
-            </div>
-        </a>
-        <a href="home.html" class="a">
-            <div class="FourthIcon">
-                <i class="fas fa-home" herf=""></i> <!-- أيقونة المنزل -->
-            </div>
-        </a>
-        <!-- Icons at the top with the "i" icon -->
-        <div class="icon-container1">
-            <!-- Other icons -->
-            <span class="info-icon" onclick="showInfo()">i</span>
-        </div>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link rel="shortcut icon"
+        href="img/WhatsApp Image 2024-10-05 at 22.14.21_3245af43.jpg"
+        type="your-favicon.ico"
+        class="imglogo">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/css monthly decleration.css">
+  <title>Monthly Decleration</title>
 
-        <!-- Information Modal -->
-        <div id="infoModal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <div class="maintran">
-                    <div class="scrollable">
-                        <p class="tran" style="text-align: center;">
-                        <p style="text-align: center; font-family: Arial, Helvetica, sans-serif; font-weight: bold;">
-                            دليل الصفحة</p>
-                        <p style="text-align: center; font-family: Arial, Helvetica, sans-serif; font-weight: bold;">هذه
-                            هذه الصفحة مصممة للحصول على الإقرارات الشهرية من فواتير المبيعات والمشتريات للشركة. من خلال
-                            إدخال تاريخ محدد والضغط على زر البحث، يمكن للمستخدم استعراض الإقرار الشهري، سواء كان
-                            للمبيعات أو المشتريات، وتحميله بشكل منفصل. الصفحة تتيح لك الحصول على تفاصيل المبيعات
-                            والمشتريات للشهر المطلوب وتحميلها بشكل منفصل، لتلبية احتياجاتك المتعلقة بالتقارير المالية
-                            بسهولة وسرعة.
+  <div class="NavContainer">
+    <a href="home.html">
+      <img src="img/WhatsApp Image 2024-10-05 at 22.14.21_3245af43.jpg" alt="" class="logo-img">
+    </a>
+    <a href="home.html" class="a">
+      <div class="header-h1">
+        <h1>Mohasib Friend</h1>
+      </div>
+    </a>
+    <a href="home.html" class="a">
+      <div class="FourthIcon">
+        <i class="fas fa-home"></i>
+      </div>
+    </a>
 
-                        </p>
-
-                        <p class="tran" style="text-align: start;">
-                        <p style="text-align: center; font-family: Arial, Helvetica, sans-serif; font-weight: bold;">
-                            Page Guide</p>
-                        <p style="text-align: center; font-family: Arial, Helvetica, sans-serif; font-weight: bold;">
-                            This page is designed to retrieve monthly declarations from the company’s sales and purchase
-                            invoices. By entering a specific date and clicking the "Search" button, users can view the
-                            monthly declaration, whether for sales or purchases, and download it separately. The page
-                            allows you to access detailed sales and purchases for the specified month and download them
-                            independently, making it easy to fulfill your financial reporting needs efficiently.</p>
-                        </p>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+    <!-- Icons at the top with the "i" icon -->
+    <div class="icon-container1">
+      <span class="info-icon" onclick="showInfo()">i</span>
     </div>
+
+    <!-- Information Modal -->
+    <div id="infoModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="maintran">
+          <div class="scrollable">
+            <p class="tran" style="text-align: center;"></p>
+            <p style="text-align: center; font-family: Arial, Helvetica, sans-serif; font-weight: bold;">
+              دليل الصفحة
+            </p>
+            <p style="text-align: center; font-family: Arial, Helvetica, sans-serif; font-weight: bold;">
+              هذه الصفحة مصممة للحصول على الإقرارات الشهرية من فواتير المبيعات والمشتريات للشركة. من خلال
+              إدخال تاريخ محدد والضغط على زر البحث، يمكن للمستخدم استعراض الإقرار الشهري، سواء كان
+              للمبيعات أو المشتريات، وتحميله بشكل منفصل. الصفحة تتيح لك الحصول على تفاصيل المبيعات
+              والمشتريات للشهر المطلوب وتحميلها بشكل منفصل، لتلبية احتياجاتك المتعلقة بالتقارير المالية
+              بسهولة وسرعة.
+            </p>
+
+            <p class="tran" style="text-align: start;"></p>
+            <p style="text-align: center; font-family: Arial, Helvetica, sans-serif; font-weight: bold;">
+              Page Guide
+            </p>
+            <p style="text-align: center; font-family: Arial, Helvetica, sans-serif; font-weight: bold;">
+              This page is designed to retrieve monthly declarations from the company’s sales and purchase
+              invoices. By entering a specific date and clicking the "Search" button, users can view the
+              monthly declaration, whether for sales or purchases, and download it separately. The page
+              allows you to access detailed sales and purchases for the specified month and download them
+              independently, making it easy to fulfill your financial reporting needs efficiently.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </head>
 
 <body>
-    <div class="titleContainer">
-        <h1 class="heading">Monthly Decleration - الاقرارات الشهرية</h1>
-    </div>
-    <div style="text-align: center; margin-bottom: 15px;">
-        <label style="margin-right: 10px; font-weight: bold;">
-          <input type="radio" name="yearSwitch" value="2024" id="year2024" />
-          2024
-        </label>
-        <label style="font-weight: bold;">
-          <input type="radio" name="yearSwitch" value="2025" id="year2025" checked />
-          2025
-        </label>
-      </div>
-    <div id="Result" class="Inputs">
+  <div class="titleContainer">
+    <h1 class="heading">Monthly Decleration - الاقرارات الشهرية</h1>
+  </div>
 
-    </div>
+  <div style="text-align: center; margin-bottom: 15px;">
+    <label style="margin-right: 10px; font-weight: bold;">
+      <input type="radio" name="yearSwitch" value="2024" id="year2024" />
+      2024
+    </label>
+    <label style="margin-right: 10px; font-weight: bold;">
+      <input type="radio" name="yearSwitch" value="2025" id="year2025" />
+      2025
+    </label>
+    <label style="font-weight: bold;">
+      <input type="radio" name="yearSwitch" value="2026" id="year2026" checked />
+      2026
+    </label>
+  </div>
+
+  <div id="Result" class="Inputs"></div>
 </body>
+
 <script src="js/js monthly deleration.js"></script>
-
-
 </html>

@@ -122,10 +122,10 @@ function displayFiles(files, animateDrop = true) {
         }
 
         // تحديد السنة بناءً على اسم الملف أو حقل 'year'
-        let yearLabel = file.year || "2025"; // الافتراضي لعام 2025
-        if (file.s3_key && file.s3_key.includes('_2024')) {
-            yearLabel = "2024";
-        }
+        let yearLabel = file.year || "2026";
+        if (file.s3_key?.includes('_2024')) yearLabel = "2024";
+        if (file.s3_key?.includes('_2025')) yearLabel = "2025";
+        if (file.s3_key?.includes('_2026')) yearLabel = "2026";
 
         // إضافة عنوان السنة
         const fileHeader = document.createElement('h3');
