@@ -489,7 +489,7 @@ html::-webkit-scrollbar-thumb:hover {
     min-height: 30px;
     display: inline;
     position: absolute;
-    margin-top: -923px;
+    margin-top: -915px;
     width: 600px;
     text-align: center;
     font-size: 18px;
@@ -1197,12 +1197,20 @@ html::-webkit-scrollbar-thumb:hover {
         min-height: 30px;
         display: inline;
         position: absolute;
-        margin-top: -870px;
+        margin-top: -859px !important;
         width: 600px;
         text-align: center;
         font-size: 18px;
     }
-
+    .mf-decl-wrapper {
+        width: 53% !important;
+        max-width: 1100px !important;
+        margin: 20px auto 40px !important;
+        padding-inline: 10px !important;
+        margin-left: 503px !important;
+        margin-top: -793px !important;
+        height: 829px !important;
+    }
     .grid-container {
         width: 732px;
         height: 775px;
@@ -1343,7 +1351,15 @@ html::-webkit-scrollbar-thumb:hover {
         top: 10PX;
         width: 45px;
     }
-
+    .mf-decl-wrapper {
+        width: 53% !important;
+        max-width: 1100px !important;
+        margin: 20px auto 40px !important;
+        padding-inline: 10px !important;
+        margin-left: 503px !important;
+        margin-top: -793px !important;
+        height: 829px !important;
+    }
     .ThirdIcon {
         align-items: center;
         justify-content: center;
@@ -1407,7 +1423,7 @@ html::-webkit-scrollbar-thumb:hover {
         min-height: 30px;
         display: inline;
         position: absolute;
-        margin-top: -880px;
+        margin-top: -864px;
         width: 600px;
         text-align: center;
         font-size: 18px;
@@ -1544,7 +1560,15 @@ html::-webkit-scrollbar-thumb:hover {
         left: 75px;
         top: -6px;
     }
-
+    .mf-decl-wrapper {
+        width: 53% !important;
+        max-width: 1100px !important;
+        margin: 20px auto 40px !important;
+        padding-inline: 10px !important;
+        margin-left: 503px !important;
+        margin-top: -793px !important;
+        height: 829px !important;
+    }
     .SecondtIcon {
         padding: 5px;
         border-radius: 50%;
@@ -1633,7 +1657,7 @@ html::-webkit-scrollbar-thumb:hover {
         min-height: 30px;
         display: inline;
         position: absolute;
-        margin-top: -880px;
+        margin-top: -864px;
         width: 500px;
         text-align: center;
         font-size: 18px;
@@ -1796,6 +1820,15 @@ html::-webkit-scrollbar-thumb:hover {
         top: 10PX;
     }
 
+    .mf-decl-wrapper {
+        width: 46% !important;
+        max-width: 1100px !important;
+        margin: 20px auto 40px !important;
+        padding-inline: 10px !important;
+        margin-left: 503px !important;
+        margin-top: -793px !important;
+        height: 1029px !important;
+    }
 
     .Navbar {
         width: 400px;
@@ -1851,7 +1884,7 @@ html::-webkit-scrollbar-thumb:hover {
         min-height: 40px;
         display: inline;
         position: absolute;
-        margin-top: -880px;
+        margin-top: -864px;
         width: 400px;
         text-align: center;
         font-size: 18px;
@@ -2076,6 +2109,14 @@ html::-webkit-scrollbar-thumb:hover {
         background-color: #d1d1d1;
     }
 
+    .mf-decl-wrapper {
+        width: 76% !important;
+        max-width: 1100px !important;
+        margin: 20px auto 40px !important;
+        padding-inline: 10px !important;
+        margin-top: 91px !important;
+        height: 790px !important;
+    }
 
 
     .badge {
@@ -2411,7 +2452,14 @@ html::-webkit-scrollbar-thumb:hover {
         margin-left: 20%;
         margin-right: 20%;
     }
-
+   .mf-decl-wrapper {
+        width: 76% !important;
+        max-width: 1100px !important;
+        margin: 20px auto 40px !important;
+        padding-inline: 10px !important;
+        margin-top: 91px !important;
+        height: 810px !important;
+    }
     .FourthIcon {
         align-items: center;
         justify-content: center;
@@ -2727,7 +2775,14 @@ html::-webkit-scrollbar-thumb:hover {
         margin-top: 20px;
         margin-right: 30px;
     }
-
+   .mf-decl-wrapper {
+        width: 76% !important;
+        max-width: 1100px !important;
+        margin: 20px auto 40px !important;
+        padding-inline: 10px !important;
+        margin-top: 91px !important;
+        height: 970px !important;
+    }
 
     .header-h1 {
         font-size: 27px;
@@ -3144,7 +3199,14 @@ html::-webkit-scrollbar-thumb:hover {
         left: 66%;
         top: 31px;
     }
-
+    .mf-decl-wrapper {
+        width: 76% !important;
+        max-width: 1100px !important;
+        margin: 20px auto 40px !important;
+        padding-inline: 10px !important;
+        margin-top: 91px !important;
+        height: 970px !important;
+    }
     .fa-user {
         margin-left: 23%;
         margin-right: 25%;
@@ -3490,7 +3552,14 @@ html::-webkit-scrollbar-thumb:hover {
         left: 67px !important;
         top: 30px !important;
     }
-
+    .mf-decl-wrapper {
+        width: 76% !important;
+        max-width: 1100px !important;
+        margin: 20px auto 40px !important;
+        padding-inline: 10px !important;
+        margin-top: 91px !important;
+        height: 970px !important;
+    }
     .FirstIcon,
     .SecondtIcon,
     .ThirdIcon,
@@ -3850,7 +3919,14 @@ html::-webkit-scrollbar-thumb:hover {
         margin-top: 30px;
         margin-right: 30px;
     }
-
+    .mf-decl-wrapper {
+        width: 76% !important;
+        max-width: 1100px !important;
+        margin: 20px auto 40px !important;
+        padding-inline: 10px !important;
+        margin-top: 91px !important;
+        height: 970px !important;
+    }
     .slider {
         position: absolute;
         cursor: pointer;
@@ -4240,7 +4316,14 @@ html::-webkit-scrollbar-thumb:hover {
         margin-right: 30px;
     }
 
-
+ .mf-decl-wrapper {
+        width: 76% !important;
+        max-width: 1100px !important;
+        margin: 20px auto 40px !important;
+        padding-inline: 10px !important;
+        margin-top: 91px !important;
+        height: 1048px !important;
+    }
     .header-h1 {
         font-size: 15px !important;
         font-weight: bold;
@@ -4600,5 +4683,300 @@ html::-webkit-scrollbar-thumb:hover {
     .footer .social-icon {
         font-size: 20px;
         /* تصغير الأيقونات قليلاً */
+    }
+}
+
+.mf-decl-wrapper {
+    width: 53%;
+    max-width: 1100px;
+    margin: 20px auto 40px;
+    padding-inline: 10px;
+    margin-left: 622px;
+    margin-top: -852px;
+    height: 829px;
+    direction: rtl;
+}
+
+.mf-decl-card {
+    background:   var(--bg-color);;
+    border-radius: 20px;
+    padding: 20px 20px 24px;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    color: #e5e7eb;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.mf-decl-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 18px;
+    gap: 12px;
+}
+
+.mf-decl-header-title {
+    font-size: clamp(1.2rem, 2.3vw, 1.6rem);
+    font-weight: 700;
+}
+
+.mf-decl-header-sub {
+    font-size: clamp(0.8rem, 1.7vw, 0.95rem);
+    color: #cbd5f5;
+    text-align: center;
+    direction: rtl;
+}
+.mf-decl-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    border-radius: 999px;
+    padding: 4px 10px;
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(148, 163, 184, 0.6);
+    color: #e5e7eb;
+    white-space: nowrap;
+}
+
+.mf-decl-badge-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: #22c55e;
+}
+
+.mf-decl-year-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+    direction: rtl;
+}
+
+.mf-decl-year-btn {
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.7);
+    padding: 6px 14px;
+    font-size: 0.9rem;
+    background: rgba(15, 23, 42, 0.85);
+    color: #e5e7eb;
+    cursor: pointer;
+    transition: 0.2s ease;
+    white-space: nowrap;
+}
+
+.mf-decl-year-btn:hover {
+    background: rgba(30, 64, 175, 0.9);
+}
+
+.mf-decl-year-btn.mf-active {
+    background: #f97316;
+    border-color: #fed7aa;
+    color: #0f172a;
+    font-weight: 600;
+    box-shadow: 0 0 0 1px rgba(248, 250, 252, 0.4);
+}
+
+.mf-decl-chart-container {
+    margin-top: 16px;
+    background: rgba(15, 23, 42, 0.92);
+    border-radius: 16px;
+    padding: 16px;
+    border: 1px solid rgba(148, 163, 184, 0.4);
+    display: none;
+}
+
+.mf-decl-chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    gap: 8px;
+}
+
+.mf-decl-chart-title {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.mf-decl-chart-year-label {
+    font-size: 0.9rem;
+    color: #9ca3af;
+}
+
+.mf-decl-card canvas {
+    width: 100% !important;
+    max-height: 320px;
+}
+
+.mf-decl-totals-row {
+    margin-top: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.mf-decl-total-box {
+    flex: 1 1 220px;
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.6));
+    border-radius: 14px;
+    padding: 12px 14px;
+    border: 1px solid rgba(148, 163, 184, 0.4);
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.mf-decl-total-box:hover {
+    border-color: #f97316;
+}
+
+.mf-decl-total-box.mf-active {
+    border-color: #f97316;
+    box-shadow: 0 0 0 1px rgba(248, 250, 252, 0.3);
+    background: linear-gradient(135deg, rgba(30, 64, 175, 0.95), rgba(15, 23, 42, 0.9));
+}
+
+.mf-decl-total-label {
+    font-size: 0.85rem;
+    color: #9ca3af;
+    margin-bottom: 4px;
+}
+
+.mf-decl-total-value {
+    font-size: 1.15rem;
+    font-weight: 700;
+    direction: ltr;
+}
+
+.mf-decl-status {
+    margin-top: 10px;
+    font-size: 0.85rem;
+    color: #d1d5db;
+}
+
+.mf-decl-status.mf-error {
+    color: #fecaca;
+}
+
+.mf-decl-status.mf-warn {
+    color: #facc15;
+}
+
+.mf-decl-loader {
+    margin-top: 8px;
+    width: 18px;
+    height: 18px;
+    border-radius: 999px;
+    border: 3px solid rgba(148, 163, 184, 0.4);
+    border-top-color: #f97316;
+    animation: mfDeclSpin 0.7s linear infinite;
+    display: none;
+}
+
+@keyframes mfDeclSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* تابلت */
+@media (max-width: 900px) {
+    .mf-decl-wrapper {
+        margin-top: 10px;
+    }
+
+    .mf-decl-card {
+        padding: 16px 14px 18px;
+        border-radius: 16px;
+    }
+
+    .mf-decl-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .mf-decl-chart-container {
+        padding: 12px;
+    }
+
+    .mf-decl-card canvas {
+        max-height: 280px;
+    }
+}
+
+/* موبايل */
+@media (max-width: 600px) {
+    .mf-decl-card {
+        padding: 14px 10px 16px;
+        border-radius: 14px;
+    }
+
+    .mf-decl-header-title {
+        font-size: 1.1rem;
+    }
+
+    .mf-decl-header-sub {
+        font-size: 0.8rem;
+    }
+
+    .mf-decl-badge {
+        align-self: flex-start;
+        font-size: 0.75rem;
+        padding-inline: 8px;
+    }
+
+    .mf-decl-year-buttons {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 6px;
+    }
+
+    .mf-decl-year-buttons::-webkit-scrollbar {
+        height: 4px;
+    }
+
+    .mf-decl-year-buttons::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .mf-decl-year-buttons::-webkit-scrollbar-thumb {
+        background: rgba(148, 163, 184, 0.6);
+        border-radius: 999px;
+    }
+
+    .mf-decl-year-btn {
+        flex: 0 0 auto;
+        font-size: 0.8rem;
+        padding: 5px 10px;
+    }
+
+    .mf-decl-chart-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+
+    .mf-decl-card canvas {
+        max-height: 240px;
+    }
+
+    .mf-decl-totals-row {
+        flex-direction: column;
+    }
+
+    .mf-decl-total-box {
+        flex: 1 1 auto;
+        padding: 10px 12px;
+    }
+
+    .mf-decl-total-value {
+        font-size: 1rem;
+    }
+
+    .mf-decl-status {
+        font-size: 0.8rem;
     }
 }
