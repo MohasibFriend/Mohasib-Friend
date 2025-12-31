@@ -14,7 +14,10 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+    <!-- Chart.js for declarations graph -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+   
 </head>
 
 <body>
@@ -310,29 +313,57 @@
         </a>
     </div>
     <span id="nameDisplay" class="welcome"></span>
-    <!-- Grid Container -->
-    <div class="grid-container">
 
-        <a href="Company Document.html" class="a">
-            <div class="contanar-img">
-                <img src="img/comp.png" alt="" class="grid-item">
+    <!-- 🔹 Declarations Widget بدل grid-container القديمة -->
+    <div class="mf-decl-wrapper">
+        <div class="mf-decl-card">
+            <div class="mf-decl-header">
+                <div>
+                    <div class="mf-decl-header-title">لوحة الإقرارات السنوية</div>
+                    <div class="mf-decl-header-sub">
+                        ملخص شهري لإجمالي <strong>المبيعات/المشتريات</strong> والـ<strong>ضريبة</strong>،
+                        مع إجمالي المصروفات لكل سنة.
+                    </div>
+                </div>
+                
             </div>
-        </a>
-        <a href="Invoices Alarm.html" class="a">
-            <div class="contaner-img1">
-                <img src="img/invoices.jpg" alt="" class="grid-item">
+
+            <div class="mf-decl-year-buttons" id="mfDeclYearButtons"></div>
+
+            <div class="mf-decl-chart-container" id="mfDeclChartContainer">
+                <div class="mf-decl-chart-header">
+                    <div class="mf-decl-chart-title">الرسم البياني الشهري</div>
+                    <div class="mf-decl-chart-year-label" id="mfDeclCurrentYearLabel"></div>
+                </div>
+                <canvas id="mfDeclChart"></canvas>
+
+                <div class="mf-decl-totals-row">
+                    <div class="mf-decl-total-box" id="mfDeclBoxSales" data-filter="sales_v">
+                        <div class="mf-decl-total-label">إجمالي المبيعات خلال السنة </div>
+                        <div class="mf-decl-total-value" id="mfDeclTotalSalesValue">0</div>
+                    </div>
+                    <div class="mf-decl-total-box" id="mfDeclBoxSalesTax" data-filter="sales_w">
+                        <div class="mf-decl-total-label">إجمالي ضريبة المبيعات خلال السنة </div>
+                        <div class="mf-decl-total-value" id="mfDeclTotalSalesTaxValue">0</div>
+                    </div>
+                    <div class="mf-decl-total-box" id="mfDeclBoxPurchases" data-filter="purchases_v">
+                        <div class="mf-decl-total-label">إجمالي المشتريات خلال السنة </div>
+                        <div class="mf-decl-total-value" id="mfDeclTotalPurchasesValue">0</div>
+                    </div>
+                    <div class="mf-decl-total-box" id="mfDeclBoxPurchasesTax" data-filter="purchases_w">
+                        <div class="mf-decl-total-label">إجمالي ضريبة المشتريات خلال السنة </div>
+                        <div class="mf-decl-total-value" id="mfDeclTotalPurchasesTaxValue">0</div>
+                    </div>
+                    <div class="mf-decl-total-box" id="mfDeclBoxExpenses" data-filter="expenses_total">
+                        <div class="mf-decl-total-label">إجمالي المصروفات خلال السنة</div>
+                        <div class="mf-decl-total-value" id="mfDeclTotalExpensesValue">0</div>
+                    </div>
+                </div>
             </div>
-        </a>
-        <a href="Monthly Decleration.html" class="a">
-            <div class="contanir-img2">
-                <img src="img/month.jpg" alt="" class="grid-item">
-            </div>
-        </a>
-        <a href="Finacial Statment.html" class="a">
-            <div class="contaner-img2">
-                <img src="img/finansial.png" alt="" class="grid-item">
-            </div>
-        </a>
+
+            <div id="mfDeclStatus" class="mf-decl-status"></div>
+            <div id="mfDeclLoader" class="mf-decl-loader"></div>
+        </div>
     </div>
 
     <!-- Footer -->
@@ -392,11 +423,10 @@
 
 
     <!-- Include your JavaScript file -->
-    <script src="js/js dashbord.js"></script>
+<script src="js/js dashbord.js"></script>
+
+    <!-- 🔹 سكريبت لوحة الإقرارات كود مستقل -->
+ 
 </body>
 
 </html>
-
-
-
-
