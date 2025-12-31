@@ -20,19 +20,19 @@ let subscriptionDays = null;
 document.addEventListener('DOMContentLoaded', () => {
   // الحصول على عناصر السويتش
   const themeSwitch = document.getElementById('theme-switch');
-  
-  if (themeSwitch) {
-      // تحميل الثيم المحفوظ من localStorage
-      const savedTheme = localStorage.getItem('theme') || 'dark';
-      document.documentElement.setAttribute('data-theme', savedTheme);
-      themeSwitch.checked = savedTheme === 'light';
 
-      // تحديث الثيم عند تغيير السويتش
-      themeSwitch.addEventListener('change', () => {
-          const theme = themeSwitch.checked ? 'light' : 'dark';
-          document.documentElement.setAttribute('data-theme', theme);
-          localStorage.setItem('theme', theme);
-      });
+  if (themeSwitch) {
+    // تحميل الثيم المحفوظ من localStorage
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    themeSwitch.checked = savedTheme === 'light';
+
+    // تحديث الثيم عند تغيير السويتش
+    themeSwitch.addEventListener('change', () => {
+      const theme = themeSwitch.checked ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+    });
   }
 });;
 
@@ -60,7 +60,7 @@ function initializeApp() {
   (function () {
     // Flag to prevent multiple initializations
     let isDashboardInitialized = false;
-    
+
     /**
      * Function to show the spinner
      */
@@ -116,7 +116,7 @@ function initializeApp() {
 
           // Store 'registrationNumber' in sessionStorage
           sessionStorage.setItem("registrationNumber", registrationNumber);
-          
+
 
           return registrationNumber;
         } else {
@@ -138,62 +138,62 @@ function initializeApp() {
      * @param {boolean} forceActive - إذا true يتم تحديث الاشتراك بالقيمة ACTIVE فوراً
      * @returns {Promise<string|null>} - The subscription status or null if not found
      */
-      async function fetchSubscriptionStatus(forceActive = false, days = null) {
-        showSpinner();
-        try {
-          const userId       = sessionStorage.getItem("userId");
-          const accessToken  = sessionStorage.getItem("accessToken");
-          const username     = sessionStorage.getItem("username");
-          const name         = sessionStorage.getItem("name");
-          const email        = sessionStorage.getItem("email");
-          const phone_number = sessionStorage.getItem("phone_number");
+    async function fetchSubscriptionStatus(forceActive = false, days = null) {
+      showSpinner();
+      try {
+        const userId = sessionStorage.getItem("userId");
+        const accessToken = sessionStorage.getItem("accessToken");
+        const username = sessionStorage.getItem("username");
+        const name = sessionStorage.getItem("name");
+        const email = sessionStorage.getItem("email");
+        const phone_number = sessionStorage.getItem("phone_number");
 
-          if (!userId) {
-            console.error("User ID not found in sessionStorage.");
-            navigateTo(CONFIG.app.loginScreenUrl);
-            return null;
-          }
-
-          const userInfo = { username, name, email, phone_number };
-
-          const payload = { userId, userInfo };
-          if (forceActive) payload.forceActive = true;
-          if (days)        payload.subscriptionDays = days;
-
-          const response = await $.ajax({
-            url:   CONFIG.app.checkSubscriptionStatusApi,
-            method:"POST",
-            headers:{
-              "Content-Type": "application/json",
-              "Authorization": `Bearer ${accessToken}`
-            },
-            data: JSON.stringify(payload)
-          });
-
-          // --- فك الاستجابة
-          const body = typeof response.body === "string"
-                        ? JSON.parse(response.body)
-                        : response;
-
-          const { status, monthDays = 0, yearDays = 0 } = body || {};
-
-          if (status) {
-            sessionStorage.setItem("subscriptionStatus", status);
-            sessionStorage.setItem("monthDays" , monthDays.toString());
-            sessionStorage.setItem("yearDays"  , yearDays.toString());
-            return status;
-          }
-
-          console.warn("Subscription status not found:", response);
+        if (!userId) {
+          console.error("User ID not found in sessionStorage.");
+          navigateTo(CONFIG.app.loginScreenUrl);
           return null;
-
-        } catch (err) {
-          console.error("Error fetching subscription status:", err);
-          return null;
-        } finally {
-          hideSpinner();
         }
+
+        const userInfo = { username, name, email, phone_number };
+
+        const payload = { userId, userInfo };
+        if (forceActive) payload.forceActive = true;
+        if (days) payload.subscriptionDays = days;
+
+        const response = await $.ajax({
+          url: CONFIG.app.checkSubscriptionStatusApi,
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${accessToken}`
+          },
+          data: JSON.stringify(payload)
+        });
+
+        // --- فك الاستجابة
+        const body = typeof response.body === "string"
+          ? JSON.parse(response.body)
+          : response;
+
+        const { status, monthDays = 0, yearDays = 0 } = body || {};
+
+        if (status) {
+          sessionStorage.setItem("subscriptionStatus", status);
+          sessionStorage.setItem("monthDays", monthDays.toString());
+          sessionStorage.setItem("yearDays", yearDays.toString());
+          return status;
+        }
+
+        console.warn("Subscription status not found:", response);
+        return null;
+
+      } catch (err) {
+        console.error("Error fetching subscription status:", err);
+        return null;
+      } finally {
+        hideSpinner();
       }
+    }
 
 
     /**
@@ -235,7 +235,7 @@ function initializeApp() {
 
         // Update subscription UI based on status
         updateSubscriptionUI();
-        
+
         // Display the user's name in the dashboard
         displayname();
       } catch (error) {
@@ -246,15 +246,15 @@ function initializeApp() {
     $(document).ready(async function () {
       // استدعاء الدالة handleCognitoCallback وانتظار اكتمالها
       await handleCognitoCallback();
-      
+
       // بعد انتهاء handleCognitoCallback، التحقق من وجود userId في sessionStorage
       if (sessionStorage.getItem("userId")) {
         initializeDashboard();
       } else {
         console.error("User ID is missing from sessionStorage. Redirecting to Sign-in page.");
-        window.location.href = "https://us-east-1asnaeuufl.auth.us-east-1.amazoncognito.com/login?client_id=1v5jdad42jojr28bcv13sgds5r&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmohasibfriend.com%2Fhome.html";  
-       
-       } 
+        window.location.href = "https://us-east-1asnaeuufl.auth.us-east-1.amazoncognito.com/login?client_id=1v5jdad42jojr28bcv13sgds5r&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmohasibfriend.com%2Fhome.html";
+
+      }
       displayname();
       updateSubscriptionUI();
       // Add event listener for the Subscribe button
@@ -330,7 +330,7 @@ function initializeApp() {
           if (userInfo.name) {
             sessionStorage.setItem("name", userInfo.name);
           }
-          
+
           if (userInfo.email) {
             sessionStorage.setItem("email", userInfo.email);
           }
@@ -532,14 +532,14 @@ function initializeApp() {
       if (unreadCount > 0) {
         if ($badge.length === 0) {
           $badge = $("<span>", { class: "badge" }).css({
-           /* position: "absolute",
-            top: "0",
-            right: "0",
-            backgroundColor: "red",
-            color: "white",
-            borderRadius: "50%",
-            padding: "5px",
-            fontSize: "12px",*/
+            /* position: "absolute",
+             top: "0",
+             right: "0",
+             backgroundColor: "red",
+             color: "white",
+             borderRadius: "50%",
+             padding: "5px",
+             fontSize: "12px",*/
           });
           $notificationIcon.append($badge);
         }
@@ -650,69 +650,69 @@ function initializeApp() {
     }
 
     async function handleSubscribeClick() {
-        const subscribeButton = document.getElementById("subscribeButton");
-        showSpinner();
-        try {
-            // تعطيل الزر لمنع النقرات المتعددة
-            subscribeButton.disabled = true;
-    
-            // استرجاع تفاصيل المستخدم من sessionStorage
-            const customerProfileId = sessionStorage.getItem("userId");
-    
-            if (!customerProfileId) {
-                alert("معلومات المستخدم مفقودة. يرجى تسجيل الدخول مرة أخرى.");
-                navigateTo(CONFIG.app.loginScreenUrl);
-                return;
-            }
-    
-            const payload = {
-                customerProfileId, // استخدام customerProfileId بدل userId
-                returnUrl: "https://mohasibfriend.com/home.html", // تأكد من تحديث هذا الرابط حسب الحاجة
-            };
-    
-            // استدعاء API لإنشاء رابط الدفع
-            const generatePaymentResponse = await fetch(CONFIG.app.generatePaymentLinkApi, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(payload),
-            });
-    
-            if (!generatePaymentResponse.ok) {
-                const errorData = await generatePaymentResponse.json();
-                throw new Error(errorData.message || "فشل في إنشاء رابط الدفع. يرجى المحاولة مرة أخرى.");
-            }
-    
-            // Parse the main response
-            const responseJson = await generatePaymentResponse.json();
-    
-            // Parse the `body` field, which contains the actual data as a JSON string
-            const paymentData = JSON.parse(responseJson.body);
-    
-            // If both monthly and yearly options exist, show modal to let the user choose
-            if (paymentData.monthly && paymentData.yearly) {
-                const selectedPaymentLink = await showSubscriptionOptionsModal(paymentData);
-                if (!selectedPaymentLink) {
-                    throw new Error("لم يتم اختيار أي خيار اشتراك.");
-                }
-                // Redirect the user to the selected payment link
-                window.location.href = selectedPaymentLink;
-            }
-            // Fallback to the previous behavior if only one link is provided
-            else if (paymentData.paymentLink) {
-                window.location.href = paymentData.paymentLink;
-            } else {
-                throw new Error("لم يتم استلام رابط الدفع. يرجى الاتصال بالدعم.");
-            }
-        } catch (error) {
-            console.error("Error generating payment link:", error);
-        } finally {
-            hideSpinner();
-            subscribeButton.disabled = false;
+      const subscribeButton = document.getElementById("subscribeButton");
+      showSpinner();
+      try {
+        // تعطيل الزر لمنع النقرات المتعددة
+        subscribeButton.disabled = true;
+
+        // استرجاع تفاصيل المستخدم من sessionStorage
+        const customerProfileId = sessionStorage.getItem("userId");
+
+        if (!customerProfileId) {
+          alert("معلومات المستخدم مفقودة. يرجى تسجيل الدخول مرة أخرى.");
+          navigateTo(CONFIG.app.loginScreenUrl);
+          return;
         }
+
+        const payload = {
+          customerProfileId, // استخدام customerProfileId بدل userId
+          returnUrl: "https://mohasibfriend.com/home.html", // تأكد من تحديث هذا الرابط حسب الحاجة
+        };
+
+        // استدعاء API لإنشاء رابط الدفع
+        const generatePaymentResponse = await fetch(CONFIG.app.generatePaymentLinkApi, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        });
+
+        if (!generatePaymentResponse.ok) {
+          const errorData = await generatePaymentResponse.json();
+          throw new Error(errorData.message || "فشل في إنشاء رابط الدفع. يرجى المحاولة مرة أخرى.");
+        }
+
+        // Parse the main response
+        const responseJson = await generatePaymentResponse.json();
+
+        // Parse the `body` field, which contains the actual data as a JSON string
+        const paymentData = JSON.parse(responseJson.body);
+
+        // If both monthly and yearly options exist, show modal to let the user choose
+        if (paymentData.monthly && paymentData.yearly) {
+          const selectedPaymentLink = await showSubscriptionOptionsModal(paymentData);
+          if (!selectedPaymentLink) {
+            throw new Error("لم يتم اختيار أي خيار اشتراك.");
+          }
+          // Redirect the user to the selected payment link
+          window.location.href = selectedPaymentLink;
+        }
+        // Fallback to the previous behavior if only one link is provided
+        else if (paymentData.paymentLink) {
+          window.location.href = paymentData.paymentLink;
+        } else {
+          throw new Error("لم يتم استلام رابط الدفع. يرجى الاتصال بالدعم.");
+        }
+      } catch (error) {
+        console.error("Error generating payment link:", error);
+      } finally {
+        hideSpinner();
+        subscribeButton.disabled = false;
+      }
     }
-    
+
     function showSubscriptionOptionsModal(paymentData) {
       return new Promise((resolve) => {
         const modal = $(`
@@ -721,10 +721,10 @@ function initializeApp() {
               <h3 class="subscription-header">اختر نوع الاشتراك</h3>
 
               <button id="monthlyOption">اشتراك شهري</button>
-              <div style="margin-bottom:10px;font-weight:bold;">100 جنيه</div>
+              <div style="margin-bottom:10px;font-weight:bold;">150 جنيه</div>
 
               <button id="yearlyOption">اشتراك سنوي</button>
-              <div style="margin-bottom:10px;font-weight:bold;">700 جنيه</div>
+              <div style="margin-bottom:10px;font-weight:bold;">1400 جنيه</div>
 
               <br><button id="cancelOption">إلغاء</button><br>
               <h2 style="font-size:12px">يضاف %14 ضريبة قيمة مضافة</h2>
@@ -765,9 +765,9 @@ function initializeApp() {
       });
     }
 
-    
 
-    
+
+
 
     // User dropdown functionality
     const userButton = document.getElementById("userButton");
@@ -860,7 +860,7 @@ document.addEventListener("DOMContentLoaded", function () {
       sidebar.style.height = "100%";
       sidebar.style.zIndex = "10"; // رفع ترتيب السايد بار
       nameDisplay.style.zIndex = "1"; // تخفيض ترتيب nameDisplay تحت السايد بار
-      nameDisplay.style.display='none'; // إخفاء الاسم مؤقتًا
+      nameDisplay.style.display = 'none'; // إخفاء الاسم مؤقتًا
       toggleButton.style.transform = "rotate(360deg)";
       toggleButton.style.display = "none";
       overlay.style.display = "block";
@@ -879,7 +879,7 @@ document.addEventListener("DOMContentLoaded", function () {
       sidebar.style.opacity = "0";
       sidebar.style.zIndex = "1"; // إعادة ترتيب السايد بار للوضع الطبيعي
       nameDisplay.style.zIndex = "10"; // إعادة ترتيب nameDisplay ليكون فوق كل شيء
-      nameDisplay.style.display="inline"; // إظهار الاسم من جديد
+      nameDisplay.style.display = "inline"; // إظهار الاسم من جديد
       toggleButton.style.transform = "rotate(0deg)";
       toggleButton.style.display = "block";
       overlay.style.display = "none";
@@ -938,7 +938,7 @@ if (logoutButton && logoutModal && confirmLogout && cancelLogout) {
   // عند النقر على زر "تسجيل خروج" في الكونتينر
   confirmLogout.addEventListener("click", function () {
     window.location.href =
-      "https://us-east-1asnaeuufl.auth.us-east-1.amazoncognito.com/login?client_id=1v5jdad42jojr28bcv13sgds5r&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmohasibfriend.com%2Fhome.html"; 
+      "https://us-east-1asnaeuufl.auth.us-east-1.amazoncognito.com/login?client_id=1v5jdad42jojr28bcv13sgds5r&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fmohasibfriend.com%2Fhome.html";
   });
 
   // عند النقر على زر "إلغاء"، إخفاء الكونتينر
@@ -1010,9 +1010,9 @@ window.onclick = function (event) {
 };
 
 // إضافة مستمع حدث للضغط على مفتاح Esc
-window.addEventListener('keydown', function(event) {
+window.addEventListener('keydown', function (event) {
   if (event.key === 'Escape' || event.key === 'Esc') {
-      closeModal();
+    closeModal();
   }
 });
 
@@ -1022,8 +1022,8 @@ document.addEventListener("DOMContentLoaded", () => {
    * إذا لم توجد، تعيد القيمة null
    */
   function getStatusDescription() {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get('statusDescription');
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('statusDescription');
   }
 
   /**
@@ -1064,30 +1064,30 @@ document.addEventListener("DOMContentLoaded", () => {
    * دالة لإغلاق الكونتينر
    */
   function closePaymentStatus() {
-      const container = document.getElementById("paymentStatusContainer");
-      container.style.display = "none";
-      
-      // إزالة المعلمات من URL لتجنب إعادة العرض عند إعادة تحميل الصفحة
-      const url = new URL(window.location);
-      url.searchParams.delete('type');
-      url.searchParams.delete('referenceNumber');
-      url.searchParams.delete('merchantRefNumber');
-      url.searchParams.delete('orderAmount');
-      url.searchParams.delete('paymentAmount');
-      url.searchParams.delete('fawryFees');
-      url.searchParams.delete('orderStatus');
-      url.searchParams.delete('paymentMethod');
-      url.searchParams.delete('paymentTime');
-      url.searchParams.delete('cardLastFourDigits');
-      url.searchParams.delete('customerName');
-      url.searchParams.delete('customerProfileId');
-      url.searchParams.delete('authNumber');
-      url.searchParams.delete('signature');
-      url.searchParams.delete('taxes');
-      url.searchParams.delete('statusCode');
-      url.searchParams.delete('statusDescription');
-      url.searchParams.delete('basketPayment');
-      window.history.replaceState({}, document.title, url.toString());
+    const container = document.getElementById("paymentStatusContainer");
+    container.style.display = "none";
+
+    // إزالة المعلمات من URL لتجنب إعادة العرض عند إعادة تحميل الصفحة
+    const url = new URL(window.location);
+    url.searchParams.delete('type');
+    url.searchParams.delete('referenceNumber');
+    url.searchParams.delete('merchantRefNumber');
+    url.searchParams.delete('orderAmount');
+    url.searchParams.delete('paymentAmount');
+    url.searchParams.delete('fawryFees');
+    url.searchParams.delete('orderStatus');
+    url.searchParams.delete('paymentMethod');
+    url.searchParams.delete('paymentTime');
+    url.searchParams.delete('cardLastFourDigits');
+    url.searchParams.delete('customerName');
+    url.searchParams.delete('customerProfileId');
+    url.searchParams.delete('authNumber');
+    url.searchParams.delete('signature');
+    url.searchParams.delete('taxes');
+    url.searchParams.delete('statusCode');
+    url.searchParams.delete('statusDescription');
+    url.searchParams.delete('basketPayment');
+    window.history.replaceState({}, document.title, url.toString());
   }
 
   // استخراج وصف الحالة من URL
@@ -1095,65 +1095,65 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // التحقق مما إذا كانت الصفحة تحتوي على معلمة statusDescription
   if (statusDescription !== null) {
-      // تحديد إذا ما كانت العملية ناجحة أم لا بناءً على محتوى statusDescription
-      // يمكن تعديل هذه الشروط بناءً على النص الذي تأتي به بوابة الدفع
-      const isSuccess = statusDescription.toLowerCase().includes("successfully");
+    // تحديد إذا ما كانت العملية ناجحة أم لا بناءً على محتوى statusDescription
+    // يمكن تعديل هذه الشروط بناءً على النص الذي تأتي به بوابة الدفع
+    const isSuccess = statusDescription.toLowerCase().includes("successfully");
 
-      // عرض الكونتينر بناءً على الحالة
-      showPaymentStatus(isSuccess);
+    // عرض الكونتينر بناءً على الحالة
+    showPaymentStatus(isSuccess);
   }
 
-    // إضافة مستمع للنقر على زر الإغلاق
-    const closeButton = document.getElementById("closePaymentStatus");
-    if (closeButton) {
+  // إضافة مستمع للنقر على زر الإغلاق
+  const closeButton = document.getElementById("closePaymentStatus");
+  if (closeButton) {
     closeButton.addEventListener("click", function () {
       closePaymentStatus();
       window.location.reload();
     });
-}
+  }
 
 });
 
 
-  // Existing sendSubscription() from before...
-  async function sendSubscription() {
-    const dayRaw = sessionStorage.getItem('subscriptionDay');
-    const userId = sessionStorage.getItem('userId');
-    if (!dayRaw || !userId) return;
-    const dayStatus = parseInt(dayRaw, 10);
-    if (![30, 360].includes(dayStatus)) return;
-    try {
-      await fetch(
-        'https://ma0sx37da7.execute-api.us-east-1.amazonaws.com/prod/mf-fetch-subescribe', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ userId, dayStatus })
-        }
-      );
-    } catch (e) {
-      console.error(e);
-    } finally {
-      sessionStorage.removeItem('subscriptionDay');
+// Existing sendSubscription() from before...
+async function sendSubscription() {
+  const dayRaw = sessionStorage.getItem('subscriptionDay');
+  const userId = sessionStorage.getItem('userId');
+  if (!dayRaw || !userId) return;
+  const dayStatus = parseInt(dayRaw, 10);
+  if (![30, 360].includes(dayStatus)) return;
+  try {
+    await fetch(
+      'https://ma0sx37da7.execute-api.us-east-1.amazonaws.com/prod/mf-fetch-subescribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId, dayStatus })
     }
+    );
+  } catch (e) {
+    console.error(e);
+  } finally {
+    sessionStorage.removeItem('subscriptionDay');
   }
+}
 
-  function showModal() {
-    const modal = document.getElementById('success-modal');
-    modal.style.display = 'flex';
-    document.getElementById('confirm-btn').onclick = () => {
-      modal.style.display = 'none';
-      window.location.href = 'https://mohasibfriend.com/home.html';
-    };
+function showModal() {
+  const modal = document.getElementById('success-modal');
+  modal.style.display = 'flex';
+  document.getElementById('confirm-btn').onclick = () => {
+    modal.style.display = 'none';
+    window.location.href = 'https://mohasibfriend.com/home.html';
+  };
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const desc = new URLSearchParams(window.location.search)
+    .get('statusDescription') || '';
+  if (desc.toLowerCase().includes('successfully')) {
+    sendSubscription();
+    showModal();
   }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    const desc = new URLSearchParams(window.location.search)
-                   .get('statusDescription') || '';
-    if (desc.toLowerCase().includes('successfully')) {
-      sendSubscription();
-      showModal();
-    }
-  });
+});
 
 
 
@@ -1279,4 +1279,344 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+// ===== Mohasib Friend – Declarations Graph Widget =====
+(function () {
+  const DECL_API_URL = "https://ma0sx37da7.execute-api.us-east-1.amazonaws.com/prod/mf-decleration-graph";
 
+  let declApiData = null;
+  let declChartInstance = null;
+  let declActiveFilter = null;
+
+  const yearButtonsContainer = document.getElementById("mfDeclYearButtons");
+  const chartContainer = document.getElementById("mfDeclChartContainer");
+  const statusEl = document.getElementById("mfDeclStatus");
+  const loaderEl = document.getElementById("mfDeclLoader");
+  const currentYearLabel = document.getElementById("mfDeclCurrentYearLabel");
+
+  const totalSalesValue = document.getElementById("mfDeclTotalSalesValue");
+  const totalSalesTaxValue = document.getElementById("mfDeclTotalSalesTaxValue");
+  const totalPurchasesValue = document.getElementById("mfDeclTotalPurchasesValue");
+  const totalPurchasesTaxValue = document.getElementById("mfDeclTotalPurchasesTaxValue");
+  const totalExpensesValue = document.getElementById("mfDeclTotalExpensesValue");
+
+  function showStatus(msg, type = "") {
+    if (!statusEl) return;
+    statusEl.textContent = msg || "";
+    statusEl.className = "mf-decl-status" + (type ? " mf-" + type : "");
+  }
+
+  function showLoader(show) {
+    if (!loaderEl) return;
+    loaderEl.style.display = show ? "block" : "none";
+  }
+
+  function formatNumber(value) {
+    if (value == null || isNaN(value)) return "0.00";
+    return Number(value).toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+  }
+
+  // تصفير كل الإجماليات
+  function setAllTotalsToZero() {
+    const zero = formatNumber(0);
+    if (totalSalesValue) totalSalesValue.textContent = zero;
+    if (totalSalesTaxValue) totalSalesTaxValue.textContent = zero;
+    if (totalPurchasesValue) totalPurchasesValue.textContent = zero;
+    if (totalPurchasesTaxValue) totalPurchasesTaxValue.textContent = zero;
+    if (totalExpensesValue) totalExpensesValue.textContent = zero;
+  }
+
+  function buildYearButtons(years) {
+    if (!yearButtonsContainer) return;
+    yearButtonsContainer.innerHTML = "";
+    years.sort();
+
+    years.forEach(year => {
+      const btn = document.createElement("button");
+      btn.className = "mf-decl-year-btn";
+      btn.textContent = year;
+      btn.dataset.year = year;
+      btn.addEventListener("click", () => {
+        setActiveYear(year);
+      });
+      yearButtonsContainer.appendChild(btn);
+    });
+  }
+
+  function setActiveYear(year) {
+    document.querySelectorAll(".mf-decl-year-btn").forEach(btn => {
+      btn.classList.toggle("mf-active", btn.dataset.year === String(year));
+    });
+
+    declActiveFilter = null;
+    document.querySelectorAll(".mf-decl-total-box").forEach(b => b.classList.remove("mf-active"));
+
+    updateChartForYear(year);
+  }
+
+  function toggleFilter(filterKey) {
+    if (!declChartInstance) return;
+
+    if (declActiveFilter === filterKey) {
+      declActiveFilter = null;
+      declChartInstance.data.datasets.forEach(ds => ds.hidden = false);
+      document.querySelectorAll(".mf-decl-total-box").forEach(b => b.classList.remove("mf-active"));
+    } else {
+      declActiveFilter = filterKey;
+      declChartInstance.data.datasets.forEach(ds => {
+        ds.hidden = ds.mfKey !== filterKey;
+      });
+      document.querySelectorAll(".mf-decl-total-box").forEach(b => b.classList.remove("mf-active"));
+      const box = document.querySelector(`.mf-decl-total-box[data-filter="${filterKey}"]`);
+      if (box) box.classList.add("mf-active");
+    }
+    declChartInstance.update();
+  }
+
+  function setupTotalBoxFilters() {
+    document.querySelectorAll(".mf-decl-total-box").forEach(box => {
+      const key = box.dataset.filter;
+      if (!key) return;
+      box.addEventListener("click", () => {
+        toggleFilter(key);
+      });
+    });
+  }
+
+  function updateChartForYear(year) {
+    if (!declApiData || !chartContainer) return;
+    const ctxEl = document.getElementById("mfDeclChart");
+    if (!ctxEl) return;
+    const ctx = ctxEl.getContext("2d");
+
+    const salesMonthly = declApiData.sales_monthly || {};
+    const salesYearly = declApiData.sales_yearly || {};
+    const purchasesMonthly = declApiData.purchases_monthly || {};
+    const purchasesYearly = declApiData.purchases_yearly || {};
+    const expensesMonthly = declApiData.expenses_monthly || {};
+    const expensesYearly = declApiData.expenses_yearly || {};
+
+    const labels = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
+    const salesV = [];
+    const salesW = [];
+    const purchasesV = [];
+    const purchasesW = [];
+    const expensesArr = [];
+
+    for (let m = 1; m <= 12; m++) {
+      const mm = m.toString().padStart(2, "0");
+      const key = `${year}-${mm}`;
+
+      const sMonth = salesMonthly[key] || { sum_v: 0, sum_w: 0 };
+      const pMonth = purchasesMonthly[key] || { sum_v: 0, sum_w: 0 };
+
+      const eRaw = expensesMonthly[key];
+      let eVal = 0;
+      if (typeof eRaw === "number") {
+        eVal = eRaw;
+      } else if (eRaw && typeof eRaw === "object" && "sum_total" in eRaw) {
+        eVal = eRaw.sum_total || 0;
+      }
+
+      salesV.push(sMonth.sum_v || 0);
+      salesW.push(sMonth.sum_w || 0);
+      purchasesV.push(pMonth.sum_v || 0);
+      purchasesW.push(pMonth.sum_w || 0);
+      expensesArr.push(eVal);
+    }
+
+    if (currentYearLabel) {
+      currentYearLabel.textContent = `السنة المختارة: ${year}`;
+    }
+    chartContainer.style.display = "block";
+
+    if (declChartInstance) {
+      declChartInstance.destroy();
+    }
+
+    declChartInstance = new Chart(ctx, {
+      type: "line",
+      data: {
+        labels,
+        datasets: [
+          {
+            label: "مبيعات ",
+            data: salesV,
+            borderWidth: 2,
+            tension: 0.25,
+            fill: false,
+            mfKey: "sales_v"
+          },
+          {
+            label: "ضريبة المبيعات ",
+            data: salesW,
+            borderWidth: 2,
+            borderDash: [4, 3],
+            tension: 0.25,
+            fill: false,
+            mfKey: "sales_w"
+          },
+          {
+            label: "مشتريات ",
+            data: purchasesV,
+            borderWidth: 2,
+            tension: 0.25,
+            fill: false,
+            mfKey: "purchases_v"
+          },
+          {
+            label: "ضريبة المشتريات ",
+            data: purchasesW,
+            borderWidth: 2,
+            borderDash: [4, 3],
+            tension: 0.25,
+            fill: false,
+            mfKey: "purchases_w"
+          },
+          {
+            label: "مصروفات ",
+            data: expensesArr,
+            borderWidth: 2,
+            borderDash: [6, 3],
+            tension: 0.25,
+            fill: false,
+            mfKey: "expenses_total"
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            labels: {
+              color: "#e5e7eb"
+            }
+          },
+          tooltip: {
+            callbacks: {
+              label: function (context) {
+                const value = context.parsed.y || 0;
+                return `${context.dataset.label}: ${formatNumber(value)}`;
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            ticks: { color: "#9ca3af" },
+            grid: { color: "rgba(148, 163, 184, 0.25)" }
+          },
+          y: {
+            ticks: {
+              color: "#9ca3af",
+              callback: function (value) {
+                return formatNumber(value);
+              }
+            },
+            grid: { color: "rgba(148, 163, 184, 0.25)" }
+          }
+        }
+      }
+    });
+
+    const sYear = salesYearly[year] || { sum_v: 0, sum_w: 0 };
+    const pYear = purchasesYearly[year] || { sum_v: 0, sum_w: 0 };
+    const eYearRaw = expensesYearly[year];
+    let eYear = 0;
+    if (typeof eYearRaw === "number") {
+      eYear = eYearRaw;
+    } else if (eYearRaw && typeof eYearRaw === "object" && "sum_total" in eYearRaw) {
+      eYear = eYearRaw.sum_total || 0;
+    }
+
+    if (totalSalesValue) totalSalesValue.textContent = formatNumber(sYear.sum_v || 0);
+    if (totalSalesTaxValue) totalSalesTaxValue.textContent = formatNumber(sYear.sum_w || 0);
+    if (totalPurchasesValue) totalPurchasesValue.textContent = formatNumber(pYear.sum_v || 0);
+    if (totalPurchasesTaxValue) totalPurchasesTaxValue.textContent = formatNumber(pYear.sum_w || 0);
+    if (totalExpensesValue) totalExpensesValue.textContent = formatNumber(eYear || 0);
+
+    if (declActiveFilter) {
+      declChartInstance.data.datasets.forEach(ds => {
+        ds.hidden = ds.mfKey !== declActiveFilter;
+      });
+      declChartInstance.update();
+    }
+  }
+
+  async function initDeclarationsWidget() {
+    if (!document.getElementById("mfDeclChart")) return;
+
+    const userId = sessionStorage.getItem("userId") 
+    showLoader(true);
+    showStatus("جاري تحميل بيانات الإقرارات ...");
+
+    try {
+      const res = await fetch(DECL_API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ userId })
+      });
+
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}`);
+      }
+
+      const raw = await res.json();
+      declApiData = typeof raw.body === "string" ? JSON.parse(raw.body) : raw.body || raw;
+
+      const salesYearly = declApiData.sales_yearly || {};
+      const purchasesYearly = declApiData.purchases_yearly || {};
+      const expensesYearly = declApiData.expenses_yearly || {};
+
+      const yearSet = new Set([
+        ...Object.keys(salesYearly),
+        ...Object.keys(purchasesYearly),
+        ...Object.keys(expensesYearly)
+      ]);
+      let years = Array.from(yearSet);
+
+      if (years.length === 0) {
+        // === الحالة اللي انت عايزها ===
+        // مفيش داتا خالص → نشتغل على السنة الحالية، أرقام كلها صفر
+        const currentYear = new Date().getFullYear().toString();
+        years = [currentYear];
+
+        setAllTotalsToZero();     // الكروت = صفر
+        buildYearButtons(years);  // زر سنة واحدة
+        setActiveYear(currentYear); // يرسم الجراف بخطوط صفرية
+
+        showStatus(""); // من غير رسالة "لا توجد بيانات متاحة"
+        showLoader(false);
+        return;
+      }
+
+      buildYearButtons(years);
+
+      const currentYear = new Date().getFullYear().toString();
+      const defaultYear = years.includes(currentYear)
+        ? currentYear
+        : years[years.length - 1];
+
+      setActiveYear(defaultYear);
+
+      showStatus("");
+    } catch (err) {
+      console.error(err);
+      showStatus("حدث خطأ أثناء تحميل البيانات من الـ API.", "error");
+      // في الخطأ لسه بنعرض رسالة Error (ممكن نخليها زي حالة الزيرو لو حابب بعدين)
+      setAllTotalsToZero();
+    } finally {
+      showLoader(false);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    setupTotalBoxFilters();
+    initDeclarationsWidget();
+  });
+})();
