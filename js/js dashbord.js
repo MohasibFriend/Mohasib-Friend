@@ -1546,14 +1546,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // دالة تنتظر لحد ما userId يظهر في sessionStorage وبعدين ترجعه
+  function waitForUserId() {
+    const existing = sessionStorage.getItem("userId");
+    if (existing) return Promise.resolve(existing);
+
+    return new Promise(resolve => {
+      const interval = setInterval(() => {
+        const id = sessionStorage.getItem("userId");
+        if (id) {
+          clearInterval(interval);
+          resolve(id);
+        }
+      }, 500); // كل نص ثانية يشيّك
+    });
+  }
+
   async function initDeclarationsWidget() {
     if (!document.getElementById("mfDeclChart")) return;
 
-    const userId = sessionStorage.getItem("userId") 
     showLoader(true);
     showStatus("جاري تحميل بيانات الإقرارات ...");
 
     try {
+      // هنا التعديل: استنى لحد ما userId يظهر
+      const userId = await waitForUserId();
+
       const res = await fetch(DECL_API_URL, {
         method: "POST",
         headers: {
@@ -1581,16 +1599,14 @@ document.addEventListener('DOMContentLoaded', () => {
       let years = Array.from(yearSet);
 
       if (years.length === 0) {
-        // === الحالة اللي انت عايزها ===
-        // مفيش داتا خالص → نشتغل على السنة الحالية، أرقام كلها صفر
         const currentYear = new Date().getFullYear().toString();
         years = [currentYear];
 
-        setAllTotalsToZero();     // الكروت = صفر
-        buildYearButtons(years);  // زر سنة واحدة
-        setActiveYear(currentYear); // يرسم الجراف بخطوط صفرية
+        setAllTotalsToZero();
+        buildYearButtons(years);
+        setActiveYear(currentYear);
 
-        showStatus(""); // من غير رسالة "لا توجد بيانات متاحة"
+        showStatus("");
         showLoader(false);
         return;
       }
@@ -1608,7 +1624,6 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (err) {
       console.error(err);
       showStatus("حدث خطأ أثناء تحميل البيانات من الـ API.", "error");
-      // في الخطأ لسه بنعرض رسالة Error (ممكن نخليها زي حالة الزيرو لو حابب بعدين)
       setAllTotalsToZero();
     } finally {
       showLoader(false);
