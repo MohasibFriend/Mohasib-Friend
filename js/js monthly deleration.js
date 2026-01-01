@@ -34,26 +34,26 @@ let fetchedAggregates = {};
 
 /**
  * دالة getYearFromFileName: استخراج السنة من اسم الملف.
- * يدعم النمط القديم (e.g., "552331333_purchases_02_2024.xlsx")
+ * تدعم النمط القديم (e.g., "552331333_purchases_02_2024.xlsx")
  * والنمط الجديد (e.g., "552331333_purchases_2024-01.xlsx")
+ * وتعيد فقط 2024 أو 2025 أو 2026
+ * وأي سنة أخرى ترجع null (وبالتالي لا يتم عرض الملف).
  */
 function getYearFromFileName(fullKey) {
-  const fileName = fullKey.split("/").pop();
-  const parts = fileName.split("_");
-  let year = "2026"; // القيمة الافتراضية
+  const fileName = fullKey.split("/").pop(); // مثلا: "677101988_purchases_2023-09.xlsx"
+  const match = fileName.match(/20\d{2}/);   // يمسك أول سنة في الشكل 20xx
 
-  for (const part of parts) {
-    if (
-      part.startsWith("2024") ||
-      part.startsWith("2025") ||
-      part.startsWith("2026")
-    ) {
-      year = part.split("-")[0];
-      break;
-    }
+  if (!match) return null;
+
+  const year = match[0];
+
+  // نسمح فقط بسنوات 2024 و 2025 و 2026
+  if (year === "2024" || year === "2025" || year === "2026") {
+    return year;
   }
 
-  return year;
+  // أي سنة أخرى (2021/2022/2023/...) يتم تجاهلها
+  return null;
 }
 
 /**
@@ -253,14 +253,20 @@ async function fetchDataByRegistrationNumber(resultDiv, spinner, showSpinner = t
 function displayDeclarations(resultDiv, salesData, purchasesData, aggregateData, selectedYear, animateDrop = true) {
   resultDiv.innerHTML = "";
 
-  // فلترة المبيعات بناءً على السنة
+  // فلترة المبيعات بناءً على السنة (مع تجاهل أي سنة ليست 2024 أو 2025 أو 2026)
   const sales = (salesData || [])
-    .filter(s => getYearFromFileName(s.s3_key) === selectedYear)
+    .filter(s => {
+      const y = getYearFromFileName(s.s3_key);
+      return y && y === selectedYear;
+    })
     .sort((a, b) => a.s3_key.localeCompare(b.s3_key));
 
   // فلترة المشتريات بناءً على السنة
   const purchases = (purchasesData || [])
-    .filter(p => getYearFromFileName(p.s3_key) === selectedYear)
+    .filter(p => {
+      const y = getYearFromFileName(p.s3_key);
+      return y && y === selectedYear;
+    })
     .sort((a, b) => a.s3_key.localeCompare(b.s3_key));
 
   const salesMonths = new Map();
